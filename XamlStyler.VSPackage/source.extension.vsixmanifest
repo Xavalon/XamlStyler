@@ -1,39 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+  <Metadata>
+    <Identity Id="7a174615-4371-4c1e-b7c5-3a3d94a1ba6c" Version="1.0" Language="en-US" Publisher="Nico Vermeir" />
+    <DisplayName>XAML Styler</DisplayName>
+    <Description xml:space="preserve">"XAML Styler" is a visual studio 2013 extension, which makes XAML markup source code beautify much easier by sorting the attributes based on their importance.
 
-<Vsix xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-      Version="1.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2010">
-  <Identifier Id="7a174615-4371-4c1e-b7c5-3a3d94a1ba6c">
-    <Name>Xaml Styler</Name>
-    <Author>Chris Chen</Author>
-    <Version>2.0.0</Version>
-    <Description xml:space="preserve">"XAML Styler" is a visual studio 2012 extension, which makes XAML markup source code beautify much easier by sorting the attributes based on their importance.
+This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.
 
-This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.</Description>
-    <Locale>1033</Locale>
-    <MoreInfoUrl>
-      http://xamlstyler.codeplex.com/
-    </MoreInfoUrl>
-    <GettingStartedGuide>
-      http://xamlstyler.codeplex.com/
-    </GettingStartedGuide>
-    <InstalledByMsi>false</InstalledByMsi>
-    <SupportedProducts>
-      <VisualStudio Version="11.0">
-        <Edition>Ultimate</Edition>
-        <Edition>Premium</Edition>
-        <Edition>Pro</Edition>
-      </VisualStudio>
-    </SupportedProducts>
-    <SupportedFrameworkRuntimeEdition MinVersion="4.0" MaxVersion="4.0" />
-  </Identifier>
-  <References>
-    <Reference Id="Microsoft.VisualStudio.MPF" MinVersion="10.0">
-      <Name>Visual Studio MPF</Name>
-    </Reference>
-  </References>
-  <Content>
-    <VsPackage>
-      |%CurrentProject%;PkgdefProjectOutputGroup|
-    </VsPackage>
-  </Content>
-</Vsix>
+This is a continuation of the original XAML styler found at http://xamlstyler.codeplex.com/</Description>
+    <MoreInfo>https://github.com/NicoVermeir/XamlStyler/</MoreInfo>
+    <License>LICENSE.txt</License>
+    <GettingStartedGuide>https://github.com/NicoVermeir/XamlStyler/</GettingStartedGuide>
+    <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
+    <Icon>Resources\Package.ico</Icon>
+    <Tags>XAML, add-in, WPF, Visual Studio, Extension, formatter, Silverlight, WP8, WinRT</Tags>
+  </Metadata>
+  <Installation InstalledByMsi="false">
+    <InstallationTarget Version="[12.0,13.0)" Id="Microsoft.VisualStudio.Pro" />
+    <InstallationTarget Version="[12.0,13.0)" Id="Microsoft.VisualStudio.Premium" />
+    <InstallationTarget Version="[12.0,13.0)" Id="Microsoft.VisualStudio.Ultimate" />
+  </Installation>
+  <Dependencies>
+    <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.0,4.5)" d:InstallSource="Download" />
+    <Dependency Id="Microsoft.VisualStudio.MPF.12.0" DisplayName="Visual Studio MPF 12.0" d:Source="Installed" Version="[12.0]" />
+  </Dependencies>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+  </Assets>
+</PackageManifest>

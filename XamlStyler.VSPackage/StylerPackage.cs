@@ -36,17 +36,11 @@ namespace XamlStyler.VSPackage
     [Guid(GuidList.GUID_XAML_STYLER_VS_PACKAGE_PKG_STRING)]
     public sealed class StylerPackage : Package //, IDTExtensibility2
     {
-        #region Fields
-
         private DTE _dte;
         private Events _events;
         private CommandEvents _fileSaveAll;
         private CommandEvents _fileSaveSelectedItems;
         private IVsUIShell _uiShell;
-
-        #endregion Fields
-
-        #region Constructors
 
         /// <summary>
         /// Default constructor of the package.
@@ -59,8 +53,6 @@ namespace XamlStyler.VSPackage
         {
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", ToString()));
         }
-
-        #endregion Constructors
 
         #region Methods
 
@@ -82,8 +74,7 @@ namespace XamlStyler.VSPackage
 
             _uiShell = GetService(typeof (IVsUIShell)) as IVsUIShell;
 
-            #region Initialize command events listeners
-
+            // Initialize command events listeners
             _events = _dte.Events;
 
             // File.SaveSelectedItems command
@@ -96,10 +87,7 @@ namespace XamlStyler.VSPackage
             _fileSaveAll.BeforeExecute +=
                 OnFileSaveAllBeforeExecute;
 
-            #endregion Initialize command events listeners
-
-            #region Initialize menu command
-
+            //Initialize menu command
             // Add our command handlers for menu (commands must exist in the .vsct file)
             var menuCommandService = GetService(typeof (IMenuCommandService)) as OleMenuCommandService;
 
@@ -111,8 +99,6 @@ namespace XamlStyler.VSPackage
                 var menuItem = new MenuCommand(MenuItemCallback, menuCommandId);
                 menuCommandService.AddCommand(menuItem);
             }
-
-            #endregion Initialize menu command
         }
 
         private bool IsFormatableDocument(Document document)

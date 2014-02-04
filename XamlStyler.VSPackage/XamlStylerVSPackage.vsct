@@ -64,7 +64,7 @@
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
           <CommandName>cmdidBeautifyXaml</CommandName>
-          <ButtonText>Beautify Xaml</ButtonText>
+          <ButtonText>Format Xaml</ButtonText>
         </Strings>
       </Button>
 
