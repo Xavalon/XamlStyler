@@ -11,14 +11,8 @@ namespace XamlStyler.Core.Parser
 {
     internal static class MarkupExtensionParser
     {
-        #region Fields
-
         // Fields
         private static readonly Regex MarkupExtensionPattern = new Regex("^{(?!}).*}$");
-
-        #endregion Fields
-
-        #region Methods
 
         public static MarkupExtensionInfo Parse(string input)
         {
@@ -62,11 +56,6 @@ namespace XamlStyler.Core.Parser
                             case MarkupExtensionParsingModeEnum.NAME_VALUE_PAIR:
                                 parsingMode = reader.ReadNameValuePair(resultInfo);
                                 break;
-
-                            default:
-
-                                // Do nothing
-                                break;
                         }
 
                         //Debug.Unindent();
@@ -76,10 +65,6 @@ namespace XamlStyler.Core.Parser
                 {
                     throw new InvalidDataException(
                         String.Format("Cannot parse markup extension string:\r\n \"{0}\"", input), exp);
-                }
-                finally
-                {
-                    //Debug.Unindent();
                 }
             }
 
@@ -152,10 +137,8 @@ namespace XamlStyler.Core.Parser
                     // break out the while
                     break;
                 }
-                else
-                {
-                    buffer.Append(c);
-                }
+                
+                buffer.Append(c);
             }
 
             if (MarkupExtensionParsingModeEnum.UNEXPECTED == resultParsingMode)
@@ -174,7 +157,7 @@ namespace XamlStyler.Core.Parser
 
             char[] stopChars = {',', '=', '}'};
 
-            var resultParsingMode = MarkupExtensionParsingModeEnum.UNEXPECTED;
+            MarkupExtensionParsingModeEnum resultParsingMode;
             string key = null;
             object value = null;
 
@@ -190,7 +173,7 @@ namespace XamlStyler.Core.Parser
             // In other words, "key" shall not start with '{', as it won't be a valid property name.
             if ('{' != reader.PeekChar())
             {
-                string temp = reader.ReadTill(x => stopChars.Contains(x)).Trim();
+                string temp = reader.ReadTill(stopChars.Contains).Trim();
                 char keyValueIndicatorChar = reader.PeekChar();
 
                 switch (keyValueIndicatorChar)
@@ -276,10 +259,7 @@ namespace XamlStyler.Core.Parser
                 {
                     break;
                 }
-                else
-                {
-                    buffer.Append(reader.ReadChar());
-                }
+                buffer.Append(reader.ReadChar());
             }
 
             if (reader.IsEnd())
@@ -294,27 +274,19 @@ namespace XamlStyler.Core.Parser
         {
             var buffer = new StringBuilder();
             int curlyBracePairCounter = 0;
-            var parsingMode = MarkupExtensionParsingModeEnum.UNEXPECTED;
+            MarkupExtensionParsingModeEnum parsingMode;
 
             // ignore leading spaces
             reader.SeekTill(x => !Char.IsWhiteSpace(x));
 
-            #region Determine parsing mode
-
+            // Determine parsing mode
             char c = reader.ReadChar();
             buffer.Append(c);
 
             if ('{' == c)
             {
                 char peek = reader.PeekChar();
-                if ('}' != peek)
-                {
-                    parsingMode = MarkupExtensionParsingModeEnum.MARKUP_EXTENSION_VALUE;
-                }
-                else
-                {
-                    parsingMode = MarkupExtensionParsingModeEnum.LITERAL_VALUE;
-                }
+                parsingMode = '}' != peek ? MarkupExtensionParsingModeEnum.MARKUP_EXTENSION_VALUE : MarkupExtensionParsingModeEnum.LITERAL_VALUE;
                 curlyBracePairCounter++;
             }
             else if ('\'' == c)
@@ -326,7 +298,6 @@ namespace XamlStyler.Core.Parser
                 parsingMode = MarkupExtensionParsingModeEnum.LITERAL_VALUE;
             }
 
-            #endregion Determine parsing mode
 
             switch (parsingMode)
             {
@@ -344,11 +315,6 @@ namespace XamlStyler.Core.Parser
 
                             case '}':
                                 curlyBracePairCounter--;
-                                break;
-
-                            default:
-
-                                // Do nothing
                                 break;
                         }
                     }
@@ -397,11 +363,6 @@ namespace XamlStyler.Core.Parser
                                     shouldStop = true;
                                 }
                                 break;
-
-                            default:
-
-                                // Do nothing
-                                break;
                         }
 
                         if (!shouldStop)
@@ -432,10 +393,7 @@ namespace XamlStyler.Core.Parser
                 {
                     break;
                 }
-                else
-                {
-                    reader.ReadChar();
-                }
+                reader.ReadChar();
             }
 
             if (reader.IsEnd())
@@ -443,7 +401,5 @@ namespace XamlStyler.Core.Parser
                 throw new InvalidDataException("[SeekTill] Cannot meet the stop condition.");
             }
         }
-
-        #endregion Methods
     }
 }

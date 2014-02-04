@@ -4,8 +4,6 @@ namespace XamlStyler.Core.Helpers
 {
     public static class StringExtension
     {
-        #region Methods
-
         public static string ToXmlEncodedString(this string input, bool ignoreCarrier = false)
         {
             var buffer = new StringBuilder(input);
@@ -22,7 +20,5 @@ namespace XamlStyler.Core.Helpers
 
             return buffer.ToString();
         }
-
-        #endregion Methods
     }
 }

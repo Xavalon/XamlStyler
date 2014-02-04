@@ -6,15 +6,10 @@ namespace XamlStyler.Core.Options
     {
         public StylerOptions()
         {
-            #region Indentation
-
             IndentSize = 2;
             IndentWithTabs = false;
 
-            #endregion Indentation
-
-            #region New Line
-
+            //New Line
             AttributesTolerance = 2;
             MaxAttributesPerLine = 1;
             MaxAttributeCharatersPerLine = 0;
@@ -24,15 +19,10 @@ namespace XamlStyler.Core.Options
             RemoveEndingTagOfEmptyElement = true;
             KeepFirstAttributeOnSameLine = true;
 
-            #endregion New Line
-
-            #region Markup Extension
-
+            //Markup Extension
             FormatMarkupExtension = true;
 
-            #endregion Markup Extension
-
-            #region Attribute Ordering Rule Related Default Options
+            //Attribute Ordering Rule Related Default Options
 
             AttributeOrderClass = "x:Class";
 
@@ -52,18 +42,13 @@ namespace XamlStyler.Core.Options
 
             AttributeOrderBlendRelated = "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText";
 
-            #endregion Attribute Ordering Rule Related Default Options
-
-            #region Misc
-
+            // Misc
             BeautifyOnSave = true;
-
-            #endregion Misc
         }
 
         #region Implementation of IStylerOptions
 
-        #region Indentation
+        //Indentation
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [Browsable(false)]
@@ -73,9 +58,7 @@ namespace XamlStyler.Core.Options
         [Browsable(false)]
         public bool IndentWithTabs { get; set; }
 
-        #endregion Indentation
-
-        #region Attribute Ordering Rule Groups
+        //Attribute Ordering Rule Groups
 
         [Category("Attribute Ordering Rule Groups")]
         [DisplayName("#7 Alignment layout group")]
@@ -153,10 +136,8 @@ namespace XamlStyler.Core.Options
         [DefaultValue("xmlns, xmlns:x")]
         public string AttributeOrderWpfNamespace { get; set; }
 
-        #endregion Attribute Ordering Rule Groups
 
-        #region Markup Extension
-
+        //Markup Extension
         [Category("Markup Extension")]
         [DisplayName("Enable Markup Extension Formatting")]
         [Description(
@@ -165,10 +146,8 @@ namespace XamlStyler.Core.Options
         [DefaultValue(true)]
         public bool FormatMarkupExtension { get; set; }
 
-        #endregion Markup Extension
 
-        #region New Line
-
+        // New Line
         [Category("New Line")]
         [DisplayName("Attribute tolerance")]
         [Description(
@@ -225,17 +204,13 @@ namespace XamlStyler.Core.Options
         [DefaultValue(true)]
         public bool RemoveEndingTagOfEmptyElement { get; set; }
 
-        #endregion New Line
 
-        #region Misc
-
+        // Misc
         [Category("Misc")]
         [DisplayName("Beautify on saving xaml")]
         [Description("Defines whether to automatically beautify the active xaml document while saving.")]
         [DefaultValue(true)]
         public bool BeautifyOnSave { get; set; }
-
-        #endregion Misc
 
         #endregion Implementation of IStylerOptions
     }

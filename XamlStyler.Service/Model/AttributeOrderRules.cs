@@ -7,13 +7,7 @@ namespace XamlStyler.Core.Model
 {
     public class AttributeOrderRules
     {
-        #region Fields
-
         private readonly IDictionary<string, AttributeOrderRule> _internalDictionary;
-
-        #endregion Fields
-
-        #region Constructors
 
         public AttributeOrderRules(IStylerOptions options)
         {
@@ -29,10 +23,6 @@ namespace XamlStyler.Core.Model
                 .Populate(options.AttributeOrderOthers, AttributeTokenTypeEnum.OTHER)
                 .Populate(options.AttributeOrderBlendRelated, AttributeTokenTypeEnum.BLEND_RELATED);
         }
-
-        #endregion Constructors
-
-        #region Methods
 
         public bool ContainsRuleFor(string name)
         {
@@ -87,7 +77,5 @@ namespace XamlStyler.Core.Model
 
             return this;
         }
-
-        #endregion Methods
     }
 }

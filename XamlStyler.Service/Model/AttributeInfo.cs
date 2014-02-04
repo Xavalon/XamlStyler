@@ -5,16 +5,15 @@ namespace XamlStyler.Core.Model
 {
     public class AttributeInfo : IComparable
     {
-        #region Fields
-
         // Fields
         private static readonly Regex MarkupExtensionPattern = new Regex("^{(?!}).*}$");
-
         private readonly AttributeOrderRule _orderRule;
 
-        #endregion Fields
+        public bool IsMarkupExtension { get; private set; }
 
-        #region Constructors
+        public string Name { get; set; }
+
+        public string Value { get; set; }
 
         public AttributeInfo(string name, string value, AttributeOrderRule orderRule)
         {
@@ -23,21 +22,6 @@ namespace XamlStyler.Core.Model
             IsMarkupExtension = MarkupExtensionPattern.IsMatch(value);
             _orderRule = orderRule;
         }
-
-        #endregion Constructors
-
-        #region Properties
-
-        public bool IsMarkupExtension { get; private set; }
-
-        // Properties
-        public string Name { get; set; }
-
-        public string Value { get; set; }
-
-        #endregion Properties
-
-        #region Methods
 
         int IComparable.CompareTo(object obj)
         {
@@ -60,7 +44,5 @@ namespace XamlStyler.Core.Model
 
             return String.Compare(Name, target.Name, StringComparison.Ordinal);
         }
-
-        #endregion Methods
     }
 }

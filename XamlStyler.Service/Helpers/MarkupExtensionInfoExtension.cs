@@ -7,8 +7,6 @@ namespace XamlStyler.Core.Helpers
 {
     public static class MarkupExtensionInfoExtension
     {
-        #region Methods
-
         public static string ToMultiLineString(this MarkupExtensionInfo info, string baseIndentationString)
         {
             string currentIndentationString = baseIndentationString + String.Empty.PadLeft(info.Name.Length + 2, ' ');
@@ -46,10 +44,6 @@ namespace XamlStyler.Core.Helpers
                             buffer.Append(',');
                             buffer.Append(Environment.NewLine);
                             buffer.Append(currentIndentationString);
-                        }
-                        else
-                        {
-                            // Do nothing
                         }
                     }
                     else
@@ -138,10 +132,6 @@ namespace XamlStyler.Core.Helpers
                         {
                             buffer.Append(',');
                         }
-                        else
-                        {
-                            // Do nothing
-                        }
                     }
                     else
                     {
@@ -183,7 +173,5 @@ namespace XamlStyler.Core.Helpers
 
             return buffer.ToString();
         }
-
-        #endregion Methods
     }
 }

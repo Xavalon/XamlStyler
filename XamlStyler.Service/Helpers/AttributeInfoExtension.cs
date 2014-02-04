@@ -8,8 +8,6 @@ namespace XamlStyler.Core.Helpers
 {
     internal static class AttributeInfoExtension
     {
-        #region Methods
-
         /// <summary>
         /// Handles markup extension value in style as:
         /// XyzAttribute="{XyzMarkup value1,
@@ -51,8 +49,7 @@ namespace XamlStyler.Core.Helpers
         /// <returns></returns>
         public static string ToSingleLineString(this AttributeInfo attrInfo)
         {
-            string result = String.Empty;
-            string valuePart = String.Empty;
+            string valuePart;
 
             if (attrInfo.IsMarkupExtension)
             {
@@ -64,13 +61,9 @@ namespace XamlStyler.Core.Helpers
                 valuePart = attrInfo.Value.ToXmlEncodedString();
             }
 
-            result = String.Format("{0}=\"{1}\"",
-                                   attrInfo.Name,
-                                   valuePart);
-
-            return result;
+            return String.Format("{0}=\"{1}\"",
+                attrInfo.Name,
+                valuePart);
         }
-
-        #endregion Methods
     }
 }

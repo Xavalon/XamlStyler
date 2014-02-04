@@ -2,8 +2,6 @@
 {
     public class ElementProcessStatus
     {
-        #region Properties
-
         /// <summary>
         /// Gets or sets the content type of current element.
         /// E.g.,
@@ -28,7 +26,5 @@
         /// Gets or sets Element name.
         /// </summary>
         public string Name { get; set; }
-
-        #endregion Properties
     }
 }
