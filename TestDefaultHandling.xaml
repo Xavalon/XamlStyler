@@ -1,0 +1,83 @@
+﻿<Window x:Class="MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	Title="WPF3D" Height="254" Width="534"
+	>
+	<Grid>
+        <!-- Attribute Value With XML Character Entities, e.g., &#10; -->
+		<TextBlock Text="Some&#10;&amp;&gt;&lt;&quot;&apos;&#160;Text" />
+
+        <!-- 
+            For SL bug: http://devlicio.us/blogs/derik_whittaker/archive/2011/11/29/runtime-exception-for-pageindex-of-a-datapage.aspx
+            To make sure PageSource will be put before PageIndex after formated.
+        -->
+        <DataPager PageIndex="3" PageSource="{Binding .}"  />
+        
+        <DockPanel 
+		 Width="Auto" 
+		 VerticalAlignment="Stretch" 
+		 Height="Auto" 
+		 HorizontalAlignment="Stretch" 
+		 Grid.ColumnSpan="1" 
+		 Grid.Column="0" 
+		 Grid.Row="0" 
+		 Margin="0,0,0,0" 
+		 Grid.RowSpan="1">
+			<StackPanel>
+				<StackPanel.Background>
+					<LinearGradientBrush>
+							<GradientStop Color="White" Offset="0"/>
+							<GradientStop Color="DarkKhaki" Offset=".3"/>
+							<GradientStop Color="DarkKhaki" Offset=".7"/>
+							<GradientStop Color="White" Offset="1"/>
+					</LinearGradientBrush>
+				</StackPanel.Background>
+				<StackPanel Margin="10">
+					<TextBlock Text="Camera X Position:"/>
+					<TextBox Name="cameraPositionXTextBox" MaxLength="5" 
+						 HorizontalAlignment="Left" Text="9"/>
+					<TextBlock Text="Camera Y Position:"/>
+					<TextBox Name="cameraPositionYTextBox" MaxLength="5" 
+						 HorizontalAlignment="Left" Text="8"/>
+					<TextBlock Text="Camera Z Position:"/>
+					<TextBox Name="cameraPositionZTextBox" MaxLength="5" 
+						 HorizontalAlignment="Left" Text="10"/>
+					<Separator/>
+					<TextBlock Text="Look Direction X:"/>
+					<TextBox Name="lookAtXTextBox" MaxLength="5" 
+						 HorizontalAlignment="Left" Text="-9"/>
+					<TextBlock Text="Look Direction Y:"/>
+					<TextBox Name="lookAtYTextBox" MaxLength="5" 
+						 HorizontalAlignment="Left" Text="-8"/>
+					<TextBlock Text="Look Direction Z:"/>
+					<TextBox Name="lookAtZTextBox" MaxLength="5" 
+						 HorizontalAlignment="Left" Text="-10"/>
+					<Separator/>
+
+					<Button 
+					 Name="simpleButton" 
+					 Click="simpleButtonClick">Simple</Button>
+					<Button Name="cubeButton" Click="cubeButtonClick">Cube</Button>
+				</StackPanel>
+			</StackPanel>
+			<Viewport3D Name="mainViewport" ClipToBounds="True">
+				<Viewport3D.Camera>
+					<PerspectiveCamera 
+					FarPlaneDistance="100"
+					LookDirection="-11,-10,-9"
+					UpDirection="0,1,0"
+					NearPlaneDistance="1" 
+					Position="11,10,9" 
+					FieldOfView="70" />
+				</Viewport3D.Camera>
+				<ModelVisual3D>
+					<ModelVisual3D.Content>
+						<DirectionalLight 
+						 Color="White" 
+						 Direction="-2,-3,-1" />
+					</ModelVisual3D.Content>
+				</ModelVisual3D>
+			</Viewport3D>
+		</DockPanel>
+	</Grid>
+</Window>

@@ -1,0 +1,2 @@
+﻿- recompiled for Visual Studio 2013
+- cleaned up some code, mostly syntax

@@ -1,0 +1,21 @@
+﻿<Root>
+
+<!-- END: Test for TEXT-ONLY-CONTENT ELEMENT hanlding -->
+  
+<!-- START: Test for COMMENT hanlding -->
+
+<!--single line-->
+<!--first line
+  
+second line-->
+<!--
+
+  first line
+  
+second line
+  
+-->
+
+<!-- END: Test for COMMENT hanlding -->
+
+</Root>
