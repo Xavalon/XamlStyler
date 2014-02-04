@@ -1,0 +1,21 @@
+<Root>
+
+  <!--  START: Test for NO-CONTENT ELEMENT shrink  -->
+
+  <HasValue>asdf</HasValue>
+  <HasMixedValue>
+    asdf
+    <child />
+    <!--  comments  -->
+  </HasMixedValue>
+  <HasNoValue />
+  <HasNoValue a="a"
+              b="b"
+              c="c" />
+  <HasWhitespaceValue />
+  <HasMultilineWhitespaceValue />
+  <EmptyElement />
+
+  <!--  END: Test for NO-CONTENT ELEMENT shrink  -->
+
+</Root>
