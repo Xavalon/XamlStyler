@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 using XamlStyler.Core.Helpers;
 using XamlStyler.Core.Model;
@@ -14,6 +15,9 @@ namespace XamlStyler.Core
 {
     public class StylerService
     {
+        //private readonly Regex _htmlReservedCharRegex = new Regex(@"&#([a-z]|[A-Z]|[0-9])*;");
+        private readonly Regex _htmlReservedCharRegex = new Regex(@"&([\d\D][^;]{3,7});");
+        private readonly Regex _htmlReservedCharRestoreRegex = new Regex(@"__amp__([\d\D]{3,7})__scln__");
         private readonly Stack<ElementProcessStatus> _elementProcessStatusStack;
 
         private IStylerOptions Options { get; set; }
@@ -51,7 +55,7 @@ namespace XamlStyler.Core
 
             try
             {
-                sourceReader = new StringReader(xamlSource);
+                sourceReader = new StringReader(_htmlReservedCharRegex.Replace(xamlSource, @"__amp__$1__scln__"));
 
                 using (XmlReader xmlReader = XmlReader.Create(sourceReader))
                 {
@@ -127,15 +131,14 @@ namespace XamlStyler.Core
                 }
             }
 
-            return output;
+            return  _htmlReservedCharRestoreRegex.Replace(output, @"&$1;");
         }
 
         public string FormatFile(string filePath)
         {
             using (StreamReader reader = File.OpenText(filePath))
             {
-                string xamlSource = reader.ReadToEnd();
-                return Format(xamlSource);
+                return Format(reader.ReadToEnd());
             }
         }
 

@@ -14,6 +14,10 @@
         -->
         <DataPager PageSource="{Binding .}" PageIndex="3" />
 
+		<Button FontFamily="Segoe UI Symbol" FontSize="18.667" 
+       Padding="8,8,0,0" Margin="0,0,0,10"
+       Content="&#xE112;"/>
+	   
         <DockPanel Grid.Row="0"
                    Grid.RowSpan="1"
                    Grid.Column="0"

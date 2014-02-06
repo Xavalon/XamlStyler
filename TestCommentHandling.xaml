@@ -1,21 +1,21 @@
 ﻿<Root>
 
-<!-- END: Test for TEXT-ONLY-CONTENT ELEMENT hanlding -->
-  
-<!-- START: Test for COMMENT hanlding -->
+    <!--  END: Test for TEXT-ONLY-CONTENT ELEMENT hanlding  -->
 
-<!--single line-->
-<!--first line
-  
-second line-->
-<!--
+    <!--  START: Test for COMMENT hanlding  -->
 
-  first line
-  
-second line
-  
--->
+    <!--  single line  -->
+    <!--
+        first line
+        
+        second line
+    -->
+    <!--
+        first line
+        
+        second line
+    -->
 
-<!-- END: Test for COMMENT hanlding -->
+    <!--  END: Test for COMMENT hanlding  -->
 
 </Root>
