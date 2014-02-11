@@ -1,2 +1,10 @@
-﻿- recompiled for Visual Studio 2013
+﻿1.1
+----
+Fixed a bug with Segoe UI Symbol
+https://github.com/NicoVermeir/XamlStyler/issues/3
+
+
+1.0
+----
+- recompiled for Visual Studio 2013
 - cleaned up some code, mostly syntax
