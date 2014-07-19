@@ -52,7 +52,7 @@ namespace XamlStyler.UnitTests
                                     {
                                         AttributeOrderClass = "x:Class",
                                         AttributeOrderWpfNamespace = "xmlns, xmlns:x",
-                                        AttributeOrderKey = "Key, x:Key",
+                                        AttributeOrderKey = "Key, x:Key, Uid, x:Uid",
                                         AttributeOrderName = "Name, x:Name, Title",
                                         AttributeOrderAttachedLayout =
                                             "Grid.Column, Grid.ColumnSpan, Grid.Row, Grid.RowSpan, Canvas.Right, Canvas.Bottom, Canvas.Left, Canvas.Top",

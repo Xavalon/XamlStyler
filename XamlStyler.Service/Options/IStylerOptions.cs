@@ -70,7 +70,7 @@ namespace XamlStyler.Core.Options
         [Description(
             "Defines ordering rule of element key.\r\nUse ',' to seperate more than one attribute.\r\nAttributes listed in earlier group takes precedence than later groups.\r\nAttributes listed earlier in same group takes precedence than the ones listed later."
             )]
-        [DefaultValue("Key, x:Key")]
+        [DefaultValue("Key, x:Key, Uid, x:Uid")]
         string AttributeOrderKey { get; set; }
 
         [Category("Attribute Ordering Rule Groups")]
