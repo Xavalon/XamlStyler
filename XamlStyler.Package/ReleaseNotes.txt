@@ -1,4 +1,9 @@
-﻿1.1
+﻿1.2
+---
+Added x:Uid to key group (fix added by Bart Lannoeye, thanks!)
+
+
+1.1
 ----
 Fixed a bug with Segoe UI Symbol
 https://github.com/NicoVermeir/XamlStyler/issues/3
