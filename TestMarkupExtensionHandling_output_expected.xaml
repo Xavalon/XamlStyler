@@ -24,21 +24,22 @@
                               StringFormat={}{0:##\,#0.00;(##\,#0.00); }}" />
 
 
-    <TextBlock Style="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
-               Text="Foreground"
-               x:Uid="Setter_75" />
+    <TextBlock x:Uid="Setter_75"
+               Style="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+               Text="Foreground" />
 
-    <TextBlock Style="{DynamicResource {x:Static SystemColors.ControlTextBrushKey},
+    <TextBlock x:Uid="KeyForResources"
+               x:Name="TextBlockWithResources"
+               Style="{DynamicResource {x:Static SystemColors.ControlTextBrushKey},
                                        ResourceKey={x:Static SystemColors.ControlTextBrushKey}}"
-               Text="Foreground"
-               x:Uid="Setter_75" />
+               Text="Foreground" />
 
     <!--  Quoted Value  -->
-    <TextBlock Style="SomeStyle"
+    <TextBlock x:Uid="Setter_87"
+               Style="SomeStyle"
                Text="{Binding Path=U1State,
                               Converter={StaticResource Enum2BooleanConverter},
-                              ConverterParameter='Adjustment,ToManualFromAdjustment,ToSemiAutoFromAdjustment,ToAutoFromAdjustment'}"
-               x:Uid="Setter_87" />
+                              ConverterParameter='Adjustment,ToManualFromAdjustment,ToSemiAutoFromAdjustment,ToAutoFromAdjustment'}" />
 
     <TextBlock Text="{Binding Path=Text, ElementName=m_source, StringFormat='{}{0} , {0}'}" />
 
