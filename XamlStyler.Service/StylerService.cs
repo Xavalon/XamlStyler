@@ -164,7 +164,6 @@ namespace XamlStyler.Core
 
             return xDoc;
         }
-
         private void HandleNode(XNode node)
         {
 
@@ -182,9 +181,9 @@ namespace XamlStyler.Core
                         }
                     }
 
-                    // is this a Grid  with child elements?
+                    // is this a Grid or Canvas with child elements?
                     //
-                    // Note: we look at elements, not just Nodes - if there's only non-element nodes,
+                    // Note: we look at elements, not just nodes - if there's only non-element nodes,
                     // we don't need to reorder.
 
                     if (element.Name.LocalName == "Grid" && element.HasElements)
@@ -192,13 +191,75 @@ namespace XamlStyler.Core
                         // process the grid
                         ProcessGrid(element);
                     }
-                  
+                    else if (element.Name.LocalName == "Canvas" && element.HasElements)
+                    {
+                        ProcessCanvas(element);
+                    }
+
 
                     break;
                 default:
                     break;
             }
 
+        }
+
+        private void ProcessCanvas(XElement element)
+        {
+            List<CanvasNodeContainer> lstNodeContainers = new List<CanvasNodeContainer>();
+
+            var children = element.Nodes();
+
+            // Run through child elements & read the attributes
+
+            foreach (var child in children)
+            {
+                switch (child.NodeType)
+                {
+
+                    case XmlNodeType.Element:
+
+                        // it's an element.  Search for attached Canvas properties
+                        var leftAttr = (child as XElement).Attributes("Canvas.Left").FirstOrDefault();
+                        var topAttr = (child as XElement).Attributes("Canvas.Top").FirstOrDefault();
+                        var rightAttr = (child as XElement).Attributes("Canvas.Right").FirstOrDefault();
+                        var bottomAttr = (child as XElement).Attributes("Canvas.Bottom").FirstOrDefault();
+
+                        // no attribute?  0,0
+                        lstNodeContainers.Add(new CanvasNodeContainer
+                            (child,
+                            leftAttr == null ? 0 : int.Parse(leftAttr.Value),
+                            topAttr == null ? 0 : int.Parse(topAttr.Value),
+                            rightAttr == null ? 0 : int.Parse(rightAttr.Value),
+                            bottomAttr == null ? 0 : int.Parse(bottomAttr.Value)
+                            ));
+
+                        break;
+
+                    default:
+                        // it's not an element - add it, passing in the previous attached property value - this ensures
+                        // comments, whitespace, ... are kept in the correct place
+
+                        var prev = lstNodeContainers.FirstOrDefault();
+                        if (prev != null)
+                        {
+                            lstNodeContainers.Add(new CanvasNodeContainer(child, prev.Left, prev.Top, prev.Right, prev.Bottom));
+                        }
+                        else
+                        {
+                            lstNodeContainers.Add(new CanvasNodeContainer(child, 0, 0, 0, 0));
+                        }
+
+                        break;
+                }
+            }
+
+            // sort that list.
+            lstNodeContainers = lstNodeContainers.OrderBy(nc => nc.Left).ThenBy(nc => nc.Top)
+                .ThenBy(nc => nc.Right).ThenBy(nc => nc.Bottom).ToList();
+
+            // replace the element's nodes
+            element.ReplaceAll(lstNodeContainers.Select(nc => nc.Node));
         }
 
 

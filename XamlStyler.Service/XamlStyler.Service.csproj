@@ -45,6 +45,7 @@
     <Compile Include="Helpers\AttributeInfoExtension.cs" />
     <Compile Include="Helpers\MarkupExtensionInfoExtension.cs" />
     <Compile Include="Helpers\StringExtension.cs" />
+    <Compile Include="Model\CanvasNodeContainer.cs" />
     <Compile Include="Model\GridNodeContainer.cs" />
     <Compile Include="Model\NodeContainer.cs" />
     <Compile Include="Options\IStylerOptions.cs" />
