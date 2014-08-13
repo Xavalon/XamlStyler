@@ -110,7 +110,7 @@ namespace XamlStyler.UnitTests
             string actualOutputFile = testInput.Replace(".xaml", "_output.xaml");
             string expectedOutputFile = testInput.Replace(".xaml", "_output_expected.xaml");
 
-            string output = styler.FormatFile(testInput);
+            string output = styler.ManipulateTreeAndFormatFile(testInput);
 
             File.WriteAllText(actualOutputFile, output);
 
