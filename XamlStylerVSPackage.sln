@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{913A5DF2-09DC-4155-9BA9-3881B0104F4C}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,12 +16,20 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFiles", "TestFiles", "{
 		TestAttributeSortingOptionHandling_output_expected.xaml = TestAttributeSortingOptionHandling_output_expected.xaml
 		TestAttributeThresholdHandling.xaml = TestAttributeThresholdHandling.xaml
 		TestAttributeThresholdHandling_output_expected.xaml = TestAttributeThresholdHandling_output_expected.xaml
+		TestCanvasChildrenHandling.xaml = TestCanvasChildrenHandling.xaml
+		TestCanvasChildrenHandling_output_expected.xaml = TestCanvasChildrenHandling_output_expected.xaml
 		TestCommentHandling.xaml = TestCommentHandling.xaml
 		TestCommentHandling_output_expected.xaml = TestCommentHandling_output_expected.xaml
 		TestDefaultHandling.xaml = TestDefaultHandling.xaml
 		TestDefaultHandling_output_expected.xaml = TestDefaultHandling_output_expected.xaml
+		TestGridChildrenHandling.xaml = TestGridChildrenHandling.xaml
+		TestGridChildrenHandling_output_expected.xaml = TestGridChildrenHandling_output_expected.xaml
 		TestMarkupExtensionHandling.xaml = TestMarkupExtensionHandling.xaml
 		TestMarkupExtensionHandling_output_expected.xaml = TestMarkupExtensionHandling_output_expected.xaml
+		TestNestedCanvasChildrenHandling.xaml = TestNestedCanvasChildrenHandling.xaml
+		TestNestedCanvasChildrenHandling_output_expected.xaml = TestNestedCanvasChildrenHandling_output_expected.xaml
+		TestNestedGridChildrenHandling.xaml = TestNestedGridChildrenHandling.xaml
+		TestNestedGridChildrenHandling_output_expected.xaml = TestNestedGridChildrenHandling_output_expected.xaml
 		TestNoContentElementHandling.xaml = TestNoContentElementHandling.xaml
 		TestNoContentElementHandling_output_expected.xaml = TestNoContentElementHandling_output_expected.xaml
 		TestTextOnlyContentElementHandling.xaml = TestTextOnlyContentElementHandling.xaml

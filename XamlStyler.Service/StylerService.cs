@@ -242,7 +242,7 @@ namespace XamlStyler.Core
                         // it's not an element - add it, passing in the previous attached property value - this ensures
                         // comments, whitespace, ... are kept in the correct place
 
-                        var prev = lstNodeContainers.FirstOrDefault();
+                        var prev = lstNodeContainers.LastOrDefault();
                         if (prev != null)
                         {
                             lstNodeContainers.Add(new CanvasNodeContainer(child, prev.Left, prev.Top, prev.Right, prev.Bottom));
@@ -261,7 +261,7 @@ namespace XamlStyler.Core
                 .ThenBy(nc => nc.Right).ThenBy(nc => nc.Bottom).ToList();
 
             // replace the element's nodes
-            element.ReplaceAll(lstNodeContainers.Select(nc => nc.Node));
+            element.ReplaceNodes(lstNodeContainers.Select(nc => nc.Node));
         }
 
 
@@ -299,7 +299,7 @@ namespace XamlStyler.Core
                         // it's not an element - add it, passing in the previous row/column value - this ensures
                         // comments, whitespace, ... are kept in the correct place
 
-                        var prev = lstNodeContainers.FirstOrDefault();
+                        var prev = lstNodeContainers.LastOrDefault();
                         if (prev != null)
                         {
                             lstNodeContainers.Add(new GridNodeContainer(child, prev.Row, prev.Column));
@@ -317,8 +317,8 @@ namespace XamlStyler.Core
             lstNodeContainers = lstNodeContainers.OrderBy(nc => nc.Row).ThenBy(nc => nc.Column).ToList();
 
             // replace the element's nodes
-            element.ReplaceAll(lstNodeContainers.Select(nc => nc.Node));
-
+            element.ReplaceNodes(lstNodeContainers.Select(nc => nc.Node));
+            
         }
 
 
