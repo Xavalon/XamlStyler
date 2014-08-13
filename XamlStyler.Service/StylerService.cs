@@ -49,7 +49,7 @@ namespace XamlStyler.Core
             return stylerServiceInstance;
         }
 
-        public string Format(string xamlSource)
+        private string Format(string xamlSource)
         {
             string output = String.Empty;
             StringReader sourceReader = null;
@@ -135,14 +135,33 @@ namespace XamlStyler.Core
             return  _htmlReservedCharRestoreRegex.Replace(output, @"&$1;");
         }
 
+
+        /// <summary>
+        /// Execute styling from file - used by unit tests
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         public string ManipulateTreeAndFormatFile(string filePath)
         {
-            // first, manipulate the tree
+            // load as XDocument
             var xDoc = XDocument.Load(filePath, LoadOptions.PreserveWhitespace);
-            ManipulateTree(xDoc);
 
-            // then, write it to a string
-            return Format(xDoc.ToString());
+            // first, manipulate the tree; then, write it to a string
+           return Format(ManipulateTree(xDoc).ToString());
+        }
+
+        /// <summary>
+        /// Execute styling from string input
+        /// </summary>
+        /// <param name="xamlSource"></param>
+        /// <returns></returns>
+        public string ManipulateTreeAndFormatInput(string xamlSource)
+        {
+            // parse XDocument
+            var xDoc = XDocument.Parse(xamlSource, LoadOptions.PreserveWhitespace);
+
+            // first, manipulate the tree; then, write it to a string
+            return Format(ManipulateTree(xDoc).ToString());
         }
 
 

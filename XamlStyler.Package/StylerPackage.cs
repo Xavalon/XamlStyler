@@ -165,7 +165,7 @@ namespace NicoVermeir.XamlStyler_Package
             EditPoint endPoint = textDocument.EndPoint.CreateEditPoint();
 
             string xamlSource = startPoint.GetText(endPoint);
-            xamlSource = styler.Format(xamlSource);
+            xamlSource = styler.ManipulateTreeAndFormatInput(xamlSource);
 
             startPoint.ReplaceText(endPoint, xamlSource, 0);
 
