@@ -184,15 +184,17 @@ namespace XamlStyler.Core
                     // is this a Grid or Canvas with child elements?
                     //
                     // Note: we look at elements, not just nodes - if there's only non-element nodes,
-                    // we don't need to reorder.
-
-                    if (element.Name.LocalName == "Grid" && element.HasElements)
+                    // we don't need to reorder.  We should also take into account a user can decide not to allow
+                    // reordering
+                    
+                    if (element.Name.LocalName == "Grid" && element.HasElements && Options.ReorderGridChildren)
                     {
                         // process the grid
                         ProcessGrid(element);
                     }
-                    else if (element.Name.LocalName == "Canvas" && element.HasElements)
+                    else if (element.Name.LocalName == "Canvas" && element.HasElements && Options.ReorderCanvasChildren)
                     {
+                        // process the canvas
                         ProcessCanvas(element);
                     }
 
