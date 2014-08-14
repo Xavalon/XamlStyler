@@ -1,0 +1,56 @@
+﻿<Window x:Class="MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WPF3D"
+        Width="534"
+        Height="254">
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition />
+      <RowDefinition />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+
+
+    <TextBlock Text="zero, zero" />
+
+    <TextBlock Grid.Row="0"
+               Grid.Column="1"
+               Text="zero, one" />
+
+    <TextBlock Grid.Row="1" Text="one, zero" />
+
+    <Grid Grid.Row="1" Grid.Column="0">
+      <Grid.RowDefinitions>
+        <RowDefinition />
+        <RowDefinition />
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition />
+      </Grid.ColumnDefinitions>
+
+
+      <TextBlock Text="zero, zero" />
+
+      <TextBlock Grid.Row="0"
+                 Grid.Column="1"
+                 Text="zero, one" />
+
+      <TextBlock Grid.Row="1" Text="one, zero" />
+
+      <TextBlock Grid.Row="1"
+                 Grid.Column="1"
+                 Text="one, one" />
+
+    </Grid>
+
+    <TextBlock Grid.Row="1"
+               Grid.Column="1"
+               Text="one, one" />
+
+  </Grid>
+</Window>
