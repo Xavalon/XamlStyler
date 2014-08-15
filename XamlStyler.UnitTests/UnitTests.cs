@@ -100,6 +100,46 @@ namespace XamlStyler.UnitTests
             DoTest(testInput);
         }
 
+
+        [TestMethod]
+        public void TestGridChildrenHandling()
+        {
+            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
+
+            DoTest(testInput);
+        }
+
+
+
+        [TestMethod]
+        public void TestNestedGridChildrenHandling()
+        {
+            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
+
+            DoTest(testInput);
+        }
+
+
+
+        [TestMethod]
+        public void TestCanvasChildrenHandling()
+        {
+            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
+
+            DoTest(testInput);
+        }
+
+
+        [TestMethod]
+        public void TestNestedCanvasChildrenHandling()
+        {
+            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
+
+            DoTest(testInput);
+        }
+
+
+
         private void DoTest(string testInput)
         {
             DoTest(testInput, StylerService.CreateInstance(new StylerOptions()));
@@ -110,7 +150,7 @@ namespace XamlStyler.UnitTests
             string actualOutputFile = testInput.Replace(".xaml", "_output.xaml");
             string expectedOutputFile = testInput.Replace(".xaml", "_output_expected.xaml");
 
-            string output = styler.FormatFile(testInput);
+            string output = styler.ManipulateTreeAndFormatFile(testInput);
 
             File.WriteAllText(actualOutputFile, output);
 

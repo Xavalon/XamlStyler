@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml;
+using System.Xml.Linq;
 using XamlStyler.Core.Helpers;
 using XamlStyler.Core.Model;
 using XamlStyler.Core.Options;
@@ -48,7 +49,7 @@ namespace XamlStyler.Core
             return stylerServiceInstance;
         }
 
-        public string Format(string xamlSource)
+        private string Format(string xamlSource)
         {
             string output = String.Empty;
             StringReader sourceReader = null;
@@ -134,13 +135,211 @@ namespace XamlStyler.Core
             return  _htmlReservedCharRestoreRegex.Replace(output, @"&$1;");
         }
 
-        public string FormatFile(string filePath)
+
+        /// <summary>
+        /// Execute styling from file - used by unit tests
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        public string ManipulateTreeAndFormatFile(string filePath)
         {
-            using (StreamReader reader = File.OpenText(filePath))
-            {
-                return Format(reader.ReadToEnd());
-            }
+            // load as XDocument
+            var xDoc = XDocument.Load(filePath, LoadOptions.PreserveWhitespace);
+
+            // first, manipulate the tree; then, write it to a string
+           return Format(ManipulateTree(xDoc).ToString());
         }
+
+        /// <summary>
+        /// Execute styling from string input
+        /// </summary>
+        /// <param name="xamlSource"></param>
+        /// <returns></returns>
+        public string ManipulateTreeAndFormatInput(string xamlSource)
+        {
+            // parse XDocument
+            var xDoc = XDocument.Parse(xamlSource, LoadOptions.PreserveWhitespace);
+
+            // first, manipulate the tree; then, write it to a string
+            return Format(ManipulateTree(xDoc).ToString());
+        }
+
+
+
+        private XDocument ManipulateTree(XDocument xDoc)
+        {
+
+            var rootElement = xDoc.Root;
+
+            if (rootElement.HasElements)
+            {
+                // run through the elements and, one by one, handle them
+
+                foreach (var element in rootElement.Elements())
+                {
+                    HandleNode(element);
+                }
+            }
+
+            return xDoc;
+        }
+        private void HandleNode(XNode node)
+        {
+
+            switch (node.NodeType)
+            {
+                case XmlNodeType.Element:
+                    XElement element = node as XElement;
+
+                    if (element.Nodes().Any())
+                    {
+                        // handle children first
+                        foreach (var childNode in element.Nodes())
+                        {
+                            HandleNode(childNode);
+                        }
+                    }
+
+                    // is this a Grid or Canvas with child elements?
+                    //
+                    // Note: we look at elements, not just nodes - if there's only non-element nodes,
+                    // we don't need to reorder.  We should also take into account a user can decide not to allow
+                    // reordering
+                    
+                    if (element.Name.LocalName == "Grid" && element.HasElements && Options.ReorderGridChildren)
+                    {
+                        // process the grid
+                        ProcessGrid(element);
+                    }
+                    else if (element.Name.LocalName == "Canvas" && element.HasElements && Options.ReorderCanvasChildren)
+                    {
+                        // process the canvas
+                        ProcessCanvas(element);
+                    }
+
+
+                    break;
+                default:
+                    break;
+            }
+
+        }
+
+        private void ProcessCanvas(XElement element)
+        {
+            List<CanvasNodeContainer> lstNodeContainers = new List<CanvasNodeContainer>();
+
+            var children = element.Nodes();
+
+            // Run through child elements & read the attributes
+
+            foreach (var child in children)
+            {
+                switch (child.NodeType)
+                {
+
+                    case XmlNodeType.Element:
+
+                        // it's an element.  Search for attached Canvas properties
+                        var leftAttr = (child as XElement).Attributes("Canvas.Left").FirstOrDefault();
+                        var topAttr = (child as XElement).Attributes("Canvas.Top").FirstOrDefault();
+                        var rightAttr = (child as XElement).Attributes("Canvas.Right").FirstOrDefault();
+                        var bottomAttr = (child as XElement).Attributes("Canvas.Bottom").FirstOrDefault();
+
+                        // no attribute?  0,0
+                        lstNodeContainers.Add(new CanvasNodeContainer
+                            (child,
+                            leftAttr == null ? 0 : int.Parse(leftAttr.Value),
+                            topAttr == null ? 0 : int.Parse(topAttr.Value),
+                            rightAttr == null ? 0 : int.Parse(rightAttr.Value),
+                            bottomAttr == null ? 0 : int.Parse(bottomAttr.Value)
+                            ));
+
+                        break;
+
+                    default:
+                        // it's not an element - add it, passing in the previous attached property value - this ensures
+                        // comments, whitespace, ... are kept in the correct place
+
+                        var prev = lstNodeContainers.LastOrDefault();
+                        if (prev != null)
+                        {
+                            lstNodeContainers.Add(new CanvasNodeContainer(child, prev.Left, prev.Top, prev.Right, prev.Bottom));
+                        }
+                        else
+                        {
+                            lstNodeContainers.Add(new CanvasNodeContainer(child, 0, 0, 0, 0));
+                        }
+
+                        break;
+                }
+            }
+
+            // sort that list.
+            lstNodeContainers = lstNodeContainers.OrderBy(nc => nc.Left).ThenBy(nc => nc.Top)
+                .ThenBy(nc => nc.Right).ThenBy(nc => nc.Bottom).ToList();
+
+            // replace the element's nodes
+            element.ReplaceNodes(lstNodeContainers.Select(nc => nc.Node));
+        }
+
+
+ 
+
+        private void ProcessGrid(XElement element)
+        {
+            List<GridNodeContainer> lstNodeContainers = new List<GridNodeContainer>();
+
+            var children = element.Nodes();
+
+            // Run through child elements & read the attributes
+
+            foreach (var child in children)
+            {
+                switch (child.NodeType)
+                {
+
+                    case XmlNodeType.Element:
+
+                        // it's an element.  Search for Grid.Row attribute / Grid.Column attribute
+                        var rowAttr = (child as XElement).Attributes("Grid.Row").FirstOrDefault();
+                        var columnAttr = (child as XElement).Attributes("Grid.Column").FirstOrDefault();
+
+                        // no attribute?  0,0
+                        lstNodeContainers.Add(new GridNodeContainer
+                            (child,
+                            rowAttr == null ? 0 : int.Parse(rowAttr.Value),
+                            columnAttr == null ? 0 : int.Parse(columnAttr.Value)
+                            ));
+
+                        break;
+
+                    default:
+                        // it's not an element - add it, passing in the previous row/column value - this ensures
+                        // comments, whitespace, ... are kept in the correct place
+
+                        var prev = lstNodeContainers.LastOrDefault();
+                        if (prev != null)
+                        {
+                            lstNodeContainers.Add(new GridNodeContainer(child, prev.Row, prev.Column));
+                        }
+                        else
+                        {
+                            lstNodeContainers.Add(new GridNodeContainer(child, 0, 0));
+                        }
+
+                        break;
+                }
+            }
+
+            // sort that list.
+            lstNodeContainers = lstNodeContainers.OrderBy(nc => nc.Row).ThenBy(nc => nc.Column).ToList();
+
+            // replace the element's nodes
+            element.ReplaceNodes(lstNodeContainers.Select(nc => nc.Node));
+            
+        }
+
 
         private string GetIndentString(int depth)
         {
