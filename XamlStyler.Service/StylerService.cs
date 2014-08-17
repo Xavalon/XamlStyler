@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -249,10 +250,10 @@ namespace XamlStyler.Core
                         // no attribute?  0,0
                         lstNodeContainers.Add(new CanvasNodeContainer
                             (child,
-                            leftAttr == null ? 0 : int.Parse(leftAttr.Value),
-                            topAttr == null ? 0 : int.Parse(topAttr.Value),
-                            rightAttr == null ? 0 : int.Parse(rightAttr.Value),
-                            bottomAttr == null ? 0 : int.Parse(bottomAttr.Value)
+                            leftAttr == null ? 0 : double.Parse(leftAttr.Value, CultureInfo.InvariantCulture),
+                            topAttr == null ? 0 : double.Parse(topAttr.Value, CultureInfo.InvariantCulture),
+                            rightAttr == null ? 0 : double.Parse(rightAttr.Value, CultureInfo.InvariantCulture),
+                            bottomAttr == null ? 0 : double.Parse(bottomAttr.Value, CultureInfo.InvariantCulture)
                             ));
 
                         break;
