@@ -128,7 +128,7 @@ namespace XamlStyler.UnitTests
 
             DoTest(testInput);
         }
-
+ 
 
         [TestMethod]
         public void TestNestedCanvasChildrenHandling()
