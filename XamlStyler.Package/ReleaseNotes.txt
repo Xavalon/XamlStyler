@@ -1,4 +1,22 @@
-﻿1.2
+﻿1.3.1 
+-----
+Fixed a bug with Canvas children reorder
+
+
+
+1.3 (thanks to Kevin Dockx)
+---
+Added Canvas children ordering   
+Added styler options for Grid/Canvas children reorder   
+Take user options for panel children order into account   
+Ensure correct attribute handling for nested elements    
+Ensure package Execute uses new formatting process    
+Unit tests for grid/canvas children reorder  
+Use parallel processing when multiple files are affected  
+
+
+
+1.2
 ---
 Added x:Uid to key group (fix added by Bart Lannoeye, thanks!)
 

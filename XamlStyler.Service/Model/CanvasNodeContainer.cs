@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
 namespace XamlStyler.Core.Model
 {
@@ -11,13 +6,13 @@ namespace XamlStyler.Core.Model
     public class CanvasNodeContainer : NodeContainer
     {
 
-        public int Left { get; set; }
-        public int Top { get; set; }
-        public int Right { get; set; }
-        public int Bottom { get; set; }
+        public double Left { get; set; }
+        public double Top { get; set; }
+        public double Right { get; set; }
+        public double Bottom { get; set; }
 
 
-        public CanvasNodeContainer(XNode node, int left, int top, int right, int bottom)
+        public CanvasNodeContainer(XNode node, double left, double top, double right, double bottom)
         {
             Node = node;
             Left = left;
