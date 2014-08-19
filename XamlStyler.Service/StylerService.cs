@@ -269,7 +269,9 @@ namespace XamlStyler.Core
                         }
                         else
                         {
-                            lstNodeContainers.Add(new CanvasNodeContainer(child, 0, 0, 0, 0));
+                            // add with minvalue - this must be the first item at all times.
+                            // cfr: https://github.com/NicoVermeir/XamlStyler/issues/9
+                            lstNodeContainers.Add(new CanvasNodeContainer(child, double.MinValue, double.MinValue, double.MinValue, double.MinValue));
                         }
 
                         break;
