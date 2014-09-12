@@ -33,7 +33,7 @@ namespace XamlStyler.Core
 
         public static StylerService CreateInstance(IStylerOptions options)
         {
-            var stylerServiceInstance = new StylerService {Options = options};
+            var stylerServiceInstance = new StylerService { Options = options };
 
             if (!String.IsNullOrEmpty(stylerServiceInstance.Options.NoNewLineElements))
             {
@@ -133,7 +133,7 @@ namespace XamlStyler.Core
                 }
             }
 
-            return  _htmlReservedCharRestoreRegex.Replace(output, @"&$1;");
+            return _htmlReservedCharRestoreRegex.Replace(output, @"&$1;");
         }
 
 
@@ -148,7 +148,7 @@ namespace XamlStyler.Core
             var xDoc = XDocument.Load(filePath, LoadOptions.PreserveWhitespace);
 
             // first, manipulate the tree; then, write it to a string
-           return Format(ManipulateTree(xDoc).ToString());
+            return Format(ManipulateTree(xDoc).ToString());
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace XamlStyler.Core
                     // Note: we look at elements, not just nodes - if there's only non-element nodes,
                     // we don't need to reorder.  We should also take into account a user can decide not to allow
                     // reordering
-                    
+
                     if (element.Name.LocalName == "Grid" && element.HasElements && Options.ReorderGridChildren)
                     {
                         // process the grid
@@ -242,22 +242,21 @@ namespace XamlStyler.Core
                     case XmlNodeType.Element:
 
                         // it's an element.  Search for attached Canvas properties
-                        var leftAttr = (child as XElement).Attributes("Canvas.Left").FirstOrDefault();
-                        var topAttr = (child as XElement).Attributes("Canvas.Top").FirstOrDefault();
-                        var rightAttr = (child as XElement).Attributes("Canvas.Right").FirstOrDefault();
-                        var bottomAttr = (child as XElement).Attributes("Canvas.Bottom").FirstOrDefault();
+                        var leftAttr = ((XElement)child).Attributes("Canvas.Left").FirstOrDefault();
+                        var topAttr = ((XElement)child).Attributes("Canvas.Top").FirstOrDefault();
+                        var rightAttr = ((XElement)child).Attributes("Canvas.Right").FirstOrDefault();
+                        var bottomAttr = ((XElement)child).Attributes("Canvas.Bottom").FirstOrDefault();
 
                         // no attribute?  0,0
                         lstNodeContainers.Add(new CanvasNodeContainer
                             (child,
-                            leftAttr == null ? 0 : double.Parse(leftAttr.Value, CultureInfo.InvariantCulture),
-                            topAttr == null ? 0 : double.Parse(topAttr.Value, CultureInfo.InvariantCulture),
-                            rightAttr == null ? 0 : double.Parse(rightAttr.Value, CultureInfo.InvariantCulture),
-                            bottomAttr == null ? 0 : double.Parse(bottomAttr.Value, CultureInfo.InvariantCulture)
+                            leftAttr == null ? "0" : leftAttr.Value,
+                            topAttr == null ? "0" : topAttr.Value,
+                            rightAttr == null ? "0" : rightAttr.Value,
+                            bottomAttr == null ? "0" : bottomAttr.Value
                             ));
 
                         break;
-
                     default:
                         // it's not an element - add it, passing in the previous attached property value - this ensures
                         // comments, whitespace, ... are kept in the correct place
@@ -271,23 +270,24 @@ namespace XamlStyler.Core
                         {
                             // add with minvalue - this must be the first item at all times.
                             // cfr: https://github.com/NicoVermeir/XamlStyler/issues/9
-                            lstNodeContainers.Add(new CanvasNodeContainer(child, double.MinValue, double.MinValue, double.MinValue, double.MinValue));
-                        }
+                            lstNodeContainers.Add(new CanvasNodeContainer(child, double.MinValue, double.MinValue, double.MinValue, double.MinValue)); 
+                         } 
+
 
                         break;
                 }
             }
 
             // sort that list.
-            lstNodeContainers = lstNodeContainers.OrderBy(nc => nc.Left).ThenBy(nc => nc.Top)
-                .ThenBy(nc => nc.Right).ThenBy(nc => nc.Bottom).ToList();
+            lstNodeContainers = lstNodeContainers.OrderBy(nc => nc.LeftNumeric).ThenBy(nc => nc.TopNumeric)
+                .ThenBy(nc => nc.RightNumeric).ThenBy(nc => nc.BottomNumeric).ToList();
 
             // replace the element's nodes
             element.ReplaceNodes(lstNodeContainers.Select(nc => nc.Node));
         }
 
 
- 
+
 
         private void ProcessGrid(XElement element)
         {
@@ -340,7 +340,7 @@ namespace XamlStyler.Core
 
             // replace the element's nodes
             element.ReplaceNodes(lstNodeContainers.Select(nc => nc.Node));
-            
+
         }
 
 
@@ -355,8 +355,8 @@ namespace XamlStyler.Core
             {
                 return new String('\t', depth);
             }
-            
-            return new String(' ', depth*Options.IndentSize);
+
+            return new String(' ', depth * Options.IndentSize);
         }
 
         private bool IsNoLineBreakElement(string elementName)
