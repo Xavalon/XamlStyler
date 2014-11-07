@@ -8,6 +8,8 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using XamlStyler.Core;
 using XamlStyler.Core.Options;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace NicoVermeir.XamlStyler_Package
 {
@@ -125,18 +127,30 @@ namespace NicoVermeir.XamlStyler_Package
         private void OnFileSaveAllBeforeExecute(string guid, int id, object customIn, object customOut,
                                                 ref bool cancelDefault)
         {
+
+            // use parallel processing, but only on the documents that are formatable 
+            // (to avoid the overhead of Task creating when it's not necessary)
+
+            List<Document> docs = new List<Document>();
             foreach (Document document in _dte.Documents)
             {
                 if (IsFormatableDocument(document))
                 {
-                    var options = GetDialogPage(typeof (PackageOptions)).AutomationObject as IStylerOptions;
+                    docs.Add(document);
+                }
+            }
+
+            Parallel.ForEach(docs, document =>
+                {
+                    var options = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
 
                     if (options.BeautifyOnSave)
                     {
                         Execute(document);
                     }
                 }
-            }
+                );
+
         }
 
         private void Execute(Document document)
@@ -165,7 +179,7 @@ namespace NicoVermeir.XamlStyler_Package
             EditPoint endPoint = textDocument.EndPoint.CreateEditPoint();
 
             string xamlSource = startPoint.GetText(endPoint);
-            xamlSource = styler.Format(xamlSource);
+            xamlSource = styler.ManipulateTreeAndFormatInput(xamlSource);
 
             startPoint.ReplaceText(endPoint, xamlSource, 0);
 

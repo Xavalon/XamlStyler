@@ -28,7 +28,7 @@ namespace XamlStyler.Core.Options
 
             AttributeOrderWpfNamespace = "xmlns, xmlns:x";
 
-            AttributeOrderKey = "Key, x:Key";
+            AttributeOrderKey = "Key, x:Key, Uid, x:Uid";
             AttributeOrderName = "Name, x:Name, Title";
 
             AttributeOrderAttachedLayout =
@@ -44,6 +44,9 @@ namespace XamlStyler.Core.Options
 
             // Misc
             BeautifyOnSave = true;
+
+            ReorderGridChildren = true;
+            ReorderCanvasChildren = true;
         }
 
         #region Implementation of IStylerOptions
@@ -109,7 +112,7 @@ namespace XamlStyler.Core.Options
         [Description(
             "Defines ordering rule of element key.\r\nUse ',' to seperate more than one attribute.\r\nAttributes listed in earlier group takes precedence than later groups.\r\nAttributes listed earlier in same group takes precedence than the ones listed later."
             )]
-        [DefaultValue("Key, x:Key")]
+        [DefaultValue("Key, x:Key, Uid, x:Uid")]
         public string AttributeOrderKey { get; set; }
 
         [Category("Attribute Ordering Rule Groups")]
@@ -211,6 +214,23 @@ namespace XamlStyler.Core.Options
         [Description("Defines whether to automatically beautify the active xaml document while saving.")]
         [DefaultValue(true)]
         public bool BeautifyOnSave { get; set; }
+
+   
+
+        // Panel Content Order
+
+        [Category("Panel Content Order")]
+        [DisplayName("Reorder Grid panel children by row/column")]
+        [Description("Defines whether to reorder the children of a Grid by row/column.  When this is true, children will be reordered in an ascending fashion by looking at their attached Grid properties: first by Grid.Row, then by Grid.Column.")]
+        [DefaultValue(true)]
+        public bool ReorderGridChildren { get; set; }
+
+        [Category("Panel Content Order")]
+        [DisplayName("Reorder Canvas panel children by left/top/right/bottom")]
+        [Description("Defines whether to reorder the children of a Canvas by left/top/right/bottom.  When this is true, children will be reordered in an ascending fashion by looking at their attached Canvas properties: first by Canvas.Left, then by Canvas.Top, then by Canvas.Right, then by Canvas.Bottom.")]
+        [DefaultValue(true)]
+        public bool ReorderCanvasChildren { get; set; }
+
 
         #endregion Implementation of IStylerOptions
     }

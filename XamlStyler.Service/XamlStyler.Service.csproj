@@ -39,11 +39,15 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\AttributeInfoExtension.cs" />
     <Compile Include="Helpers\MarkupExtensionInfoExtension.cs" />
     <Compile Include="Helpers\StringExtension.cs" />
+    <Compile Include="Model\CanvasNodeContainer.cs" />
+    <Compile Include="Model\GridNodeContainer.cs" />
+    <Compile Include="Model\NodeContainer.cs" />
     <Compile Include="Options\IStylerOptions.cs" />
     <Compile Include="Options\StylerOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

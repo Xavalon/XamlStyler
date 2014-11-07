@@ -29,7 +29,8 @@
         <TextBlock Style="{DynamicResource {x:Static SystemColors.ControlTextBrushKey},
                                        ResourceKey={x:Static SystemColors.ControlTextBrushKey}}"
                Text="Foreground"
-               x:Uid="Setter_75" />
+               x:Uid="KeyForResources"
+               x:Name="TextBlockWithResources" />
 
         <!-- Quoted Value -->
         <TextBlock Style="SomeStyle"
