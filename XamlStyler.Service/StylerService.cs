@@ -58,11 +58,11 @@ namespace XamlStyler.Core
             try
             {
                 sourceReader = new StringReader(_htmlReservedCharRegex.Replace(xamlSource, @"__amp__$1__scln__"));
-
+                var settings = new XmlReaderSettings();
+                settings.IgnoreComments = false;
                 using (XmlReader xmlReader = XmlReader.Create(sourceReader))
                 {
                     sourceReader = null;
-
                     xmlReader.Read();
 
                     while (!xmlReader.EOF)
@@ -74,12 +74,12 @@ namespace XamlStyler.Core
 
                                 _elementProcessStatusStack.Push(
                                     new ElementProcessStatus
-                                        {
-                                            Name = xmlReader.Name,
-                                            ContentType = ContentTypeEnum.NONE,
-                                            IsMultlineStartTag = false,
-                                            IsSelfClosingElement = false
-                                        }
+                                    {
+                                        Name = xmlReader.Name,
+                                        ContentType = ContentTypeEnum.NONE,
+                                        IsMultlineStartTag = false,
+                                        IsSelfClosingElement = false
+                                    }
                                     );
 
                                 ProcessElement(xmlReader, ref output);
@@ -105,7 +105,9 @@ namespace XamlStyler.Core
                                 UpdateParentElementProcessStatus(ContentTypeEnum.MIXED);
                                 ProcessComment(xmlReader, ref output);
                                 break;
-
+                            case XmlNodeType.CDATA:
+                                ProcessCDATA(xmlReader, ref output);
+                                break;
                             case XmlNodeType.Whitespace:
                                 ProcessWhitespace(xmlReader, ref output);
                                 break;
@@ -114,7 +116,8 @@ namespace XamlStyler.Core
                                 ProcessEndElement(xmlReader, ref output);
                                 _elementProcessStatusStack.Pop();
                                 break;
-
+                            //case XmlNodeType.CDATA:
+                            //    break;
                             default:
                                 Trace.WriteLine(String.Format("Unprocessed NodeType: {0} Name: {1} Value: {2}",
                                                               xmlReader.NodeType, xmlReader.Name, xmlReader.Value));
@@ -135,6 +138,12 @@ namespace XamlStyler.Core
 
             return _htmlReservedCharRestoreRegex.Replace(output, @"&$1;");
         }
+
+        private void ProcessCDATA(XmlReader xmlReader, ref string output)
+        {
+            output += string.Format("<![CDATA[{0}]]>", xmlReader.Value);
+        }
+
 
 
         /// <summary>
@@ -242,19 +251,38 @@ namespace XamlStyler.Core
                     case XmlNodeType.Element:
 
                         // it's an element.  Search for attached Canvas properties
-                        var leftAttr = ((XElement)child).Attributes("Canvas.Left").FirstOrDefault();
-                        var topAttr = ((XElement)child).Attributes("Canvas.Top").FirstOrDefault();
-                        var rightAttr = ((XElement)child).Attributes("Canvas.Right").FirstOrDefault();
-                        var bottomAttr = ((XElement)child).Attributes("Canvas.Bottom").FirstOrDefault();
+                        var leftAttr = ((XElement)child).Attributes("Canvas.Left");
+                        var topAttr = ((XElement)child).Attributes("Canvas.Top");
+                        var rightAttr = ((XElement)child).Attributes("Canvas.Right");
+                        var bottomAttr = ((XElement)child).Attributes("Canvas.Bottom");
+
+                        int left = -1;
+                        int right = -1;
+                        int top = -1;
+                        int bottom = -1;
+
+                        if (leftAttr != null && leftAttr.Any() && !int.TryParse(leftAttr.First().Value, out left))
+                        {
+                            left = -1;
+                        }
+
+                        if (rightAttr != null && rightAttr.Any() && !int.TryParse(rightAttr.First().Value, out right))
+                        {
+                            right = -1;
+                        }
+
+                        if (bottomAttr != null && bottomAttr.Any() && !int.TryParse(bottomAttr.First().Value, out bottom))
+                        {
+                            bottom = -1;
+                        }
+
+                        if (topAttr != null && topAttr.Any() && !int.TryParse(topAttr.First().Value, out top))
+                        {
+                            top = -1;
+                        }
 
                         // no attribute?  0,0
-                        lstNodeContainers.Add(new CanvasNodeContainer
-                            (child,
-                            leftAttr == null ? "0" : leftAttr.Value,
-                            topAttr == null ? "0" : topAttr.Value,
-                            rightAttr == null ? "0" : rightAttr.Value,
-                            bottomAttr == null ? "0" : bottomAttr.Value
-                            ));
+                        lstNodeContainers.Add(new CanvasNodeContainer(child, left, top, right, bottom));
 
                         break;
                     default:
@@ -270,8 +298,8 @@ namespace XamlStyler.Core
                         {
                             // add with minvalue - this must be the first item at all times.
                             // cfr: https://github.com/NicoVermeir/XamlStyler/issues/9
-                            lstNodeContainers.Add(new CanvasNodeContainer(child, double.MinValue, double.MinValue, double.MinValue, double.MinValue)); 
-                         } 
+                            lstNodeContainers.Add(new CanvasNodeContainer(child, double.MinValue, double.MinValue, double.MinValue, double.MinValue));
+                        }
 
 
                         break;
@@ -305,15 +333,24 @@ namespace XamlStyler.Core
                     case XmlNodeType.Element:
 
                         // it's an element.  Search for Grid.Row attribute / Grid.Column attribute
-                        var rowAttr = (child as XElement).Attributes("Grid.Row").FirstOrDefault();
-                        var columnAttr = (child as XElement).Attributes("Grid.Column").FirstOrDefault();
+                        var rowAttr = (child as XElement).Attributes("Grid.Row");
+                        var columnAttr = (child as XElement).Attributes("Grid.Column");
+
+                        int row = -1;
+                        int column = -1;
+
+                        if (rowAttr != null && rowAttr.Any() && !int.TryParse(rowAttr.First().Value, out row))
+                        {
+                            row = -1;
+                        }
+
+                        if (columnAttr != null && columnAttr.Any() && !int.TryParse(columnAttr.First().Value, out column))
+                        {
+                            column = -1;
+                        }
 
                         // no attribute?  0,0
-                        lstNodeContainers.Add(new GridNodeContainer
-                            (child,
-                            rowAttr == null ? 0 : int.Parse(rowAttr.Value),
-                            columnAttr == null ? 0 : int.Parse(columnAttr.Value)
-                            ));
+                        lstNodeContainers.Add(new GridNodeContainer(child, row, column));
 
                         break;
 
@@ -445,7 +482,7 @@ namespace XamlStyler.Core
                     _elementProcessStatusStack.Peek().IsMultlineStartTag = false;
                 }
 
-                    // Need to break attributes
+                // Need to break attributes
                 else
                 {
                     IList<String> attributeLines = new List<String>();
