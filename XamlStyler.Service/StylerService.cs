@@ -365,7 +365,7 @@ namespace XamlStyler.Core
                         }
                         else
                         {
-                            lstNodeContainers.Add(new GridNodeContainer(child, 0, 0));
+                            lstNodeContainers.Add(new GridNodeContainer(child, int.MinValue, int.MinValue));
                         }
 
                         break;
