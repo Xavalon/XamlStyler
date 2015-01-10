@@ -16,6 +16,24 @@
         second line
     -->
 
+    <!--  Do not reformat commented xml tags -->
+	<!--<DataPager PageSource="{Binding .}" PageIndex="3" />
+
+        <Button Margin="0,0,0,10"
+                Content="&#xE112;"
+                FontFamily="Segoe UI Symbol"
+                FontSize="18.667"
+                Padding="8,8,0,0" />-->
+	    <!--
+        <DataPager PageSource="{Binding .}" PageIndex="3" />
+
+        <Button Margin="0,0,0,10"
+                Content="&#xE112;"
+                FontFamily="Segoe UI Symbol"
+                FontSize="18.667"
+                Padding="8,8,0,0" />
+ -->
+
     <!--  END: Test for COMMENT hanlding  -->
 
 </Root>

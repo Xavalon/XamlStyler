@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using System.Collections.Generic;
+using System.IO;
+using System.Text;
 
 namespace XamlStyler.Core.Helpers
 {
@@ -19,6 +21,18 @@ namespace XamlStyler.Core.Helpers
             }
 
             return buffer.ToString();
+        }
+
+        public static IEnumerable<string> GetLines(this string source)
+        {
+            using (var reader = new StringReader(source))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    yield return line;
+                }
+            }
         }
     }
 }
