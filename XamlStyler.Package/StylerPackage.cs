@@ -105,7 +105,16 @@ namespace NicoVermeir.XamlStyler_Package
 
         private bool IsFormatableDocument(Document document)
         {
-            return !document.ReadOnly && document.Language == "XAML";
+            bool isFormatableDocument;
+            isFormatableDocument = !document.ReadOnly && document.Language == "XAML";
+
+            if (!isFormatableDocument)
+            {
+                //xamarin
+                isFormatableDocument = document.Language == "XML" && document.FullName.EndsWith(".xaml", StringComparison.OrdinalIgnoreCase);
+            }
+
+            return isFormatableDocument;
         }
 
         private void OnFileSaveSelectedItemsBeforeExecute(string guid, int id, object customIn, object customOut,

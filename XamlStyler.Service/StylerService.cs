@@ -69,6 +69,7 @@ namespace XamlStyler.Core
                 sourceReader = new StringReader(xamlSource);
                 var settings = new XmlReaderSettings();
                 settings.IgnoreComments = false;
+
                 using (XmlReader xmlReader = XmlReader.Create(sourceReader))
                 {
                     sourceReader = null;
@@ -125,6 +126,10 @@ namespace XamlStyler.Core
                                 ProcessEndElement(xmlReader, ref output);
                                 _elementProcessStatusStack.Pop();
                                 break;
+                            case XmlNodeType.XmlDeclaration:
+                                //ignoring xml declarations for Xamarin support
+                                ProcessXMLRoot(xmlReader, ref output);
+                                break;
                             //case XmlNodeType.CDATA:
                             //    break;
                             default:
@@ -165,15 +170,16 @@ namespace XamlStyler.Core
             var xDoc = XDocument.Parse(EscapeDocument(xamlSource), LoadOptions.PreserveWhitespace);
 
             // first, manipulate the tree; then, write it to a string
-            return UnescapeDocument(Format(ManipulateTree(xDoc).ToString()));
+            return UnescapeDocument(Format(ManipulateTree(xDoc)));
         }
 
-
-
-        private XDocument ManipulateTree(XDocument xDoc)
+        private string ManipulateTree(XDocument xDoc)
         {
-
             var rootElement = xDoc.Root;
+            string xmlDeclaration = string.Empty;
+
+            if (xDoc.Declaration != null)
+                xmlDeclaration = xDoc.Declaration.ToString();
 
             if (rootElement.HasElements)
             {
@@ -185,7 +191,7 @@ namespace XamlStyler.Core
                 }
             }
 
-            return xDoc;
+            return xmlDeclaration + xDoc;
         }
         private void HandleNode(XNode node)
         {
@@ -393,6 +399,11 @@ namespace XamlStyler.Core
         private bool IsNoLineBreakElement(string elementName)
         {
             return NoNewLineElementsList.Contains<string>(elementName);
+        }
+
+        private void ProcessXMLRoot(XmlReader xmlReader, ref string output)
+        {
+            output += "<?xml " + xmlReader.Value.Trim() + " ?>";
         }
 
         private void ProcessComment(XmlReader xmlReader, ref string output)
