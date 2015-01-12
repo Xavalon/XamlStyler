@@ -17,9 +17,8 @@ namespace XamlStyler.Core
 {
     public class StylerService
     {
-        //private readonly Regex _htmlReservedCharRegex = new Regex(@"&#([a-z]|[A-Z]|[0-9])*;");
         private readonly Regex _htmlReservedCharRegex = new Regex(@"&([\d\D][^;]{3,7});");
-        private readonly Regex _htmlReservedCharRestoreRegex = new Regex(@"__amp__([\d\D]{3,7})__scln__");
+        private readonly Regex _htmlReservedCharRestoreRegex = new Regex(@"__amp__([^;]{2,7})__scln__");
         private readonly Stack<ElementProcessStatus> _elementProcessStatusStack;
 
         private IStylerOptions Options { get; set; }
@@ -50,6 +49,16 @@ namespace XamlStyler.Core
             return stylerServiceInstance;
         }
 
+        private string UnescapeDocument(string source)
+        {
+            return _htmlReservedCharRestoreRegex.Replace(source, @"&$1;");
+        }
+
+        private string EscapeDocument(string source)
+        {
+            return _htmlReservedCharRegex.Replace(source, @"__amp__$1__scln__");
+        }
+
         private string Format(string xamlSource)
         {
             string output = String.Empty;
@@ -57,7 +66,7 @@ namespace XamlStyler.Core
 
             try
             {
-                sourceReader = new StringReader(_htmlReservedCharRegex.Replace(xamlSource, @"__amp__$1__scln__"));
+                sourceReader = new StringReader(xamlSource);
                 var settings = new XmlReaderSettings();
                 settings.IgnoreComments = false;
                 using (XmlReader xmlReader = XmlReader.Create(sourceReader))
@@ -136,7 +145,7 @@ namespace XamlStyler.Core
                 }
             }
 
-            return _htmlReservedCharRestoreRegex.Replace(output, @"&$1;");
+            return output;
         }
 
         private void ProcessCDATA(XmlReader xmlReader, ref string output)
@@ -144,21 +153,6 @@ namespace XamlStyler.Core
             output += string.Format("<![CDATA[{0}]]>", xmlReader.Value);
         }
 
-
-
-        /// <summary>
-        /// Execute styling from file - used by unit tests
-        /// </summary>
-        /// <param name="filePath"></param>
-        /// <returns></returns>
-        public string ManipulateTreeAndFormatFile(string filePath)
-        {
-            // load as XDocument
-            var xDoc = XDocument.Load(filePath, LoadOptions.PreserveWhitespace);
-
-            // first, manipulate the tree; then, write it to a string
-            return Format(ManipulateTree(xDoc).ToString());
-        }
 
         /// <summary>
         /// Execute styling from string input
@@ -168,10 +162,10 @@ namespace XamlStyler.Core
         public string ManipulateTreeAndFormatInput(string xamlSource)
         {
             // parse XDocument
-            var xDoc = XDocument.Parse(xamlSource, LoadOptions.PreserveWhitespace);
+            var xDoc = XDocument.Parse(EscapeDocument(xamlSource), LoadOptions.PreserveWhitespace);
 
             // first, manipulate the tree; then, write it to a string
-            return Format(ManipulateTree(xDoc).ToString());
+            return UnescapeDocument(Format(ManipulateTree(xDoc).ToString()));
         }
 
 

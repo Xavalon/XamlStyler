@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Reflection;
 using XamlStyler.Core;
@@ -150,9 +151,9 @@ namespace XamlStyler.UnitTests
             string actualOutputFile = testInput.Replace(".xaml", "_output.xaml");
             string expectedOutputFile = testInput.Replace(".xaml", "_output_expected.xaml");
 
-            string output = styler.ManipulateTreeAndFormatFile(testInput);
+            string output = styler.ManipulateTreeAndFormatInput(File.ReadAllText(testInput));
 
-            File.WriteAllText(actualOutputFile, output);
+            File.WriteAllText(actualOutputFile, output, Encoding.UTF8);
 
             Assert.IsTrue(FileCompare(actualOutputFile, expectedOutputFile));
         }
