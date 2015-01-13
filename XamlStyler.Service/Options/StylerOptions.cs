@@ -17,6 +17,7 @@ namespace XamlStyler.Core.Options
                 "RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Condition, Setter";
             PutEndingBracketOnNewLine = false;
             RemoveEndingTagOfEmptyElement = true;
+            RootElementLineBreakRule = LineBreakRule.Default;
             KeepFirstAttributeOnSameLine = true;
 
             //Markup Extension
@@ -207,6 +208,13 @@ namespace XamlStyler.Core.Options
         [DefaultValue(true)]
         public bool RemoveEndingTagOfEmptyElement { get; set; }
 
+        [Category("New Line")]
+        [DisplayName("Root element line breaks between attributes")]
+        [Description(
+            "Defines if attributes of the document root element are broken into separate lines or not.\r\nDefault = use same rules as other elements"
+            )]
+        [DefaultValue(LineBreakRule.Default)]
+        public LineBreakRule RootElementLineBreakRule { get; set; }
 
         // Misc
         [Category("Misc")]

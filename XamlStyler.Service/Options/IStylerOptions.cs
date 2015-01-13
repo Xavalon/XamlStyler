@@ -169,6 +169,14 @@ namespace XamlStyler.Core.Options
         [DefaultValue(true)]
         bool RemoveEndingTagOfEmptyElement { get; set; }
 
+        [Category("New Line")]
+        [DisplayName("Root element line breaks between attributes")]
+        [Description(
+            "Defines if attributes of the document root element are broken into separate lines or not.\r\nDefault = use same rules as other elements"
+            )]
+        [DefaultValue(LineBreakRule.Default)]
+        LineBreakRule RootElementLineBreakRule { get; set; }
+
         #endregion New Line
 
         #region Misc

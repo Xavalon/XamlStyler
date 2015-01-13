@@ -24,6 +24,8 @@
     <DeploymentItem filename="TestGridChildrenHandling.xaml" />
     <DeploymentItem filename="TestAttributeSortingOptionHandling.xaml" />
     <DeploymentItem filename="TestNestedGridChildrenHandling_output_expected.xaml" />
+    <DeploymentItem filename="TestAttributeToleranceHandling.xaml" />
+    <DeploymentItem filename="TestAttributeToleranceHandling_output_expected.xaml" />
   </Deployment>
   <NamingScheme baseName="chris.chen@T00274-LAPTOP" appendTimeStamp="false" />
   <Execution parallelTestCount="2">

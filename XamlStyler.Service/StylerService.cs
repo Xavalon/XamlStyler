@@ -478,9 +478,27 @@ namespace XamlStyler.Core
 
                 currentIndentString = GetIndentString(xmlReader.Depth);
 
+                var noLineBreakInAttributes = (list.Count <= Options.AttributesTolerance) || IsNoLineBreakElement(elementName);
+                // Root element?
+                if (_elementProcessStatusStack.Count == 2) 
+                {
+                    switch (Options.RootElementLineBreakRule)
+                    {
+                        case LineBreakRule.Default:
+                            break;
+                        case LineBreakRule.Always:
+                            noLineBreakInAttributes = false;
+                            break;
+                        case LineBreakRule.Never:
+                            noLineBreakInAttributes = true;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
+
                 // No need to break attributes
-                if ((list.Count <= Options.AttributesTolerance)
-                    || IsNoLineBreakElement(elementName))
+                if (noLineBreakInAttributes)
                 {
                     output = list.Select(attrInfo => attrInfo.ToSingleLineString()).Aggregate(output, (current, pendingAppend) => current + String.Format(" {0}", pendingAppend));
 
