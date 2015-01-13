@@ -20,6 +20,11 @@ namespace XamlStyler.Core.Options
         #endregion Indentation
 
         #region Attribute Ordering Rule Groups
+        [Category("Attribute Ordering Rule Groups")]
+        [DisplayName("#10 Order attributes by name")]
+        [Description("Enable sorting of attributes by name")]
+        [DefaultValue("True")]
+        bool OrderAttributesByName { get; set; }
 
         [Category("Attribute Ordering Rule Groups")]
         [DisplayName("#7 Alignment layout group")]

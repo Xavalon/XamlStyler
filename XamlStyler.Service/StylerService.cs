@@ -474,7 +474,8 @@ namespace XamlStyler.Core
                     list.Add(new AttributeInfo(attributeName, attributeValue, orderRule));
                 }
 
-                list.Sort();
+                if (Options.OrderAttributesByName)
+                    list.Sort();
 
                 currentIndentString = GetIndentString(xmlReader.Depth);
 
