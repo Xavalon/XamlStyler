@@ -29,6 +29,22 @@ namespace XamlStyler.UnitTests
         }
 
         [TestMethod]
+        public void TestAttributeToleranceHandling()
+        {
+            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
+
+            var stylerOptions = new StylerOptions
+                                    {
+                                        AttributesTolerance = 3,
+                                        RootElementLineBreakRule = LineBreakRule.Always,
+                                    };
+
+            var styler = StylerService.CreateInstance(stylerOptions);
+
+            DoTest(testInput, styler);
+        }
+
+        [TestMethod]
         public void TestCommentHandling()
         {
             string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
