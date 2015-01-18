@@ -1,4 +1,9 @@
-﻿1.4
+﻿1.4.1 (Thanks Philip Hoppe!)
+----------------------------
+Comments no longer get formatted
+Added setting for root element attribute formatting
+
+1.4
 ---
 Added Xamarin support
 Fix for Content of element is changed when using encoded unicode (Thanks Philip Hoppe!)
