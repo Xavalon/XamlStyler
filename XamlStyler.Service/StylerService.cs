@@ -409,27 +409,41 @@ namespace XamlStyler.Core
         private void ProcessComment(XmlReader xmlReader, ref string output)
         {
             string currentIndentString = GetIndentString(xmlReader.Depth);
-            string content = xmlReader.Value.Trim();
+            string content = xmlReader.Value;
 
             if (!output.EndsWith("\n"))
             {
                 output += Environment.NewLine;
             }
 
-            if (content.Contains("\n"))
+            if (content.Contains("<") && content.Contains(">"))
+            {
+                output += currentIndentString + "<!--";
+                if (content.Contains("\n"))
+                {
+                    output += string.Join(Environment.NewLine, content.GetLines().Select(x=>x.TrimEnd(' ')));
+                    if (content.TrimEnd(' ').EndsWith("\n"))
+                    {
+                        output += currentIndentString;
+                    }
+                }
+                else
+                    output += content;
+
+                output += "-->";
+            }
+            else if (content.Contains("\n"))
             {
                 output += currentIndentString + "<!--";
 
                 string contentIndentString = GetIndentString(xmlReader.Depth + 1);
-                string[] lines = content.Split('\n');
-
-                output = lines.Aggregate(output, (current, line) => current + (Environment.NewLine + contentIndentString + line.Trim()));
+                output = content.Trim().GetLines().Aggregate(output, (current, line) => current + (Environment.NewLine + contentIndentString + line.Trim()));
 
                 output += Environment.NewLine + currentIndentString + "-->";
             }
             else
             {
-                output += currentIndentString + "<!--  " + content + "  -->";
+                output += currentIndentString + "<!--  " + content.Trim() + "  -->";
             }
         }
 
