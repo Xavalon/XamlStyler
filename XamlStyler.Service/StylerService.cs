@@ -320,6 +320,7 @@ namespace XamlStyler.Core
         private void ProcessGrid(XElement element)
         {
             List<GridNodeContainer> lstNodeContainers = new List<GridNodeContainer>();
+            int commentIndex = int.MaxValue;
 
             var children = element.Nodes();
 
@@ -333,21 +334,31 @@ namespace XamlStyler.Core
                     case XmlNodeType.Element:
 
                         // it's an element.  Search for Grid.Row attribute / Grid.Column attribute
-                        var rowAttr = (child as XElement).Attributes("Grid.Row");
-                        var columnAttr = (child as XElement).Attributes("Grid.Column");
+                        var childElement = (XElement)child;
 
-                        int row = -1;
-                        int column = -1;
+                        var rowAttr = childElement.Attributes("Grid.Row");
+                        var columnAttr = childElement.Attributes("Grid.Column");
 
-                        if (rowAttr != null && rowAttr.Any() && !int.TryParse(rowAttr.First().Value, out row))
+                        int row;
+                        int column;
+
+                        if (rowAttr == null || !rowAttr.Any() || !int.TryParse(rowAttr.First().Value, out row))
                         {
-                            row = -1;
+                            row = childElement.Name.LocalName.Contains(".") ? -2 : -1;
                         }
 
-                        if (columnAttr != null && columnAttr.Any() && !int.TryParse(columnAttr.First().Value, out column))
+                        if (columnAttr == null || !columnAttr.Any() || !int.TryParse(columnAttr.First().Value, out column))
                         {
                             column = -1;
                         }
+
+                        while (commentIndex < lstNodeContainers.Count)
+                        {
+                            lstNodeContainers[commentIndex].Row = row;
+
+                            commentIndex++;
+                        }
+                        commentIndex = int.MaxValue;
 
                         // no attribute?  0,0
                         lstNodeContainers.Add(new GridNodeContainer(child, row, column));
@@ -366,6 +377,11 @@ namespace XamlStyler.Core
                         else
                         {
                             lstNodeContainers.Add(new GridNodeContainer(child, int.MinValue, int.MinValue));
+                        }
+
+                        if (child.NodeType == XmlNodeType.Comment && commentIndex == int.MaxValue)
+                        {
+                            commentIndex = lstNodeContainers.Count - 1;
                         }
 
                         break;
