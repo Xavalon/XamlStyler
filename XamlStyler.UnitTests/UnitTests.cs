@@ -157,6 +157,16 @@ namespace XamlStyler.UnitTests
 
 
 
+        [TestMethod]
+        public void TestNestedPropertiesAndChildrenHandling()
+        {
+            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
+
+            DoTest(testInput);
+        }
+
+
+
         private void DoTest(string testInput)
         {
             DoTest(testInput, StylerService.CreateInstance(new StylerOptions()));
