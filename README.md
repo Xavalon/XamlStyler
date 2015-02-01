@@ -84,3 +84,10 @@ Contribute
 * Develop some awesome features
 * Create a pull request when ready
 * Wait for us to merge your request
+
+Thanks to our contributers!
+===========================
+* Bart Lannoeye
+* Kevin Dockx
+* Philip Hoppe
+* Pedro Lamas

@@ -1,4 +1,8 @@
-﻿1.4.1 (Thanks Philip Hoppe!)
+﻿1.4.2 (Thanks Pedro Lamas!)
+----------------------------
+fix Property elements cannot be in the middle of an element's content bug
+
+1.4.1 (Thanks Philip Hoppe!)
 ----------------------------
 Comments no longer get formatted
 Added setting for root element attribute formatting
