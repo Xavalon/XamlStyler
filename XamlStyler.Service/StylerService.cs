@@ -544,6 +544,7 @@ namespace XamlStyler.Core
                     var currentLineBuffer = new StringBuilder();
                     int attributeCountInCurrentLineBuffer = 0;
 
+                    AttributeInfo lastAttributeInfo = null;
                     foreach (AttributeInfo attrInfo in list)
                     {
                         // Attributes with markup extension, always put on new line
@@ -575,7 +576,11 @@ namespace XamlStyler.Core
                                 (Options.MaxAttributesPerLine > 0 &&
                                  attributeCountInCurrentLineBuffer + 1 > Options.MaxAttributesPerLine);
 
-                            if (isAttributeCharLengthExceeded || isAttributeCountExceeded)
+                            bool isAttributeRuleGroupChanged = Options.PutAttributeOrderRuleGroupsOnSeparateLines
+                                                               && lastAttributeInfo != null
+                                                               && lastAttributeInfo.OrderRule.AttributeTokenType != attrInfo.OrderRule.AttributeTokenType;
+
+                            if (isAttributeCharLengthExceeded || isAttributeCountExceeded || isAttributeRuleGroupChanged)
                             {
                                 attributeLines.Add(currentLineBuffer.ToString());
                                 currentLineBuffer.Length = 0;
@@ -585,6 +590,8 @@ namespace XamlStyler.Core
                             currentLineBuffer.AppendFormat("{0} ", pendingAppend);
                             attributeCountInCurrentLineBuffer++;
                         }
+                        
+                        lastAttributeInfo = attrInfo;
                     }
 
                     if (currentLineBuffer.Length > 0)

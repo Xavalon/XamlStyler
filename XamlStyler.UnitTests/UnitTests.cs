@@ -165,7 +165,21 @@ namespace XamlStyler.UnitTests
             DoTest(testInput);
         }
 
+        [TestMethod]
+        public void TestAttributeOrderRuleGroupsOnSeparateLinesHandling()
+        {
+            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
 
+            var stylerOptions = new StylerOptions
+            {
+                PutAttributeOrderRuleGroupsOnSeparateLines = true,
+                MaxAttributesPerLine = 3,
+            };
+
+            var styler = StylerService.CreateInstance(stylerOptions);
+
+            DoTest(testInput, styler);
+        }
 
         private void DoTest(string testInput)
         {
