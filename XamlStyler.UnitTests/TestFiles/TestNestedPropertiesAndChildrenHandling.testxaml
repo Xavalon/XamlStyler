@@ -205,7 +205,10 @@
             </ListView.ItemTemplate>
             <ListView.ItemContainerStyle>
                 <Style TargetType="FrameworkElement">
+					<Setter Property="VerticalAlignment" Value="Center" />
+					<Setter Property="HorizontalAlignment" Value="Center" />
                     <Setter Property="Margin" Value="0,0,0,10" />
+                    <Setter Property="Padding" Value="0" />
                 </Style>
             </ListView.ItemContainerStyle>
         </ListView>
