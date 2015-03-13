@@ -48,8 +48,10 @@
     <Compile Include="Model\CanvasNodeContainer.cs" />
     <Compile Include="Model\GridNodeContainer.cs" />
     <Compile Include="Model\NodeContainer.cs" />
+    <Compile Include="Model\SetterNodeContainer.cs" />
     <Compile Include="Options\IStylerOptions.cs" />
     <Compile Include="Options\LineBreakRule.cs" />
+    <Compile Include="Options\ReorderSettersBy.cs" />
     <Compile Include="Options\StylerOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\AttributeInfo.cs" />

@@ -137,6 +137,39 @@ namespace XamlStyler.UnitTests
             DoTest(stylerOptions);
         }
 
+        [Test]
+        public void TestReorderSetterByPropertyHandling()
+        {
+            var stylerOptions = new StylerOptions
+            {
+                ReorderSetters = ReorderSettersBy.Property,
+            };
+
+            DoTest(stylerOptions);
+        }
+
+        [Test]
+        public void TestReorderSetterByTargetNameHandling()
+        {
+            var stylerOptions = new StylerOptions
+            {
+                ReorderSetters = ReorderSettersBy.TargetName,
+            };
+
+            DoTest(stylerOptions);
+        }
+
+        [Test]
+        public void TestReorderSetterByTargetNameThenPropertyHandling()
+        {
+            var stylerOptions = new StylerOptions
+            {
+                ReorderSetters = ReorderSettersBy.TargetNameThenProperty,
+            };
+
+            DoTest(stylerOptions);
+        }
+
         private void DoTest([System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
             // ReSharper disable once ExplicitCallerInfoArgument
