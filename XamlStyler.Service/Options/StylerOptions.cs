@@ -50,6 +50,7 @@ namespace XamlStyler.Core.Options
 
             ReorderGridChildren = true;
             ReorderCanvasChildren = true;
+            ReorderSetters = ReorderSettersBy.None;
         }
 
         //Indentation
@@ -237,20 +238,24 @@ namespace XamlStyler.Core.Options
         [DefaultValue(true)]
         public bool BeautifyOnSave { get; set; }
 
+        // Content Order
 
-
-        // Panel Content Order
-
-        [Category("Panel Content Order")]
+        [Category("Content Order")]
         [DisplayName("Reorder Grid panel children by row/column")]
         [Description("Defines whether to reorder the children of a Grid by row/column.  When this is true, children will be reordered in an ascending fashion by looking at their attached Grid properties: first by Grid.Row, then by Grid.Column.")]
         [DefaultValue(true)]
         public bool ReorderGridChildren { get; set; }
 
-        [Category("Panel Content Order")]
+        [Category("Content Order")]
         [DisplayName("Reorder Canvas panel children by left/top/right/bottom")]
         [Description("Defines whether to reorder the children of a Canvas by left/top/right/bottom.  When this is true, children will be reordered in an ascending fashion by looking at their attached Canvas properties: first by Canvas.Left, then by Canvas.Top, then by Canvas.Right, then by Canvas.Bottom.")]
         [DefaultValue(true)]
         public bool ReorderCanvasChildren { get; set; }
+
+        [Category("Content Order")]
+        [DisplayName("Reorder Setters by")]
+        [Description("Defines whether to reorder 'Setter' elements in style/trigger elements. When this is set, children will be reordered in an ascending fashion by looking at their Property and/or TargetName properties")]
+        [DefaultValue(ReorderSettersBy.None)]
+        public ReorderSettersBy ReorderSetters { get; set; }
     }
 }

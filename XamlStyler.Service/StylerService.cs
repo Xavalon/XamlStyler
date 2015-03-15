@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -216,15 +217,20 @@ namespace XamlStyler.Core
                     // we don't need to reorder.  We should also take into account a user can decide not to allow
                     // reordering
 
-                    if (element.Name.LocalName == "Grid" && element.HasElements && Options.ReorderGridChildren)
+                    if (Options.ReorderGridChildren && element.Name.LocalName == "Grid" && element.HasElements)
                     {
                         // process the grid
                         ProcessGrid(element);
                     }
-                    else if (element.Name.LocalName == "Canvas" && element.HasElements && Options.ReorderCanvasChildren)
+                    else if (Options.ReorderCanvasChildren && element.Name.LocalName == "Canvas" && element.HasElements)
                     {
                         // process the canvas
                         ProcessCanvas(element);
+                    }
+                    else if (Options.ReorderSetters != ReorderSettersBy.None && ElementsWithSetters.Contains(element.Name.LocalName) && element.HasElements)
+                    {
+                        // process the setters
+                        ProcessSetters(element);
                     }
 
 
@@ -233,6 +239,97 @@ namespace XamlStyler.Core
                     break;
             }
 
+        }
+
+        private string[] ElementsWithSetters = new[]
+        {
+            "DataTrigger",
+            "MultiDataTrigger",
+            "MultiTrigger",
+            "Style",
+            "Trigger",
+        };
+
+        /// <summary>
+        /// Order child setters by property/targetname
+        /// 
+        /// Notes on index vars used:
+        /// 
+        ///
+
+        /// </summary>
+        /// <param name="element"></param>
+        private void ProcessSetters(XElement element)
+        {
+            // A string that hopefully always are sorted at the en
+            List<SetterNodeCollection> nodeCollections = new List<SetterNodeCollection>();
+
+            var children = element.Nodes();
+
+            // This is increased each time Define sortable parameters
+            int settersBlockIndex = 1;
+            bool inSettersBlock = false;
+            SetterNodeCollection currentNodeCollection = null;
+                    
+            // Run through children
+            foreach (var child in children)
+            {
+                if (currentNodeCollection == null)
+                {
+                    currentNodeCollection = new SetterNodeCollection();
+                    nodeCollections.Add(currentNodeCollection);
+                }
+
+                if (child.NodeType == XmlNodeType.Element)
+                {
+                    XElement childElement = (XElement)child;
+
+                    var isSetter = childElement.Name.LocalName == "Setter" && childElement.Name.NamespaceName == "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
+
+                    if (isSetter != inSettersBlock)
+                    {
+                        settersBlockIndex++;
+                        inSettersBlock = isSetter;
+                    }
+
+                    if (isSetter)
+                    {
+                        currentNodeCollection.Property = (string)childElement.Attribute("Property");
+                        currentNodeCollection.TargetName = (string)childElement.Attribute("TargetName");
+                    }
+
+                    currentNodeCollection.BlockIndex = settersBlockIndex;
+                }
+
+                currentNodeCollection.Nodes.Add(child);
+
+                if (child.NodeType == XmlNodeType.Element)
+                    currentNodeCollection = null;
+            }
+
+            if (currentNodeCollection != null)
+                currentNodeCollection.BlockIndex = settersBlockIndex + 1;
+
+            // sort that list.
+            switch (Options.ReorderSetters)
+            {
+                case ReorderSettersBy.None:
+                    break;
+                case ReorderSettersBy.Property:
+                    nodeCollections = nodeCollections.OrderBy(x => x.BlockIndex).ThenBy(x=>x.Property).ToList();
+                    break;
+                case ReorderSettersBy.TargetName:
+                    nodeCollections = nodeCollections.OrderBy(x => x.BlockIndex).ThenBy(x => x.TargetName).ToList();
+                    break;
+                case ReorderSettersBy.TargetNameThenProperty:
+                    nodeCollections = nodeCollections.OrderBy(x => x.BlockIndex).ThenBy(x => x.TargetName).ThenBy(x => x.Property).ToList();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            // replace the element's nodes
+            element.ReplaceNodes(nodeCollections.SelectMany(nc => nc.Nodes));
         }
 
         private void ProcessCanvas(XElement element)
