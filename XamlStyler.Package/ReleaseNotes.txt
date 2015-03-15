@@ -1,4 +1,9 @@
-﻿1.4.2 (Thanks Pedro Lamas!)
+﻿1.5 (Thanks Philip - again! :) )
+--------------------------------
+Reordering for Setters
+Group attributes by rule group
+
+1.4.2 (Thanks Pedro Lamas!)
 ----------------------------
 fix Property elements cannot be in the middle of an element's content bug
 
