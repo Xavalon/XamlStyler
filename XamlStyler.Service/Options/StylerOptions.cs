@@ -16,6 +16,7 @@ namespace XamlStyler.Core.Options
             MaxAttributeCharatersPerLine = 0;
             NoNewLineElements =
                 "RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Condition, Setter";
+            PutAttributeOrderRuleGroupsOnSeparateLines = false;
             PutEndingBracketOnNewLine = false;
             RemoveEndingTagOfEmptyElement = true;
             RootElementLineBreakRule = LineBreakRule.Default;
@@ -198,6 +199,14 @@ namespace XamlStyler.Core.Options
             "RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Condition, Setter"
             )]
         public string NoNewLineElements { get; set; }
+
+        [Category("New Line")]
+        [DisplayName("Put attributes order rule groups on separate lines")]
+        [Description(
+            "Put attributes belonging to different order rules on different lines (keep identical order rules on same line if possible)"
+            )]
+        [DefaultValue(false)]
+        public bool PutAttributeOrderRuleGroupsOnSeparateLines { get; set; }
 
         [Category("New Line")]
         [DisplayName("Put ending bracket on new line")]

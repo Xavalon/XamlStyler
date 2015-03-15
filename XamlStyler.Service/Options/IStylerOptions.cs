@@ -161,6 +161,14 @@ namespace XamlStyler.Core.Options
         string NoNewLineElements { get; set; }
 
         [Category("New Line")]
+        [DisplayName("Put attributes order rule groups on separate lines")]
+        [Description(
+            "Put attributes belonging to different order rules on different lines (keep identical order rules on same line if possible)"
+            )]
+        [DefaultValue(false)]
+        bool PutAttributeOrderRuleGroupsOnSeparateLines { get; set; }
+
+        [Category("New Line")]
         [DisplayName("Put ending bracket on new line")]
         [Description("Defines whether to put \">\" or \"/>\" on a new line.\r\nDefault Value: false")]
         [DefaultValue(false)]
@@ -193,7 +201,6 @@ namespace XamlStyler.Core.Options
         bool BeautifyOnSave { get; set; }
 
         #endregion Misc
-
 
         #region Panel Content Order
 
