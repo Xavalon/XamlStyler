@@ -1,259 +1,171 @@
 ﻿using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
-using System.Reflection;
+using NUnit.Framework;
 using XamlStyler.Core;
 using XamlStyler.Core.Options;
 
 namespace XamlStyler.UnitTests
 {
-    [TestClass]
+    [TestFixture]
     public class UnitTests
     {
-        [TestMethod]
+        [Test]
         public void TestAttributeThresholdHandling()
         {
-            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
-
             var stylerOptions = new StylerOptions
-                                    {
-                                        AttributesTolerance = 0,
-                                        MaxAttributeCharatersPerLine = 80,
-                                        MaxAttributesPerLine = 3,
-                                        PutEndingBracketOnNewLine = true
-                                    };
+            {
+                AttributesTolerance = 0,
+                MaxAttributeCharatersPerLine = 80,
+                MaxAttributesPerLine = 3,
+                PutEndingBracketOnNewLine = true
+            };
 
-            var styler = StylerService.CreateInstance(stylerOptions);
-
-            DoTest(testInput, styler);
+            DoTest(stylerOptions);
         }
 
-        [TestMethod]
+        [Test]
         public void TestAttributeToleranceHandling()
         {
-            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
-
             var stylerOptions = new StylerOptions
-                                    {
-                                        AttributesTolerance = 3,
-                                        RootElementLineBreakRule = LineBreakRule.Always,
-                                    };
+            {
+                AttributesTolerance = 3,
+                RootElementLineBreakRule = LineBreakRule.Always,
+            };
 
-            var styler = StylerService.CreateInstance(stylerOptions);
-
-            DoTest(testInput, styler);
+            DoTest(stylerOptions);
         }
 
-        [TestMethod]
+        [Test]
         public void TestCommentHandling()
         {
-            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
-
-            DoTest(testInput);
+            DoTest();
         }
 
-        [TestMethod]
+        [Test]
         public void TestDefaultHandling()
         {
-            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
-
-            DoTest(testInput);
+            DoTest();
         }
 
-        [TestMethod]
+        [Test]
         public void TestAttributeSortingOptionHandling()
         {
-            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
-
             var stylerOptions = new StylerOptions
-                                    {
-                                        AttributeOrderClass = "x:Class",
-                                        AttributeOrderWpfNamespace = "xmlns, xmlns:x",
-                                        AttributeOrderKey = "Key, x:Key, Uid, x:Uid",
-                                        AttributeOrderName = "Name, x:Name, Title",
-                                        AttributeOrderAttachedLayout =
-                                            "Grid.Column, Grid.ColumnSpan, Grid.Row, Grid.RowSpan, Canvas.Right, Canvas.Bottom, Canvas.Left, Canvas.Top",
-                                        AttributeOrderCoreLayout =
-                                            "MinWidth, MinHeight, Width, Height, MaxWidth, MaxHeight, Margin",
-                                        AttributeOrderAlignmentLayout =
-                                            "Panel.ZIndex, HorizontalAlignment, VerticalAlignment, HorizontalContentAlignment, VerticalContentAlignment",
-                                        AttributeOrderOthers =
-                                            "Offset, Color, TargetName, Property, Value, StartPoint, EndPoint, PageSource, PageIndex",
-                                        AttributeOrderBlendRelated =
-                                            "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText"
-                                    };
-            var styler = StylerService.CreateInstance(stylerOptions);
+            {
+                AttributeOrderClass = "x:Class",
+                AttributeOrderWpfNamespace = "xmlns, xmlns:x",
+                AttributeOrderKey = "Key, x:Key, Uid, x:Uid",
+                AttributeOrderName = "Name, x:Name, Title",
+                AttributeOrderAttachedLayout =
+                    "Grid.Column, Grid.ColumnSpan, Grid.Row, Grid.RowSpan, Canvas.Right, Canvas.Bottom, Canvas.Left, Canvas.Top",
+                AttributeOrderCoreLayout =
+                    "MinWidth, MinHeight, Width, Height, MaxWidth, MaxHeight, Margin",
+                AttributeOrderAlignmentLayout =
+                    "Panel.ZIndex, HorizontalAlignment, VerticalAlignment, HorizontalContentAlignment, VerticalContentAlignment",
+                AttributeOrderOthers =
+                    "Offset, Color, TargetName, Property, Value, StartPoint, EndPoint, PageSource, PageIndex",
+                AttributeOrderBlendRelated =
+                    "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText"
+            };
 
-            DoTest(testInput, styler);
+            DoTest(stylerOptions);
         }
 
-        [TestMethod]
+        [Test]
         public void TestMarkupExtensionHandling()
         {
-            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
-
             var stylerOptions = new StylerOptions
-                                    {
-                                        FormatMarkupExtension = true
-                                    };
-            var styler = StylerService.CreateInstance(stylerOptions);
+            {
+                FormatMarkupExtension = true
+            };
 
-            DoTest(testInput, styler);
+            DoTest(stylerOptions);
         }
 
-        [TestMethod]
+        [Test]
         public void TestNoContentElementHandling()
         {
-            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
-
-            DoTest(testInput);
+            DoTest();
         }
 
-        [TestMethod]
+        [Test]
         public void TestTextOnlyContentElementHandling()
         {
-            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
-
-            DoTest(testInput);
+            DoTest();
         }
 
 
-        [TestMethod]
+        [Test]
         public void TestGridChildrenHandling()
         {
-            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
-
-            DoTest(testInput);
+            DoTest();
         }
 
-
-
-        [TestMethod]
+        [Test]
         public void TestNestedGridChildrenHandling()
         {
-            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
-
-            DoTest(testInput);
+            DoTest();
         }
 
-
-
-        [TestMethod]
+        [Test]
         public void TestCanvasChildrenHandling()
         {
-            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
-
-            DoTest(testInput);
+            DoTest();
         }
- 
 
-        [TestMethod]
+        [Test]
         public void TestNestedCanvasChildrenHandling()
         {
-            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
-
-            DoTest(testInput);
+            DoTest();
         }
 
-
-
-        [TestMethod]
+        [Test]
         public void TestNestedPropertiesAndChildrenHandling()
         {
-            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
-
-            DoTest(testInput);
+            DoTest();
         }
 
-        [TestMethod]
+        [Test]
         public void TestAttributeOrderRuleGroupsOnSeparateLinesHandling()
         {
-            string testInput = MethodBase.GetCurrentMethod().Name + ".xaml";
-
             var stylerOptions = new StylerOptions
             {
                 PutAttributeOrderRuleGroupsOnSeparateLines = true,
                 MaxAttributesPerLine = 3,
             };
 
-            var styler = StylerService.CreateInstance(stylerOptions);
-
-            DoTest(testInput, styler);
+            DoTest(stylerOptions);
         }
 
-        private void DoTest(string testInput)
+        private void DoTest([System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
-            DoTest(testInput, StylerService.CreateInstance(new StylerOptions()));
+            // ReSharper disable once ExplicitCallerInfoArgument
+            DoTest(new StylerOptions(), callerMemberName);
         }
 
-        private void DoTest(string testInput, StylerService styler)
+        private void DoTest(StylerOptions stylerOptions, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
-            string actualOutputFile = testInput.Replace(".xaml", "_output.xaml");
-            string expectedOutputFile = testInput.Replace(".xaml", "_output_expected.xaml");
-
-            string output = styler.ManipulateTreeAndFormatInput(File.ReadAllText(testInput));
-
-            File.WriteAllText(actualOutputFile, output, Encoding.UTF8);
-
-            Assert.IsTrue(FileCompare(actualOutputFile, expectedOutputFile));
+            // ReSharper disable once ExplicitCallerInfoArgument
+            DoTest(StylerService.CreateInstance(stylerOptions), callerMemberName);
         }
 
         /// <summary>
-        /// This method accepts two strings the represent two files to
-        /// compare. A return value of 0 indicates that the contents of the files
-        /// are the same. A return value of any other value indicates that the
-        /// files are not the same.
+        /// Parse input document and verify output against 
         /// </summary>
-        /// <param name="file1"></param>
-        /// <param name="file2"></param>
-        /// <returns></returns>
-        private bool FileCompare(string file1, string file2)
+        /// <param name="styler"></param>
+        /// <param name="callerMemberName"></param>
+        private void DoTest(StylerService styler, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
-            int file1Byte;
-            int file2Byte;
+            var testFileBaseName = Path.Combine("TestFiles", callerMemberName);
 
-            // Determine if the same file was referenced two times.
-            if (file1 == file2)
-            {
-                // Return true to indicate that the files are the same.
-                return true;
-            }
+            // Excercise stylerService using supplied test xaml data
+            string actualOutput = styler.ManipulateTreeAndFormatInput(File.ReadAllText(testFileBaseName + ".testxaml"));
 
-            // Open the two files.
-            var fs1 = new FileStream(file1, FileMode.Open);
-            var fs2 = new FileStream(file2, FileMode.Open);
+            // Write output to ".actual" file for further investigation
+            File.WriteAllText(testFileBaseName + ".actual", actualOutput, Encoding.UTF8);
 
-            // Check the file sizes. If they are not the same, the files
-            // are not the same.
-            if (fs1.Length != fs2.Length)
-            {
-                // Close the file
-                fs1.Close();
-                fs2.Close();
-
-                // Return false to indicate files are different
-                return false;
-            }
-
-            // Read and compare a byte from each file until either a
-            // non-matching set of bytes is found or until the end of
-            // file1 is reached.
-            do
-            {
-                // Read one byte from each file.
-                file1Byte = fs1.ReadByte();
-                file2Byte = fs2.ReadByte();
-            }
-            while ((file1Byte == file2Byte) && (file1Byte != -1));
-
-            // Close the files.
-            fs1.Close();
-            fs2.Close();
-
-            // Return the success of the comparison. "file1byte" is
-            // equal to "file2byte" at this point only if the files are
-            // the same.
-            return ((file1Byte - file2Byte) == 0);
+            // Check result
+            Assert.That(actualOutput, Is.EqualTo(File.ReadAllText(testFileBaseName + ".expected")));
         }
     }
 }
