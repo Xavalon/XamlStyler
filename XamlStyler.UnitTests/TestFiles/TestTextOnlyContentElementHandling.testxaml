@@ -1,14 +1,20 @@
 ﻿<Root>
 
 	<!-- START: Test for TEXT-ONLY-CONTENT ELEMENT hanlding -->
-	<SingleLine>test here</SingleLine>
+  <EmptyNode></EmptyNode>
+  <SingleSpace> </SingleSpace>
+  <SingleTab> </SingleTab>
+  <SingleAmp>&amp;</SingleAmp>
+  <SingleLine>test here</SingleLine>
 	<SingleLine a="a" b="b">test here</SingleLine>
 	<SingleLineWithLinefeed a="a" b="b" c="c">
 
 		line
 
 	</SingleLineWithLinefeed>
-	<MultiLine>first line  
+  <MultipleSpaces>                                         </MultipleSpaces>
+  <MultipleTabs>              </MultipleTabs>
+  <MultiLine>first line  
   second line</MultiLine>
 	<MultiLineMixed>
 		first line  

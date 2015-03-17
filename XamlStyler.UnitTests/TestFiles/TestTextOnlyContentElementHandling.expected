@@ -1,6 +1,10 @@
 ﻿<Root>
 
   <!--  START: Test for TEXT-ONLY-CONTENT ELEMENT hanlding  -->
+  <EmptyNode />
+  <SingleSpace />
+  <SingleTab />
+  <SingleAmp>&amp;</SingleAmp>
   <SingleLine>test here</SingleLine>
   <SingleLine a="a" b="b">test here</SingleLine>
   <SingleLineWithLinefeed a="a"
@@ -8,6 +12,8 @@
                           c="c">
     line
   </SingleLineWithLinefeed>
+  <MultipleSpaces />
+  <MultipleTabs />
   <MultiLine>
     first line
     second line
