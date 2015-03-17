@@ -62,18 +62,15 @@ namespace XamlStyler.Core
 
         private string Format(string xamlSource)
         {
-            string output = String.Empty;
-            StringReader sourceReader = null;
+            //StringBuilder output = new StringBuilder();
+            String output = String.Empty;
 
-            try
-            {
-                sourceReader = new StringReader(xamlSource);
-                var settings = new XmlReaderSettings();
-                settings.IgnoreComments = false;
-
+            using (var sourceReader = new StringReader(xamlSource))
+            { 
+                // Not used
+                // var settings = new XmlReaderSettings {IgnoreComments = false};
                 using (XmlReader xmlReader = XmlReader.Create(sourceReader))
                 {
-                    sourceReader = null;
                     xmlReader.Read();
 
                     while (!xmlReader.EOF)
@@ -141,13 +138,6 @@ namespace XamlStyler.Core
 
                         xmlReader.Read();
                     }
-                }
-            }
-            finally
-            {
-                if (null != sourceReader)
-                {
-                    sourceReader.Close();
                 }
             }
 
