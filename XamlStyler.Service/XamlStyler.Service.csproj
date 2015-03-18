@@ -63,6 +63,7 @@
     <Compile Include="Parser\ElementProcessStatus.cs" />
     <Compile Include="Parser\MarkupExtensionParser.cs" />
     <Compile Include="Parser\MarkupExtensionParsingModeEnum.cs" />
+    <Compile Include="StringBuilderExtensions.cs" />
     <Compile Include="StylerService.cs" />
   </ItemGroup>
   <ItemGroup>
