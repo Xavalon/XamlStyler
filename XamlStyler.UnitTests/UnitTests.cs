@@ -137,27 +137,27 @@ namespace XamlStyler.UnitTests
             DoTest(stylerOptions);
         }
 
-        [Test]
-        public void TestReorderSetterByPropertyHandling()
+        [TestCase(1, ReorderSettersBy.Property)]
+        [TestCase(2, ReorderSettersBy.TargetName)]
+        [TestCase(3, ReorderSettersBy.TargetNameThenProperty)]
+        public void TestReorderSetterHandling(int testNumber, ReorderSettersBy reorderSettersBy)
         {
             var stylerOptions = new StylerOptions
             {
-                ReorderSetters = ReorderSettersBy.Property,
+                ReorderSetters = reorderSettersBy,
             };
 
-            DoTest(stylerOptions);
+            DoTest(stylerOptions, testNumber);
         }
 
-        [Test]
-        public void TestReorderSetterByTargetNameHandling()
+        [TestCase(1, true)]
+        [TestCase(2, false)]
+        public void TestClosingElementHandling(int testNumber, bool spaceBeforeClosingSlash)
         {
             var stylerOptions = new StylerOptions
             {
-                ReorderSetters = ReorderSettersBy.TargetName,
+                SpaceBeforeClosingSlash = spaceBeforeClosingSlash
             };
-
-            DoTest(stylerOptions);
-        }
 
             DoTest(stylerOptions, testNumber);
         }

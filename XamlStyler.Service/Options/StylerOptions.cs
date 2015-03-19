@@ -19,6 +19,7 @@ namespace XamlStyler.Core.Options
             PutAttributeOrderRuleGroupsOnSeparateLines = false;
             PutEndingBracketOnNewLine = false;
             RemoveEndingTagOfEmptyElement = true;
+            SpaceBeforeClosingSlash = true;
             RootElementLineBreakRule = LineBreakRule.Default;
             KeepFirstAttributeOnSameLine = true;
 
@@ -222,6 +223,14 @@ namespace XamlStyler.Core.Options
             )]
         [DefaultValue(true)]
         public bool RemoveEndingTagOfEmptyElement { get; set; }
+
+        [Category("New Line")]
+        [DisplayName("Space before closing slash in self closing element")]
+        [Description(
+            "Defines whether to have a space before slash in self closing elements \r\ne.g., when\r\ntrue <br />\r\nfalse <br/>\r\n\r\nDefault Value: true"
+            )]
+        [DefaultValue(true)]
+        public bool SpaceBeforeClosingSlash { get; set; }
 
         [Category("New Line")]
         [DisplayName("Root element line breaks between attributes")]

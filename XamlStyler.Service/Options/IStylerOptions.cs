@@ -183,6 +183,14 @@ namespace XamlStyler.Core.Options
         bool RemoveEndingTagOfEmptyElement { get; set; }
 
         [Category("New Line")]
+        [DisplayName("Space before closing slash in self closing element")]
+        [Description(
+            "Defines whether to have a space before slash in self closing elements \r\ne.g., when\r\ntrue <br />\r\nfalse <br/>\r\n\r\nDefault Value: true"
+            )]
+        [DefaultValue(true)]
+        bool SpaceBeforeClosingSlash { get; set; }
+
+        [Category("New Line")]
         [DisplayName("Root element line breaks between attributes")]
         [Description(
             "Defines if attributes of the document root element are broken into separate lines or not.\r\nDefault = use same rules as other elements"

@@ -556,14 +556,11 @@ namespace XamlStyler.Core
 
             if (isEmptyElement)
             {
-                if (hasPutEndingBracketOnNewLine)
+                if (hasPutEndingBracketOnNewLine == false && Options.SpaceBeforeClosingSlash == true)
                 {
-                    output.Append("/>");
+                    output.Append(' ');
                 }
-                else
-                {
-                    output.Append(" />");
-                }
+                output.Append("/>");
 
                 _elementProcessStatusStack.Peek().IsSelfClosingElement = true;
             }
@@ -585,14 +582,11 @@ namespace XamlStyler.Core
                 output = output.TrimEnd(' ', '\t', '\r', '\n');
 
                 int bracketIndex = output.LastIndexOf('>');
+                output.Insert(bracketIndex, '/');
 
-                if ('\t' != output[bracketIndex - 1] && ' ' != output[bracketIndex - 1])
+                if (output[bracketIndex - 1] != '\t' && output[bracketIndex - 1] != ' ' && Options.SpaceBeforeClosingSlash)
                 {
-                    output.Insert(bracketIndex, " /");
-                }
-                else
-                {
-                    output.Insert(bracketIndex, "/");
+                    output.Insert(bracketIndex, ' ');
                 }
 
                 #endregion shrink element with no content
