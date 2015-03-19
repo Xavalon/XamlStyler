@@ -159,15 +159,7 @@ namespace XamlStyler.UnitTests
             DoTest(stylerOptions);
         }
 
-        [Test]
-        public void TestReorderSetterByTargetNameThenPropertyHandling()
-        {
-            var stylerOptions = new StylerOptions
-            {
-                ReorderSetters = ReorderSettersBy.TargetNameThenProperty,
-            };
-
-            DoTest(stylerOptions);
+            DoTest(stylerOptions, testNumber);
         }
 
         private void DoTest([System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
@@ -179,26 +171,34 @@ namespace XamlStyler.UnitTests
         private void DoTest(StylerOptions stylerOptions, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
             // ReSharper disable once ExplicitCallerInfoArgument
-            DoTest(StylerService.CreateInstance(stylerOptions), callerMemberName);
+            DoTest(StylerService.CreateInstance(stylerOptions), 0, callerMemberName);
+        }
+
+        private void DoTest(StylerOptions stylerOptions, int testNumber, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
+        {
+            // ReSharper disable once ExplicitCallerInfoArgument
+            DoTest(StylerService.CreateInstance(stylerOptions), testNumber, callerMemberName);
         }
 
         /// <summary>
         /// Parse input document and verify output against 
         /// </summary>
         /// <param name="styler"></param>
+        /// <param name="testNumber"></param>
         /// <param name="callerMemberName"></param>
-        private void DoTest(StylerService styler, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
+        private void DoTest(StylerService styler, int testNumber, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
             var testFileBaseName = Path.Combine("TestFiles", callerMemberName);
+            var testFileResultBaseName = testNumber == 0 ? testFileBaseName : testFileBaseName + "_" + testNumber;
 
             // Excercise stylerService using supplied test xaml data
             string actualOutput = styler.ManipulateTreeAndFormatInput(File.ReadAllText(testFileBaseName + ".testxaml"));
 
             // Write output to ".actual" file for further investigation
-            File.WriteAllText(testFileBaseName + ".actual", actualOutput, Encoding.UTF8);
+            File.WriteAllText(testFileResultBaseName + ".actual", actualOutput, Encoding.UTF8);
 
             // Check result
-            Assert.That(actualOutput, Is.EqualTo(File.ReadAllText(testFileBaseName + ".expected")));
+            Assert.That(actualOutput, Is.EqualTo(File.ReadAllText(testFileResultBaseName + ".expected")));
         }
     }
 }
