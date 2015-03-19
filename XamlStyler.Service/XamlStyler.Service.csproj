@@ -45,10 +45,14 @@
     <Compile Include="Helpers\AttributeInfoExtension.cs" />
     <Compile Include="Helpers\MarkupExtensionInfoExtension.cs" />
     <Compile Include="Helpers\StringExtension.cs" />
-    <Compile Include="Model\CanvasNodeContainer.cs" />
-    <Compile Include="Model\GridNodeContainer.cs" />
-    <Compile Include="Model\NodeContainer.cs" />
-    <Compile Include="Model\SetterNodeContainer.cs" />
+    <Compile Include="Reorder\ISortableAttribute.cs" />
+    <Compile Include="Reorder\NameMatch.cs" />
+    <Compile Include="Reorder\NodeCollection.cs" />
+    <Compile Include="Reorder\NodeReorderService.cs" />
+    <Compile Include="Reorder\SortableNumericAttribute.cs" />
+    <Compile Include="Reorder\SortableStringAttribute.cs" />
+    <Compile Include="Reorder\SortAttribute.cs" />
+    <Compile Include="Reorder\Wildcard.cs" />
     <Compile Include="Options\IStylerOptions.cs" />
     <Compile Include="Options\LineBreakRule.cs" />
     <Compile Include="Options\ReorderSettersBy.cs" />
@@ -63,7 +67,7 @@
     <Compile Include="Parser\ElementProcessStatus.cs" />
     <Compile Include="Parser\MarkupExtensionParser.cs" />
     <Compile Include="Parser\MarkupExtensionParsingModeEnum.cs" />
-    <Compile Include="StringBuilderExtensions.cs" />
+    <Compile Include="Helpers\StringBuilderExtensions.cs" />
     <Compile Include="StylerService.cs" />
   </ItemGroup>
   <ItemGroup>

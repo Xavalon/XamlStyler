@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace XamlStyler.Core
+namespace XamlStyler.Core.Helpers
 {
     public static class StringBuilderExtensions
     {
-        public static bool IsEndOfLine(this StringBuilder sb)
+        public static bool IsNewLine(this StringBuilder sb)
         {
             return sb.Length > 0 && sb[sb.Length - 1] == '\n';
         }
