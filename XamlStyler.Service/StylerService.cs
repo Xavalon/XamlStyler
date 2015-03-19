@@ -13,6 +13,7 @@ using XamlStyler.Core.Helpers;
 using XamlStyler.Core.Model;
 using XamlStyler.Core.Options;
 using XamlStyler.Core.Parser;
+using XamlStyler.Core.Reorder;
 
 namespace XamlStyler.Core
 {
@@ -134,9 +135,7 @@ namespace XamlStyler.Core
                 // var settings = new XmlReaderSettings {IgnoreComments = false};
                 using (XmlReader xmlReader = XmlReader.Create(sourceReader))
                 {
-                    xmlReader.Read();
-
-                    while (!xmlReader.EOF)
+                    while (xmlReader.Read())
                     {
                         switch (xmlReader.NodeType)
                         {
@@ -198,8 +197,6 @@ namespace XamlStyler.Core
                                     xmlReader.NodeType, xmlReader.Name, xmlReader.Value));
                                 break;
                         }
-
-                        xmlReader.Read();
                     }
                 }
             }
