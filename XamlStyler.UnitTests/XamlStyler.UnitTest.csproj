@@ -141,22 +141,18 @@
     <None Include="TestFiles\TestNoContentElementHandling.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\TestReorderSetterByPropertyHandling.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\TestReorderSetterByPropertyHandling.testxaml">
+    <None Include="TestFiles\TestReorderSetterHandling.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\TestReorderSetterByTargetNameHandling.expected">
+    <None Include="TestFiles\TestReorderSetterHandling_1.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\TestReorderSetterByTargetNameHandling.testxaml">
+    <None Include="TestFiles\TestReorderSetterHandling_2.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\TestReorderSetterByTargetNameThenPropertyHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestReorderSetterByTargetNameThenPropertyHandling.testxaml">
+    <None Include="TestFiles\TestReorderSetterHandling_3.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestFiles\TestTextOnlyContentElementHandling.expected">
