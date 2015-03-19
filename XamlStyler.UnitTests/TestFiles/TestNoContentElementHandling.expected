@@ -12,6 +12,8 @@
   <HasNoValue a="a"
               b="b"
               c="c" />
+  <HasEmptyCData><![CDATA[]]></HasEmptyCData>
+  <HasCData><![CDATA[Test]]></HasCData>
   <HasWhitespaceValue />
   <HasMultilineWhitespaceValue />
   <EmptyElement />

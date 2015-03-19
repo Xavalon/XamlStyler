@@ -209,6 +209,7 @@ namespace XamlStyler.Core
 
         private void ProcessCDATA(XmlReader xmlReader, StringBuilder output)
         {
+            UpdateParentElementProcessStatus(ContentTypeEnum.SINGLE_LINE_TEXT_ONLY);
             output
                 .Append("<![CDATA[")
                 .Append(xmlReader.Value)
