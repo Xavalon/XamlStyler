@@ -8,13 +8,13 @@
   <Grid>
 
     <Canvas>
-
       <TextBlock Canvas.Left="30"
                  Canvas.Top="0"
                  Text="One" />
 
-      <TextBlock Canvas.Left="100" Text="Two" />
 
+      <TextBlock Canvas.Left="100" Text="Two" />
+      <!--  Comment associated with "Three"  -->
       <TextBlock Canvas.Left="100"
                  Canvas.Top="0"
                  Canvas.Bottom="30"

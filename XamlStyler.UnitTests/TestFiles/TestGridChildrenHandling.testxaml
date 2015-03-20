@@ -14,6 +14,7 @@
         </Grid.ColumnDefinitions>
 
 
+       <!-- This comments is regarding Text="one, one" -->      
         <TextBlock Grid.Row="1"
                    Grid.Column="1"
                    Text="one, one" />
@@ -24,7 +25,8 @@
                    Grid.Column="1"
                    Text="zero, one" />
 
-        <TextBlock Text="zero, zero" />
+      <!-- This comments is regarding Text="zero, zero" -->
+      <TextBlock Text="zero, zero" />
 
     </Grid>
 </Window>
