@@ -647,9 +647,18 @@ namespace XamlStyler.Core
                         // Attributes with markup extension, always put on new line
                         if (attrInfo.IsMarkupExtension && Options.FormatMarkupExtension)
                         {
-                            string baseIndetationString = GetIndentString(xmlReader.Depth - 1) +
-                                                          String.Empty.PadLeft(elementName.Length + 2, ' ');
-                            string pendingAppend = attrInfo.ToMultiLineString(baseIndetationString);
+                            string baseIndentationString;
+                            if (Options.KeepFirstAttributeOnSameLine)
+                            {
+                                baseIndentationString = GetIndentString(xmlReader.Depth - 1) +
+                                                        String.Empty.PadLeft(elementName.Length + 2, ' ');
+                            }
+                            else
+                            {
+                                baseIndentationString = GetIndentString(xmlReader.Depth);
+                            }
+
+                            string pendingAppend = attrInfo.ToMultiLineString(baseIndentationString);
 
                             if (currentLineBuffer.Length > 0)
                             {
