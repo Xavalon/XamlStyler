@@ -1,0 +1,24 @@
+﻿<Root>
+  <SingleLineContent a="a" b="{Binding Test, Converter={StaticResource VisibilityConverter}, ConverterParameter=Inverse}">test here</SingleLineContent>
+  <SingleLineNoContent a="a" b="{Binding Test, Converter={StaticResource VisibilityConverter}, ConverterParameter=Inverse}" />
+  <MultiLineContent
+    a="a"
+    b="{Binding Test, Converter={StaticResource VisibilityConverter}, ConverterParameter=Inverse}">
+    test here
+  </MultiLineContent>
+  <MultiLineNoContent
+    a="a"
+    b="{Binding Test, Converter={StaticResource VisibilityConverter}, ConverterParameter=Inverse}" />
+  <MultiLineProperContent
+    a="a"
+    b="{Binding Test,
+                Converter={StaticResource VisibilityConverter},
+                ConverterParameter=Inverse}">
+    test here
+  </MultiLineProperContent>
+  <MultiLineProperNoContent
+    a="a"
+    b="{Binding Test,
+                Converter={StaticResource VisibilityConverter}, 
+                ConverterParameter=Inverse}" />
+</Root>
