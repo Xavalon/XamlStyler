@@ -117,6 +117,13 @@ namespace XamlStyler.Core.Options
         #endregion Markup Extension
 
         #region New Line
+        [Category("New Line")]
+        [DisplayName("Keep x:Bind statements on same line")]
+        [Description(
+            "Defines whether the attribute(s) of an x:Bind statement will be kept on the same line \r\n\r\nDefault Value: true"
+            )]
+        [DefaultValue(true)]
+        bool KeepxBindOnSameLine { get; set; }
 
         [Category("New Line")]
         [DisplayName("Attribute tolerance")]

@@ -14,7 +14,6 @@
       <ColumnDefinition />
     </Grid.ColumnDefinitions>
 
-
     <TextBlock Text="zero, zero" />
 
     <TextBlock Grid.Row="0"
@@ -33,7 +32,6 @@
         <ColumnDefinition />
       </Grid.ColumnDefinitions>
 
-
       <TextBlock Text="zero, zero" />
 
       <TextBlock Grid.Row="0"
@@ -42,11 +40,13 @@
 
       <TextBlock Grid.Row="1" Text="one, zero" />
 
+
       <TextBlock Grid.Row="1"
                  Grid.Column="1"
                  Text="one, one" />
 
     </Grid>
+
 
     <TextBlock Grid.Row="1"
                Grid.Column="1"

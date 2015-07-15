@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -37,17 +35,17 @@ namespace XamlStyler.Core
         {
             ReorderServices = new List<NodeReorderService>
             {
-                GetReorderGridChildrenService(), 
-                GetReorderCanvasChildrenService(), 
+                GetReorderGridChildrenService(),
+                GetReorderCanvasChildrenService(),
                 GetReorderSettersService()
             };
         }
 
         private NodeReorderService GetReorderGridChildrenService()
         {
-            var reorderService = new NodeReorderService {IsEnabled = Options.ReorderGridChildren};
+            var reorderService = new NodeReorderService { IsEnabled = Options.ReorderGridChildren };
             reorderService.ParentNodeNames.Add(new NameMatch("Grid", null));
-            reorderService.ChildNodeNames.Add(new NameMatch(null,null));
+            reorderService.ChildNodeNames.Add(new NameMatch(null, null));
             reorderService.SortByAttributes.Add(new SortAttribute("Grid.Row", null, true, x => x.Name.LocalName.Contains(".") ? "-2" : "-1"));
             reorderService.SortByAttributes.Add(new SortAttribute("Grid.Column", null, true, x => "-1"));
             return reorderService;
@@ -55,9 +53,9 @@ namespace XamlStyler.Core
 
         private NodeReorderService GetReorderCanvasChildrenService()
         {
-            var reorderService = new NodeReorderService {IsEnabled = Options.ReorderCanvasChildren};
+            var reorderService = new NodeReorderService { IsEnabled = Options.ReorderCanvasChildren };
             reorderService.ParentNodeNames.Add(new NameMatch("Canvas", null));
-            reorderService.ChildNodeNames.Add(new NameMatch(null,null));
+            reorderService.ChildNodeNames.Add(new NameMatch(null, null));
             reorderService.SortByAttributes.Add(new SortAttribute("Canvas.Left", null, true, x => "-1"));
             reorderService.SortByAttributes.Add(new SortAttribute("Canvas.Top", null, true, x => "-1"));
             reorderService.SortByAttributes.Add(new SortAttribute("Canvas.Right", null, true, x => "-1"));
@@ -75,7 +73,7 @@ namespace XamlStyler.Core
             reorderService.ParentNodeNames.Add(new NameMatch("Trigger", null));
             reorderService.ChildNodeNames.Add(new NameMatch("Setter", "http://schemas.microsoft.com/winfx/2006/xaml/presentation"));
 
-            switch (this.Options.ReorderSetters)
+            switch (Options.ReorderSetters)
             {
                 case ReorderSettersBy.None:
                     reorderService.IsEnabled = false;
@@ -98,7 +96,7 @@ namespace XamlStyler.Core
 
         public static StylerService CreateInstance(IStylerOptions options)
         {
-            var stylerServiceInstance = new StylerService {Options = options};
+            var stylerServiceInstance = new StylerService { Options = options };
 
             if (!String.IsNullOrEmpty(stylerServiceInstance.Options.NoNewLineElements))
             {
@@ -193,8 +191,8 @@ namespace XamlStyler.Core
                             //case XmlNodeType.CDATA:
                             //    break;
                             default:
-                                Trace.WriteLine(String.Format("Unprocessed NodeType: {0} Name: {1} Value: {2}",
-                                    xmlReader.NodeType, xmlReader.Name, xmlReader.Value));
+                                Trace.WriteLine(
+                                    $"Unprocessed NodeType: {xmlReader.NodeType} Name: {xmlReader.Name} Value: {xmlReader.Value}");
                                 break;
                         }
                     }
@@ -231,12 +229,10 @@ namespace XamlStyler.Core
 
         private string ManipulateTree(XDocument xDoc)
         {
-            var xmlDeclaration = xDoc.Declaration != null
-                ? xDoc.Declaration.ToString()
-                : string.Empty;
+            var xmlDeclaration = xDoc.Declaration?.ToString() ?? string.Empty;
             var rootElement = xDoc.Root;
 
-            if (rootElement.HasElements)
+            if (rootElement != null && rootElement.HasElements)
             {
                 // run through the elements and, one by one, handle them
 
@@ -256,7 +252,7 @@ namespace XamlStyler.Core
                 case XmlNodeType.Element:
                     XElement element = node as XElement;
 
-                    if (element.Nodes().Any())
+                    if (element != null && element.Nodes().Any())
                     {
                         // handle children first
                         foreach (var childNode in element.Nodes())
@@ -265,7 +261,7 @@ namespace XamlStyler.Core
                         }
                     }
 
-                    if (element.HasElements)
+                    if (element != null && element.HasElements)
                     {
                         foreach (var reorderService in ReorderServices)
                         {
@@ -273,10 +269,7 @@ namespace XamlStyler.Core
                         }
                     }
                     break;
-                default:
-                    break;
             }
-
         }
 
 
@@ -291,10 +284,10 @@ namespace XamlStyler.Core
 
             if (Options.IndentWithTabs)
             {
-                return new String('\t', depth);
+                return new string('\t', depth);
             }
 
-            return new String(' ', depth*Options.IndentSize);
+            return new string(' ', depth * Options.IndentSize);
         }
 
         private bool IsNoLineBreakElement(string elementName)
@@ -471,7 +464,18 @@ namespace XamlStyler.Core
                         {
                             string baseIndetationString = GetIndentString(xmlReader.Depth - 1) +
                                                           String.Empty.PadLeft(elementName.Length + 2, ' ');
-                            string pendingAppend = attrInfo.ToMultiLineString(baseIndetationString);
+                            string pendingAppend;
+
+                            //currently, the x:Bind statement cannot contain attributes over multiple lines
+                            //this is set as an option with default = true should this change in the future
+                            if (attrInfo.Value.ToLower().Contains("x:bind ") && Options.KeepxBindOnSameLine)
+                            {
+                                pendingAppend = " " + attrInfo.ToSingleLineString();
+                            }
+                            else
+                            {
+                                pendingAppend = attrInfo.ToMultiLineString(baseIndetationString);
+                            }
 
                             if (currentLineBuffer.Length > 0)
                             {
@@ -553,7 +557,7 @@ namespace XamlStyler.Core
 
             if (isEmptyElement)
             {
-                if (hasPutEndingBracketOnNewLine == false && Options.SpaceBeforeClosingSlash == true)
+                if (hasPutEndingBracketOnNewLine == false && Options.SpaceBeforeClosingSlash)
                 {
                     output.Append(' ');
                 }

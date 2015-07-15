@@ -12,15 +12,15 @@ namespace XamlStyler.Core.Reorder
         /// <summary>
         /// Name of parents to reorder children for
         /// </summary>
-        public List<NameMatch> ParentNodeNames { get; private set; }
+        public List<NameMatch> ParentNodeNames { get; }
         /// <summary>
         /// Name of children to reorder
         /// </summary>
-        public List<NameMatch> ChildNodeNames { get; private set; }
+        public List<NameMatch> ChildNodeNames { get; }
         /// <summary>
         /// Description on how to sort children
         /// </summary>
-        public List<SortAttribute> SortByAttributes { get; private set; }
+        public List<SortAttribute> SortByAttributes { get; }
 
         public NodeReorderService()
         {
@@ -32,7 +32,7 @@ namespace XamlStyler.Core.Reorder
 
         public void HandleElement(XElement element)
         {
-            if (!this.IsEnabled) return;
+            if (!IsEnabled) return;
             if (!element.HasElements) return;
 
             if (ParentNodeNames.Any(match => match.IsMatch(element.Name)))

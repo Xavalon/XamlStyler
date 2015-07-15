@@ -22,6 +22,7 @@ namespace XamlStyler.Core.Options
             SpaceBeforeClosingSlash = true;
             RootElementLineBreakRule = LineBreakRule.Default;
             KeepFirstAttributeOnSameLine = true;
+            KeepxBindOnSameLine = true;
 
             //Markup Extension
             FormatMarkupExtension = true;
@@ -160,6 +161,14 @@ namespace XamlStyler.Core.Options
 
 
         // New Line
+        [Category("New Line")]
+        [DisplayName("Keep x:Bind statements on same line")]
+        [Description(
+            "Defines whether the attribute(s) of an x:Bind statement will be kept on the same line \r\n\r\nDefault Value: true"
+            )]
+        [DefaultValue(true)]
+        public bool KeepxBindOnSameLine { get; set; }
+
         [Category("New Line")]
         [DisplayName("Attribute tolerance")]
         [Description(
