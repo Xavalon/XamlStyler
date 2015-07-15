@@ -1,4 +1,11 @@
-﻿1.5 (Thanks Philip - again! :) )
+﻿1.6 
+----
+Added 2 options to keep Binding and x:Bind statements on the same line
+Added option to remove space before closing tag (thanks Philip)
+XAML comments are being kept with their element (thanks Philip)
+Fix KeepFirstAttributeOnSameLine (thanks RandomEngy)
+
+1.5 (Thanks Philip - again! :) )
 --------------------------------
 Reordering for Setters
 Group attributes by rule group
