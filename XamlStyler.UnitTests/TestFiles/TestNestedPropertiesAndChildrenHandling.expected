@@ -91,6 +91,7 @@
         </VisualState>
       </VisualStateGroup>
     </VisualStateManager.VisualStateGroups>
+
     <!--  Back button and page title  -->
     <Grid x:Name="titlePanel">
       <Grid.ColumnDefinitions>
@@ -115,7 +116,6 @@
                  Text="{Binding Title}"
                  TextWrapping="NoWrap" />
     </Grid>
-
     <ScrollViewer x:Name="itemDetail"
                   Grid.RowSpan="2"
                   Grid.Column="1"

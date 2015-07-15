@@ -93,6 +93,12 @@
     <None Include="TestFiles\TestCanvasChildrenHandling.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestFiles\TestClosingElementHandling_2.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestClosingElementHandling_1.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\TestCommentHandling.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -141,28 +147,31 @@
     <None Include="TestFiles\TestNoContentElementHandling.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\TestReorderSetterByPropertyHandling.expected">
+    <None Include="TestFiles\TestClosingElementHandling.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\TestReorderSetterByPropertyHandling.testxaml">
+    <None Include="TestFiles\TestReorderSetterHandling.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\TestReorderSetterByTargetNameHandling.expected">
+    <None Include="TestFiles\TestReorderSetterHandling_1.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\TestReorderSetterByTargetNameHandling.testxaml">
+    <None Include="TestFiles\TestReorderSetterHandling_2.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\TestReorderSetterByTargetNameThenPropertyHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestReorderSetterByTargetNameThenPropertyHandling.testxaml">
+    <None Include="TestFiles\TestReorderSetterHandling_3.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestFiles\TestTextOnlyContentElementHandling.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestFiles\TestTextOnlyContentElementHandling.testxaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestxBindSplitting.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestxBindSplitting.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

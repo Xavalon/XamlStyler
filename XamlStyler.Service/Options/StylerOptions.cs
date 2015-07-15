@@ -19,8 +19,10 @@ namespace XamlStyler.Core.Options
             PutAttributeOrderRuleGroupsOnSeparateLines = false;
             PutEndingBracketOnNewLine = false;
             RemoveEndingTagOfEmptyElement = true;
+            SpaceBeforeClosingSlash = true;
             RootElementLineBreakRule = LineBreakRule.Default;
             KeepFirstAttributeOnSameLine = true;
+            KeepxBindOnSameLine = true;
 
             //Markup Extension
             FormatMarkupExtension = true;
@@ -160,6 +162,14 @@ namespace XamlStyler.Core.Options
 
         // New Line
         [Category("New Line")]
+        [DisplayName("Keep x:Bind statements on same line")]
+        [Description(
+            "Defines whether the attribute(s) of an x:Bind statement will be kept on the same line \r\n\r\nDefault Value: true"
+            )]
+        [DefaultValue(true)]
+        public bool KeepxBindOnSameLine { get; set; }
+
+        [Category("New Line")]
         [DisplayName("Attribute tolerance")]
         [Description(
             "Defines the attribute number tolerance before XamlStyler starts to break attributes into new lines. A value less than 1 meaning no tolerance.\r\ne.g., when this setting is 2\r\n\r\nBEFORE BEAUTIFY:\r\n<TextBlock x:Name=\"m_sample\"\r\n    Text=\"asdf\" />\r\n\r\nAFTER BEAUTIFY:\r\n<TextBlock x:Name=\"m_sample\" Text=\"asdf\" />\r\nDefault Value: 2"
@@ -222,6 +232,14 @@ namespace XamlStyler.Core.Options
             )]
         [DefaultValue(true)]
         public bool RemoveEndingTagOfEmptyElement { get; set; }
+
+        [Category("New Line")]
+        [DisplayName("Space before closing slash in self closing element")]
+        [Description(
+            "Defines whether to have a space before slash in self closing elements \r\ne.g., when\r\ntrue <br />\r\nfalse <br/>\r\n\r\nDefault Value: true"
+            )]
+        [DefaultValue(true)]
+        public bool SpaceBeforeClosingSlash { get; set; }
 
         [Category("New Line")]
         [DisplayName("Root element line breaks between attributes")]

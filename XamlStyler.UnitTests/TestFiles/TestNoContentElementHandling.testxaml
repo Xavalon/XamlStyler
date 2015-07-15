@@ -6,6 +6,8 @@
 <HasMixedValue>asdf<child/><!-- comments --></HasMixedValue>
 <HasNoValue></HasNoValue>
 <HasNoValue a="a" b="b" c="c"></HasNoValue>
+<HasEmptyCData><![CDATA[]]></HasEmptyCData>
+<HasCData><![CDATA[Test]]></HasCData>
 <HasWhitespaceValue>  </HasWhitespaceValue>
 <HasMultilineWhitespaceValue>
   

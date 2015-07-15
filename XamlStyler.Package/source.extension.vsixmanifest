@@ -13,7 +13,7 @@ This is a continuation of the original XAML styler found at http://xamlstyler.co
     <GettingStartedGuide>https://github.com/NicoVermeir/XamlStyler/</GettingStartedGuide>
     <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
     <Icon>Resources\Package.ico</Icon>
-    <Tags>XAML, add-in, WPF, Visual Studio, Extension, formatter, Silverlight, WP8, WinRT, Xamarin</Tags>
+    <Tags>XAML, add-in, WPF, Visual Studio, Extension, formatter, Silverlight, WP8, WinRT, Xamarin, UWP, Win10</Tags>
   </Metadata>
   <Installation InstalledByMsi="false">
     <InstallationTarget Version="[12.0,13.0)" Id="Microsoft.VisualStudio.Pro" />

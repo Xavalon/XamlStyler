@@ -117,6 +117,13 @@ namespace XamlStyler.Core.Options
         #endregion Markup Extension
 
         #region New Line
+        [Category("New Line")]
+        [DisplayName("Keep x:Bind statements on same line")]
+        [Description(
+            "Defines whether the attribute(s) of an x:Bind statement will be kept on the same line \r\n\r\nDefault Value: true"
+            )]
+        [DefaultValue(true)]
+        bool KeepxBindOnSameLine { get; set; }
 
         [Category("New Line")]
         [DisplayName("Attribute tolerance")]
@@ -181,6 +188,14 @@ namespace XamlStyler.Core.Options
             )]
         [DefaultValue(true)]
         bool RemoveEndingTagOfEmptyElement { get; set; }
+
+        [Category("New Line")]
+        [DisplayName("Space before closing slash in self closing element")]
+        [Description(
+            "Defines whether to have a space before slash in self closing elements \r\ne.g., when\r\ntrue <br />\r\nfalse <br/>\r\n\r\nDefault Value: true"
+            )]
+        [DefaultValue(true)]
+        bool SpaceBeforeClosingSlash { get; set; }
 
         [Category("New Line")]
         [DisplayName("Root element line breaks between attributes")]

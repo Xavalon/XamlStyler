@@ -1,10 +1,14 @@
 ﻿<Root>
 
-  <!--  START: Test for TEXT-ONLY-CONTENT ELEMENT hanlding  -->
+  <!--  START: Test for closing element handling  -->
   <EmptyNode />
+  <EmptyNode2 />
   <SingleSpace />
+  <SingleSpace2 />
   <SingleTab />
+  <SingleTab2 />
   <SingleAmp>&amp;</SingleAmp>
+  <SingleLine>test here</SingleLine>
   <SingleLine>test here</SingleLine>
   <SingleLine a="a" b="b">test here</SingleLine>
   <SingleLineWithLinefeed a="a"
@@ -12,6 +16,9 @@
                           c="c">
     line
   </SingleLineWithLinefeed>
+  <SingleLineWithComment>
+    <!--  Comment  -->
+  </SingleLineWithComment>
   <MultipleSpaces />
   <MultipleTabs />
   <MultiLine>
@@ -24,6 +31,6 @@
     <Child />
     third line
   </MultiLineMixed>
-  <!--  END: Test for TEXT-ONLY-CONTENT ELEMENT hanlding  -->
+  <!--  END: Test for closing element handling  -->
 
 </Root>

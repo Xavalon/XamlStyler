@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,6 +11,7 @@ using XamlStyler.Core.Helpers;
 using XamlStyler.Core.Model;
 using XamlStyler.Core.Options;
 using XamlStyler.Core.Parser;
+using XamlStyler.Core.Reorder;
 
 namespace XamlStyler.Core
 {
@@ -25,10 +24,74 @@ namespace XamlStyler.Core
         private IStylerOptions Options { get; set; }
         private IList<string> NoNewLineElementsList { get; set; }
         private AttributeOrderRules OrderRules { get; set; }
+        private List<NodeReorderService> ReorderServices { get; set; }
 
         private StylerService()
         {
             _elementProcessStatusStack = new Stack<ElementProcessStatus>();
+        }
+
+        private void Initialize()
+        {
+            ReorderServices = new List<NodeReorderService>
+            {
+                GetReorderGridChildrenService(),
+                GetReorderCanvasChildrenService(),
+                GetReorderSettersService()
+            };
+        }
+
+        private NodeReorderService GetReorderGridChildrenService()
+        {
+            var reorderService = new NodeReorderService { IsEnabled = Options.ReorderGridChildren };
+            reorderService.ParentNodeNames.Add(new NameMatch("Grid", null));
+            reorderService.ChildNodeNames.Add(new NameMatch(null, null));
+            reorderService.SortByAttributes.Add(new SortAttribute("Grid.Row", null, true, x => x.Name.LocalName.Contains(".") ? "-2" : "-1"));
+            reorderService.SortByAttributes.Add(new SortAttribute("Grid.Column", null, true, x => "-1"));
+            return reorderService;
+        }
+
+        private NodeReorderService GetReorderCanvasChildrenService()
+        {
+            var reorderService = new NodeReorderService { IsEnabled = Options.ReorderCanvasChildren };
+            reorderService.ParentNodeNames.Add(new NameMatch("Canvas", null));
+            reorderService.ChildNodeNames.Add(new NameMatch(null, null));
+            reorderService.SortByAttributes.Add(new SortAttribute("Canvas.Left", null, true, x => "-1"));
+            reorderService.SortByAttributes.Add(new SortAttribute("Canvas.Top", null, true, x => "-1"));
+            reorderService.SortByAttributes.Add(new SortAttribute("Canvas.Right", null, true, x => "-1"));
+            reorderService.SortByAttributes.Add(new SortAttribute("Canvas.Bottom", null, true, x => "-1"));
+            return reorderService;
+        }
+
+        private NodeReorderService GetReorderSettersService()
+        {
+            var reorderService = new NodeReorderService();
+            reorderService.ParentNodeNames.Add(new NameMatch("DataTrigger", null));
+            reorderService.ParentNodeNames.Add(new NameMatch("MultiDataTrigger", null));
+            reorderService.ParentNodeNames.Add(new NameMatch("MultiTrigger", null));
+            reorderService.ParentNodeNames.Add(new NameMatch("Style", null));
+            reorderService.ParentNodeNames.Add(new NameMatch("Trigger", null));
+            reorderService.ChildNodeNames.Add(new NameMatch("Setter", "http://schemas.microsoft.com/winfx/2006/xaml/presentation"));
+
+            switch (Options.ReorderSetters)
+            {
+                case ReorderSettersBy.None:
+                    reorderService.IsEnabled = false;
+                    break;
+                case ReorderSettersBy.Property:
+                    reorderService.SortByAttributes.Add(new SortAttribute("Property", null, false));
+                    break;
+                case ReorderSettersBy.TargetName:
+                    reorderService.SortByAttributes.Add(new SortAttribute("TargetName", null, false));
+                    break;
+                case ReorderSettersBy.TargetNameThenProperty:
+                    reorderService.SortByAttributes.Add(new SortAttribute("TargetName", null, false));
+                    reorderService.SortByAttributes.Add(new SortAttribute("Property", null, false));
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            return reorderService;
         }
 
         public static StylerService CreateInstance(IStylerOptions options)
@@ -62,21 +125,15 @@ namespace XamlStyler.Core
 
         private string Format(string xamlSource)
         {
-            string output = String.Empty;
-            StringReader sourceReader = null;
+            StringBuilder output = new StringBuilder();
 
-            try
+            using (var sourceReader = new StringReader(xamlSource))
             {
-                sourceReader = new StringReader(xamlSource);
-                var settings = new XmlReaderSettings();
-                settings.IgnoreComments = false;
-
+                // Not used
+                // var settings = new XmlReaderSettings {IgnoreComments = false};
                 using (XmlReader xmlReader = XmlReader.Create(sourceReader))
                 {
-                    sourceReader = null;
-                    xmlReader.Read();
-
-                    while (!xmlReader.EOF)
+                    while (xmlReader.Read())
                     {
                         switch (xmlReader.NodeType)
                         {
@@ -93,7 +150,7 @@ namespace XamlStyler.Core
                                     }
                                     );
 
-                                ProcessElement(xmlReader, ref output);
+                                ProcessElement(xmlReader, output);
 
                                 if (_elementProcessStatusStack.Peek().IsSelfClosingElement)
                                 {
@@ -104,61 +161,55 @@ namespace XamlStyler.Core
 
                             case XmlNodeType.Text:
                                 UpdateParentElementProcessStatus(ContentTypeEnum.SINGLE_LINE_TEXT_ONLY);
-                                ProcessTextNode(xmlReader, ref output);
+                                ProcessTextNode(xmlReader, output);
                                 break;
 
                             case XmlNodeType.ProcessingInstruction:
                                 UpdateParentElementProcessStatus(ContentTypeEnum.MIXED);
-                                ProcessInstruction(xmlReader, ref output);
+                                ProcessInstruction(xmlReader, output);
                                 break;
 
                             case XmlNodeType.Comment:
                                 UpdateParentElementProcessStatus(ContentTypeEnum.MIXED);
-                                ProcessComment(xmlReader, ref output);
+                                ProcessComment(xmlReader, output);
                                 break;
                             case XmlNodeType.CDATA:
-                                ProcessCDATA(xmlReader, ref output);
+                                ProcessCDATA(xmlReader, output);
                                 break;
                             case XmlNodeType.Whitespace:
-                                ProcessWhitespace(xmlReader, ref output);
+                                ProcessWhitespace(xmlReader, output);
                                 break;
 
                             case XmlNodeType.EndElement:
-                                ProcessEndElement(xmlReader, ref output);
+                                ProcessEndElement(xmlReader, output);
                                 _elementProcessStatusStack.Pop();
                                 break;
                             case XmlNodeType.XmlDeclaration:
                                 //ignoring xml declarations for Xamarin support
-                                ProcessXMLRoot(xmlReader, ref output);
+                                ProcessXMLRoot(xmlReader, output);
                                 break;
                             //case XmlNodeType.CDATA:
                             //    break;
                             default:
-                                Trace.WriteLine(String.Format("Unprocessed NodeType: {0} Name: {1} Value: {2}",
-                                                              xmlReader.NodeType, xmlReader.Name, xmlReader.Value));
+                                Trace.WriteLine(
+                                    $"Unprocessed NodeType: {xmlReader.NodeType} Name: {xmlReader.Name} Value: {xmlReader.Value}");
                                 break;
                         }
-
-                        xmlReader.Read();
                     }
                 }
             }
-            finally
-            {
-                if (null != sourceReader)
-                {
-                    sourceReader.Close();
-                }
-            }
 
-            return output;
+            return output.ToString();
         }
 
-        private void ProcessCDATA(XmlReader xmlReader, ref string output)
+        private void ProcessCDATA(XmlReader xmlReader, StringBuilder output)
         {
-            output += string.Format("<![CDATA[{0}]]>", xmlReader.Value);
+            UpdateParentElementProcessStatus(ContentTypeEnum.SINGLE_LINE_TEXT_ONLY);
+            output
+                .Append("<![CDATA[")
+                .Append(xmlReader.Value)
+                .Append("]]>");
         }
-
 
         /// <summary>
         /// Execute styling from string input
@@ -167,6 +218,8 @@ namespace XamlStyler.Core
         /// <returns></returns>
         public string ManipulateTreeAndFormatInput(string xamlSource)
         {
+            Initialize();
+
             // parse XDocument
             var xDoc = XDocument.Parse(EscapeDocument(xamlSource), LoadOptions.PreserveWhitespace);
 
@@ -176,13 +229,10 @@ namespace XamlStyler.Core
 
         private string ManipulateTree(XDocument xDoc)
         {
+            var xmlDeclaration = xDoc.Declaration?.ToString() ?? string.Empty;
             var rootElement = xDoc.Root;
-            string xmlDeclaration = string.Empty;
 
-            if (xDoc.Declaration != null)
-                xmlDeclaration = xDoc.Declaration.ToString();
-
-            if (rootElement.HasElements)
+            if (rootElement != null && rootElement.HasElements)
             {
                 // run through the elements and, one by one, handle them
 
@@ -194,15 +244,15 @@ namespace XamlStyler.Core
 
             return xmlDeclaration + xDoc;
         }
+
         private void HandleNode(XNode node)
         {
-
             switch (node.NodeType)
             {
                 case XmlNodeType.Element:
                     XElement element = node as XElement;
 
-                    if (element.Nodes().Any())
+                    if (element != null && element.Nodes().Any())
                     {
                         // handle children first
                         foreach (var childNode in element.Nodes())
@@ -211,287 +261,18 @@ namespace XamlStyler.Core
                         }
                     }
 
-                    // is this a Grid or Canvas with child elements?
-                    //
-                    // Note: we look at elements, not just nodes - if there's only non-element nodes,
-                    // we don't need to reorder.  We should also take into account a user can decide not to allow
-                    // reordering
-
-                    if (Options.ReorderGridChildren && element.Name.LocalName == "Grid" && element.HasElements)
+                    if (element != null && element.HasElements)
                     {
-                        // process the grid
-                        ProcessGrid(element);
+                        foreach (var reorderService in ReorderServices)
+                        {
+                            reorderService.HandleElement(element);
+                        }
                     }
-                    else if (Options.ReorderCanvasChildren && element.Name.LocalName == "Canvas" && element.HasElements)
-                    {
-                        // process the canvas
-                        ProcessCanvas(element);
-                    }
-                    else if (Options.ReorderSetters != ReorderSettersBy.None && ElementsWithSetters.Contains(element.Name.LocalName) && element.HasElements)
-                    {
-                        // process the setters
-                        ProcessSetters(element);
-                    }
-
-
-                    break;
-                default:
                     break;
             }
-
-        }
-
-        private string[] ElementsWithSetters = new[]
-        {
-            "DataTrigger",
-            "MultiDataTrigger",
-            "MultiTrigger",
-            "Style",
-            "Trigger",
-        };
-
-        /// <summary>
-        /// Order child setters by property/targetname
-        /// 
-        /// Notes on index vars used:
-        /// 
-        ///
-
-        /// </summary>
-        /// <param name="element"></param>
-        private void ProcessSetters(XElement element)
-        {
-            // A string that hopefully always are sorted at the en
-            List<SetterNodeCollection> nodeCollections = new List<SetterNodeCollection>();
-
-            var children = element.Nodes();
-
-            // This is increased each time Define sortable parameters
-            int settersBlockIndex = 1;
-            bool inSettersBlock = false;
-            SetterNodeCollection currentNodeCollection = null;
-                    
-            // Run through children
-            foreach (var child in children)
-            {
-                if (currentNodeCollection == null)
-                {
-                    currentNodeCollection = new SetterNodeCollection();
-                    nodeCollections.Add(currentNodeCollection);
-                }
-
-                if (child.NodeType == XmlNodeType.Element)
-                {
-                    XElement childElement = (XElement)child;
-
-                    var isSetter = childElement.Name.LocalName == "Setter" && childElement.Name.NamespaceName == "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
-
-                    if (isSetter != inSettersBlock)
-                    {
-                        settersBlockIndex++;
-                        inSettersBlock = isSetter;
-                    }
-
-                    if (isSetter)
-                    {
-                        currentNodeCollection.Property = (string)childElement.Attribute("Property");
-                        currentNodeCollection.TargetName = (string)childElement.Attribute("TargetName");
-                    }
-
-                    currentNodeCollection.BlockIndex = settersBlockIndex;
-                }
-
-                currentNodeCollection.Nodes.Add(child);
-
-                if (child.NodeType == XmlNodeType.Element)
-                    currentNodeCollection = null;
-            }
-
-            if (currentNodeCollection != null)
-                currentNodeCollection.BlockIndex = settersBlockIndex + 1;
-
-            // sort that list.
-            switch (Options.ReorderSetters)
-            {
-                case ReorderSettersBy.None:
-                    break;
-                case ReorderSettersBy.Property:
-                    nodeCollections = nodeCollections.OrderBy(x => x.BlockIndex).ThenBy(x=>x.Property).ToList();
-                    break;
-                case ReorderSettersBy.TargetName:
-                    nodeCollections = nodeCollections.OrderBy(x => x.BlockIndex).ThenBy(x => x.TargetName).ToList();
-                    break;
-                case ReorderSettersBy.TargetNameThenProperty:
-                    nodeCollections = nodeCollections.OrderBy(x => x.BlockIndex).ThenBy(x => x.TargetName).ThenBy(x => x.Property).ToList();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            // replace the element's nodes
-            element.ReplaceNodes(nodeCollections.SelectMany(nc => nc.Nodes));
-        }
-
-        private void ProcessCanvas(XElement element)
-        {
-            List<CanvasNodeContainer> lstNodeContainers = new List<CanvasNodeContainer>();
-
-            var children = element.Nodes();
-
-            // Run through child elements & read the attributes
-
-            foreach (var child in children)
-            {
-                switch (child.NodeType)
-                {
-
-                    case XmlNodeType.Element:
-
-                        // it's an element.  Search for attached Canvas properties
-                        var leftAttr = ((XElement)child).Attributes("Canvas.Left");
-                        var topAttr = ((XElement)child).Attributes("Canvas.Top");
-                        var rightAttr = ((XElement)child).Attributes("Canvas.Right");
-                        var bottomAttr = ((XElement)child).Attributes("Canvas.Bottom");
-
-                        int left = -1;
-                        int right = -1;
-                        int top = -1;
-                        int bottom = -1;
-
-                        if (leftAttr != null && leftAttr.Any() && !int.TryParse(leftAttr.First().Value, out left))
-                        {
-                            left = -1;
-                        }
-
-                        if (rightAttr != null && rightAttr.Any() && !int.TryParse(rightAttr.First().Value, out right))
-                        {
-                            right = -1;
-                        }
-
-                        if (bottomAttr != null && bottomAttr.Any() && !int.TryParse(bottomAttr.First().Value, out bottom))
-                        {
-                            bottom = -1;
-                        }
-
-                        if (topAttr != null && topAttr.Any() && !int.TryParse(topAttr.First().Value, out top))
-                        {
-                            top = -1;
-                        }
-
-                        // no attribute?  0,0
-                        lstNodeContainers.Add(new CanvasNodeContainer(child, left, top, right, bottom));
-
-                        break;
-                    default:
-                        // it's not an element - add it, passing in the previous attached property value - this ensures
-                        // comments, whitespace, ... are kept in the correct place
-
-                        var prev = lstNodeContainers.LastOrDefault();
-                        if (prev != null)
-                        {
-                            lstNodeContainers.Add(new CanvasNodeContainer(child, prev.Left, prev.Top, prev.Right, prev.Bottom));
-                        }
-                        else
-                        {
-                            // add with minvalue - this must be the first item at all times.
-                            // cfr: https://github.com/NicoVermeir/XamlStyler/issues/9
-                            lstNodeContainers.Add(new CanvasNodeContainer(child, double.MinValue, double.MinValue, double.MinValue, double.MinValue));
-                        }
-
-
-                        break;
-                }
-            }
-
-            // sort that list.
-            lstNodeContainers = lstNodeContainers.OrderBy(nc => nc.LeftNumeric).ThenBy(nc => nc.TopNumeric)
-                .ThenBy(nc => nc.RightNumeric).ThenBy(nc => nc.BottomNumeric).ToList();
-
-            // replace the element's nodes
-            element.ReplaceNodes(lstNodeContainers.Select(nc => nc.Node));
         }
 
 
-
-
-        private void ProcessGrid(XElement element)
-        {
-            List<GridNodeContainer> lstNodeContainers = new List<GridNodeContainer>();
-            int commentIndex = int.MaxValue;
-
-            var children = element.Nodes();
-
-            // Run through child elements & read the attributes
-
-            foreach (var child in children)
-            {
-                switch (child.NodeType)
-                {
-
-                    case XmlNodeType.Element:
-
-                        // it's an element.  Search for Grid.Row attribute / Grid.Column attribute
-                        var childElement = (XElement)child;
-
-                        var rowAttr = childElement.Attributes("Grid.Row");
-                        var columnAttr = childElement.Attributes("Grid.Column");
-
-                        int row;
-                        int column;
-
-                        if (rowAttr == null || !rowAttr.Any() || !int.TryParse(rowAttr.First().Value, out row))
-                        {
-                            row = childElement.Name.LocalName.Contains(".") ? -2 : -1;
-                        }
-
-                        if (columnAttr == null || !columnAttr.Any() || !int.TryParse(columnAttr.First().Value, out column))
-                        {
-                            column = -1;
-                        }
-
-                        while (commentIndex < lstNodeContainers.Count)
-                        {
-                            lstNodeContainers[commentIndex].Row = row;
-
-                            commentIndex++;
-                        }
-                        commentIndex = int.MaxValue;
-
-                        // no attribute?  0,0
-                        lstNodeContainers.Add(new GridNodeContainer(child, row, column));
-
-                        break;
-
-                    default:
-                        // it's not an element - add it, passing in the previous row/column value - this ensures
-                        // comments, whitespace, ... are kept in the correct place
-
-                        var prev = lstNodeContainers.LastOrDefault();
-                        if (prev != null)
-                        {
-                            lstNodeContainers.Add(new GridNodeContainer(child, prev.Row, prev.Column));
-                        }
-                        else
-                        {
-                            lstNodeContainers.Add(new GridNodeContainer(child, int.MinValue, int.MinValue));
-                        }
-
-                        if (child.NodeType == XmlNodeType.Comment && commentIndex == int.MaxValue)
-                        {
-                            commentIndex = lstNodeContainers.Count - 1;
-                        }
-
-                        break;
-                }
-            }
-
-            // sort that list.
-            lstNodeContainers = lstNodeContainers.OrderBy(nc => nc.Row).ThenBy(nc => nc.Column).ToList();
-
-            // replace the element's nodes
-            element.ReplaceNodes(lstNodeContainers.Select(nc => nc.Node));
-
-        }
 
 
         private string GetIndentString(int depth)
@@ -503,10 +284,10 @@ namespace XamlStyler.Core
 
             if (Options.IndentWithTabs)
             {
-                return new String('\t', depth);
+                return new string('\t', depth);
             }
 
-            return new String(' ', depth * Options.IndentSize);
+            return new string(' ', depth * Options.IndentSize);
         }
 
         private bool IsNoLineBreakElement(string elementName)
@@ -514,77 +295,106 @@ namespace XamlStyler.Core
             return NoNewLineElementsList.Contains<string>(elementName);
         }
 
-        private void ProcessXMLRoot(XmlReader xmlReader, ref string output)
+        private void ProcessXMLRoot(XmlReader xmlReader, StringBuilder output)
         {
-            output += "<?xml " + xmlReader.Value.Trim() + " ?>";
+            output.Append("<?xml ");
+            output.Append(xmlReader.Value.Trim());
+            output.Append(" ?>");
         }
 
-        private void ProcessComment(XmlReader xmlReader, ref string output)
+        private void ProcessComment(XmlReader xmlReader, StringBuilder output)
         {
             string currentIndentString = GetIndentString(xmlReader.Depth);
             string content = xmlReader.Value;
 
-            if (!output.EndsWith("\n"))
+            if (!output.IsNewLine())
             {
-                output += Environment.NewLine;
+                output.Append(Environment.NewLine);
             }
 
             if (content.Contains("<") && content.Contains(">"))
             {
-                output += currentIndentString + "<!--";
+                output.Append(currentIndentString);
+                output.Append("<!--");
                 if (content.Contains("\n"))
                 {
-                    output += string.Join(Environment.NewLine, content.GetLines().Select(x=>x.TrimEnd(' ')));
+                    output.Append(string.Join(Environment.NewLine, content.GetLines().Select(x => x.TrimEnd(' '))));
                     if (content.TrimEnd(' ').EndsWith("\n"))
                     {
-                        output += currentIndentString;
+                        output.Append(currentIndentString);
                     }
                 }
                 else
-                    output += content;
+                    output.Append(content);
 
-                output += "-->";
+                output.Append("-->");
             }
             else if (content.Contains("\n"))
             {
-                output += currentIndentString + "<!--";
+                output
+                    .Append(currentIndentString)
+                    .Append("<!--");
 
-                string contentIndentString = GetIndentString(xmlReader.Depth + 1);
-                output = content.Trim().GetLines().Aggregate(output, (current, line) => current + (Environment.NewLine + contentIndentString + line.Trim()));
+                var contentIndentString = GetIndentString(xmlReader.Depth + 1);
+                foreach (var line in content.Trim().GetLines())
+                {
+                    output
+                        .Append(Environment.NewLine)
+                        .Append(contentIndentString)
+                        .Append(line.Trim());
+                }
 
-                output += Environment.NewLine + currentIndentString + "-->";
+                output
+                    .Append(Environment.NewLine)
+                    .Append(currentIndentString)
+                    .Append("-->");
             }
             else
             {
-                output += currentIndentString + "<!--  " + content.Trim() + "  -->";
+                output
+                    .Append(currentIndentString)
+                    .Append("<!--  ")
+                    .Append(content.Trim())
+                    .Append("  -->");
             }
         }
 
-        private void ProcessElement(XmlReader xmlReader, ref string output)
+        private void ProcessElement(XmlReader xmlReader, StringBuilder output)
         {
             string currentIndentString = GetIndentString(xmlReader.Depth);
             string elementName = xmlReader.Name;
 
             if ("Run".Equals(elementName))
             {
-                if (output.EndsWith("\n"))
+                if (output.IsNewLine())
                 {
                     // Shall not add extra whitespaces (including linefeeds) before <Run/>,
                     // because it will affect the rendering of <TextBlock><Run/><Run/></TextBlock>
-                    output += currentIndentString + "<" + xmlReader.Name;
+                    output
+                        .Append(currentIndentString)
+                        .Append('<')
+                        .Append(xmlReader.Name);
                 }
                 else
                 {
-                    output += "<" + xmlReader.Name;
+                    output.Append('<');
+                    output.Append(xmlReader.Name);
                 }
             }
-            else if (output.Length == 0 || output.EndsWith("\n"))
+            else if (output.Length == 0 || output.IsNewLine())
             {
-                output += currentIndentString + "<" + xmlReader.Name;
+                output
+                    .Append(currentIndentString)
+                    .Append('<')
+                    .Append(xmlReader.Name);
             }
             else
             {
-                output += Environment.NewLine + currentIndentString + "<" + xmlReader.Name;
+                output
+                    .Append(Environment.NewLine)
+                    .Append(currentIndentString)
+                    .Append('<')
+                    .Append(xmlReader.Name);
             }
 
             bool isEmptyElement = xmlReader.IsEmptyElement;
@@ -608,7 +418,7 @@ namespace XamlStyler.Core
 
                 var noLineBreakInAttributes = (list.Count <= Options.AttributesTolerance) || IsNoLineBreakElement(elementName);
                 // Root element?
-                if (_elementProcessStatusStack.Count == 2) 
+                if (_elementProcessStatusStack.Count == 2)
                 {
                     switch (Options.RootElementLineBreakRule)
                     {
@@ -628,7 +438,12 @@ namespace XamlStyler.Core
                 // No need to break attributes
                 if (noLineBreakInAttributes)
                 {
-                    output = list.Select(attrInfo => attrInfo.ToSingleLineString()).Aggregate(output, (current, pendingAppend) => current + String.Format(" {0}", pendingAppend));
+                    foreach (var attrInfo in list)
+                    {
+                        output
+                            .Append(' ')
+                            .Append(attrInfo.ToSingleLineString());
+                    }
 
                     _elementProcessStatusStack.Peek().IsMultlineStartTag = false;
                 }
@@ -649,7 +464,18 @@ namespace XamlStyler.Core
                         {
                             string baseIndetationString = GetIndentString(xmlReader.Depth - 1) +
                                                           String.Empty.PadLeft(elementName.Length + 2, ' ');
-                            string pendingAppend = attrInfo.ToMultiLineString(baseIndetationString);
+                            string pendingAppend;
+
+                            //currently, the x:Bind statement cannot contain attributes over multiple lines
+                            //this is set as an option with default = true should this change in the future
+                            if (attrInfo.Value.ToLower().Contains("x:bind ") && Options.KeepxBindOnSameLine)
+                            {
+                                pendingAppend = " " + attrInfo.ToSingleLineString();
+                            }
+                            else
+                            {
+                                pendingAppend = attrInfo.ToMultiLineString(baseIndetationString);
+                            }
 
                             if (currentLineBuffer.Length > 0)
                             {
@@ -687,7 +513,7 @@ namespace XamlStyler.Core
                             currentLineBuffer.AppendFormat("{0} ", pendingAppend);
                             attributeCountInCurrentLineBuffer++;
                         }
-                        
+
                         lastAttributeInfo = attrInfo;
                     }
 
@@ -700,14 +526,19 @@ namespace XamlStyler.Core
                     {
                         if (0 == i && Options.KeepFirstAttributeOnSameLine)
                         {
-                            output += String.Format(" {0}", attributeLines[i].Trim());
+                            output
+                                .Append(' ')
+                                .Append(attributeLines[i].Trim());
 
                             // Align subsequent attributes with first attribute
                             currentIndentString = GetIndentString(xmlReader.Depth - 1) +
                                                   String.Empty.PadLeft(elementName.Length + 2, ' ');
                             continue;
                         }
-                        output += Environment.NewLine + currentIndentString + attributeLines[i].Trim();
+                        output
+                            .Append(Environment.NewLine)
+                            .Append(currentIndentString)
+                            .Append(attributeLines[i].Trim());
                     }
 
                     _elementProcessStatusStack.Peek().IsMultlineStartTag = true;
@@ -717,31 +548,30 @@ namespace XamlStyler.Core
                 if (Options.PutEndingBracketOnNewLine
                     && _elementProcessStatusStack.Peek().IsMultlineStartTag)
                 {
-                    output += Environment.NewLine + currentIndentString;
+                    output
+                        .Append(Environment.NewLine)
+                        .Append(currentIndentString);
                     hasPutEndingBracketOnNewLine = true;
                 }
             }
 
             if (isEmptyElement)
             {
-                if (hasPutEndingBracketOnNewLine)
+                if (hasPutEndingBracketOnNewLine == false && Options.SpaceBeforeClosingSlash)
                 {
-                    output += "/>";
+                    output.Append(' ');
                 }
-                else
-                {
-                    output += " />";
-                }
+                output.Append("/>");
 
                 _elementProcessStatusStack.Peek().IsSelfClosingElement = true;
             }
             else
             {
-                output += ">";
+                output.Append(">");
             }
         }
 
-        private void ProcessEndElement(XmlReader xmlReader, ref string output)
+        private void ProcessEndElement(XmlReader xmlReader, StringBuilder output)
         {
             // Shrink the current element, if it has no content.
             // E.g., <Element>  </Element> => <Element />
@@ -753,14 +583,11 @@ namespace XamlStyler.Core
                 output = output.TrimEnd(' ', '\t', '\r', '\n');
 
                 int bracketIndex = output.LastIndexOf('>');
+                output.Insert(bracketIndex, '/');
 
-                if ('\t' != output[bracketIndex - 1] && ' ' != output[bracketIndex - 1])
+                if (output[bracketIndex - 1] != '\t' && output[bracketIndex - 1] != ' ' && Options.SpaceBeforeClosingSlash)
                 {
-                    output = output.Insert(bracketIndex, " /");
-                }
-                else
-                {
-                    output = output.Insert(bracketIndex, "/");
+                    output.Insert(bracketIndex, ' ');
                 }
 
                 #endregion shrink element with no content
@@ -772,42 +599,56 @@ namespace XamlStyler.Core
 
                 string text = output.Substring(bracketIndex + 1, output.Length - bracketIndex - 1).Trim();
 
-                output = output.Remove(bracketIndex + 1);
-                output += text + "</" + xmlReader.Name + ">";
+                output.Length = bracketIndex + 1;
+                output.Append(text).Append("</").Append(xmlReader.Name).Append(">");
             }
             else
             {
                 string currentIndentString = GetIndentString(xmlReader.Depth);
 
-                if (!output.EndsWith("\n"))
+                if (!output.IsNewLine())
                 {
-                    output += Environment.NewLine;
+                    output.Append(Environment.NewLine);
                 }
 
-                output += currentIndentString + "</" + xmlReader.Name + ">";
+                output.Append(currentIndentString).Append("</").Append(xmlReader.Name).Append(">");
             }
         }
 
-        private void ProcessInstruction(XmlReader xmlReader, ref string output)
+        private void ProcessInstruction(XmlReader xmlReader, StringBuilder output)
         {
             string currentIndentString = GetIndentString(xmlReader.Depth);
 
-            if (!output.EndsWith("\n"))
+            if (!output.IsNewLine())
             {
-                output += Environment.NewLine;
+                output.Append(Environment.NewLine);
             }
 
-            output += currentIndentString + "<?Mapping " + xmlReader.Value + " ?>";
+            output
+                .Append(currentIndentString)
+                .Append("<?Mapping ")
+                .Append(xmlReader.Value)
+                .Append(" ?>");
         }
 
-        private void ProcessTextNode(XmlReader xmlReader, ref string output)
+        private void ProcessTextNode(XmlReader xmlReader, StringBuilder output)
         {
             string currentIndentString = GetIndentString(xmlReader.Depth);
             IEnumerable<String> textLines =
                 xmlReader.Value.ToXmlEncodedString(ignoreCarrier: true).Trim().Split('\n').Where(
                     x => x.Trim().Length > 0).ToList();
 
-            output = textLines.Where(line => line.Trim().Length > 0).Aggregate(output, (current, line) => current + (Environment.NewLine + currentIndentString + line.Trim()));
+            foreach (var line in textLines)
+            {
+                var trimmedLine = line.Trim();
+                if (trimmedLine.Length > 0)
+                {
+                    output
+                        .Append(Environment.NewLine)
+                        .Append(currentIndentString)
+                        .Append(trimmedLine);
+                }
+            }
 
             if (textLines.Count() > 1)
             {
@@ -815,16 +656,18 @@ namespace XamlStyler.Core
             }
         }
 
-        private void ProcessWhitespace(XmlReader xmlReader, ref string output)
+        private void ProcessWhitespace(XmlReader xmlReader, StringBuilder output)
         {
             if (xmlReader.Value.Contains('\n'))
             {
                 // For WhiteSpaces contain linefeed, trim all spaces/tab，
                 // since the intent of this whitespace node is to break line,
                 // and preserve the line feeds
-                output += xmlReader.Value.Replace(" ", "").Replace("\t", "").Replace("\r", "").Replace("\n",
-                                                                                                       Environment.
-                                                                                                           NewLine);
+                output.Append(xmlReader.Value
+                    .Replace(" ", "")
+                    .Replace("\t", "")
+                    .Replace("\r", "")
+                    .Replace("\n", Environment.NewLine));
             }
             else
             {
@@ -835,7 +678,7 @@ namespace XamlStyler.Core
                 //      B
                 //     </Run>
                 //  </TextBlock>
-                output += xmlReader.Value;
+                output.Append(xmlReader.Value);
             }
         }
 
