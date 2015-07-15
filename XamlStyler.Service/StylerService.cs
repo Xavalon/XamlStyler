@@ -462,13 +462,22 @@ namespace XamlStyler.Core
                         // Attributes with markup extension, always put on new line
                         if (attrInfo.IsMarkupExtension && Options.FormatMarkupExtension)
                         {
-                            string baseIndetationString = GetIndentString(xmlReader.Depth - 1) +
-                                                          String.Empty.PadLeft(elementName.Length + 2, ' ');
+                            string baseIndetationString;
+
+                            if (!Options.KeepFirstAttributeOnSameLine)
+                            {
+                                baseIndetationString = GetIndentString(xmlReader.Depth);
+                            }
+                            else
+                            {
+                                baseIndetationString = GetIndentString(xmlReader.Depth - 1) +
+                                                       string.Empty.PadLeft(elementName.Length + 2, ' ');
+                            }
+
                             string pendingAppend;
 
-                            //currently, the x:Bind statement cannot contain attributes over multiple lines
-                            //this is set as an option with default = true should this change in the future
-                            if (attrInfo.Value.ToLower().Contains("x:bind ") && Options.KeepxBindOnSameLine)
+                            //Keep binding and / or x:bind on same line?
+                            if ((attrInfo.Value.ToLower().Contains("x:bind ") && Options.KeepxBindOnSameLine) || Options.KeepBindingsOnSameLine)
                             {
                                 pendingAppend = " " + attrInfo.ToSingleLineString();
                             }

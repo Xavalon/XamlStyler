@@ -126,6 +126,14 @@ namespace XamlStyler.Core.Options
         bool KeepxBindOnSameLine { get; set; }
 
         [Category("New Line")]
+        [DisplayName("Keep Binding statements on same line")]
+        [Description(
+            "Defines whether the attribute(s) of a Binding statement will be kept on the same line \r\n\r\nDefault Value: false"
+            )]
+        [DefaultValue(false)]
+        bool KeepBindingsOnSameLine { get; set; }
+
+        [Category("New Line")]
         [DisplayName("Attribute tolerance")]
         [Description(
             "Defines the attribute number tolerance before XamlStyler starts to break attributes into new lines. A value less than 1 meaning no tolerance.\r\ne.g., when this setting is 2\r\n\r\nBEFORE BEAUTIFY:\r\n<TextBlock x:Name=\"m_sample\"\r\n    Text=\"asdf\" />\r\n\r\nAFTER BEAUTIFY:\r\n<TextBlock x:Name=\"m_sample\" Text=\"asdf\" />\r\nDefault Value: 2"

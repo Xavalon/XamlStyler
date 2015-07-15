@@ -83,6 +83,17 @@ namespace XamlStyler.UnitTests
         }
 
         [Test]
+        public void TestBindingSplitting()
+        {
+            var stylerOptions = new StylerOptions
+            {
+                KeepBindingsOnSameLine = true
+            };
+
+            DoTest(stylerOptions);
+        }
+
+        [Test]
         public void TestMarkupExtensionHandling()
         {
             var stylerOptions = new StylerOptions

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 
 namespace XamlStyler.Core.Options
 {
@@ -23,6 +22,7 @@ namespace XamlStyler.Core.Options
             RootElementLineBreakRule = LineBreakRule.Default;
             KeepFirstAttributeOnSameLine = true;
             KeepxBindOnSameLine = true;
+            KeepBindingsOnSameLine = false;
 
             //Markup Extension
             FormatMarkupExtension = true;
@@ -168,6 +168,14 @@ namespace XamlStyler.Core.Options
             )]
         [DefaultValue(true)]
         public bool KeepxBindOnSameLine { get; set; }
+
+        [Category("New Line")]
+        [DisplayName("Keep Binding statements on same line")]
+        [Description(
+           "Defines whether the attribute(s) of a Binding statement will be kept on the same line \r\n\r\nDefault Value: false"
+           )]
+        [DefaultValue(false)]
+        public bool KeepBindingsOnSameLine { get; set; }
 
         [Category("New Line")]
         [DisplayName("Attribute tolerance")]
