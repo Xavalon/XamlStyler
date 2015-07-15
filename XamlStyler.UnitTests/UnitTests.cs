@@ -94,6 +94,18 @@ namespace XamlStyler.UnitTests
         }
 
         [Test]
+        public void TestMarkupWithAttributeNotOnFirstLine()
+        {
+            var stylerOptions = new StylerOptions
+            {
+                KeepFirstAttributeOnSameLine = false,
+                AttributesTolerance = 1
+            };
+
+            DoTest(stylerOptions);
+        }
+
+        [Test]
         public void TestNoContentElementHandling()
         {
             DoTest();
