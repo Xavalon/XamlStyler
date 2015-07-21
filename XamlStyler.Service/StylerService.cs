@@ -204,10 +204,23 @@ namespace XamlStyler.Core
 
         private void ProcessCDATA(XmlReader xmlReader, StringBuilder output)
         {
-            UpdateParentElementProcessStatus(ContentTypeEnum.SINGLE_LINE_TEXT_ONLY);
+            // If there is linefeed(s) between element and CDATA then treat CDATA as element and indent accordingly, otherwise treat as single line text
+            if (output.IsNewLine())
+            {
+                UpdateParentElementProcessStatus(ContentTypeEnum.MULTI_LINE_TEXT_ONLY);
+                string currentIndentString = GetIndentString(xmlReader.Depth);
+                output.Append(currentIndentString);
+            }
+            else
+            {
+                UpdateParentElementProcessStatus(ContentTypeEnum.SINGLE_LINE_TEXT_ONLY);
+            }
+
             output
                 .Append("<![CDATA[")
-                .Append(xmlReader.Value)
+                // All newlines are returned by XmlReader as \n due to requirements in the XML Specification (http://www.w3.org/TR/2008/REC-xml-20081126/#sec-line-ends)
+                // Change them back into the environment newline characters.
+                .Append(xmlReader.Value.Replace("\n", Environment.NewLine))
                 .Append("]]>");
         }
 
