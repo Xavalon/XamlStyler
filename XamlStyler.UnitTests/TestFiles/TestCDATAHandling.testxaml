@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="TestApplication.UserControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+  <x:Code>
+    <![CDATA[ public Method1() {}]]>
+  </x:Code>
+  <SomeElement><![CDATA[ Some content with <> in it on one line ]]></SomeElement>
+  <SomeElement><![CDATA[ Some content with 
+newlines 
+ in
+  it]]></SomeElement>
+  <SomeElement>
+<![CDATA[ Some content with 
+newlines 
+ in
+  it
+on multiple lines]]>
+</SomeElement>
+  <Grid>
+  </Grid>
+</UserControl>
