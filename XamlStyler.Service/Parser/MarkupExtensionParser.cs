@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using XamlStyler.Core.Helpers;
 using XamlStyler.Core.Model;
 
 namespace XamlStyler.Core.Parser
@@ -196,11 +197,11 @@ namespace XamlStyler.Core.Parser
                 }
             }
 
-            if (null == value)
+            if (value == null)
             {
                 reader.SeekTill(x => !(Char.IsWhiteSpace(x)));
 
-                string input = reader.ReadValueString().Trim();
+                string input = reader.ReadValueString();
 
                 if (MarkupExtensionPattern.IsMatch(input))
                 {
@@ -298,7 +299,6 @@ namespace XamlStyler.Core.Parser
                 parsingMode = MarkupExtensionParsingModeEnum.LITERAL_VALUE;
             }
 
-
             switch (parsingMode)
             {
                 case MarkupExtensionParsingModeEnum.MARKUP_EXTENSION_VALUE:
@@ -354,14 +354,13 @@ namespace XamlStyler.Core.Parser
                                 }
                                 break;
 
-                            case ',':
+                            // Escape character
+                            case '\\':
+                                buffer.Append(reader.ReadChar());
+                                break;
 
-                                // Following case is handled:
-                                //      StringFormat={}{0:##\,#0.00;(##\,#0.00);
-                                if ('\\' != buffer[buffer.Length - 1])
-                                {
-                                    shouldStop = true;
-                                }
+                            case ',':
+                                shouldStop = (curlyBracePairCounter == 0);
                                 break;
                         }
 
@@ -382,7 +381,7 @@ namespace XamlStyler.Core.Parser
                         );
             }
 
-            return buffer.ToString();
+            return buffer.TrimUnescaped(' ').ToString();
         }
 
         private static void SeekTill(this StringReader reader, Func<char, bool> stopAt)

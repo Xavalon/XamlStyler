@@ -41,5 +41,23 @@ namespace XamlStyler.Core.Helpers
             sb.Length = index;
             return sb;
         }
+
+        /// <summary>
+        /// Trim all trimchars from end of stringbuilder except if escaped
+        /// </summary>
+        /// <param name="sb"></param>
+        /// <param name="trimChars"></param>
+        public static StringBuilder TrimUnescaped(this StringBuilder sb, params char[] trimChars)
+        {
+            int index = sb.Length;
+            while (index > 0 && trimChars.Contains(sb[index-1]))
+            {
+                if (index > 1 && sb[index - 2] == '\\')
+                    break;
+                index--;
+            }
+            sb.Length = index;
+            return sb;
+        }
     }
 }
