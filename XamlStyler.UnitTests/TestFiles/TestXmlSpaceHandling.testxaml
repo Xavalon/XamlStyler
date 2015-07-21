@@ -1,0 +1,8 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:system="clr-namespace:System;assembly=mscorlib">
+<system:String x:Key="Greeting1">Hello
+World</system:String>
+<system:String x:Key="Greeting2" xml:space="preserve">Hello
+World</system:String>
+<system:String x:Key="MyQuestionableGreeting" xml:space="preserve">  Should This Even <strong>Be </strong> <italic>Possible</italic>
+</system:String>
+</ResourceDictionary>

@@ -63,6 +63,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="TestFiles\TestXmlSpaceHandling.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestXmlSpaceHandling.testxaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\TestAttributeOrderRuleGroupsOnSeparateLinesHandling.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
