@@ -23,6 +23,11 @@
         public bool IsSelfClosingElement { get; set; }
 
         /// <summary>
+        /// Gets or sets whether the current element preserves space.
+        /// </summary>
+        public bool IsPreservingSpace { get; set; }
+
+        /// <summary>
         /// Gets or sets Element name.
         /// </summary>
         public string Name { get; set; }
