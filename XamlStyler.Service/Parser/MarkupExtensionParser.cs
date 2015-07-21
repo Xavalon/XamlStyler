@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using XamlStyler.Core.Helpers;
@@ -21,7 +20,7 @@ namespace XamlStyler.Core.Parser
 
             if (!MarkupExtensionPattern.IsMatch(input))
             {
-                string msg = String.Format("{0} is not a MarkupExtension.", input);
+                string msg = $"{input} is not a MarkupExtension.";
                 throw new InvalidOperationException(msg);
             }
 
@@ -105,8 +104,6 @@ namespace XamlStyler.Core.Parser
 
         private static MarkupExtensionParsingModeEnum ReadMarkupName(this StringReader reader, MarkupExtensionInfo info)
         {
-            string methodName = MethodBase.GetCurrentMethod().Name;
-
             char[] stopChars = {' ', '}'};
             var resultParsingMode = MarkupExtensionParsingModeEnum.UNEXPECTED;
             var buffer = new StringBuilder();
@@ -128,8 +125,7 @@ namespace XamlStyler.Core.Parser
                             break;
 
                         default:
-                            throw new InvalidDataException(
-                                String.Format("[{0}] Should not encounter '{1}'.", methodName, c));
+                            throw new InvalidDataException($"[{nameof(ReadMarkupName)}] Should not encounter '{c}'.");
                     }
 
                     info.Name = buffer.ToString().Trim();
@@ -144,8 +140,7 @@ namespace XamlStyler.Core.Parser
 
             if (MarkupExtensionParsingModeEnum.UNEXPECTED == resultParsingMode)
             {
-                throw new InvalidDataException(
-                    String.Format("[{0}] Invalid result context: {1}", methodName, resultParsingMode));
+                throw new InvalidDataException($"[{nameof(ReadMarkupName)}] Invalid result context: {resultParsingMode}");
             }
 
             return resultParsingMode;
@@ -154,8 +149,6 @@ namespace XamlStyler.Core.Parser
         private static MarkupExtensionParsingModeEnum ReadNameValuePair(this StringReader reader,
                                                                         MarkupExtensionInfo info)
         {
-            string methodName = MethodBase.GetCurrentMethod().Name;
-
             char[] stopChars = {',', '=', '}'};
 
             MarkupExtensionParsingModeEnum resultParsingMode;
@@ -192,8 +185,7 @@ namespace XamlStyler.Core.Parser
                         break;
 
                     default:
-                        throw new InvalidDataException(
-                            String.Format("[{0}] Should not encounter '{1}'.", methodName, keyValueIndicatorChar));
+                        throw new InvalidDataException($"[{nameof(ReadNameValuePair)}] Should not encounter '{keyValueIndicatorChar}'.");
                 }
             }
 
@@ -237,14 +229,12 @@ namespace XamlStyler.Core.Parser
                     break;
 
                 default:
-                    throw new InvalidDataException(
-                        String.Format("[{0}] Should not encounter '{1}'.", methodName, stopChar));
+                    throw new InvalidDataException($"[{nameof(ReadNameValuePair)}] Should not encounter '{stopChar}'.");
             }
 
             if (MarkupExtensionParsingModeEnum.UNEXPECTED == resultParsingMode)
             {
-                throw new InvalidDataException(
-                    String.Format("[{0}] Invalid result context: {1}", methodName, resultParsingMode));
+                throw new InvalidDataException($"[{nameof(ReadNameValuePair)}] Invalid result context: {resultParsingMode}");
             }
 
             return resultParsingMode;
@@ -265,7 +255,7 @@ namespace XamlStyler.Core.Parser
 
             if (reader.IsEnd())
             {
-                throw new InvalidDataException("[ReadTill] Cannot meet the stop condition.");
+                throw new InvalidDataException($"[{nameof(ReadTill)}] Cannot meet the stop condition.");
             }
 
             return buffer.ToString();
@@ -376,9 +366,7 @@ namespace XamlStyler.Core.Parser
                     break;
 
                 default:
-                    throw new InvalidDataException(
-                        String.Format("Should not encouter parsingMode {0}", parsingMode)
-                        );
+                    throw new InvalidDataException($"[{nameof(ReadValueString)}] Should not encouter parsingMode {parsingMode}");
             }
 
             return buffer.TrimUnescaped(' ').ToString();
@@ -397,7 +385,7 @@ namespace XamlStyler.Core.Parser
 
             if (reader.IsEnd())
             {
-                throw new InvalidDataException("[SeekTill] Cannot meet the stop condition.");
+                throw new InvalidDataException($"[{nameof(SeekTill)}] Cannot meet the stop condition.");
             }
         }
     }
