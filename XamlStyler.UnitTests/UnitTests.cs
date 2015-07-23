@@ -219,6 +219,22 @@ namespace XamlStyler.UnitTests
             DoTest();
         }
 
+        [TestCase(1, LineBreakRule.Default)]
+        [TestCase(2, LineBreakRule.Always)]
+        [TestCase(3, LineBreakRule.Never)]
+        public void TestRootHandling(int testNumber, LineBreakRule lineBreakRule)
+        {
+            var stylerOptions = new StylerOptions
+            {
+                AttributesTolerance = 3,
+                MaxAttributesPerLine = 4,
+                PutAttributeOrderRuleGroupsOnSeparateLines = true,
+                RootElementLineBreakRule = lineBreakRule,
+            };
+
+            DoTest(stylerOptions, testNumber);
+        }
+
         private void DoTest([System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
             // ReSharper disable once ExplicitCallerInfoArgument
