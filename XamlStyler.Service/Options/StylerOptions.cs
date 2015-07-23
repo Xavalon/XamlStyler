@@ -30,40 +30,45 @@ namespace XamlStyler.Core.Options
 
         // Attribute formatting
 
-        [Category("Attribute formatting")]
+        [Category("Attribute Formatting")]
         [DisplayName("Attribute tolerance")]
-        [Description("Defines the attribute number tolerance before XamlStyler starts to break attributes into new lines. A value less than 1 meaning no tolerance.\r\ne.g., when this setting is 2\r\n\r\nBEFORE BEAUTIFY:\r\n<TextBlock x:Name=\"m_sample\"\r\n    Text=\"asdf\" />\r\n\r\nAFTER BEAUTIFY:\r\n<TextBlock x:Name=\"m_sample\" Text=\"asdf\" />\r\nDefault Value: 2")]
+        [Description("Defines the attribute number tolerance before XamlStyler starts to break attributes into new lines. A value less than 1 meaning no tolerance. \r\ne.g., when this setting is 2 \r\n\r\nBEFORE BEAUTIFY:\r\n<TextBlock x:Name=\"m_sample\"\r\n    Text=\"asdf\" />\r\n\r\nAFTER BEAUTIFY:\r\n<TextBlock x:Name=\"m_sample\" Text=\"asdf\" />\r\nDefault Value: 2")]
         [DefaultValue(2)]
         public int AttributesTolerance { get; set; }
 
-        [Category("Attribute formatting")]
+        [Category("Attribute Formatting")]
         [DisplayName("Position first attribute on same line as start tag")]
-        [Description("Defines whether the first line of attribute(s) shall appear on the same line as the element's start tag.\r\ne.g., when this setting is true\r\n\r\nBEFORE BEAUTIFY:\r\n\"<element a='xyz' b='xyz'>  </element>\"\r\n\r\nAFTER BEAUTIFY:\r\n\"<element a='xyz'\r\n        b='xyz'>\r\n</element>\"\r\n\r\nDefault Value: true")]
+        [Description("Defines whether the first line of attribute(s) shall appear on the same line as the element's start tag. \r\ne.g., when this setting is true \r\n\r\nBEFORE BEAUTIFY:\r\n\"<element a='xyz' b='xyz'>  </element>\" \r\n\r\nAFTER BEAUTIFY:\r\n\"<element a='xyz'\r\n        b='xyz'>\r\n</element>\" \r\n\r\nDefault Value: true")]
         [DefaultValue(true)]
         public bool KeepFirstAttributeOnSameLine { get; set; }
 
-        [Category("Attribute formatting")]
+        [Category("Attribute Formatting")]
         [DisplayName("Max attribute characters per line")]
-        [Description("Defines the maximum charater length (not including indentation characters) of attributes an element can have on each line after the start tag. A value less than 1 meaning no limit.\r\nDefault Value: 0")]
+        [Description("Defines the maximum charater length (not including indentation characters) of attributes an element can have on each line after the start tag. A value less than 1 meaning no limit. \r\nDefault Value: 0")]
         [DefaultValue(0)]
         public int MaxAttributeCharatersPerLine { get; set; }
 
-        [Category("Attribute formatting")]
+        [Category("Attribute Formatting")]
         [DisplayName("Max attributes per line")]
-        [Description("Defines the maximum number of attributes an element can have on each line after the start tag. A value less than 1 meaning no limit.\r\nDefault Value: 1")]
+        [Description("Defines the maximum number of attributes an element can have on each line after the start tag. A value less than 1 meaning no limit. \r\nDefault Value: 1")]
         [DefaultValue(1)]
         public int MaxAttributesPerLine { get; set; }
 
-        [Category("Attribute formatting")]
+        [Category("Attribute Formatting")]
         [DisplayName("Elements no line break between attributes")]
-        [Description("Defines a list of elements whose attributes shall not be broken into lines.\r\nDefault Value: RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Setter")]
+        [Description("Defines a list of elements whose attributes shall not be broken into lines. \r\nDefault Value: RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Setter")]
         [DefaultValue("RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Condition, Setter")]
         public string NoNewLineElements { get; set; }
 
+        [Category("Attribute Formatting")]
+        [DisplayName("Put Rule Groups on separate Lines")]
+        [Description("Put attributes belonging to different rule groups on different lines and keep identical groups on same line if possible")]
+        [DefaultValue(false)]
+        public bool PutAttributeOrderRuleGroupsOnSeparateLines { get; set; }
         // Attribute Reordering
 
         [Category("Attribute Reordering")]
-        [DisplayName("Enable Attribute Ordering")]
+        [DisplayName("Enable Attribute Reordering")]
         [Description("If this is disabled, attributes will not be reordered in any way.")]
         [DefaultValue(true)]
         public bool EnableAttributeReordering { get; set; }
@@ -99,40 +104,34 @@ namespace XamlStyler.Core.Options
         public string[] AttributeOrderingRuleGroups { get; set; }
 
         [Category("Attribute Reordering")]
-        [DisplayName("Order attributes by name when not matched by a rule group")]
-        [Description("Sort attributes by name (attribute ordering rule groups takes precedence)")]
+        [DisplayName("Order Attributes by name")]
+        [Description("Order Attributes by name if order is not determined by Rules")]
         [DefaultValue(true)]
         public bool OrderAttributesByName { get; set; }
 
-        [Category("Attribute Reordering")]
-        [DisplayName("Put attributes order rule groups on separate lines")]
-        [Description("Put attributes belonging to different groups on different lines (keep identical groups on same line if possible)")]
-        [DefaultValue(false)]
-        public bool PutAttributeOrderRuleGroupsOnSeparateLines { get; set; }
-
         // Element formatting
 
-        [Category("Element formatting")]
+        [Category("Element Formatting")]
         [DisplayName("Put ending bracket on new line")]
-        [Description("Defines whether to put \">\" or \"/>\" on a new line.\r\nDefault Value: false")]
+        [Description("Defines whether to put \">\" or \"/>\" on a new line. \r\nDefault Value: false")]
         [DefaultValue(false)]
         public bool PutEndingBracketOnNewLine { get; set; }
 
-        [Category("Element formatting")]
+        [Category("Element Formatting")]
         [DisplayName("Remove ending tag of empty element")]
-        [Description("Defines whether to remove the ending tag of an empty element.\r\ne.g., when this setting is true\r\n\r\nBEFORE BEAUTIFY:\r\n\"<element>  </element>\"\r\n\r\nAFTER BEAUTIFY:\r\n\"<element />\"\r\n\r\nDefault Value: true")]
+        [Description("Defines whether to remove the ending tag of an empty element. \r\ne.g., when this setting is true \r\n\r\nBEFORE BEAUTIFY:\r\n\"<element>  </element>\" \r\n\r\nAFTER BEAUTIFY:\r\n\"<element />\" \r\n\r\nDefault Value: true")]
         [DefaultValue(true)]
         public bool RemoveEndingTagOfEmptyElement { get; set; }
 
-        [Category("Element formatting")]
+        [Category("Element Formatting")]
         [DisplayName("Space before closing slash in self closing element")]
-        [Description("Defines whether to have a space before slash in self closing elements \r\ne.g., when\r\ntrue <br />\r\nfalse <br/>\r\n\r\nDefault Value: true")]
+        [Description("Defines whether to have a space before slash in self closing elements \r\ne.g., when \r\ntrue <br /> \r\nfalse <br/> \r\n\r\nDefault Value: true")]
         [DefaultValue(true)]
         public bool SpaceBeforeClosingSlash { get; set; }
 
-        [Category("Element formatting")]
+        [Category("Element Formatting")]
         [DisplayName("Root element line breaks between attributes")]
-        [Description("Defines if attributes of the document root element are broken into separate lines or not.\r\nDefault = use same rules as other elements")]
+        [Description("Defines if attributes of the document root element are broken into separate lines or not. \r\nDefault = use same rules as other elements")]
         [DefaultValue(LineBreakRule.Default)]
         public LineBreakRule RootElementLineBreakRule { get; set; }
 
