@@ -23,7 +23,6 @@
     <TextBlock Grid.Row="1" Text="one, zero" />
 
 
-
     <!--  This comments is regarding Text="one, one"  -->
     <TextBlock Grid.Row="1"
                Grid.Column="1"
