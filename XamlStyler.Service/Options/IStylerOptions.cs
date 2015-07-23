@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 namespace XamlStyler.Core.Options
 {
     /// <summary>
@@ -15,39 +13,7 @@ namespace XamlStyler.Core.Options
 
         #endregion Indentation
 
-        #region Attribute Ordering Rule Groups
-        bool OrderAttributesByName { get; set; }
-
-        string AttributeOrderAlignmentLayout { get; set; }
-
-        string AttributeOrderAttachedLayout { get; set; }
-
-        string AttributeOrderBlendRelated { get; set; }
-
-        string AttributeOrderClass { get; set; }
-
-        string AttributeOrderCoreLayout { get; set; }
-
-        string AttributeOrderKey { get; set; }
-
-        string AttributeOrderName { get; set; }
-
-        string AttributeOrderOthers { get; set; }
-
-        string AttributeOrderWpfNamespace { get; set; }
-
-        #endregion Attribute Ordering Rule Groups
-
-        #region Markup Extension
-
-        bool FormatMarkupExtension { get; set; }
-
-        #endregion Markup Extension
-
-        #region New Line
-        bool KeepxBindOnSameLine { get; set; }
-
-        bool KeepBindingsOnSameLine { get; set; }
+        #region Attribute formatting
 
         int AttributesTolerance { get; set; }
 
@@ -59,7 +25,21 @@ namespace XamlStyler.Core.Options
 
         string NoNewLineElements { get; set; }
 
+        #endregion Attribute formatting
+
+        #region Attribute Reordering
+
+        bool EnableAttributeReordering { get; set; }
+
+        string[] AttributeOrderingRuleGroups { get; set; }
+
+        bool OrderAttributesByName { get; set; }
+
         bool PutAttributeOrderRuleGroupsOnSeparateLines { get; set; }
+
+        #endregion Attribute Reordering
+
+        #region Element formatting
 
         bool PutEndingBracketOnNewLine { get; set; }
 
@@ -69,15 +49,9 @@ namespace XamlStyler.Core.Options
 
         LineBreakRule RootElementLineBreakRule { get; set; }
 
-        #endregion New Line
+        #endregion Element formatting
 
-        #region Misc
-
-        bool BeautifyOnSave { get; set; }
-
-        #endregion Misc
-
-        #region Content Order
+        #region Element reordering
 
         bool ReorderGridChildren { get; set; }
 
@@ -85,6 +59,22 @@ namespace XamlStyler.Core.Options
 
         ReorderSettersBy ReorderSetters { get; set; }
 
-        #endregion
+        #endregion Element reordering
+
+        #region Markup Extension
+
+        bool FormatMarkupExtension { get; set; }
+
+        bool KeepxBindOnSameLine { get; set; }
+
+        bool KeepBindingsOnSameLine { get; set; }
+
+        #endregion Markup Extension
+
+        #region Misc
+
+        bool BeautifyOnSave { get; set; }
+
+        #endregion Misc
     }
 }

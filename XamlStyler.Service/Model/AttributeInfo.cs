@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace XamlStyler.Core.Model
 {
-    public class AttributeInfo : IComparable
+    public class AttributeInfo
     {
         // Fields
         private static readonly Regex MarkupExtensionPattern = new Regex("^{(?!}).*}$");
@@ -22,28 +22,6 @@ namespace XamlStyler.Core.Model
             Value = value;
             IsMarkupExtension = MarkupExtensionPattern.IsMatch(value);
             OrderRule = orderRule;
-        }
-
-        int IComparable.CompareTo(object obj)
-        {
-            var target = obj as AttributeInfo;
-
-            if (target == null)
-            {
-                return 0;
-            }
-
-            if (OrderRule.AttributeTokenType != target.OrderRule.AttributeTokenType)
-            {
-                return OrderRule.AttributeTokenType.CompareTo(target.OrderRule.AttributeTokenType);
-            }
-
-            if (OrderRule.Priority != target.OrderRule.Priority)
-            {
-                return OrderRule.Priority.CompareTo(target.OrderRule.Priority);
-            }
-
-            return String.Compare(Name, target.Name, StringComparison.Ordinal);
         }
     }
 }

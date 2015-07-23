@@ -47,12 +47,12 @@
     <Compile Include="Helpers\MarkupExtensionInfoExtension.cs" />
     <Compile Include="Helpers\StringExtension.cs" />
     <Compile Include="Reorder\ISortableAttribute.cs" />
-    <Compile Include="Reorder\NameMatch.cs" />
+    <Compile Include="Reorder\NameSelector.cs" />
     <Compile Include="Reorder\NodeCollection.cs" />
     <Compile Include="Reorder\NodeReorderService.cs" />
     <Compile Include="Reorder\SortableNumericAttribute.cs" />
     <Compile Include="Reorder\SortableStringAttribute.cs" />
-    <Compile Include="Reorder\SortAttribute.cs" />
+    <Compile Include="Reorder\SortBy.cs" />
     <Compile Include="Reorder\Wildcard.cs" />
     <Compile Include="Options\IStylerOptions.cs" />
     <Compile Include="Options\LineBreakRule.cs" />
@@ -62,7 +62,6 @@
     <Compile Include="Model\AttributeInfo.cs" />
     <Compile Include="Model\AttributeOrderRule.cs" />
     <Compile Include="Model\AttributeOrderRules.cs" />
-    <Compile Include="Model\AttributeTokenTypeEnum.cs" />
     <Compile Include="Model\MarkupExtensionInfo.cs" />
     <Compile Include="Parser\ContentTypeEnum.cs" />
     <Compile Include="Parser\ElementProcessStatus.cs" />
@@ -70,6 +69,7 @@
     <Compile Include="Parser\MarkupExtensionParsingModeEnum.cs" />
     <Compile Include="Helpers\StringBuilderExtensions.cs" />
     <Compile Include="StylerService.cs" />
+    <Compile Include="XmlEscapingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
