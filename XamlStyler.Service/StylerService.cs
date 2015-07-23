@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 using XamlStyler.Core.Helpers;
@@ -430,6 +429,8 @@ namespace XamlStyler.Core
                 currentIndentString = GetIndentString(xmlReader.Depth);
 
                 var noLineBreakInAttributes = (list.Count <= Options.AttributesTolerance) || IsNoLineBreakElement(elementName);
+                var forceLineBreakInAttributes = false;
+
                 // Root element?
                 if (_elementProcessStatusStack.Count == 2)
                 {
@@ -439,6 +440,7 @@ namespace XamlStyler.Core
                             break;
                         case LineBreakRule.Always:
                             noLineBreakInAttributes = false;
+                            forceLineBreakInAttributes = true;
                             break;
                         case LineBreakRule.Never:
                             noLineBreakInAttributes = true;
@@ -524,7 +526,7 @@ namespace XamlStyler.Core
                                                                && lastAttributeInfo != null
                                                                && lastAttributeInfo.OrderRule.Group != attrInfo.OrderRule.Group;
 
-                            if (isAttributeCharLengthExceeded || isAttributeCountExceeded || isAttributeRuleGroupChanged)
+                            if (currentLineBuffer.Length > 0 && (forceLineBreakInAttributes || isAttributeCharLengthExceeded || isAttributeCountExceeded || isAttributeRuleGroupChanged))
                             {
                                 attributeLines.Add(currentLineBuffer.ToString());
                                 currentLineBuffer.Length = 0;
