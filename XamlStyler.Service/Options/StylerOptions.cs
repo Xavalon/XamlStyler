@@ -165,16 +165,10 @@ namespace XamlStyler.Core.Options
         public bool FormatMarkupExtension { get; set; }
 
         [Category("Markup Extension")]
-        [DisplayName("Keep x:Bind statements on same line")]
-        [Description("Defines whether the attribute(s) of an x:Bind statement will be kept on the same line \r\n\r\nDefault Value: true")]
-        [DefaultValue(true)]
-        public bool KeepxBindOnSameLine { get; set; }
-
-        [Category("Markup Extension")]
-        [DisplayName("Keep Binding statements on same line")]
-        [Description("Defines whether the attribute(s) of a Binding statement will be kept on the same line \r\n\r\nDefault Value: false")]
-        [DefaultValue(false)]
-        public bool KeepBindingsOnSameLine { get; set; }
+        [DisplayName("Keep Markup Extensions of these types on one line")]
+        [Description("Defines a comma separated list of Markup Extensions that are always kept on one line")]
+        [DefaultValue("x:Bind")]
+        public string NoNewLineMarkupExtensions { get; set; }
 
         // Misc
 

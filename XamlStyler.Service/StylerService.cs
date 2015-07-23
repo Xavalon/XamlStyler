@@ -21,6 +21,7 @@ namespace XamlStyler.Core
 
         private IStylerOptions Options { get; set; }
         private IList<string> NoNewLineElementsList { get; set; }
+        private IList<string> NoNewLineMarkupExtensionsList { get; set; }
         private AttributeOrderRules OrderRules { get; set; }
         private List<NodeReorderService> ReorderServices { get; set; }
 
@@ -96,13 +97,9 @@ namespace XamlStyler.Core
         {
             var stylerServiceInstance = new StylerService { Options = options };
 
-            if (!String.IsNullOrEmpty(stylerServiceInstance.Options.NoNewLineElements))
-            {
-                stylerServiceInstance.NoNewLineElementsList = stylerServiceInstance.Options.NoNewLineElements.Split(',')
-                    .Where(x => !String.IsNullOrWhiteSpace(x))
-                    .Select(x => x.Trim())
-                    .ToList();
-            }
+            stylerServiceInstance.NoNewLineElementsList = stylerServiceInstance.Options.NoNewLineElements.ToList();
+            stylerServiceInstance.NoNewLineMarkupExtensionsList = stylerServiceInstance.Options.NoNewLineMarkupExtensions.ToList();
+
             stylerServiceInstance.OrderRules = new AttributeOrderRules(options);
 
             stylerServiceInstance._elementProcessStatusStack.Clear();
@@ -492,8 +489,7 @@ namespace XamlStyler.Core
 
                             string pendingAppend;
 
-                            //Keep binding and / or x:bind on same line?
-                            if ((attrInfo.Value.ToLower().Contains("x:bind ") && Options.KeepxBindOnSameLine) || Options.KeepBindingsOnSameLine)
+                            if(NoNewLineMarkupExtensionsList.Contains(attrInfo.MarkupExtension))
                             {
                                 pendingAppend = " " + attrInfo.ToSingleLineString();
                             }

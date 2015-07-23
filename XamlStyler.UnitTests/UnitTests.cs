@@ -87,7 +87,7 @@ namespace XamlStyler.UnitTests
         {
             var stylerOptions = new StylerOptions
             {
-                KeepxBindOnSameLine = true
+                NoNewLineMarkupExtensions = "x:Bind"
             };
 
             DoTest(stylerOptions);
@@ -98,7 +98,7 @@ namespace XamlStyler.UnitTests
         {
             var stylerOptions = new StylerOptions
             {
-                KeepBindingsOnSameLine = true
+                NoNewLineMarkupExtensions = "x:Bind, Binding"
             };
 
             DoTest(stylerOptions);

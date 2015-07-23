@@ -65,9 +65,7 @@ namespace XamlStyler.Core.Options
 
         bool FormatMarkupExtension { get; set; }
 
-        bool KeepxBindOnSameLine { get; set; }
-
-        bool KeepBindingsOnSameLine { get; set; }
+        string NoNewLineMarkupExtensions { get; set; }
 
         #endregion Markup Extension
 
