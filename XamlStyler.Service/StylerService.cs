@@ -14,7 +14,7 @@ using XamlStyler.Core.Reorder;
 
 namespace XamlStyler.Core
 {
-    public class StylerService: XmlEscapingService
+    public class StylerService : XmlEscapingService
     {
         private readonly Stack<ElementProcessStatus> _elementProcessStatusStack;
 
@@ -127,6 +127,7 @@ namespace XamlStyler.Core
                                 _elementProcessStatusStack.Push(
                                     new ElementProcessStatus
                                     {
+                                        Parent = _elementProcessStatusStack.Peek(),
                                         Name = xmlReader.Name,
                                         ContentType = ContentTypeEnum.NONE,
                                         IsMultlineStartTag = false,
@@ -373,8 +374,8 @@ namespace XamlStyler.Core
                 return x.OrderRule.Priority.CompareTo(y.OrderRule.Priority);
             }
 
-            return Options.OrderAttributesByName 
-                ? string.Compare(x.Name, y.Name, StringComparison.Ordinal) 
+            return Options.OrderAttributesByName
+                ? string.Compare(x.Name, y.Name, StringComparison.Ordinal)
                 : 0;
         }
 
@@ -386,15 +387,28 @@ namespace XamlStyler.Core
             // Calculate how element should be indented
             if (!_elementProcessStatusStack.Peek().IsPreservingSpace)
             {
-                if (output.Length == 0 || output.IsNewLine())
+                // "Run" get special treatment to try to preserve spacing. Use xml:space='preserve' to make sure!
+                if (elementName.Equals("Run"))
                 {
-                    output.Append(currentIndentString);
+                    _elementProcessStatusStack.Peek().Parent.IsSignificantWhiteSpace = true;
+                    if (output.Length == 0 || output.IsNewLine())
+                    {
+                        output.Append(currentIndentString);
+                    }
                 }
                 else
                 {
-                    output
-                        .Append(Environment.NewLine)
-                        .Append(currentIndentString);
+                    _elementProcessStatusStack.Peek().Parent.IsSignificantWhiteSpace = false;
+                    if (output.Length == 0 || output.IsNewLine())
+                    {
+                        output.Append(currentIndentString);
+                    }
+                    else
+                    {
+                        output
+                            .Append(Environment.NewLine)
+                            .Append(currentIndentString);
+                    }
                 }
             }
 
@@ -491,7 +505,7 @@ namespace XamlStyler.Core
 
                             string pendingAppend;
 
-                            if(NoNewLineMarkupExtensionsList.Contains(attrInfo.MarkupExtension))
+                            if (NoNewLineMarkupExtensionsList.Contains(attrInfo.MarkupExtension))
                             {
                                 pendingAppend = " " + attrInfo.ToSingleLineString();
                             }
@@ -600,6 +614,10 @@ namespace XamlStyler.Core
             {
                 output.Append("</").Append(xmlReader.Name).Append(">");
             }
+            else if (_elementProcessStatusStack.Peek().IsSignificantWhiteSpace && !output.IsNewLine())
+            {
+                output.Append("</").Append(xmlReader.Name).Append(">");
+            }
             // Shrink the current element, if it has no content.
             // E.g., <Element>  </Element> => <Element />
             else if (ContentTypeEnum.NONE == _elementProcessStatusStack.Peek().ContentType
@@ -693,7 +711,12 @@ namespace XamlStyler.Core
 
         private void ProcessWhitespace(XmlReader xmlReader, StringBuilder output)
         {
-            if (xmlReader.Value.Contains('\n') && !_elementProcessStatusStack.Peek().IsPreservingSpace)
+            var hasNewline = xmlReader.Value.Contains('\n');
+
+            if (_elementProcessStatusStack.Peek().IsSignificantWhiteSpace && hasNewline)
+                _elementProcessStatusStack.Peek().IsSignificantWhiteSpace = false;
+
+            if (hasNewline && !_elementProcessStatusStack.Peek().IsPreservingSpace)
             {
                 // For WhiteSpaces contain linefeed, trim all spaces/tab，
                 // since the intent of this whitespace node is to break line,
@@ -716,6 +739,7 @@ namespace XamlStyler.Core
                 output.Append(xmlReader.Value.Replace("\n", Environment.NewLine));
             }
         }
+
         private void ProcessSignificantWhitespace(XmlReader xmlReader, StringBuilder output)
         {
             output.Append(xmlReader.Value.Replace("\n", Environment.NewLine));
