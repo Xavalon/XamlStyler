@@ -63,6 +63,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="TestFiles\TestCommentHandling_1.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestCommentHandling_0.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestCommentHandling_3.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\TestRunHandling.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -129,7 +138,7 @@
     <None Include="TestFiles\TestClosingElementHandling_1.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\TestCommentHandling.expected">
+    <None Include="TestFiles\TestCommentHandling_2.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestFiles\TestCommentHandling.testxaml">
@@ -189,13 +198,13 @@
     <None Include="TestFiles\TestReorderSetterHandling.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\TestReorderSetterHandling_1.expected">
+    <None Include="TestFiles\TestReorderSetterHandling_Property.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\TestReorderSetterHandling_2.expected">
+    <None Include="TestFiles\TestReorderSetterHandling_TargetName.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\TestReorderSetterHandling_3.expected">
+    <None Include="TestFiles\TestReorderSetterHandling_TargetNameThenProperty.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestFiles\TestTextOnlyContentElementHandling.expected">
