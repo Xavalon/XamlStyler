@@ -1,3 +1,5 @@
+using XamlStyler.Core.Reorder;
+
 namespace XamlStyler.Core.Options
 {
     /// <summary>
@@ -68,6 +70,14 @@ namespace XamlStyler.Core.Options
         string NoNewLineMarkupExtensions { get; set; }
 
         #endregion Markup Extension
+
+        #region Thickness formatting
+
+        ThicknessStyle ThicknessStyle { get; set; }
+
+        string ThicknessAttributes { get; set; }
+
+        #endregion Thickness formatting
 
         #region Misc
 

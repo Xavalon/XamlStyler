@@ -46,10 +46,12 @@
     <Compile Include="Helpers\XmlReaderExtensions.cs" />
     <Compile Include="Helpers\MarkupExtensionInfoExtension.cs" />
     <Compile Include="Helpers\StringExtension.cs" />
+    <Compile Include="Reorder\IProcessElementService.cs" />
     <Compile Include="Reorder\ISortableAttribute.cs" />
     <Compile Include="Reorder\NameSelector.cs" />
     <Compile Include="Reorder\NodeCollection.cs" />
     <Compile Include="Reorder\NodeReorderService.cs" />
+    <Compile Include="Reorder\FormatThicknessService.cs" />
     <Compile Include="Reorder\SortableNumericAttribute.cs" />
     <Compile Include="Reorder\SortableStringAttribute.cs" />
     <Compile Include="Reorder\SortBy.cs" />

@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace XamlStyler.Core.Reorder
 {
-    public class NodeReorderService
+    public class NodeReorderService: IProcessElementService
     {
         public bool IsEnabled { get; set; }
 
@@ -30,7 +30,7 @@ namespace XamlStyler.Core.Reorder
             SortByAttributes = new List<SortBy>();
         }
 
-        public void HandleElement(XElement element)
+        public void ProcessElement(XElement element)
         {
             if (!IsEnabled) return;
             if (!element.HasElements) return;
