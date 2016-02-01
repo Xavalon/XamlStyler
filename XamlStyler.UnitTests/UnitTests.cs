@@ -42,6 +42,12 @@ namespace XamlStyler.UnitTests
         }
 
         [Test]
+        public void TestCommentAtFirstLine()
+        {
+            DoTest();
+        }
+
+        [Test]
         public void TestDefaultHandling()
         {
             DoTest();
