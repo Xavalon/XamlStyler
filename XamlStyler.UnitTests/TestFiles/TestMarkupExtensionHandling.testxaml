@@ -9,7 +9,7 @@
     Path=Title, StringFormat={}{0}Now{{0}} - {0}}" />
 
         <!--  Markup extension format  -->
-        <!-- Literal style -->
+        <!-- Literal style (Stringformat with no text needs {} in front) -->
         <TextBlock HorizontalAlignment="Center" 
                VerticalAlignment="Center"
                FontSize="20"
@@ -31,8 +31,11 @@
                Text="Foreground"
                x:Uid="KeyForResources"
                x:Name="TextBlockWithResources" />
+      <TextBlock Text="{Binding StringFormat={} {0}\ , Mode=OneWay}" />
+      <TextBlock Text="{Binding ElementName=wnd , Path=ActualWidth, StringFormat={}{0:#,#.0}}" />
+      <Run  Text="{Binding blah,  Mode=OneWay,  StringFormat={}{0:#,##0.###} }"/>
 
-        <!-- Quoted Value -->
+      <!-- Quoted Value -->
         <TextBlock Style="SomeStyle"
              Text="{Binding Path=U1State,
                             Converter={StaticResource Enum2BooleanConverter},
