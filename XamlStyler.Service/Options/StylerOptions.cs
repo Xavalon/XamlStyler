@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using XamlStyler.Core.Reorder;
 
 namespace XamlStyler.Core.Options
 {
@@ -169,6 +170,20 @@ namespace XamlStyler.Core.Options
         [DefaultValue("x:Bind")]
         public string NoNewLineMarkupExtensions { get; set; }
 
+        // Thickness formatting
+
+        [Category("Thickness formatting")]
+        [DisplayName("Thickness style")]
+        [Description("Defines how Thickness properties like Margin, Padding ect. should be formatted")]
+        [DefaultValue(ThicknessStyle.None)]
+        public ThicknessStyle ThicknessStyle { get; set; }
+
+        [Category("Thickness formatting")]
+        [DisplayName("Thickness attributes")]
+        [Description("Defines a list of all the attributes that gets reformatted if content looks like a thickness")]
+        [DefaultValue("Margin, Padding, BorderThickness, ThumbnailClipMargin")]
+        public string ThicknessAttributes  { get; set; }
+
         // Misc
 
         [Category("Misc")]
@@ -185,5 +200,6 @@ namespace XamlStyler.Core.Options
 0: <!--Hello world-->")]
         [DefaultValue((byte)2)]
         public byte CommentSpaces { get; set; }
+
     }
 }

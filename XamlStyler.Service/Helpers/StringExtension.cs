@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using XamlStyler.Core.Reorder;
 
 namespace XamlStyler.Core.Helpers
 {
@@ -44,6 +45,16 @@ namespace XamlStyler.Core.Helpers
                     .Select(x => x.Trim())
                     .ToList()
                 : new List<string>();
+        }
+
+        public static IList<NameSelector> ToNameSelectorList(this string source)
+        {
+            return !string.IsNullOrEmpty(source)
+                ? source.Split(',')
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .Select(x => new NameSelector(x.Trim()))
+                    .ToList()
+                : new List<NameSelector>();
         }
     }
 }
