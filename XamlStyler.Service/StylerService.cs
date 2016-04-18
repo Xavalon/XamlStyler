@@ -146,7 +146,8 @@ namespace XamlStyler.Core
                                         Name = xmlReader.Name,
                                         ContentType = ContentTypeEnum.NONE,
                                         IsMultlineStartTag = false,
-                                        IsSelfClosingElement = false
+                                        IsSelfClosingElement = false,
+                                        IsPreservingSpace = _elementProcessStatusStack.Peek().IsPreservingSpace
                                     }
                                     );
 
@@ -156,7 +157,6 @@ namespace XamlStyler.Core
                                 {
                                     _elementProcessStatusStack.Pop();
                                 }
-
                                 break;
 
                             case XmlNodeType.Text:
@@ -173,11 +173,17 @@ namespace XamlStyler.Core
                                 UpdateParentElementProcessStatus(ContentTypeEnum.MIXED);
                                 ProcessComment(xmlReader, output);
                                 break;
+
                             case XmlNodeType.CDATA:
                                 ProcessCDATA(xmlReader, output);
                                 break;
+
                             case XmlNodeType.Whitespace:
                                 ProcessWhitespace(xmlReader, output);
+                                break;
+
+                            case XmlNodeType.SignificantWhitespace:
+                                ProcessSignificantWhitespace(xmlReader, output);
                                 break;
 
                             case XmlNodeType.EndElement:
@@ -188,8 +194,7 @@ namespace XamlStyler.Core
                                 //ignoring xml declarations for Xamarin support
                                 ProcessXMLRoot(xmlReader, output);
                                 break;
-                            //case XmlNodeType.CDATA:
-                            //    break;
+
                             default:
                                 Trace.WriteLine(
                                     $"Unprocessed NodeType: {xmlReader.NodeType} Name: {xmlReader.Name} Value: {xmlReader.Value}");
@@ -208,8 +213,11 @@ namespace XamlStyler.Core
             if (output.IsNewLine())
             {
                 UpdateParentElementProcessStatus(ContentTypeEnum.MULTI_LINE_TEXT_ONLY);
-                string currentIndentString = GetIndentString(xmlReader.Depth);
-                output.Append(currentIndentString);
+                if (!_elementProcessStatusStack.Peek().IsPreservingSpace)
+                {
+                    string currentIndentString = GetIndentString(xmlReader.Depth);
+                    output.Append(currentIndentString);
+                }
             }
             else
             {
@@ -284,9 +292,6 @@ namespace XamlStyler.Core
                     break;
             }
         }
-
-
-
 
         private string GetIndentString(int depth)
         {
@@ -377,38 +382,25 @@ namespace XamlStyler.Core
             string currentIndentString = GetIndentString(xmlReader.Depth);
             string elementName = xmlReader.Name;
 
-            if ("Run".Equals(elementName))
+            // Calculate how element should be indented
+            if (!_elementProcessStatusStack.Peek().IsPreservingSpace)
             {
-                if (output.IsNewLine())
+                if (output.Length == 0 || output.IsNewLine())
                 {
-                    // Shall not add extra whitespaces (including linefeeds) before <Run/>,
-                    // because it will affect the rendering of <TextBlock><Run/><Run/></TextBlock>
-                    output
-                        .Append(currentIndentString)
-                        .Append('<')
-                        .Append(xmlReader.Name);
+                    output.Append(currentIndentString);
                 }
                 else
                 {
-                    output.Append('<');
-                    output.Append(xmlReader.Name);
+                    output
+                        .Append(Environment.NewLine)
+                        .Append(currentIndentString);
                 }
             }
-            else if (output.Length == 0 || output.IsNewLine())
-            {
-                output
-                    .Append(currentIndentString)
-                    .Append('<')
-                    .Append(xmlReader.Name);
-            }
-            else
-            {
-                output
-                    .Append(Environment.NewLine)
-                    .Append(currentIndentString)
-                    .Append('<')
-                    .Append(xmlReader.Name);
-            }
+
+            // Output the element itself
+            output
+                .Append('<')
+                .Append(xmlReader.Name);
 
             bool isEmptyElement = xmlReader.IsEmptyElement;
             bool hasPutEndingBracketOnNewLine = false;
@@ -422,6 +414,12 @@ namespace XamlStyler.Core
                     string attributeValue = xmlReader.Value;
                     AttributeOrderRule orderRule = OrderRules.GetRuleFor(attributeName);
                     list.Add(new AttributeInfo(attributeName, attributeValue, orderRule));
+
+                    // Check for xml:space as defined in http://www.w3.org/TR/2008/REC-xml-20081126/#sec-white-space
+                    if (xmlReader.IsXmlSpaceAttribute())
+                    {
+                        _elementProcessStatusStack.Peek().IsPreservingSpace = (xmlReader.Value == "preserve");
+                    }
                 }
 
                 if (Options.OrderAttributesByName)
@@ -595,9 +593,13 @@ namespace XamlStyler.Core
 
         private void ProcessEndElement(XmlReader xmlReader, StringBuilder output)
         {
+            if (_elementProcessStatusStack.Peek().IsPreservingSpace)
+            {
+                output.Append("</").Append(xmlReader.Name).Append(">");
+            }
             // Shrink the current element, if it has no content.
             // E.g., <Element>  </Element> => <Element />
-            if (ContentTypeEnum.NONE == _elementProcessStatusStack.Peek().ContentType
+            else if (ContentTypeEnum.NONE == _elementProcessStatusStack.Peek().ContentType
                 && Options.RemoveEndingTagOfEmptyElement)
             {
                 #region shrink element with no content
@@ -655,24 +657,32 @@ namespace XamlStyler.Core
 
         private void ProcessTextNode(XmlReader xmlReader, StringBuilder output)
         {
-            string currentIndentString = GetIndentString(xmlReader.Depth);
-            IEnumerable<String> textLines =
-                xmlReader.Value.ToXmlEncodedString(ignoreCarrier: true).Trim().Split('\n').Where(
-                    x => x.Trim().Length > 0).ToList();
-
-            foreach (var line in textLines)
+            var xmlEncodedContent = xmlReader.Value.ToXmlEncodedString(ignoreCarrier: true);
+            if (_elementProcessStatusStack.Peek().IsPreservingSpace)
             {
-                var trimmedLine = line.Trim();
-                if (trimmedLine.Length > 0)
+                output.Append(xmlEncodedContent.Replace("\n", Environment.NewLine));
+            }
+            else
+            {
+                string currentIndentString = GetIndentString(xmlReader.Depth);
+                IEnumerable<String> textLines =
+                    xmlEncodedContent.Trim().Split('\n').Where(
+                        x => x.Trim().Length > 0).ToList();
+
+                foreach (var line in textLines)
                 {
-                    output
-                        .Append(Environment.NewLine)
-                        .Append(currentIndentString)
-                        .Append(trimmedLine);
+                    var trimmedLine = line.Trim();
+                    if (trimmedLine.Length > 0)
+                    {
+                        output
+                            .Append(Environment.NewLine)
+                            .Append(currentIndentString)
+                            .Append(trimmedLine);
+                    }
                 }
             }
 
-            if (textLines.Count() > 1)
+            if (xmlEncodedContent.Any(x => x == '\n'))
             {
                 UpdateParentElementProcessStatus(ContentTypeEnum.MULTI_LINE_TEXT_ONLY);
             }
@@ -680,7 +690,7 @@ namespace XamlStyler.Core
 
         private void ProcessWhitespace(XmlReader xmlReader, StringBuilder output)
         {
-            if (xmlReader.Value.Contains('\n'))
+            if (xmlReader.Value.Contains('\n') && !_elementProcessStatusStack.Peek().IsPreservingSpace)
             {
                 // For WhiteSpaces contain linefeed, trim all spaces/tab，
                 // since the intent of this whitespace node is to break line,
@@ -700,8 +710,12 @@ namespace XamlStyler.Core
                 //      B
                 //     </Run>
                 //  </TextBlock>
-                output.Append(xmlReader.Value);
+                output.Append(xmlReader.Value.Replace("\n", Environment.NewLine));
             }
+        }
+        private void ProcessSignificantWhitespace(XmlReader xmlReader, StringBuilder output)
+        {
+            output.Append(xmlReader.Value.Replace("\n", Environment.NewLine));
         }
 
         private void UpdateParentElementProcessStatus(ContentTypeEnum contentType)
