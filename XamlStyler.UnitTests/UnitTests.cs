@@ -52,20 +52,31 @@ namespace XamlStyler.UnitTests
         {
             var stylerOptions = new StylerOptions
             {
-                AttributeOrderClass = "x:Class",
-                AttributeOrderWpfNamespace = "xmlns, xmlns:x",
-                AttributeOrderKey = "Key, x:Key, Uid, x:Uid",
-                AttributeOrderName = "Name, x:Name, Title",
-                AttributeOrderAttachedLayout =
+                AttributeOrderingRuleGroups = new[]
+                {
+                    // Class definition group
+                    "x:Class",
+                    // WPF Namespaces group
+                    "xmlns, xmlns:x",
+                    // Other namespace
+                    "xmlns:*",
+                    // Element key group
+                    "Key, x:Key, Uid, x:Uid",
+                    // Element name group
+                    "Name, x:Name, Title",
+                    // Attached layout group
                     "Grid.Column, Grid.ColumnSpan, Grid.Row, Grid.RowSpan, Canvas.Right, Canvas.Bottom, Canvas.Left, Canvas.Top",
-                AttributeOrderCoreLayout =
+                    // Core layout group
                     "MinWidth, MinHeight, Width, Height, MaxWidth, MaxHeight, Margin",
-                AttributeOrderAlignmentLayout =
+                    // Alignment layout group
                     "Panel.ZIndex, HorizontalAlignment, VerticalAlignment, HorizontalContentAlignment, VerticalContentAlignment",
-                AttributeOrderOthers =
+                    // Unmatched
+                    "*:*, *",
+                    // Miscellaneous/Other attributes group
                     "Offset, Color, TargetName, Property, Value, StartPoint, EndPoint, PageSource, PageIndex",
-                AttributeOrderBlendRelated =
-                    "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText"
+                    // Blend related group
+                    "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText",
+                }
             };
 
             DoTest(stylerOptions);
@@ -76,7 +87,7 @@ namespace XamlStyler.UnitTests
         {
             var stylerOptions = new StylerOptions
             {
-                KeepxBindOnSameLine = true
+                NoNewLineMarkupExtensions = "x:Bind"
             };
 
             DoTest(stylerOptions);
@@ -87,7 +98,7 @@ namespace XamlStyler.UnitTests
         {
             var stylerOptions = new StylerOptions
             {
-                KeepBindingsOnSameLine = true
+                NoNewLineMarkupExtensions = "x:Bind, Binding"
             };
 
             DoTest(stylerOptions);

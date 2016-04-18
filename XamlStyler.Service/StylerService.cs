@@ -15,14 +15,13 @@ using XamlStyler.Core.Reorder;
 
 namespace XamlStyler.Core
 {
-    public class StylerService
+    public class StylerService: XmlEscapingService
     {
-        private readonly Regex _htmlReservedCharRegex = new Regex(@"&([\d\D][^;]{3,7});");
-        private readonly Regex _htmlReservedCharRestoreRegex = new Regex(@"__amp__([^;]{2,7})__scln__");
         private readonly Stack<ElementProcessStatus> _elementProcessStatusStack;
 
         private IStylerOptions Options { get; set; }
         private IList<string> NoNewLineElementsList { get; set; }
+        private IList<string> NoNewLineMarkupExtensionsList { get; set; }
         private AttributeOrderRules OrderRules { get; set; }
         private List<NodeReorderService> ReorderServices { get; set; }
 
@@ -44,34 +43,34 @@ namespace XamlStyler.Core
         private NodeReorderService GetReorderGridChildrenService()
         {
             var reorderService = new NodeReorderService { IsEnabled = Options.ReorderGridChildren };
-            reorderService.ParentNodeNames.Add(new NameMatch("Grid", null));
-            reorderService.ChildNodeNames.Add(new NameMatch(null, null));
-            reorderService.SortByAttributes.Add(new SortAttribute("Grid.Row", null, true, x => x.Name.LocalName.Contains(".") ? "-2" : "-1"));
-            reorderService.SortByAttributes.Add(new SortAttribute("Grid.Column", null, true, x => "-1"));
+            reorderService.ParentNodeNames.Add(new NameSelector("Grid", null));
+            reorderService.ChildNodeNames.Add(new NameSelector(null, null));
+            reorderService.SortByAttributes.Add(new SortBy("Grid.Row", null, true));
+            reorderService.SortByAttributes.Add(new SortBy("Grid.Column", null, true));
             return reorderService;
         }
 
         private NodeReorderService GetReorderCanvasChildrenService()
         {
             var reorderService = new NodeReorderService { IsEnabled = Options.ReorderCanvasChildren };
-            reorderService.ParentNodeNames.Add(new NameMatch("Canvas", null));
-            reorderService.ChildNodeNames.Add(new NameMatch(null, null));
-            reorderService.SortByAttributes.Add(new SortAttribute("Canvas.Left", null, true, x => "-1"));
-            reorderService.SortByAttributes.Add(new SortAttribute("Canvas.Top", null, true, x => "-1"));
-            reorderService.SortByAttributes.Add(new SortAttribute("Canvas.Right", null, true, x => "-1"));
-            reorderService.SortByAttributes.Add(new SortAttribute("Canvas.Bottom", null, true, x => "-1"));
+            reorderService.ParentNodeNames.Add(new NameSelector("Canvas", null));
+            reorderService.ChildNodeNames.Add(new NameSelector(null, null));
+            reorderService.SortByAttributes.Add(new SortBy("Canvas.Left", null, true));
+            reorderService.SortByAttributes.Add(new SortBy("Canvas.Top", null, true));
+            reorderService.SortByAttributes.Add(new SortBy("Canvas.Right", null, true));
+            reorderService.SortByAttributes.Add(new SortBy("Canvas.Bottom", null, true));
             return reorderService;
         }
 
         private NodeReorderService GetReorderSettersService()
         {
             var reorderService = new NodeReorderService();
-            reorderService.ParentNodeNames.Add(new NameMatch("DataTrigger", null));
-            reorderService.ParentNodeNames.Add(new NameMatch("MultiDataTrigger", null));
-            reorderService.ParentNodeNames.Add(new NameMatch("MultiTrigger", null));
-            reorderService.ParentNodeNames.Add(new NameMatch("Style", null));
-            reorderService.ParentNodeNames.Add(new NameMatch("Trigger", null));
-            reorderService.ChildNodeNames.Add(new NameMatch("Setter", "http://schemas.microsoft.com/winfx/2006/xaml/presentation"));
+            reorderService.ParentNodeNames.Add(new NameSelector("DataTrigger", null));
+            reorderService.ParentNodeNames.Add(new NameSelector("MultiDataTrigger", null));
+            reorderService.ParentNodeNames.Add(new NameSelector("MultiTrigger", null));
+            reorderService.ParentNodeNames.Add(new NameSelector("Style", null));
+            reorderService.ParentNodeNames.Add(new NameSelector("Trigger", null));
+            reorderService.ChildNodeNames.Add(new NameSelector("Setter", "http://schemas.microsoft.com/winfx/2006/xaml/presentation"));
 
             switch (Options.ReorderSetters)
             {
@@ -79,14 +78,14 @@ namespace XamlStyler.Core
                     reorderService.IsEnabled = false;
                     break;
                 case ReorderSettersBy.Property:
-                    reorderService.SortByAttributes.Add(new SortAttribute("Property", null, false));
+                    reorderService.SortByAttributes.Add(new SortBy("Property", null, false));
                     break;
                 case ReorderSettersBy.TargetName:
-                    reorderService.SortByAttributes.Add(new SortAttribute("TargetName", null, false));
+                    reorderService.SortByAttributes.Add(new SortBy("TargetName", null, false));
                     break;
                 case ReorderSettersBy.TargetNameThenProperty:
-                    reorderService.SortByAttributes.Add(new SortAttribute("TargetName", null, false));
-                    reorderService.SortByAttributes.Add(new SortAttribute("Property", null, false));
+                    reorderService.SortByAttributes.Add(new SortBy("TargetName", null, false));
+                    reorderService.SortByAttributes.Add(new SortBy("Property", null, false));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -98,29 +97,15 @@ namespace XamlStyler.Core
         {
             var stylerServiceInstance = new StylerService { Options = options };
 
-            if (!String.IsNullOrEmpty(stylerServiceInstance.Options.NoNewLineElements))
-            {
-                stylerServiceInstance.NoNewLineElementsList = stylerServiceInstance.Options.NoNewLineElements.Split(',')
-                    .Where(x => !String.IsNullOrWhiteSpace(x))
-                    .Select(x => x.Trim())
-                    .ToList();
-            }
+            stylerServiceInstance.NoNewLineElementsList = stylerServiceInstance.Options.NoNewLineElements.ToList();
+            stylerServiceInstance.NoNewLineMarkupExtensionsList = stylerServiceInstance.Options.NoNewLineMarkupExtensions.ToList();
+
             stylerServiceInstance.OrderRules = new AttributeOrderRules(options);
 
             stylerServiceInstance._elementProcessStatusStack.Clear();
             stylerServiceInstance._elementProcessStatusStack.Push(new ElementProcessStatus());
 
             return stylerServiceInstance;
-        }
-
-        private string UnescapeDocument(string source)
-        {
-            return _htmlReservedCharRestoreRegex.Replace(source, @"&$1;");
-        }
-
-        private string EscapeDocument(string source)
-        {
-            return _htmlReservedCharRegex.Replace(source, @"__amp__$1__scln__");
         }
 
         private string Format(string xamlSource)
@@ -377,6 +362,23 @@ namespace XamlStyler.Core
             }
         }
 
+        public int AttributeInfoComparison(AttributeInfo x, AttributeInfo y)
+        {
+            if (x.OrderRule.Group != y.OrderRule.Group)
+            {
+                return x.OrderRule.Group.CompareTo(y.OrderRule.Group);
+            }
+
+            if (x.OrderRule.Priority != y.OrderRule.Priority)
+            {
+                return x.OrderRule.Priority.CompareTo(y.OrderRule.Priority);
+            }
+
+            return Options.OrderAttributesByName 
+                ? string.Compare(x.Name, y.Name, StringComparison.Ordinal) 
+                : 0;
+        }
+
         private void ProcessElement(XmlReader xmlReader, StringBuilder output)
         {
             string currentIndentString = GetIndentString(xmlReader.Depth);
@@ -422,8 +424,8 @@ namespace XamlStyler.Core
                     }
                 }
 
-                if (Options.OrderAttributesByName)
-                    list.Sort();
+                if (Options.EnableAttributeReordering)
+                    list.Sort(AttributeInfoComparison);
 
                 currentIndentString = GetIndentString(xmlReader.Depth);
 
@@ -487,8 +489,7 @@ namespace XamlStyler.Core
 
                             string pendingAppend;
 
-                            //Keep binding and / or x:bind on same line?
-                            if ((attrInfo.Value.ToLower().Contains("x:bind ") && Options.KeepxBindOnSameLine) || Options.KeepBindingsOnSameLine)
+                            if(NoNewLineMarkupExtensionsList.Contains(attrInfo.MarkupExtension))
                             {
                                 pendingAppend = " " + attrInfo.ToSingleLineString();
                             }
@@ -521,7 +522,7 @@ namespace XamlStyler.Core
 
                             bool isAttributeRuleGroupChanged = Options.PutAttributeOrderRuleGroupsOnSeparateLines
                                                                && lastAttributeInfo != null
-                                                               && lastAttributeInfo.OrderRule.AttributeTokenType != attrInfo.OrderRule.AttributeTokenType;
+                                                               && lastAttributeInfo.OrderRule.Group != attrInfo.OrderRule.Group;
 
                             if (isAttributeCharLengthExceeded || isAttributeCountExceeded || isAttributeRuleGroupChanged)
                             {
