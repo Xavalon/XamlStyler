@@ -7,7 +7,7 @@
     <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=Title, StringFormat={}{0}Now{{0}} - {0}}" />
 
     <!--  Markup extension format  -->
-    <!--  Literal style  -->
+    <!--  Literal style (Stringformat with no text needs {} in front)  -->
     <TextBlock HorizontalAlignment="Center"
                VerticalAlignment="Center"
                FontSize="20"
@@ -33,6 +33,9 @@
                Style="{DynamicResource {x:Static SystemColors.ControlTextBrushKey},
                                        ResourceKey={x:Static SystemColors.ControlTextBrushKey}}"
                Text="Foreground" />
+    <TextBlock Text="{Binding StringFormat={} {0}\ , Mode=OneWay}" />
+    <TextBlock Text="{Binding ElementName=wnd, Path=ActualWidth, StringFormat={}{0:#,#.0}}" />
+    <Run Text="{Binding blah, Mode=OneWay, StringFormat={}{0:#,##0.###}}" />
 
     <!--  Quoted Value  -->
     <TextBlock x:Uid="Setter_87"
