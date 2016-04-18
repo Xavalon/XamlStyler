@@ -356,9 +356,11 @@ namespace XamlStyler.Core
             {
                 output
                     .Append(currentIndentString)
-                    .Append("<!--  ")
+                    .Append("<!--")
+                    .Append(' ', Options.CommentSpaces)
                     .Append(content.Trim())
-                    .Append("  -->");
+                    .Append(' ', Options.CommentSpaces)
+                    .Append("-->");
             }
         }
 
