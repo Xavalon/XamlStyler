@@ -4,7 +4,7 @@
         Title="WPF3D"
         Width="534"
         Height="254">
-<![CDATA[An in-depth look at creating applications with XML, using <, >,]]>
+  <![CDATA[An in-depth look at creating applications with XML, using <, >,]]>
   <Grid>
     <!--  Attribute Value With XML Character Entities, e.g., &#10;  -->
     <TextBlock Text="Some&#10;&amp;&gt;&lt;&quot;' Text" />

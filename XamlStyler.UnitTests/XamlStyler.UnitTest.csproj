@@ -93,6 +93,12 @@
     <None Include="TestFiles\TestCanvasChildrenHandling.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestFiles\TestCDATAHandling.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestCDATAHandling.testxaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\TestClosingElementHandling_2.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
