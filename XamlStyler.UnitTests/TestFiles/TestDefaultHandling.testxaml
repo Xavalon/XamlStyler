@@ -70,6 +70,7 @@
                     <Button Name="cubeButton" Click="cubeButtonClick">Cube</Button>
                 </StackPanel>
             </StackPanel>
+            <!--#region This is a ViewPort-->
             <Viewport3D Name="mainViewport" ClipToBounds="True">
                 <Viewport3D.Camera>
                     <PerspectiveCamera FarPlaneDistance="100"
@@ -85,6 +86,7 @@
                     </ModelVisual3D.Content>
                 </ModelVisual3D>
             </Viewport3D>
+            <!--#endregion-->
         </DockPanel>
     </Grid>
 </Window>
