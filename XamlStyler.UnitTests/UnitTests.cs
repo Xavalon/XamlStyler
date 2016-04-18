@@ -235,6 +235,12 @@ namespace XamlStyler.UnitTests
             DoTest(stylerOptions, testNumber);
         }
 
+        [Test]
+        public void TestRunHandling()
+        {
+            DoTest();
+        }
+
         private void DoTest([System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
             // ReSharper disable once ExplicitCallerInfoArgument
