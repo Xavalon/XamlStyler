@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace XamlStyler.Core.Helpers
@@ -33,6 +34,16 @@ namespace XamlStyler.Core.Helpers
                     yield return line;
                 }
             }
+        }
+
+        public static IList<string> ToList(this string source)
+        {
+            return !string.IsNullOrEmpty(source)
+                ? source.Split(',')
+                    .Where(x => !string.IsNullOrWhiteSpace(x))
+                    .Select(x => x.Trim())
+                    .ToList()
+                : new List<string>();
         }
     }
 }

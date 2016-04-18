@@ -13,6 +13,7 @@
       <ColumnDefinition />
     </Grid.ColumnDefinitions>
 
+    <!--  This comments is regarding Text="zero, zero"  -->
     <TextBlock Text="zero, zero" />
 
     <TextBlock Grid.Row="0"
@@ -22,6 +23,7 @@
     <TextBlock Grid.Row="1" Text="one, zero" />
 
 
+    <!--  This comments is regarding Text="one, one"  -->
     <TextBlock Grid.Row="1"
                Grid.Column="1"
                Text="one, one" />

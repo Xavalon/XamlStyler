@@ -3,18 +3,17 @@ using System.Text.RegularExpressions;
 
 namespace XamlStyler.Core.Model
 {
-    public class AttributeInfo : IComparable
+    public class AttributeInfo
     {
         // Fields
-        private static readonly Regex MarkupExtensionPattern = new Regex("^{(?!}).*}$");
+        private static readonly Regex MarkupExtensionPattern = new Regex(@"^{(?!}).*}$", RegexOptions.Singleline | RegexOptions.Compiled);
+        private static readonly Regex MarkupTypePattern = new Regex(@"^{(?<type>[^\s}]*)", RegexOptions.Singleline | RegexOptions.Compiled);
 
-        public AttributeOrderRule OrderRule { get; private set; }
-
-        public bool IsMarkupExtension { get; private set; }
-
-        public string Name { get; set; }
-
-        public string Value { get; set; }
+        public AttributeOrderRule OrderRule { get; }
+        public string Name { get; }
+        public string Value { get; }
+        public bool IsMarkupExtension { get; }
+        public string MarkupExtension { get; }
 
         public AttributeInfo(string name, string value, AttributeOrderRule orderRule)
         {
@@ -22,28 +21,15 @@ namespace XamlStyler.Core.Model
             Value = value;
             IsMarkupExtension = MarkupExtensionPattern.IsMatch(value);
             OrderRule = orderRule;
-        }
 
-        int IComparable.CompareTo(object obj)
-        {
-            var target = obj as AttributeInfo;
-
-            if (target == null)
+            if (IsMarkupExtension)
             {
-                return 0;
+                MatchCollection mc = MarkupTypePattern.Matches(value);
+                foreach (Match m in mc)
+                {
+                    MarkupExtension = m.Groups["type"].Value;
+                }
             }
-
-            if (OrderRule.AttributeTokenType != target.OrderRule.AttributeTokenType)
-            {
-                return OrderRule.AttributeTokenType.CompareTo(target.OrderRule.AttributeTokenType);
-            }
-
-            if (OrderRule.Priority != target.OrderRule.Priority)
-            {
-                return OrderRule.Priority.CompareTo(target.OrderRule.Priority);
-            }
-
-            return String.Compare(Name, target.Name, StringComparison.Ordinal);
         }
     }
 }
