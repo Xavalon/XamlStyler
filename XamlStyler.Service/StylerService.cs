@@ -22,7 +22,7 @@ namespace XamlStyler.Core
         private IList<string> NoNewLineElementsList { get; set; }
         private IList<string> NoNewLineMarkupExtensionsList { get; set; }
         private AttributeOrderRules OrderRules { get; set; }
-        private List<NodeReorderService> ReorderServices { get; set; }
+        private List<IProcessElementService> ProcessElementServices { get; set; }
 
         private StylerService()
         {
@@ -31,8 +31,9 @@ namespace XamlStyler.Core
 
         private void Initialize()
         {
-            ReorderServices = new List<NodeReorderService>
+            ProcessElementServices = new List<IProcessElementService>
             {
+                new FormatThicknessService(Options.ThicknessStyle, Options.ThicknessAttributes),
                 GetReorderGridChildrenService(),
                 GetReorderCanvasChildrenService(),
                 GetReorderSettersService()
@@ -238,14 +239,9 @@ namespace XamlStyler.Core
             var xmlDeclaration = xDoc.Declaration?.ToString() ?? string.Empty;
             var rootElement = xDoc.Root;
 
-            if (rootElement != null && rootElement.HasElements)
+            if (rootElement != null)
             {
-                // run through the elements and, one by one, handle them
-
-                foreach (var element in rootElement.Elements())
-                {
-                    HandleNode(element);
-                }
+                HandleNode(rootElement);
             }
 
             return xmlDeclaration + xDoc;
@@ -267,11 +263,11 @@ namespace XamlStyler.Core
                         }
                     }
 
-                    if (element != null && element.HasElements)
+                    if (element != null)
                     {
-                        foreach (var reorderService in ReorderServices)
+                        foreach (var elementService in ProcessElementServices)
                         {
-                            reorderService.HandleElement(element);
+                            elementService.ProcessElement(element);
                         }
                     }
                     break;
