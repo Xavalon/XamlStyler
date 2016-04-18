@@ -328,6 +328,14 @@ namespace XamlStyler.Core
 
                 output.Append("-->");
             }
+            else if (content.Contains("#region") || content.Contains("#endregion"))
+            {
+                output
+                    .Append(currentIndentString)
+                    .Append("<!--")
+                    .Append(content.Trim())
+                    .Append("-->");
+            }
             else if (content.Contains("\n"))
             {
                 output
