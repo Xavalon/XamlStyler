@@ -35,10 +35,18 @@ namespace XamlStyler.UnitTests
             DoTest(stylerOptions);
         }
 
-        [Test]
-        public void TestCommentHandling()
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(2)]
+        [TestCase(3)]
+        public void TestCommentHandling(byte testNumber)
         {
-            DoTest();
+            var stylerOptions = new StylerOptions
+            {
+                CommentSpaces = testNumber,
+            };
+
+            DoTestCase(stylerOptions, testNumber);
         }
 
         [Test]
@@ -182,17 +190,17 @@ namespace XamlStyler.UnitTests
             DoTest(stylerOptions);
         }
 
-        [TestCase(1, ReorderSettersBy.Property)]
-        [TestCase(2, ReorderSettersBy.TargetName)]
-        [TestCase(3, ReorderSettersBy.TargetNameThenProperty)]
-        public void TestReorderSetterHandling(int testNumber, ReorderSettersBy reorderSettersBy)
+        [TestCase(ReorderSettersBy.Property)]
+        [TestCase(ReorderSettersBy.TargetName)]
+        [TestCase(ReorderSettersBy.TargetNameThenProperty)]
+        public void TestReorderSetterHandling(ReorderSettersBy reorderSettersBy)
         {
             var stylerOptions = new StylerOptions
             {
                 ReorderSetters = reorderSettersBy,
             };
 
-            DoTest(stylerOptions, testNumber);
+            DoTestCase(stylerOptions, reorderSettersBy);
         }
 
         [TestCase(1, true)]
@@ -204,7 +212,7 @@ namespace XamlStyler.UnitTests
                 SpaceBeforeClosingSlash = spaceBeforeClosingSlash
             };
 
-            DoTest(stylerOptions, testNumber);
+            DoTestCase(stylerOptions, testNumber);
         }
 
         [Test]
@@ -232,7 +240,7 @@ namespace XamlStyler.UnitTests
                 RootElementLineBreakRule = lineBreakRule,
             };
 
-            DoTest(stylerOptions, testNumber);
+            DoTestCase(stylerOptions, testNumber);
         }
 
         [Test]
@@ -249,29 +257,40 @@ namespace XamlStyler.UnitTests
 
         private void DoTest(StylerOptions stylerOptions, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
-            // ReSharper disable once ExplicitCallerInfoArgument
-            DoTest(StylerService.CreateInstance(stylerOptions), 0, callerMemberName);
+            DoTest(stylerOptions, Path.Combine("TestFiles", callerMemberName), null);
         }
 
-        private void DoTest(StylerOptions stylerOptions, int testNumber, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
-        {
-            // ReSharper disable once ExplicitCallerInfoArgument
-            DoTest(StylerService.CreateInstance(stylerOptions), testNumber, callerMemberName);
-        }
+        //private void DoTest(StylerOptions stylerOptions, int testNumber, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
+        //{
+        //    // ReSharper disable once ExplicitCallerInfoArgument
+        //    DoTest(StylerService.CreateInstance(stylerOptions), testNumber, callerMemberName);
+        //}
 
         /// <summary>
         /// Parse input document and verify output against 
         /// </summary>
         /// <param name="styler"></param>
-        /// <param name="testNumber"></param>
+        /// <param name="testIdentifier">Optional test identifier</param>
         /// <param name="callerMemberName"></param>
-        private void DoTest(StylerService styler, int testNumber, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
+        private void DoTestCase<T>(StylerOptions stylerOptions, T testIdentifier, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
-            var testFileBaseName = Path.Combine("TestFiles", callerMemberName);
-            var testFileResultBaseName = testNumber == 0 ? testFileBaseName : testFileBaseName + "_" + testNumber;
+            DoTest(stylerOptions, Path.Combine("TestFiles", callerMemberName), testIdentifier.ToString());
+        }
+
+        /// <summary>
+        /// Style input document and verify output against expected  
+        /// </summary>
+        /// <param name="stylerOptions"></param>
+        /// <param name="testFileBaseName"></param>
+        /// <param name="suffix"></param>
+        private static void DoTest(StylerOptions stylerOptions, string testFileBaseName, string suffix)
+        {
+            var stylerService = StylerService.CreateInstance(stylerOptions);
+            
+            var testFileResultBaseName = suffix != null ? testFileBaseName + "_" + suffix : testFileBaseName;
 
             // Excercise stylerService using supplied test xaml data
-            string actualOutput = styler.ManipulateTreeAndFormatInput(File.ReadAllText(testFileBaseName + ".testxaml"));
+            string actualOutput = stylerService.ManipulateTreeAndFormatInput(File.ReadAllText(testFileBaseName + ".testxaml"));
 
             // Write output to ".actual" file for further investigation
             File.WriteAllText(testFileResultBaseName + ".actual", actualOutput, Encoding.UTF8);

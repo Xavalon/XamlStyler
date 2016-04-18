@@ -176,5 +176,14 @@ namespace XamlStyler.Core.Options
         [Description("Defines whether to automatically beautify the active xaml document while saving.")]
         [DefaultValue(true)]
         public bool BeautifyOnSave { get; set; }
+
+        [Category("Misc")]
+        [DisplayName("Number of spaces to pad comments with")]
+        [Description(@"Defines how many spaces a XML comment should be padded with. e.g.:
+2: <!--  Hello world  --> 
+1: <!-- Hello world --> 
+0: <!--Hello world-->")]
+        [DefaultValue((byte)2)]
+        public byte CommentSpaces { get; set; }
     }
 }

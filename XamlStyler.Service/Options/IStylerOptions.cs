@@ -73,6 +73,8 @@ namespace XamlStyler.Core.Options
 
         bool BeautifyOnSave { get; set; }
 
+        byte CommentSpaces { get; set; }
+
         #endregion Misc
     }
 }
