@@ -28,8 +28,19 @@
         public bool IsPreservingSpace { get; set; }
 
         /// <summary>
+        /// Are we currently processing significant whitespace
+        /// </summary>
+        public bool IsSignificantWhiteSpace { get; set; }
+
+        /// <summary>
         /// Gets or sets Element name.
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Access to parent element
+        /// </summary>
+        public ElementProcessStatus Parent { get; set; }
+
     }
 }
