@@ -1,4 +1,21 @@
-﻿1.6 
+﻿2.0
+----
+A long overdue update (sorry!)
+thanks to everyone who contributed!
+- Added VS "15" Preview support
+- Bug fixes unnecessary blank line is generated when there is a comment…  
+- Supporting last '#region' & '#endregion' tags in XAML.  
+- Thickness formatting  
+- Comment spacing  
+- Significant space handling  
+- Root attribute handling  
+- Settings redesign  
+- Fix markup extensions bugs #15 and #53  
+- Honor xml:space="preserve"  
+- View all pull requests 
+- Improve CDATA handling and fix #55 
+
+1.6 
 ----
 Added 2 options to keep Binding and x:Bind statements on the same line
 Added option to remove space before closing tag (thanks Philip)
