@@ -36,6 +36,14 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Irony, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ca48ace7223ead47, processorArchitecture=MSIL">
+      <HintPath>..\packages\Irony.0.9.0\lib\net45\Irony.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="KellermanSoftware.Compare-NET-Objects, Version=3.2.0.0, Culture=neutral, PublicKeyToken=d970ace04cc85217, processorArchitecture=MSIL">
+      <HintPath>..\packages\CompareNETObjects.3.02.0.0\lib\net45\KellermanSoftware.Compare-NET-Objects.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="nunit.core, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnitTestAdapter.WithFramework.2.0.0\lib\nunit.core.dll</HintPath>
       <Private>False</Private>
@@ -69,9 +77,13 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IndentServiceUnitTests.cs" />
+    <Compile Include="MarkupExtensions\MarkupExtensionParserObjectGraphUnitTests.cs" />
     <Compile Include="ThicknessFormatterTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitTests.cs" />
+    <Compile Include="FileHandlingIntegrationTests.cs" />
+    <Compile Include="MarkupExtensions\MarkupExtensionFormatterUnitTests.cs" />
+    <Compile Include="MarkupExtensions\XamlMarkupExtensionGrammarUnitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XamlStyler.Service\XamlStyler.Service.csproj">
@@ -88,6 +100,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestFiles\TestCommentHandling_3.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestMarkupExtensionHandling_2_spaces.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestMarkupExtensionHandling_2_tabs.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestMarkupExtensionHandling_4_tabs.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestFiles\TestRunHandling.expected">
@@ -186,7 +207,7 @@
     <None Include="TestFiles\TestGridChildrenHandling.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="TestFiles\TestMarkupExtensionHandling.expected">
+    <None Include="TestFiles\TestMarkupExtensionHandling_4_spaces.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestFiles\TestMarkupExtensionHandling.testxaml">

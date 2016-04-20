@@ -36,16 +36,38 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Irony, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ca48ace7223ead47, processorArchitecture=MSIL">
+      <HintPath>..\packages\Irony.0.9.0\lib\net45\Irony.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\AttributeInfoExtension.cs" />
-    <Compile Include="Helpers\XmlReaderExtensions.cs" />
-    <Compile Include="Helpers\MarkupExtensionInfoExtension.cs" />
-    <Compile Include="Helpers\StringExtension.cs" />
+    <Compile Include="MarkupExtensions\Formatter\AttributeInfoFactory.cs" />
+    <Compile Include="MarkupExtensions\Formatter\MarkupExtensionFormatterBase.cs" />
+    <Compile Include="Extensions\XmlReaderExtensions.cs" />
+    <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="MarkupExtensions\Formatter\AttributeInfoFormatter.cs" />
+    <Compile Include="MarkupExtensions\Formatter\MarkupExtensionFormatter.cs" />
+    <Compile Include="MarkupExtensions\Formatter\MultiLineMarkupExtensionFormatter.cs" />
+    <Compile Include="Services\IndentService.cs" />
+    <Compile Include="MarkupExtensions\Formatter\SingleLineMarkupExtensionFormatter.cs" />
+    <Compile Include="MarkupExtensions\Parser\IMarkupExtensionParser.cs" />
+    <Compile Include="MarkupExtensions\Parser\MarkupExtension.cs" />
+    <Compile Include="MarkupExtensions\Parser\Argument.cs" />
+    <Compile Include="MarkupExtensions\Parser\LiteralValue.cs" />
+    <Compile Include="MarkupExtensions\Parser\MemberNameTerminal.cs" />
+    <Compile Include="MarkupExtensions\Parser\NamedArgument.cs" />
+    <Compile Include="MarkupExtensions\Parser\MarkupExtensionParser.cs" />
+    <Compile Include="MarkupExtensions\Parser\PositionalArgument.cs" />
+    <Compile Include="MarkupExtensions\Parser\StringTerminal.cs" />
+    <Compile Include="MarkupExtensions\Parser\Value.cs" />
+    <Compile Include="MarkupExtensions\Parser\MemberNameOrStringTerminal.cs" />
+    <Compile Include="MarkupExtensions\Parser\TypeNameTerminal.cs" />
+    <Compile Include="MarkupExtensions\Parser\XamlMarkupExtensionGrammar.cs" />
     <Compile Include="Reorder\IProcessElementService.cs" />
     <Compile Include="Reorder\ISortableAttribute.cs" />
     <Compile Include="Reorder\NameSelector.cs" />
@@ -66,17 +88,15 @@
     <Compile Include="Model\AttributeInfo.cs" />
     <Compile Include="Model\AttributeOrderRule.cs" />
     <Compile Include="Model\AttributeOrderRules.cs" />
-    <Compile Include="Model\MarkupExtensionInfo.cs" />
     <Compile Include="Parser\ContentTypeEnum.cs" />
     <Compile Include="Parser\ElementProcessStatus.cs" />
-    <Compile Include="Parser\MarkupExtensionParser.cs" />
-    <Compile Include="Parser\MarkupExtensionParsingModeEnum.cs" />
-    <Compile Include="Helpers\StringBuilderExtensions.cs" />
+    <Compile Include="Extensions\StringBuilderExtensions.cs" />
     <Compile Include="StylerService.cs" />
-    <Compile Include="XmlEscapingService.cs" />
+    <Compile Include="Services\XmlEscapingService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

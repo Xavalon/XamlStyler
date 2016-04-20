@@ -6,27 +6,45 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
-using XamlStyler.Core.Helpers;
+using XamlStyler.Core.Extensions;
+using XamlStyler.Core.MarkupExtensions;
+using XamlStyler.Core.MarkupExtensions.Formatter;
+using XamlStyler.Core.MarkupExtensions.Parser;
 using XamlStyler.Core.Model;
 using XamlStyler.Core.Options;
 using XamlStyler.Core.Parser;
 using XamlStyler.Core.Reorder;
+using XamlStyler.Core.Services;
 
 namespace XamlStyler.Core
 {
     public class StylerService : XmlEscapingService
     {
         private readonly Stack<ElementProcessStatus> _elementProcessStatusStack;
+        private readonly IndentService _indentService;
 
-        private IStylerOptions Options { get; set; }
-        private IList<string> NoNewLineElementsList { get; set; }
-        private IList<string> NoNewLineMarkupExtensionsList { get; set; }
-        private AttributeOrderRules OrderRules { get; set; }
-        private List<IProcessElementService> ProcessElementServices { get; set; }
+        private readonly IStylerOptions Options;
+        private readonly IList<string> NoNewLineElementsList;
+        private List<IProcessElementService> ProcessElementServices;
+        private readonly AttributeInfoFormatter _attributeInfoFormatter;
+        private AttributeInfoFactory _attributeInfoFactory;
 
-        private StylerService()
+        private StylerService(IStylerOptions options)
         {
+            Options = options;
+
             _elementProcessStatusStack = new Stack<ElementProcessStatus>();
+            _elementProcessStatusStack.Push(new ElementProcessStatus());
+            _indentService = new IndentService(options.IndentWithTabs, options.IndentSize);
+
+            var markupExtensionFormatter = new MarkupExtensionFormatter(options.NoNewLineMarkupExtensions.ToList());
+
+            _attributeInfoFactory = new AttributeInfoFactory(new MarkupExtensionParser(), new AttributeOrderRules(options));
+            _attributeInfoFormatter = new AttributeInfoFormatter(markupExtensionFormatter,_indentService);
+
+            NoNewLineElementsList = options.NoNewLineElements.ToList();
+
+            ;
         }
 
         private void Initialize()
@@ -95,15 +113,8 @@ namespace XamlStyler.Core
 
         public static StylerService CreateInstance(IStylerOptions options)
         {
-            var stylerServiceInstance = new StylerService { Options = options };
+            var stylerServiceInstance = new StylerService(options);
 
-            stylerServiceInstance.NoNewLineElementsList = stylerServiceInstance.Options.NoNewLineElements.ToList();
-            stylerServiceInstance.NoNewLineMarkupExtensionsList = stylerServiceInstance.Options.NoNewLineMarkupExtensions.ToList();
-
-            stylerServiceInstance.OrderRules = new AttributeOrderRules(options);
-
-            stylerServiceInstance._elementProcessStatusStack.Clear();
-            stylerServiceInstance._elementProcessStatusStack.Push(new ElementProcessStatus());
 
             return stylerServiceInstance;
         }
@@ -201,7 +212,7 @@ namespace XamlStyler.Core
                 UpdateParentElementProcessStatus(ContentTypeEnum.MULTI_LINE_TEXT_ONLY);
                 if (!_elementProcessStatusStack.Peek().IsPreservingSpace)
                 {
-                    string currentIndentString = GetIndentString(xmlReader.Depth);
+                    string currentIndentString = _indentService.GetIndentString(xmlReader.Depth);
                     output.Append(currentIndentString);
                 }
             }
@@ -274,21 +285,6 @@ namespace XamlStyler.Core
             }
         }
 
-        private string GetIndentString(int depth)
-        {
-            if (depth < 0)
-            {
-                depth = 0;
-            }
-
-            if (Options.IndentWithTabs)
-            {
-                return new string('\t', depth);
-            }
-
-            return new string(' ', depth * Options.IndentSize);
-        }
-
         private bool IsNoLineBreakElement(string elementName)
         {
             return NoNewLineElementsList.Contains<string>(elementName);
@@ -303,7 +299,7 @@ namespace XamlStyler.Core
 
         private void ProcessComment(XmlReader xmlReader, StringBuilder output)
         {
-            string currentIndentString = GetIndentString(xmlReader.Depth);
+            string currentIndentString = _indentService.GetIndentString(xmlReader.Depth);
             string content = xmlReader.Value;
 
             if (output.Length > 0 && !output.IsNewLine())
@@ -342,7 +338,7 @@ namespace XamlStyler.Core
                     .Append(currentIndentString)
                     .Append("<!--");
 
-                var contentIndentString = GetIndentString(xmlReader.Depth + 1);
+                var contentIndentString = _indentService.GetIndentString(xmlReader.Depth + 1);
                 foreach (var line in content.Trim().GetLines())
                 {
                     output
@@ -387,7 +383,7 @@ namespace XamlStyler.Core
 
         private void ProcessElement(XmlReader xmlReader, StringBuilder output)
         {
-            string currentIndentString = GetIndentString(xmlReader.Depth);
+            string currentIndentString = _indentService.GetIndentString(xmlReader.Depth);
             string elementName = xmlReader.Name;
 
             // Calculate how element should be indented
@@ -431,10 +427,7 @@ namespace XamlStyler.Core
             {
                 while (xmlReader.MoveToNextAttribute())
                 {
-                    string attributeName = xmlReader.Name;
-                    string attributeValue = xmlReader.Value;
-                    AttributeOrderRule orderRule = OrderRules.GetRuleFor(attributeName);
-                    list.Add(new AttributeInfo(attributeName, attributeValue, orderRule));
+                    list.Add(_attributeInfoFactory.Create(xmlReader));
 
                     // Check for xml:space as defined in http://www.w3.org/TR/2008/REC-xml-20081126/#sec-white-space
                     if (xmlReader.IsXmlSpaceAttribute())
@@ -446,7 +439,7 @@ namespace XamlStyler.Core
                 if (Options.EnableAttributeReordering)
                     list.Sort(AttributeInfoComparison);
 
-                currentIndentString = GetIndentString(xmlReader.Depth);
+                currentIndentString = _indentService.GetIndentString(xmlReader.Depth);
 
                 var noLineBreakInAttributes = (list.Count <= Options.AttributesTolerance) || IsNoLineBreakElement(elementName);
                 var forceLineBreakInAttributes = false;
@@ -477,7 +470,7 @@ namespace XamlStyler.Core
                     {
                         output
                             .Append(' ')
-                            .Append(attrInfo.ToSingleLineString());
+                            .Append(_attributeInfoFormatter.ToSingleLineString(attrInfo));
                     }
 
                     _elementProcessStatusStack.Peek().IsMultlineStartTag = false;
@@ -497,28 +490,9 @@ namespace XamlStyler.Core
                         // Attributes with markup extension, always put on new line
                         if (attrInfo.IsMarkupExtension && Options.FormatMarkupExtension)
                         {
-                            string baseIndetationString;
-
-                            if (!Options.KeepFirstAttributeOnSameLine)
-                            {
-                                baseIndetationString = GetIndentString(xmlReader.Depth);
-                            }
-                            else
-                            {
-                                baseIndetationString = GetIndentString(xmlReader.Depth - 1) +
-                                                       string.Empty.PadLeft(elementName.Length + 2, ' ');
-                            }
-
-                            string pendingAppend;
-
-                            if (NoNewLineMarkupExtensionsList.Contains(attrInfo.MarkupExtension))
-                            {
-                                pendingAppend = " " + attrInfo.ToSingleLineString();
-                            }
-                            else
-                            {
-                                pendingAppend = attrInfo.ToMultiLineString(baseIndetationString);
-                            }
+                            var baseIndetationString = !Options.KeepFirstAttributeOnSameLine
+                                ? _indentService.GetIndentString(xmlReader.Depth)
+                                : _indentService.GetIndentString(xmlReader.Depth - 1, elementName.Length + 2);
 
                             if (currentLineBuffer.Length > 0)
                             {
@@ -527,11 +501,11 @@ namespace XamlStyler.Core
                                 attributeCountInCurrentLineBuffer = 0;
                             }
 
-                            attributeLines.Add(pendingAppend);
+                            attributeLines.Add(_attributeInfoFormatter.ToMultiLineString(attrInfo, baseIndetationString));
                         }
                         else
                         {
-                            string pendingAppend = attrInfo.ToSingleLineString();
+                            string pendingAppend = _attributeInfoFormatter.ToSingleLineString(attrInfo);
 
                             bool isAttributeCharLengthExceeded =
                                 (attributeCountInCurrentLineBuffer > 0 && Options.MaxAttributeCharatersPerLine > 0
@@ -574,14 +548,12 @@ namespace XamlStyler.Core
                                 .Append(attributeLines[i].Trim());
 
                             // Align subsequent attributes with first attribute
-                            currentIndentString = GetIndentString(xmlReader.Depth - 1) +
-                                                  String.Empty.PadLeft(elementName.Length + 2, ' ');
+                            currentIndentString = _indentService.GetIndentString(xmlReader.Depth - 1, elementName.Length + 2);
                             continue;
                         }
                         output
                             .Append(Environment.NewLine)
-                            .Append(currentIndentString)
-                            .Append(attributeLines[i].Trim());
+                            .Append(_indentService.Normalize(currentIndentString + attributeLines[i].Trim()));
                     }
 
                     _elementProcessStatusStack.Peek().IsMultlineStartTag = true;
@@ -655,7 +627,7 @@ namespace XamlStyler.Core
             }
             else
             {
-                string currentIndentString = GetIndentString(xmlReader.Depth);
+                string currentIndentString = _indentService.GetIndentString(xmlReader.Depth);
 
                 if (!output.IsNewLine())
                 {
@@ -668,7 +640,7 @@ namespace XamlStyler.Core
 
         private void ProcessInstruction(XmlReader xmlReader, StringBuilder output)
         {
-            string currentIndentString = GetIndentString(xmlReader.Depth);
+            string currentIndentString = _indentService.GetIndentString(xmlReader.Depth);
 
             if (!output.IsNewLine())
             {
@@ -691,7 +663,7 @@ namespace XamlStyler.Core
             }
             else
             {
-                string currentIndentString = GetIndentString(xmlReader.Depth);
+                string currentIndentString = _indentService.GetIndentString(xmlReader.Depth);
                 IEnumerable<String> textLines =
                     xmlEncodedContent.Trim().Split('\n').Where(
                         x => x.Trim().Length > 0).ToList();

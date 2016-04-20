@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using XamlStyler.Core.Reorder;
 
-namespace XamlStyler.Core.Helpers
+namespace XamlStyler.Core.Extensions
 {
     public static class StringExtension
     {
