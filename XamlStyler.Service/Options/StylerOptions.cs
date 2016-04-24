@@ -102,6 +102,7 @@ namespace XamlStyler.Core.Options
             // Blend related group
             "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText",
         })]
+        [TypeConverter(typeof(StringArrayConverter))]
         public string[] AttributeOrderingRuleGroups { get; set; }
 
         [Category("Attribute Reordering")]

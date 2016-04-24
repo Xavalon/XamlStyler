@@ -15,19 +15,6 @@ namespace XamlStyler.Core.MarkupExtensions.Formatter
             _singleLineTypes = singleLineTypes;
         }
 
-        /*
-        <TextBlock HorizontalAlignment="Center" 
-               VerticalAlignment="Center"
-               FontSize="20"
-               Foreground="Red"
-               Text="{Binding {}Title,
-                              RelativeSource={RelativeSource FindAncestor,
-                                                             AncestorType={x:Type Page}},
-                              StringFormat={}{0}Now{{0}} - {0}}" />
-
-        <TextBlock Text="{Binding Path=Content, ElementName=m_button, StringFormat={}{0:##\,#0.00;(##\,#0.00); }}" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-
-        */
         /// <summary>
         /// Format markup extension and return elements as formatted lines with "local" indention.
         /// Indention from previous element/attribute/tags must be applied separately
@@ -43,19 +30,14 @@ namespace XamlStyler.Core.MarkupExtensions.Formatter
             return formatter.Format(markupExtension);
         }
 
-
-        //public string FormatMultiLineString(AttributeInfo attrInfo, string baseIndentationString)
-        //{
-        //    if(_parser.TryParse(attrInfo.MarkupExtension.))
-        //}
-        //public string AttributeInfoFactory(string attribute)
-        //{
-        //    MarkupExtension markupExtension;
-        //    if(_parser.TryParse(attribute, out markupExtension))
-        //}
-        public string FormatSingleLine(MarkupExtension graph)
+        /// <summary>
+        /// Format markup extension on a single line.
+        /// </summary>
+        /// <param name="markupExtension"></param>
+        /// <returns></returns>
+        public string FormatSingleLine(MarkupExtension markupExtension)
         {
-            return _singleLineFormatter.Format(graph).Single();
+            return _singleLineFormatter.Format(markupExtension).Single();
         }
     }
 }
