@@ -6,14 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using XamlStyler.Core.DocumentManipulation;
 using XamlStyler.Core.Extensions;
-using XamlStyler.Core.MarkupExtensions;
 using XamlStyler.Core.MarkupExtensions.Formatter;
 using XamlStyler.Core.MarkupExtensions.Parser;
 using XamlStyler.Core.Model;
 using XamlStyler.Core.Options;
 using XamlStyler.Core.Parser;
-using XamlStyler.Core.Reorder;
 using XamlStyler.Core.Services;
 
 namespace XamlStyler.Core
@@ -24,14 +23,16 @@ namespace XamlStyler.Core
         private readonly IndentService _indentService;
 
         private readonly IStylerOptions Options;
+        private DocumentManipulationService _documentManipulationService;
         private readonly IList<string> NoNewLineElementsList;
-        private List<IProcessElementService> ProcessElementServices;
         private readonly AttributeInfoFormatter _attributeInfoFormatter;
-        private AttributeInfoFactory _attributeInfoFactory;
+        private readonly AttributeInfoFactory _attributeInfoFactory;
 
         private StylerService(IStylerOptions options)
         {
             Options = options;
+
+            _documentManipulationService = new DocumentManipulationService(options);
 
             _elementProcessStatusStack = new Stack<ElementProcessStatus>();
             _elementProcessStatusStack.Push(new ElementProcessStatus());
@@ -47,69 +48,6 @@ namespace XamlStyler.Core
             ;
         }
 
-        private void Initialize()
-        {
-            ProcessElementServices = new List<IProcessElementService>
-            {
-                new FormatThicknessService(Options.ThicknessStyle, Options.ThicknessAttributes),
-                GetReorderGridChildrenService(),
-                GetReorderCanvasChildrenService(),
-                GetReorderSettersService()
-            };
-        }
-
-        private NodeReorderService GetReorderGridChildrenService()
-        {
-            var reorderService = new NodeReorderService { IsEnabled = Options.ReorderGridChildren };
-            reorderService.ParentNodeNames.Add(new NameSelector("Grid", null));
-            reorderService.ChildNodeNames.Add(new NameSelector(null, null));
-            reorderService.SortByAttributes.Add(new SortBy("Grid.Row", null, true));
-            reorderService.SortByAttributes.Add(new SortBy("Grid.Column", null, true));
-            return reorderService;
-        }
-
-        private NodeReorderService GetReorderCanvasChildrenService()
-        {
-            var reorderService = new NodeReorderService { IsEnabled = Options.ReorderCanvasChildren };
-            reorderService.ParentNodeNames.Add(new NameSelector("Canvas", null));
-            reorderService.ChildNodeNames.Add(new NameSelector(null, null));
-            reorderService.SortByAttributes.Add(new SortBy("Canvas.Left", null, true));
-            reorderService.SortByAttributes.Add(new SortBy("Canvas.Top", null, true));
-            reorderService.SortByAttributes.Add(new SortBy("Canvas.Right", null, true));
-            reorderService.SortByAttributes.Add(new SortBy("Canvas.Bottom", null, true));
-            return reorderService;
-        }
-
-        private NodeReorderService GetReorderSettersService()
-        {
-            var reorderService = new NodeReorderService();
-            reorderService.ParentNodeNames.Add(new NameSelector("DataTrigger", null));
-            reorderService.ParentNodeNames.Add(new NameSelector("MultiDataTrigger", null));
-            reorderService.ParentNodeNames.Add(new NameSelector("MultiTrigger", null));
-            reorderService.ParentNodeNames.Add(new NameSelector("Style", null));
-            reorderService.ParentNodeNames.Add(new NameSelector("Trigger", null));
-            reorderService.ChildNodeNames.Add(new NameSelector("Setter", "http://schemas.microsoft.com/winfx/2006/xaml/presentation"));
-
-            switch (Options.ReorderSetters)
-            {
-                case ReorderSettersBy.None:
-                    reorderService.IsEnabled = false;
-                    break;
-                case ReorderSettersBy.Property:
-                    reorderService.SortByAttributes.Add(new SortBy("Property", null, false));
-                    break;
-                case ReorderSettersBy.TargetName:
-                    reorderService.SortByAttributes.Add(new SortBy("TargetName", null, false));
-                    break;
-                case ReorderSettersBy.TargetNameThenProperty:
-                    reorderService.SortByAttributes.Add(new SortBy("TargetName", null, false));
-                    reorderService.SortByAttributes.Add(new SortBy("Property", null, false));
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-            return reorderService;
-        }
 
         public static StylerService CreateInstance(IStylerOptions options)
         {
@@ -236,53 +174,11 @@ namespace XamlStyler.Core
         /// <returns></returns>
         public string ManipulateTreeAndFormatInput(string xamlSource)
         {
-            Initialize();
-
             // parse XDocument
             var xDoc = XDocument.Parse(EscapeDocument(xamlSource), LoadOptions.PreserveWhitespace);
 
             // first, manipulate the tree; then, write it to a string
-            return UnescapeDocument(Format(ManipulateTree(xDoc)));
-        }
-
-        private string ManipulateTree(XDocument xDoc)
-        {
-            var xmlDeclaration = xDoc.Declaration?.ToString() ?? string.Empty;
-            var rootElement = xDoc.Root;
-
-            if (rootElement != null)
-            {
-                HandleNode(rootElement);
-            }
-
-            return xmlDeclaration + xDoc;
-        }
-
-        private void HandleNode(XNode node)
-        {
-            switch (node.NodeType)
-            {
-                case XmlNodeType.Element:
-                    XElement element = node as XElement;
-
-                    if (element != null && element.Nodes().Any())
-                    {
-                        // handle children first
-                        foreach (var childNode in element.Nodes())
-                        {
-                            HandleNode(childNode);
-                        }
-                    }
-
-                    if (element != null)
-                    {
-                        foreach (var elementService in ProcessElementServices)
-                        {
-                            elementService.ProcessElement(element);
-                        }
-                    }
-                    break;
-            }
+            return UnescapeDocument(Format(_documentManipulationService.ManipulateDocument(xDoc)));
         }
 
         private bool IsNoLineBreakElement(string elementName)

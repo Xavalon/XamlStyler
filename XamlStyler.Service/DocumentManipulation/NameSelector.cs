@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
-namespace XamlStyler.Core.Reorder
+namespace XamlStyler.Core.DocumentManipulation
 {
     public class NameSelector
     {

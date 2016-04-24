@@ -3,7 +3,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 
-namespace XamlStyler.Core.Reorder
+namespace XamlStyler.Core.DocumentManipulation
 {
     public class NodeReorderService: IProcessElementService
     {

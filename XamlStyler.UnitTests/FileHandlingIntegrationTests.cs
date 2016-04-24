@@ -2,8 +2,8 @@
 using System.IO;
 using NUnit.Framework;
 using XamlStyler.Core;
+using XamlStyler.Core.DocumentManipulation;
 using XamlStyler.Core.Options;
-using XamlStyler.Core.Reorder;
 
 namespace XamlStyler.UnitTests
 {
