@@ -1,4 +1,10 @@
-﻿2.0
+﻿2.1
+---
+- Switch to .NET 4.5.2
+- New MarkupExtension Parser
+- Bugfixes
+
+2.0
 ----
 A long overdue update (sorry!)
 thanks to everyone who contributed!
