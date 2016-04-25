@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Xml.Linq;
 
-namespace XamlStyler.Core.Reorder
+namespace XamlStyler.Core.DocumentManipulation
 {
     public class SortBy: NameSelector
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 
-namespace XamlStyler.Core.Reorder
+namespace XamlStyler.Core.DocumentManipulation
 {
     public class NodeCollection: IComparable<NodeCollection>
     {

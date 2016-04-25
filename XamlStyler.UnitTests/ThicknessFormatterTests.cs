@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using XamlStyler.Core.Reorder;
+using XamlStyler.Core.DocumentManipulation;
 
 namespace XamlStyler.UnitTests
 {

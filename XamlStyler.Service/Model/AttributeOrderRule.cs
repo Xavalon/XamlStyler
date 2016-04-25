@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using XamlStyler.Core.Reorder;
+using XamlStyler.Core.DocumentManipulation;
 
 namespace XamlStyler.Core.Model
 {

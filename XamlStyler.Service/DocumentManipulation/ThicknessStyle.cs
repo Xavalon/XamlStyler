@@ -1,4 +1,4 @@
-namespace XamlStyler.Core.Reorder
+namespace XamlStyler.Core.DocumentManipulation
 {
     public enum ThicknessStyle
     {

@@ -1,10 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using XamlStyler.Core.Extensions;
 
-namespace XamlStyler.Core.Reorder
+namespace XamlStyler.Core.DocumentManipulation
 {
     public class FormatThicknessService : IProcessElementService
     {

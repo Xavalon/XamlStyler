@@ -176,7 +176,7 @@ namespace NicoVermeir.XamlStyler_Package
             stylerOptions.IndentSize = Int32.Parse(xamlEditorProps.Item("IndentSize").Value.ToString());
             stylerOptions.IndentWithTabs = (bool) xamlEditorProps.Item("InsertTabs").Value;
 
-            StylerService styler = StylerService.CreateInstance(stylerOptions);
+            StylerService styler = new StylerService(stylerOptions);
 
             var textDocument = (TextDocument) document.Object("TextDocument");
 
@@ -188,7 +188,7 @@ namespace NicoVermeir.XamlStyler_Package
             EditPoint endPoint = textDocument.EndPoint.CreateEditPoint();
 
             string xamlSource = startPoint.GetText(endPoint);
-            xamlSource = styler.ManipulateTreeAndFormatInput(xamlSource);
+            xamlSource = styler.StyleDocument(xamlSource);
 
             startPoint.ReplaceText(endPoint, xamlSource, 0);
 

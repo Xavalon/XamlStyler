@@ -2,8 +2,8 @@
 using System.IO;
 using NUnit.Framework;
 using XamlStyler.Core;
+using XamlStyler.Core.DocumentManipulation;
 using XamlStyler.Core.Options;
-using XamlStyler.Core.Reorder;
 
 namespace XamlStyler.UnitTests
 {
@@ -298,12 +298,12 @@ namespace XamlStyler.UnitTests
         /// <param name="expectedSuffix"></param>
         private static void DoTest(StylerOptions stylerOptions, string testFileBaseName, string expectedSuffix)
         {
-            var stylerService = StylerService.CreateInstance(stylerOptions);
+            var stylerService = new StylerService(stylerOptions);
             
             var testFileResultBaseName = expectedSuffix != null ? testFileBaseName + "_" + expectedSuffix : testFileBaseName;
 
             // Excercise stylerService using supplied test xaml data
-            string actualOutput = stylerService.ManipulateTreeAndFormatInput(File.ReadAllText(testFileBaseName + ".testxaml"));
+            string actualOutput = stylerService.StyleDocument(File.ReadAllText(testFileBaseName + ".testxaml"));
 
             // Write output to ".actual" file for further investigation
             File.WriteAllText(testFileResultBaseName + ".actual", actualOutput, Encoding.UTF8);

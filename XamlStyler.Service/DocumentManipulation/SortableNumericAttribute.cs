@@ -1,6 +1,6 @@
 using System;
 
-namespace XamlStyler.Core.Reorder
+namespace XamlStyler.Core.DocumentManipulation
 {
     public class SortableNumericAttribute: ISortableAttribute
     {
