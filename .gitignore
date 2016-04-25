@@ -110,3 +110,6 @@ UpgradeLog*.XML
 *.jrs
 *.ide
 XamlStylerVSPackage.sln.DotSettings
+
+# Leftovers from merging
+*.orig

@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace XamlStyler.Core
+namespace XamlStyler.Core.Services
 {
     public class XmlEscapingService
     {

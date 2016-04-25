@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using XamlStyler.Core.Helpers;
+using XamlStyler.Core.Extensions;
 
 namespace XamlStyler.Core.Reorder
 {
