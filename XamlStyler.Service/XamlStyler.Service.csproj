@@ -48,6 +48,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DocumentManipulation\DocumentManipulationService.cs" />
+    <Compile Include="DocumentProcessors\CDATADocumentProcessor.cs" />
+    <Compile Include="DocumentProcessors\CommentDocumentProcessor.cs" />
+    <Compile Include="DocumentProcessors\ElementDocumentProcessor.cs" />
+    <Compile Include="DocumentProcessors\EndElementDocumentProcessor.cs" />
+    <Compile Include="DocumentProcessors\ProcessInstructionDocumentProcessor.cs" />
+    <Compile Include="DocumentProcessors\SignificantWhitespaceDocumentProcessor.cs" />
+    <Compile Include="DocumentProcessors\TextDocumentProcessor.cs" />
+    <Compile Include="DocumentProcessors\ElementProcessContext.cs" />
+    <Compile Include="DocumentProcessors\IDocumentProcessor.cs" />
+    <Compile Include="DocumentProcessors\WhitespaceDocumentProcessor.cs" />
+    <Compile Include="DocumentProcessors\XmlDeclarationDocumentProcessor.cs" />
     <Compile Include="MarkupExtensions\Formatter\AttributeInfoFactory.cs" />
     <Compile Include="MarkupExtensions\Formatter\MarkupExtensionFormatterBase.cs" />
     <Compile Include="Extensions\XmlReaderExtensions.cs" />
