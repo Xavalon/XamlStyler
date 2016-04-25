@@ -33,13 +33,33 @@ namespace XamlStyler.Core.Options
 
         [Category("Attribute Formatting")]
         [DisplayName("Attribute tolerance")]
-        [Description("Defines the attribute number tolerance before XamlStyler starts to break attributes into new lines. A value less than 1 meaning no tolerance. \r\ne.g., when this setting is 2 \r\n\r\nBEFORE BEAUTIFY:\r\n<TextBlock x:Name=\"m_sample\"\r\n    Text=\"asdf\" />\r\n\r\nAFTER BEAUTIFY:\r\n<TextBlock x:Name=\"m_sample\" Text=\"asdf\" />\r\nDefault Value: 2")]
-        [DefaultValue(2)]
-        public int AttributesTolerance { get; set; }
+        [Description(@"Defines the attribute number tolerance before XamlStyler starts to break attributes into new lines. 0 = no tolerance. 
+e.g., when this setting is 2 
+
+BEFORE BEAUTIFY:
+<TextBlock x:Name=""m_sample""
+    Text=""asdf"" />
+
+AFTER BEAUTIFY:
+<TextBlock x:Name=""m_sample"" Text=""asdf"" />
+Default Value: 2")]
+        [DefaultValue((byte)2)]
+        public byte AttributesTolerance { get; set; }
 
         [Category("Attribute Formatting")]
         [DisplayName("Position first attribute on same line as start tag")]
-        [Description("Defines whether the first line of attribute(s) shall appear on the same line as the element's start tag. \r\ne.g., when this setting is true \r\n\r\nBEFORE BEAUTIFY:\r\n\"<element a='xyz' b='xyz'>  </element>\" \r\n\r\nAFTER BEAUTIFY:\r\n\"<element a='xyz'\r\n        b='xyz'>\r\n</element>\" \r\n\r\nDefault Value: true")]
+        [Description(@"Defines whether the first line of attribute(s) shall appear on the same line as the element's start tag. 
+e.g., when this setting is true 
+
+BEFORE BEAUTIFY:
+""<element a='xyz' b='xyz'>  </element>"" 
+
+AFTER BEAUTIFY:
+""<element a='xyz'
+        b='xyz'>
+</element>"" 
+
+Default Value: true")]
         [DefaultValue(true)]
         public bool KeepFirstAttributeOnSameLine { get; set; }
 
@@ -51,13 +71,15 @@ namespace XamlStyler.Core.Options
 
         [Category("Attribute Formatting")]
         [DisplayName("Max attributes per line")]
-        [Description("Defines the maximum number of attributes an element can have on each line after the start tag. A value less than 1 meaning no limit. \r\nDefault Value: 1")]
-        [DefaultValue(1)]
-        public int MaxAttributesPerLine { get; set; }
+        [Description(@"Defines the maximum number of attributes an element can have on each line after the start tag. 0 = no limit. 
+Default Value: 1")]
+        [DefaultValue((byte)1)]
+        public byte MaxAttributesPerLine { get; set; }
 
         [Category("Attribute Formatting")]
         [DisplayName("Elements no line break between attributes")]
-        [Description("Defines a list of elements whose attributes shall not be broken into lines. \r\nDefault Value: RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Setter")]
+        [Description(@"Defines a list of elements whose attributes shall not be broken into lines. 
+Default Value: RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Setter")]
         [DefaultValue("RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Condition, Setter")]
         public string NoNewLineElements { get; set; }
 
@@ -66,6 +88,14 @@ namespace XamlStyler.Core.Options
         [Description("Put attributes belonging to different rule groups on different lines and keep identical groups on same line if possible")]
         [DefaultValue(false)]
         public bool PutAttributeOrderRuleGroupsOnSeparateLines { get; set; }
+
+        [Category("Attribute Formatting")]
+        [DisplayName("Attribute indentation")]
+        [Description(@"Defines the number of spaces that attributes are indented, on elements with more than one line of attributes.
+0 = align with first attribute.")]
+        [DefaultValue((byte)0)]
+        public byte AttributeIndentation { get; set; }
+
         // Attribute Reordering
 
         [Category("Attribute Reordering")]
@@ -76,7 +106,10 @@ namespace XamlStyler.Core.Options
 
         [Category("Attribute Reordering")]
         [DisplayName("Attribute Ordering Rule Groups")]
-        [Description("Defines attribute ordering rule groups. Each string element is one group. \r\nUse ',' to seperate more than one attribute.'DOS' wildcards are allowed. \r\nAttributes listed in earlier groups takes precedence over later groups. \r\nAttributes listed earlier in same group takes precedence over the ones listed later.")]
+        [Description(@"Defines attribute ordering rule groups. Each string element is one group. 
+Use ',' to seperate more than one attribute.'DOS' wildcards are allowed. 
+Attributes listed in earlier groups takes precedence over later groups. 
+Attributes listed earlier in same group takes precedence over the ones listed later.")]
         [DefaultValue(new[]
         {
             // Class definition group
@@ -115,25 +148,41 @@ namespace XamlStyler.Core.Options
 
         [Category("Element Formatting")]
         [DisplayName("Put ending bracket on new line")]
-        [Description("Defines whether to put \">\" or \"/>\" on a new line. \r\nDefault Value: false")]
+        [Description(@"Defines whether to put "">"" or ""/>"" on a new line. 
+Default Value: false")]
         [DefaultValue(false)]
         public bool PutEndingBracketOnNewLine { get; set; }
 
         [Category("Element Formatting")]
         [DisplayName("Remove ending tag of empty element")]
-        [Description("Defines whether to remove the ending tag of an empty element. \r\ne.g., when this setting is true \r\n\r\nBEFORE BEAUTIFY:\r\n\"<element>  </element>\" \r\n\r\nAFTER BEAUTIFY:\r\n\"<element />\" \r\n\r\nDefault Value: true")]
+        [Description(@"Defines whether to remove the ending tag of an empty element. 
+e.g., when this setting is true 
+
+BEFORE BEAUTIFY:
+""<element>  </element>"" 
+
+AFTER BEAUTIFY:
+""<element />"" 
+
+Default Value: true")]
         [DefaultValue(true)]
         public bool RemoveEndingTagOfEmptyElement { get; set; }
 
         [Category("Element Formatting")]
         [DisplayName("Space before closing slash in self closing element")]
-        [Description("Defines whether to have a space before slash in self closing elements \r\ne.g., when \r\ntrue <br /> \r\nfalse <br/> \r\n\r\nDefault Value: true")]
+        [Description(@"Defines whether to have a space before slash in self closing elements 
+e.g., when 
+true <br /> 
+false <br/> 
+
+Default Value: true")]
         [DefaultValue(true)]
         public bool SpaceBeforeClosingSlash { get; set; }
 
         [Category("Element Formatting")]
         [DisplayName("Root element line breaks between attributes")]
-        [Description("Defines if attributes of the document root element are broken into separate lines or not. \r\nDefault = use same rules as other elements")]
+        [Description(@"Defines if attributes of the document root element are broken into separate lines or not. 
+Default = use same rules as other elements")]
         [DefaultValue(LineBreakRule.Default)]
         public LineBreakRule RootElementLineBreakRule { get; set; }
 
@@ -141,7 +190,7 @@ namespace XamlStyler.Core.Options
 
         [Category("Element Reordering")]
         [DisplayName("Reorder Grid panel children by row/column")]
-        [Description("Defines whether to reorder the children of a Grid by row/column.  When this is true, children will be reordered in an ascending fashion by looking at their attached Grid properties: first by Grid.Row, then by Grid.Column.")]
+        [Description("Defines whether to reorder the children of a Grid by row/column. When this is true, children will be reordered in an ascending fashion by looking at their attached Grid properties: first by Grid.Row, then by Grid.Column.")]
         [DefaultValue(true)]
         public bool ReorderGridChildren { get; set; }
 
@@ -161,7 +210,9 @@ namespace XamlStyler.Core.Options
 
         [Category("Markup Extension")]
         [DisplayName("Enable Markup Extension Formatting")]
-        [Description("Defines whether to format markup extensions (attributes containg '{}'). \r\nDefalut Value: true \r\nWhen this setting is true, attributes with markup extensions will always be put on a new line, UNLESS the element is under AttributesTolerance or one of the NoNewLineElements.")]
+        [Description(@"Defines whether to format markup extensions (attributes containg '{}'). 
+Defalut Value: true 
+When this setting is true, attributes with markup extensions will always be put on a new line, UNLESS the element is under AttributesTolerance or one of the NoNewLineElements.")]
         [DefaultValue(true)]
         public bool FormatMarkupExtension { get; set; }
 
@@ -201,6 +252,5 @@ namespace XamlStyler.Core.Options
 0: <!--Hello world-->")]
         [DefaultValue((byte)2)]
         public byte CommentSpaces { get; set; }
-
     }
 }

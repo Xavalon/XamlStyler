@@ -10,6 +10,22 @@ namespace XamlStyler.UnitTests
     [TestFixture]
     public class FileHandlingIntegrationTests
     {
+        [TestCase(0)]
+        [TestCase(4)]
+        public void TestAttributeIndentationHandling(byte attributeIndentation)
+        {
+            var stylerOptions = new StylerOptions
+            {
+                AttributeIndentation = attributeIndentation,
+                AttributesTolerance = 0,
+                MaxAttributeCharatersPerLine = 80,
+                MaxAttributesPerLine = 3,
+                PutEndingBracketOnNewLine = true
+            };
+
+            DoTestCase(stylerOptions, attributeIndentation);
+        }
+
         [Test]
         public void TestAttributeThresholdHandling()
         {

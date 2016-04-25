@@ -17,15 +17,19 @@ namespace XamlStyler.Core.Options
 
         #region Attribute formatting
 
-        int AttributesTolerance { get; set; }
+        byte AttributesTolerance { get; set; }
 
         bool KeepFirstAttributeOnSameLine { get; set; }
 
         int MaxAttributeCharatersPerLine { get; set; }
 
-        int MaxAttributesPerLine { get; set; }
+        byte MaxAttributesPerLine { get; set; }
 
         string NoNewLineElements { get; set; }
+
+        bool PutAttributeOrderRuleGroupsOnSeparateLines { get; set; }
+
+        byte AttributeIndentation { get; set; }
 
         #endregion Attribute formatting
 
@@ -36,8 +40,6 @@ namespace XamlStyler.Core.Options
         string[] AttributeOrderingRuleGroups { get; set; }
 
         bool OrderAttributesByName { get; set; }
-
-        bool PutAttributeOrderRuleGroupsOnSeparateLines { get; set; }
 
         #endregion Attribute Reordering
 
