@@ -13,10 +13,7 @@ namespace XamlStyler.Core.Services
 
         public string GetIndentString(int depth)
         {
-            if (depth < 0)
-            {
-                depth = 0;
-            }
+            if (depth < 0) depth = 0;
 
             if (_indentWithTabs)
             {
@@ -28,10 +25,8 @@ namespace XamlStyler.Core.Services
 
         public string GetIndentString(int depth, int additionalSpaces)
         {
-            if (depth < 0)
-            {
-                depth = 0;
-            }
+            if (depth < 0) depth = 0;
+            if (additionalSpaces < 0) additionalSpaces = 0;
 
             if (_indentWithTabs)
             {

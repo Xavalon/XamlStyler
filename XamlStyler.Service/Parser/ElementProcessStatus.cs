@@ -17,12 +17,6 @@
         public bool IsMultlineStartTag { get; set; }
 
         /// <summary>
-        /// Gets or sets whether the current element is self-closing.
-        /// E.g., <Element/> is an self-closing element.
-        /// </summary>
-        public bool IsSelfClosingElement { get; set; }
-
-        /// <summary>
         /// Gets or sets whether the current element preserves space.
         /// </summary>
         public bool IsPreservingSpace { get; set; }
