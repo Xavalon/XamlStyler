@@ -1,11 +1,11 @@
-﻿using System.Text;
-using System.IO;
+﻿using System.IO;
+using System.Text;
 using NUnit.Framework;
-using XamlStyler.Core;
-using XamlStyler.Core.DocumentManipulation;
-using XamlStyler.Core.Options;
+using Xavalon.XamlStyler.Core;
+using Xavalon.XamlStyler.Core.DocumentManipulation;
+using Xavalon.XamlStyler.Core.Options;
 
-namespace XamlStyler.UnitTests
+namespace Xavalon.XamlStyler.UnitTests
 {
     [TestFixture]
     public class FileHandlingIntegrationTests

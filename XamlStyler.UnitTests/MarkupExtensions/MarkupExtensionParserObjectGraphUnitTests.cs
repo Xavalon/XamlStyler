@@ -1,8 +1,8 @@
 using KellermanSoftware.CompareNetObjects;
 using NUnit.Framework;
-using XamlStyler.Core.MarkupExtensions.Parser;
+using Xavalon.XamlStyler.Core.MarkupExtensions.Parser;
 
-namespace XamlStyler.UnitTests.MarkupExtensions
+namespace Xavalon.XamlStyler.UnitTests.MarkupExtensions
 {
     [TestFixture]
     public class MarkupExtensionParserObjectGraphUnitTests

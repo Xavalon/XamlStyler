@@ -1,9 +1,9 @@
 ﻿using NUnit.Framework;
-using XamlStyler.Core.Extensions;
-using XamlStyler.Core.MarkupExtensions.Formatter;
-using XamlStyler.Core.MarkupExtensions.Parser;
+using Xavalon.XamlStyler.Core.Extensions;
+using Xavalon.XamlStyler.Core.MarkupExtensions.Formatter;
+using Xavalon.XamlStyler.Core.MarkupExtensions.Parser;
 
-namespace XamlStyler.UnitTests.MarkupExtensions
+namespace Xavalon.XamlStyler.UnitTests.MarkupExtensions
 {
     [TestFixture]
     public class MarkupExtensionFormatterUnitTests

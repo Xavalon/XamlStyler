@@ -1,8 +1,7 @@
 ﻿// PkgCmdID.cs
 // MUST match PkgCmdID.h
-using System;
 
-namespace NicoVermeir.XamlStyler_Package
+namespace Xavalon.XamlStyler.Package
 {
     static class PkgCmdIDList
     {

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NicoVermeir.XamlStyler_Package {
+namespace Xavalon.XamlStyler.Package {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace NicoVermeir.XamlStyler_Package {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NicoVermeir.XamlStyler_Package.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Xavalon.XamlStyler.Package.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

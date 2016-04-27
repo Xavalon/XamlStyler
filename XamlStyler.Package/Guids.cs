@@ -1,8 +1,9 @@
 ﻿// Guids.cs
 // MUST match guids.h
+
 using System;
 
-namespace NicoVermeir.XamlStyler_Package
+namespace Xavalon.XamlStyler.Package
 {
     static class GuidList
     {
