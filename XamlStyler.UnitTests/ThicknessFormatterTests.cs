@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using XamlStyler.Core.DocumentManipulation;
+﻿using NUnit.Framework;
+using Xavalon.XamlStyler.Core.DocumentManipulation;
 
-namespace XamlStyler.UnitTests
+namespace Xavalon.XamlStyler.UnitTests
 {
     [TestFixture]
     public class ThicknessFormatterUnitTests

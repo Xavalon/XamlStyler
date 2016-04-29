@@ -1,17 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using XamlStyler.Core;
-using XamlStyler.Core.Options;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+using Xavalon.XamlStyler.Core;
+using Xavalon.XamlStyler.Core.Options;
 
-namespace NicoVermeir.XamlStyler_Package
+namespace Xavalon.XamlStyler.Package
 {
     /// <summary>
     /// This is the class that implements the package exposed by this assembly.
@@ -37,7 +37,7 @@ namespace NicoVermeir.XamlStyler_Package
         DescriptionResourceID = 108)]
     [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
     [Guid(GuidList.guidXamlStyler_PackagePkgString)]
-    public sealed class StylerPackage : Package //, IDTExtensibility2
+    public sealed class StylerPackage : Microsoft.VisualStudio.Shell.Package //, IDTExtensibility2
     {
         private DTE _dte;
         private Events _events;

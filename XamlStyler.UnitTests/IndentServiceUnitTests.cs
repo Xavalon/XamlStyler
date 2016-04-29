@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using XamlStyler.Core.Services;
+using Xavalon.XamlStyler.Core.Services;
 
-namespace XamlStyler.UnitTests
+namespace Xavalon.XamlStyler.UnitTests
 {
     [TestFixture]
     public class IndentServiceUnitTests

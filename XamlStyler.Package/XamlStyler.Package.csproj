@@ -20,7 +20,7 @@
     <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NicoVermeir.XamlStyler_Package</RootNamespace>
+    <RootNamespace>Xavalon.XamlStyler.Package</RootNamespace>
     <AssemblyName>XamlStyler.Package</AssemblyName>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
@@ -185,9 +185,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XamlStyler.Service\XamlStyler.Service.csproj">
+    <ProjectReference Include="..\XamlStyler.Core\XamlStyler.Core.csproj">
       <Project>{bd2a5b6f-0b1c-4b1d-90af-707f62bb12c0}</Project>
-      <Name>XamlStyler.Service</Name>
+      <Name>XamlStyler.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
