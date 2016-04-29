@@ -3,6 +3,7 @@
 - Switch to .NET 4.5.2
 - New MarkupExtension Parser
 - Bugfixes
+- Blend Support
 
 2.0
 ----
