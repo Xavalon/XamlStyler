@@ -2,7 +2,8 @@
 ---
 - Switch to .NET 4.5.2
 - New MarkupExtension Parser
-- Bugfixes
+- Fix VS2013 bug
+- Fixed attribute indentation
 - Blend Support
 
 2.0

@@ -28,7 +28,7 @@ namespace Xavalon.XamlStyler.Package
     // This attribute is used to register the informations needed to show the this package
     // in the Help/About dialog of Visual Studio.
     // This attribute is needed to let the shell know that this package exposes some menus.
-    [ProvideLoadKey("Standard", "2.0", "XAML Styler", "Nico Vermeir", 104)]
+    [ProvideLoadKey("Standard", "2.1", "XAML Styler", "Xavalon", 104)]
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
