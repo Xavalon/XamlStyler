@@ -8,7 +8,7 @@ This tool can help you/your team maintain a better XAML coding style as well as 
 
 This is a continuation of the original XAML styler found at http://xamlstyler.codeplex.com/
     </Description>
-    <MoreInfo>https://github.com/NicoVermeir/XamlStyler/</MoreInfo>
+    <MoreInfo>https://github.com/Xavalon/XamlStyler/</MoreInfo>
     <License>LICENSE.txt</License>
     <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
     <Icon>Resources\Package.ico</Icon>
