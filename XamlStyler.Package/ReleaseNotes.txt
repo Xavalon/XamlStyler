@@ -5,6 +5,8 @@
 - Fix VS2013 bug
 - Fixed attribute indentation
 - Blend Support
+- Fixed Attribute Ordering Rule Groups not serialized
+- Fixed mixed tabs/spaces
 
 2.0
 ----
