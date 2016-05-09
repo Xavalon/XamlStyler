@@ -49,7 +49,7 @@ Added setting for root element attribute formatting
 1.4
 ---
 Added Xamarin support
-Fix for Content of element is changed when using encoded unicode (Thanks Philip Hoppe!)
+Fix for Content of element is changed when using encoded Unicode (Thanks Philip Hoppe!)
 Added setting to disable ordering attributes by name
 
 1.3.6

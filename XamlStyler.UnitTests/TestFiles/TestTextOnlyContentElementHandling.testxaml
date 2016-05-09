@@ -1,6 +1,6 @@
 ﻿<Root>
 
-	<!-- START: Test for TEXT-ONLY-CONTENT ELEMENT hanlding -->
+	<!-- START: Test for TEXT-ONLY-CONTENT ELEMENT handling -->
   <EmptyNode></EmptyNode>
   <SingleSpace> </SingleSpace>
   <SingleTab> </SingleTab>
@@ -25,6 +25,6 @@
 
 		third line
 	</MultiLineMixed>
-	<!-- END: Test for TEXT-ONLY-CONTENT ELEMENT hanlding -->
+	<!-- END: Test for TEXT-ONLY-CONTENT ELEMENT handling -->
 
 </Root>

@@ -65,7 +65,7 @@ Default Value: true")]
 
         [Category("Attribute Formatting")]
         [DisplayName("Max attribute characters per line")]
-        [Description("Defines the maximum charater length (not including indentation characters) of attributes an element can have on each line after the start tag. A value less than 1 meaning no limit. \r\nDefault Value: 0")]
+        [Description("Defines the maximum character length (not including indentation characters) of attributes an element can have on each line after the start tag. A value less than 1 meaning no limit. \r\nDefault Value: 0")]
         [DefaultValue(0)]
         public int MaxAttributeCharatersPerLine { get; set; }
 
@@ -107,7 +107,7 @@ Default Value: RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTran
         [Category("Attribute Reordering")]
         [DisplayName("Attribute Ordering Rule Groups")]
         [Description(@"Defines attribute ordering rule groups. Each string element is one group. 
-Use ',' to seperate more than one attribute.'DOS' wildcards are allowed. 
+Use ',' to separate more than one attribute.'DOS' wildcards are allowed. 
 Attributes listed in earlier groups takes precedence over later groups. 
 Attributes listed earlier in same group takes precedence over the ones listed later.")]
         [DefaultValue(new[]
@@ -210,8 +210,8 @@ Default = use same rules as other elements")]
 
         [Category("Markup Extension")]
         [DisplayName("Enable Markup Extension Formatting")]
-        [Description(@"Defines whether to format markup extensions (attributes containg '{}'). 
-Defalut Value: true 
+        [Description(@"Defines whether to format markup extensions (attributes containing '{}'). 
+Default Value: true 
 When this setting is true, attributes with markup extensions will always be put on a new line, UNLESS the element is under AttributesTolerance or one of the NoNewLineElements.")]
         [DefaultValue(true)]
         public bool FormatMarkupExtension { get; set; }
@@ -226,7 +226,7 @@ When this setting is true, attributes with markup extensions will always be put 
 
         [Category("Thickness formatting")]
         [DisplayName("Thickness style")]
-        [Description("Defines how Thickness properties like Margin, Padding ect. should be formatted")]
+        [Description("Defines how Thickness properties like Margin, Padding etc. should be formatted")]
         [DefaultValue(ThicknessStyle.None)]
         public ThicknessStyle ThicknessStyle { get; set; }
 
@@ -239,8 +239,8 @@ When this setting is true, attributes with markup extensions will always be put 
         // Misc
 
         [Category("Misc")]
-        [DisplayName("Beautify on saving xaml")]
-        [Description("Defines whether to automatically beautify the active xaml document while saving.")]
+        [DisplayName("Beautify on saving XAML")]
+        [Description("Defines whether to automatically beautify the active XAML document while saving.")]
         [DefaultValue(true)]
         public bool BeautifyOnSave { get; set; }
 

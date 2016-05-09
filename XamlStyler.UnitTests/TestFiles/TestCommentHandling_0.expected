@@ -1,8 +1,8 @@
 ﻿<Root>
 
-  <!--END: Test for TEXT-ONLY-CONTENT ELEMENT hanlding-->
+  <!--END: Test for TEXT-ONLY-CONTENT ELEMENT handling-->
 
-  <!--START: Test for COMMENT hanlding-->
+  <!--START: Test for COMMENT handling-->
 
   <!--single line-->
   <!--
@@ -34,6 +34,6 @@
                 Padding="8,8,0,0" />
   -->
 
-  <!--END: Test for COMMENT hanlding-->
+  <!--END: Test for COMMENT handling-->
 
 </Root>

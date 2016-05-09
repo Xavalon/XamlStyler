@@ -11,7 +11,7 @@ namespace Xavalon.XamlStyler.Core.Extensions
         }
 
         /// <summary>
-        /// Get index of last occurence of char
+        /// Get index of last occurrence of char
         /// </summary>
         /// <param name="sb"></param>
         /// <param name="value"></param>

@@ -318,7 +318,7 @@ namespace Xavalon.XamlStyler.UnitTests
             
             var testFileResultBaseName = expectedSuffix != null ? testFileBaseName + "_" + expectedSuffix : testFileBaseName;
 
-            // Excercise stylerService using supplied test xaml data
+            // Excercise stylerService using supplied test XAML data
             string actualOutput = stylerService.StyleDocument(File.ReadAllText(testFileBaseName + ".testxaml"));
 
             // Write output to ".actual" file for further investigation

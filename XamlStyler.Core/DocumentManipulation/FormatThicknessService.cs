@@ -27,7 +27,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
             if (!IsEnabled) return;
             if (!element.HasAttributes) return;
 
-            // Setter? Format "Value" attribute if "Property" atribute matches ThicknessAttributeNames
+            // Setter? Format "Value" attribute if "Property" attribute matches ThicknessAttributeNames
             if (element.Name == SetterName)
             {
                 var propertyAttribute = element.Attributes("Property").FirstOrDefault();

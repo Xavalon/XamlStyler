@@ -32,8 +32,8 @@ namespace Xavalon.XamlStyler.Package
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideOptionPage(typeof (PackageOptions), "Xaml Styler", "General", 101, 106, true)]
-    [ProvideProfile(typeof (PackageOptions), "Xaml Styler", "Xaml Styler Settings", 106, 107, true,
+    [ProvideOptionPage(typeof (PackageOptions), "XAML Styler", "General", 101, 106, true)]
+    [ProvideProfile(typeof (PackageOptions), "XAML Styler", "XAML Styler Settings", 106, 107, true,
         DescriptionResourceID = 108)]
     [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
     [Guid(GuidList.guidXamlStyler_PackagePkgString)]
@@ -61,7 +61,7 @@ namespace Xavalon.XamlStyler.Package
 
         /// <summary>
         /// Initialization of the package; this method is called right after the package is sited, so this is the place
-        /// where you can put all the initilaization code that rely on services provided by VisualStudio.
+        /// where you can put all the initialization code that rely on services provided by VisualStudio.
         /// </summary>
         protected override void Initialize()
         {

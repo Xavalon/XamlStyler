@@ -2,7 +2,7 @@
 
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 {
-    // Grammar for Xaml markup extension: See https://msdn.microsoft.com/en-us/library/ee200269.aspx
+    // Grammar for XAML markup extension: See https://msdn.microsoft.com/en-us/library/ee200269.aspx
     // MarkupExtension = "{" TYPENAME 0*1Arguments "}"
     // Arguments       = (NamedArgs / (PositionalArgs 0*1("," NamedArgs)) 
     // NamedArgs       = NamedArg*("," NamedArg)
