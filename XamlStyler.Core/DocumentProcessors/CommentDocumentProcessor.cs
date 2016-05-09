@@ -40,7 +40,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 output.Append("<!--");
                 if (content.Contains("\n"))
                 {
-                    output.Append(string.Join(Environment.NewLine, content.GetLines().Select(x => x.TrimEnd(' '))));
+                    output.Append(string.Join(Environment.NewLine, content.GetLines().Select(_ => _.TrimEnd(' '))));
                     if (content.TrimEnd(' ').EndsWith("\n"))
                     {
                         output.Append(currentIndentString);

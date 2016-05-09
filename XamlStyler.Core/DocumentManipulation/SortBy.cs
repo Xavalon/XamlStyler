@@ -33,14 +33,14 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
             {
                 this.isNumeric = value;
                 this.defaultValue = this.IsNumeric
-                    ? (Func<XElement, string>)(x => x.Name.LocalName.Contains(".") ? "-32768" : "-32767")
+                    ? (Func<XElement, string>)(_ => _.Name.LocalName.Contains(".") ? "-32768" : "-32767")
                     : (x => String.Empty);
             }
         }
 
         public ISortableAttribute GetValue(XElement element)
         {
-            var attribute = element.Attributes().FirstOrDefault(x => IsMatch(x.Name));
+            var attribute = element.Attributes().FirstOrDefault(_ => IsMatch(_.Name));
             string value = null;
             if (attribute != null)
             {

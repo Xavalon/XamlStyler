@@ -1,5 +1,6 @@
 ﻿// © Xavalon. All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -43,8 +44,8 @@ namespace Xavalon.XamlStyler.Core.Extensions
         {
             return !string.IsNullOrEmpty(source)
                 ? source.Split(',')
-                    .Where(x => !string.IsNullOrWhiteSpace(x))
-                    .Select(x => x.Trim())
+                    .Where(_ => !String.IsNullOrWhiteSpace(_))
+                    .Select(_ => _.Trim())
                     .ToList()
                 : new List<string>();
         }

@@ -62,15 +62,16 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
             var children = element.Nodes();
 
-            // This indicates if last element matched ChildNodeNames
+            // This indicates if last element matched ChildNodeNames.
             bool inMatchingChildBlock = false;
 
-            // This value changes each time a non matching ChildNodeName is reached ensuring that only sortable elements are reordered
+            // This value changes each time a non matching ChildNodeName is reached ensuring
+            // that only sortable elements are reordered.
             int childBlockIndex = 0;
 
             NodeCollection currentNodeCollection = null;
 
-            // Run through children
+            // Run through children.
             foreach (var child in children)
             {
                 if (currentNodeCollection == null)
@@ -83,7 +84,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                 {
                     XElement childElement = (XElement)child;
 
-                    var isMatchingChild = this.ChildNodeNames.Any(match => match.IsMatch(childElement.Name));
+                    var isMatchingChild = this.ChildNodeNames.Any(_ => _.IsMatch(childElement.Name));
                     if (isMatchingChild == false || inMatchingChildBlock == false)
                     {
                         childBlockIndex++;
@@ -92,7 +93,8 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
                     if (isMatchingChild)
                     {
-                        currentNodeCollection.SortAttributeValues = this.SortByAttributes.Select(x => x.GetValue(childElement)).ToArray();
+                        currentNodeCollection.SortAttributeValues =
+                            this.SortByAttributes.Select(_ => _.GetValue(childElement)).ToArray();
                     }
 
                     currentNodeCollection.BlockIndex = childBlockIndex;
@@ -108,14 +110,14 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
             if (currentNodeCollection != null)
             {
-                currentNodeCollection.BlockIndex = childBlockIndex + 1;
+                currentNodeCollection.BlockIndex = (childBlockIndex + 1);
             }
 
-            // sort node list
-            nodeCollections = nodeCollections.OrderBy(x => x).ToList();
+            // Sort node list.
+            nodeCollections = nodeCollections.OrderBy(_ => _).ToList();
 
-            // replace the element's nodes
-            element.ReplaceNodes(nodeCollections.SelectMany(nc => nc.Nodes));
+            // Replace the element's nodes.
+            element.ReplaceNodes(nodeCollections.SelectMany(_ => _.Nodes));
         }
     }
 }

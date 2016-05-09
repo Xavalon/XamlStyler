@@ -1,5 +1,6 @@
 ﻿// © Xavalon. All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xavalon.XamlStyler.Core.Options;
@@ -22,8 +23,8 @@ namespace Xavalon.XamlStyler.Core.Model
                     int priority = 1;
 
                     string[] names = @group.Split(',')
-                        .Where(x => !string.IsNullOrWhiteSpace(x))
-                        .Select(x => x.Trim())
+                        .Where(_ => !String.IsNullOrWhiteSpace(_))
+                        .Select(_ => _.Trim())
                         .ToArray();
 
                     foreach (var name in names)
@@ -43,8 +44,8 @@ namespace Xavalon.XamlStyler.Core.Model
         public AttributeOrderRule GetRuleFor(string attributeName)
         {
             return this.rules
-                .Where(x => x.Name.IsMatch(attributeName))
-                .OrderByDescending(x => x.MatchScore)
+                .Where(_ => _.Name.IsMatch(attributeName))
+                .OrderByDescending(_ => _.MatchScore)
                 .FirstOrDefault();
         }
     }
