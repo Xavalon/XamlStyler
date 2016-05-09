@@ -20,7 +20,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
         {
-            elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.MIXED);
+            elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.Mixed);
 
             string currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
 

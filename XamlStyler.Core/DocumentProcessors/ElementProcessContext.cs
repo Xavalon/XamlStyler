@@ -32,7 +32,6 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
         public void UpdateParentElementProcessStatus(ContentTypeEnum contentType)
         {
             ElementProcessStatus parentElementProcessStatus = this.elementProcessStatusStack.Peek();
-
             parentElementProcessStatus.ContentType |= contentType;
         }
     }

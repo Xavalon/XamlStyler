@@ -21,7 +21,11 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
         private readonly IndentService indentService;
         private readonly IList<string> noNewLineElementsList;
 
-        public ElementDocumentProcessor(IStylerOptions options, AttributeInfoFactory attributeInfoFactory, AttributeInfoFormatter attributeInfoFormatter, IndentService indentService)
+        public ElementDocumentProcessor(
+            IStylerOptions options,
+            AttributeInfoFactory attributeInfoFactory,
+            AttributeInfoFormatter attributeInfoFormatter, 
+            IndentService indentService)
         {
             this.options = options;
             this.attributeInfoFactory = attributeInfoFactory;
@@ -32,7 +36,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
         {
-            elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.MIXED);
+            elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.Mixed);
 
             var elementName = xmlReader.Name;
             elementProcessContext.Push(
@@ -40,7 +44,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 {
                     Parent = elementProcessContext.Current,
                     Name = elementName,
-                    ContentType = ContentTypeEnum.NONE,
+                    ContentType = ContentTypeEnum.None,
                     IsMultlineStartTag = false,
                     IsPreservingSpace = elementProcessContext.Current.IsPreservingSpace
                 });
@@ -55,7 +59,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 if (elementName.Equals("Run"))
                 {
                     elementProcessContext.Current.Parent.IsSignificantWhiteSpace = true;
-                    if (output.Length == 0 || output.IsNewLine())
+                    if ((output.Length == 0) || output.IsNewLine())
                     {
                         output.Append(currentIndentString);
                     }
@@ -63,45 +67,46 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 else
                 {
                     elementProcessContext.Current.Parent.IsSignificantWhiteSpace = false;
-                    if (output.Length == 0 || output.IsNewLine())
+                    if ((output.Length == 0) || output.IsNewLine())
                     {
                         output.Append(currentIndentString);
                     }
                     else
                     {
-                        output
-                            .Append(Environment.NewLine)
-                            .Append(currentIndentString);
+                        output.Append(Environment.NewLine).Append(currentIndentString);
                     }
                 }
             }
 
-            // Output the element itself
-            output
-                .Append('<')
-                .Append(elementName);
+            // Output the element itself.
+            output.Append('<').Append(elementName);
 
             bool isEmptyElement = xmlReader.IsEmptyElement;
 
             if (xmlReader.HasAttributes)
             {
                 bool isNoLineBreakElement = this.IsNoLineBreakElement(elementName);
-                this.ProcessAttributes(xmlReader, output, elementProcessContext, isNoLineBreakElement, attributeIndetationString);
+                this.ProcessAttributes(
+                    xmlReader, 
+                    output, 
+                    elementProcessContext,
+                    isNoLineBreakElement,
+                    attributeIndetationString);
             }
 
-            // Determine if to put ending bracket on new line
-            bool putEndingBracketOnNewLine = (this.options.PutEndingBracketOnNewLine && elementProcessContext.Current.IsMultlineStartTag);
+            // Determine if to put ending bracket on new line.
+            bool putEndingBracketOnNewLine = (this.options.PutEndingBracketOnNewLine
+                && elementProcessContext.Current.IsMultlineStartTag);
+
             if (putEndingBracketOnNewLine)
             {
-                // Indent ending bracket just like an attribute
-                output
-                    .Append(Environment.NewLine)
-                    .Append(attributeIndetationString);
+                // Indent ending bracket just like an attribute.
+                output.Append(Environment.NewLine).Append(attributeIndetationString);
             }
 
             if (isEmptyElement)
             {
-                if (putEndingBracketOnNewLine == false && this.options.SpaceBeforeClosingSlash)
+                if (!putEndingBracketOnNewLine && this.options.SpaceBeforeClosingSlash)
                 {
                     output.Append(' ');
                 }
@@ -117,7 +122,12 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             }
         }
 
-        private void ProcessAttributes(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext, bool isNoLineBreakElement, string attributeIndentationString)
+        private void ProcessAttributes(
+            XmlReader xmlReader, 
+            StringBuilder output, 
+            ElementProcessContext elementProcessContext, 
+            bool isNoLineBreakElement, 
+            string attributeIndentationString)
         {
             var list = new List<AttributeInfo>(xmlReader.AttributeCount);
             while (xmlReader.MoveToNextAttribute())
@@ -161,14 +171,12 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 }
             }
 
-            // No need to break attributes
+            // No need to break attributes.
             if (noLineBreakInAttributes)
             {
                 foreach (var attrInfo in list)
                 {
-                    output
-                        .Append(' ')
-                        .Append(this.attributeInfoFormatter.ToSingleLineString(attrInfo));
+                    output.Append(' ').Append(this.attributeInfoFormatter.ToSingleLineString(attrInfo));
                 }
 
                 elementProcessContext.Current.IsMultlineStartTag = false;
@@ -193,7 +201,8 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                             attributeCountInCurrentLineBuffer = 0;
                         }
 
-                        attributeLines.Add(this.attributeInfoFormatter.ToMultiLineString(attrInfo, attributeIndentationString));
+                        attributeLines.Add(
+                            this.attributeInfoFormatter.ToMultiLineString(attrInfo, attributeIndentationString));
                     }
                     else
                     {
@@ -233,16 +242,13 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 for (int i = 0; i < attributeLines.Count; i++)
                 {
                     // Put first attribute line on same line as element?
-                    if (0 == i && this.options.KeepFirstAttributeOnSameLine)
+                    if ((i == 0) && this.options.KeepFirstAttributeOnSameLine)
                     {
-                        output
-                            .Append(' ')
-                            .Append(attributeLines[i].Trim());
+                        output.Append(' ').Append(attributeLines[i].Trim());
                     }
                     else
                     {
-                        output
-                            .Append(Environment.NewLine)
+                        output.Append(Environment.NewLine)
                             .Append(this.indentService.Normalize(attributeIndentationString + attributeLines[i].Trim()));
                     }
                 }
@@ -264,7 +270,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             }
 
             return this.options.OrderAttributesByName
-                ? string.Compare(x.Name, y.Name, StringComparison.Ordinal)
+                ? String.Compare(x.Name, y.Name, StringComparison.Ordinal)
                 : 0;
         }
 
@@ -274,7 +280,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             {
                 if (this.options.KeepFirstAttributeOnSameLine)
                 {
-                    return this.indentService.GetIndentString(xmlReader.Depth, xmlReader.Name.Length + 2);
+                    return this.indentService.GetIndentString(xmlReader.Depth, (xmlReader.Name.Length + 2));
                 }
                 else
                 {

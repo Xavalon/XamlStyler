@@ -24,12 +24,12 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
         {
-            elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.MIXED);
+            elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.Mixed);
 
             string currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
             string content = xmlReader.Value;
 
-            if (output.Length > 0 && !output.IsNewLine())
+            if ((output.Length > 0) && !output.IsNewLine())
             {
                 output.Append(Environment.NewLine);
             }
@@ -38,9 +38,11 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             {
                 output.Append(currentIndentString);
                 output.Append("<!--");
+
                 if (content.Contains("\n"))
                 {
-                    output.Append(string.Join(Environment.NewLine, content.GetLines().Select(_ => _.TrimEnd(' '))));
+                    output.Append(String.Join(Environment.NewLine, content.GetLines().Select(_ => _.TrimEnd(' '))));
+
                     if (content.TrimEnd(' ').EndsWith("\n"))
                     {
                         output.Append(currentIndentString);
@@ -76,7 +78,8 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                     .Append("<!--")
                     .Append(' ', this.options.CommentSpaces)
                     .Append(content.Trim())
-                    .Append(' ', this.options.CommentSpaces).Append("-->");
+                    .Append(' ', this.options.CommentSpaces)
+                    .Append("-->");
             }
         }
     }

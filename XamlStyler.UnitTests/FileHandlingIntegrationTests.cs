@@ -299,12 +299,12 @@ namespace Xavalon.XamlStyler.UnitTests
 
         private void DoTest(StylerOptions stylerOptions, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
-            this.DoTest(stylerOptions, Path.Combine("TestFiles", callerMemberName), null);
+            FileHandlingIntegrationTests.DoTest(stylerOptions, Path.Combine("TestFiles", callerMemberName), null);
         }
 
         private void DoTestCase<T>(StylerOptions stylerOptions, T testIdentifier, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
-            this.DoTest(stylerOptions, Path.Combine("TestFiles", callerMemberName), testIdentifier.ToString());
+            FileHandlingIntegrationTests.DoTest(stylerOptions, Path.Combine("TestFiles", callerMemberName), testIdentifier.ToString());
         }
 
         /// <summary>

@@ -22,7 +22,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
         {
-            elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.SINGLE_LINE_TEXT_ONLY);
+            elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.SingleLineTextOnly);
 
             var xmlEncodedContent = xmlReader.Value.ToXmlEncodedString(ignoreCarrier: true);
             if (elementProcessContext.Current.IsPreservingSpace)
@@ -32,7 +32,10 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             else
             {
                 string currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
-                IEnumerable<string> textLines = xmlEncodedContent.Trim().Split('\n').Where(_ => _.Trim().Length > 0).ToList();
+                IEnumerable<string> textLines = xmlEncodedContent.Trim()
+                    .Split('\n')
+                    .Where(_ => (_.Trim().Length > 0))
+                    .ToList();
 
                 foreach (var line in textLines)
                 {
@@ -44,9 +47,9 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 }
             }
 
-            if (xmlEncodedContent.Any(_ => _ == '\n'))
+            if (xmlEncodedContent.Any(_ => (_ == '\n')))
             {
-                elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.MULTI_LINE_TEXT_ONLY);
+                elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.MultiLineTextOnly);
             }
         }
     }
