@@ -35,7 +35,11 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
             {
                 if (g.GetType() == typeof(Group))
                 {
-                    if (sb.Length > 0) sb.Append(separator);
+                    if (sb.Length > 0)
+                    {
+                        sb.Append(separator);
+                    }
+
                     sb.Append(g.Value);
                 }
             }

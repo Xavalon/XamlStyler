@@ -10,10 +10,10 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
         public SortableNumericAttribute(string value, double defaultNumericValue)
         {
-            Value = value;
+            this.Value = value;
 
             double numericValue;
-            NumericValue = Double.TryParse(value, out numericValue)
+            this.NumericValue = Double.TryParse(value, out numericValue)
                 ? numericValue
                 : defaultNumericValue;
         }
@@ -22,9 +22,12 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
         {
             var otherSortableNumericAttribute = (SortableNumericAttribute)other;
 
-            var result = NumericValue.CompareTo(otherSortableNumericAttribute.NumericValue);
+            var result = this.NumericValue.CompareTo(otherSortableNumericAttribute.NumericValue);
             if (result == 0)
-                result = String.Compare(Value, otherSortableNumericAttribute.Value, StringComparison.Ordinal);
+            {
+                result = String.Compare(this.Value, otherSortableNumericAttribute.Value, StringComparison.Ordinal);
+            }
+
             return result;
         }
 
@@ -32,7 +35,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
         public override string ToString()
         {
-            return "D" + NumericValue;
+            return "D" + this.NumericValue;
         }
 
 #endif

@@ -1,3 +1,5 @@
+// © Xavalon. All rights reserved.
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,24 +11,37 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 {
     public class DocumentManipulationService
     {
-        private readonly IStylerOptions _options;
-        private readonly List<IProcessElementService> _processElementServices;
+        private readonly IStylerOptions options;
+        private readonly List<IProcessElementService> processElementServices;
 
         public DocumentManipulationService(IStylerOptions options)
         {
-            _options = options;
-            _processElementServices = new List<IProcessElementService>
+            this.options = options;
+            this.processElementServices = new List<IProcessElementService>
             {
-                new FormatThicknessService(_options.ThicknessStyle, _options.ThicknessAttributes),
-                GetReorderGridChildrenService(),
-                GetReorderCanvasChildrenService(),
-                GetReorderSettersService()
+                new FormatThicknessService(this.options.ThicknessStyle, this.options.ThicknessAttributes),
+                this.GetReorderGridChildrenService(),
+                this.GetReorderCanvasChildrenService(),
+                this.GetReorderSettersService()
             };
+        }
+
+        public string ManipulateDocument(XDocument xDocument)
+        {
+            var xmlDeclaration = xDocument.Declaration?.ToString() ?? string.Empty;
+            var rootElement = xDocument.Root;
+
+            if (rootElement != null)
+            {
+                this.HandleNode(rootElement);
+            }
+
+            return xmlDeclaration + xDocument;
         }
 
         private NodeReorderService GetReorderGridChildrenService()
         {
-            var reorderService = new NodeReorderService { IsEnabled = _options.ReorderGridChildren };
+            var reorderService = new NodeReorderService { IsEnabled = this.options.ReorderGridChildren };
             reorderService.ParentNodeNames.Add(new NameSelector("Grid", null));
             reorderService.ChildNodeNames.Add(new NameSelector(null, null));
             reorderService.SortByAttributes.Add(new SortBy("Grid.Row", null, true));
@@ -36,7 +51,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
         private NodeReorderService GetReorderCanvasChildrenService()
         {
-            var reorderService = new NodeReorderService { IsEnabled = _options.ReorderCanvasChildren };
+            var reorderService = new NodeReorderService { IsEnabled = this.options.ReorderCanvasChildren };
             reorderService.ParentNodeNames.Add(new NameSelector("Canvas", null));
             reorderService.ChildNodeNames.Add(new NameSelector(null, null));
             reorderService.SortByAttributes.Add(new SortBy("Canvas.Left", null, true));
@@ -56,7 +71,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
             reorderService.ParentNodeNames.Add(new NameSelector("Trigger", null));
             reorderService.ChildNodeNames.Add(new NameSelector("Setter", "http://schemas.microsoft.com/winfx/2006/xaml/presentation"));
 
-            switch (_options.ReorderSetters)
+            switch (this.options.ReorderSetters)
             {
                 case ReorderSettersBy.None:
                     reorderService.IsEnabled = false;
@@ -78,20 +93,8 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
             return reorderService;
-        }
-
-        public string ManipulateDocument(XDocument xDocument)
-        {
-            var xmlDeclaration = xDocument.Declaration?.ToString() ?? string.Empty;
-            var rootElement = xDocument.Root;
-
-            if (rootElement != null)
-            {
-                HandleNode(rootElement);
-            }
-
-            return xmlDeclaration + xDocument;
         }
 
         private void HandleNode(XNode node)
@@ -103,20 +106,21 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
                     if (element != null && element.Nodes().Any())
                     {
-                        // handle children first
+                        // Handle children first.
                         foreach (var childNode in element.Nodes())
                         {
-                            HandleNode(childNode);
+                            this.HandleNode(childNode);
                         }
                     }
 
                     if (element != null)
                     {
-                        foreach (var elementService in _processElementServices)
+                        foreach (var elementService in this.processElementServices)
                         {
                             elementService.ProcessElement(element);
                         }
                     }
+
                     break;
             }
         }

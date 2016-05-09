@@ -11,11 +11,11 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 {
     internal class TextDocumentProcessor : IDocumentProcessor
     {
-        private readonly IndentService _indentService;
+        private readonly IndentService indentService;
 
         public TextDocumentProcessor(IndentService indentService)
         {
-            _indentService = indentService;
+            this.indentService = indentService;
         }
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
@@ -29,7 +29,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             }
             else
             {
-                string currentIndentString = _indentService.GetIndentString(xmlReader.Depth);
+                string currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
                 IEnumerable<string> textLines = xmlEncodedContent.Trim().Split('\n').Where(x => x.Trim().Length > 0).ToList();
 
                 foreach (var line in textLines)

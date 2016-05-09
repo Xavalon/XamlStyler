@@ -11,20 +11,20 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 {
     internal class CommentDocumentProcessor : IDocumentProcessor
     {
-        private readonly IStylerOptions _options;
-        private readonly IndentService _indentService;
+        private readonly IStylerOptions options;
+        private readonly IndentService indentService;
 
         public CommentDocumentProcessor(IStylerOptions options, IndentService indentService)
         {
-            _options = options;
-            _indentService = indentService;
+            this.options = options;
+            this.indentService = indentService;
         }
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
         {
             elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.MIXED);
 
-            string currentIndentString = _indentService.GetIndentString(xmlReader.Depth);
+            string currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
             string content = xmlReader.Value;
 
             if (output.Length > 0 && !output.IsNewLine())
@@ -45,7 +45,9 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                     }
                 }
                 else
+                {
                     output.Append(content);
+                }
 
                 output.Append("-->");
             }
@@ -57,7 +59,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             {
                 output.Append(currentIndentString).Append("<!--");
 
-                var contentIndentString = _indentService.GetIndentString(xmlReader.Depth + 1);
+                var contentIndentString = this.indentService.GetIndentString(xmlReader.Depth + 1);
                 foreach (var line in content.Trim().GetLines())
                 {
                     output.Append(Environment.NewLine).Append(contentIndentString).Append(line.Trim());
@@ -70,9 +72,9 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 output
                     .Append(currentIndentString)
                     .Append("<!--")
-                    .Append(' ', _options.CommentSpaces)
+                    .Append(' ', this.options.CommentSpaces)
                     .Append(content.Trim())
-                    .Append(' ', _options.CommentSpaces).Append("-->");
+                    .Append(' ', this.options.CommentSpaces).Append("-->");
             }
         }
     }

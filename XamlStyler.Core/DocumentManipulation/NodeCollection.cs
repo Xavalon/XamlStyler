@@ -23,12 +23,15 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
         public NodeCollection()
         {
-            Nodes = new List<XNode>();
+            this.Nodes = new List<XNode>();
         }
 
         public int CompareTo(NodeCollection other)
         {
-            if (this == other) return 0;
+            if (this == other)
+            {
+                return 0;
+            }
 
             var result = this.BlockIndex.CompareTo(other.BlockIndex);
             if (result == 0)
@@ -39,10 +42,14 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                     for (int i = 0; i < this.SortAttributeValues.Length; i++)
                     {
                         result = this.SortAttributeValues[i].CompareTo(other.SortAttributeValues[i]);
-                        if (result != 0) break;
+                        if (result != 0)
+                        {
+                            break;
+                        }
                     }
                 }
             }
+
             return result;
         }
 
@@ -50,10 +57,11 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
         public override string ToString()
         {
-            return string.Format("B{0} A{1} N{2}",
-                BlockIndex,
-                String.Join("|", (IEnumerable<ISortableAttribute>)SortAttributeValues),
-                String.Join("|", Nodes));
+            return string.Format(
+                "B{0} A{1} N{2}",
+                this.BlockIndex,
+                String.Join("|", (IEnumerable<ISortableAttribute>)this.SortAttributeValues),
+                String.Join("|", this.Nodes));
         }
 
 #endif

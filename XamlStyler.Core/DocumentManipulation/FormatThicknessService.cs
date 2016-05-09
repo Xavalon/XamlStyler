@@ -7,11 +7,14 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 {
     public class FormatThicknessService : IProcessElementService
     {
+        private const string XamlNamespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
+        private static readonly XName SetterName = XName.Get("Setter", XamlNamespace);
+
         public FormatThicknessService(ThicknessStyle thicknessStyle, string thicknessAttributes)
         {
-            IsEnabled = thicknessStyle != ThicknessStyle.None;
-            ThicknessStyle = thicknessStyle;
-            ThicknessAttributeNames = thicknessAttributes.ToNameSelectorList();
+            this.IsEnabled = (thicknessStyle != ThicknessStyle.None);
+            this.ThicknessStyle = thicknessStyle;
+            this.ThicknessAttributeNames = thicknessAttributes.ToNameSelectorList();
         }
 
         public bool IsEnabled { get; }
@@ -20,36 +23,40 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
         public IList<NameSelector> ThicknessAttributeNames { get; }
 
-        private const string XamlNamespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation";
-        private static readonly XName SetterName = XName.Get("Setter", XamlNamespace);
-
         public void ProcessElement(XElement element)
         {
-            if (!IsEnabled) return;
-            if (!element.HasAttributes) return;
+            if (!this.IsEnabled)
+            {
+                return;
+            }
+
+            if (!element.HasAttributes)
+            {
+                return;
+            }
 
             // Setter? Format "Value" attribute if "Property" attribute matches ThicknessAttributeNames
             if (element.Name == SetterName)
             {
                 var propertyAttribute = element.Attributes("Property").FirstOrDefault();
-                if (propertyAttribute != null && ThicknessAttributeNames.Any(match => match.IsMatch(propertyAttribute.Value)))
+                if (propertyAttribute != null && this.ThicknessAttributeNames.Any(match => match.IsMatch(propertyAttribute.Value)))
                 {
                     var valueAttribute = element.Attributes("Value").FirstOrDefault();
                     if (valueAttribute != null)
                     {
-                        FormatAttribute(valueAttribute);
+                        this.FormatAttribute(valueAttribute);
                     }
                 }
             }
-            // Not setter. Format value of all attributes where attribute name matches ThicknessAttributeNames
             else
             {
+                // Not setter. Format value of all attributes where attribute name matches ThicknessAttributeNames
                 foreach (var attribute in element.Attributes())
                 {
-                    var isMatchingAttribute = ThicknessAttributeNames.Any(match => match.IsMatch(attribute.Name));
+                    var isMatchingAttribute = this.ThicknessAttributeNames.Any(match => match.IsMatch(attribute.Name));
                     if (isMatchingAttribute)
                     {
-                        FormatAttribute(attribute);
+                        this.FormatAttribute(attribute);
                     }
                 }
             }

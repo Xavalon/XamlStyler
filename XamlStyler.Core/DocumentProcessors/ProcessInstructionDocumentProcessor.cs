@@ -9,18 +9,18 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 {
     internal class ProcessInstructionDocumentProcessor : IDocumentProcessor
     {
-        private readonly IndentService _indentService;
+        private readonly IndentService indentService;
 
         public ProcessInstructionDocumentProcessor(IndentService indentService)
         {
-            _indentService = indentService;
+            this.indentService = indentService;
         }
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
         {
             elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.MIXED);
 
-            string currentIndentString = _indentService.GetIndentString(xmlReader.Depth);
+            string currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
 
             if (!output.IsNewLine())
             {

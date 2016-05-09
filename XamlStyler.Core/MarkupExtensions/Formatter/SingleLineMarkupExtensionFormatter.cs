@@ -12,13 +12,16 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
             foreach (var argument in arguments)
             {
                 if (sb.Length > 0)
+                {
                     sb.Append(", ");
+                }
 
-                foreach (var line in Format(argument))
+                foreach (var line in this.Format(argument))
                 {
                     sb.Append(line);
                 }
             }
+
             yield return sb.ToString();
         }
     }

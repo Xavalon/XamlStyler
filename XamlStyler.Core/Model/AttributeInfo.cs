@@ -16,10 +16,10 @@ namespace Xavalon.XamlStyler.Core.Model
 
         public AttributeInfo(string name, string value, AttributeOrderRule orderRule, MarkupExtension markupExtension)
         {
-            Name = name;
-            Value = value;
-            OrderRule = orderRule;
-            MarkupExtension = markupExtension;
+            this.Name = name;
+            this.Value = value;
+            this.OrderRule = orderRule;
+            this.MarkupExtension = markupExtension;
         }
     }
 }

@@ -6,11 +6,11 @@ namespace Xavalon.XamlStyler.Core.Model
 {
     public class AttributeOrderRules
     {
-        private readonly IList<AttributeOrderRule> _rules;
+        private readonly IList<AttributeOrderRule> rules;
 
         public AttributeOrderRules(IStylerOptions options)
         {
-            _rules = new List<AttributeOrderRule>();
+            this.rules = new List<AttributeOrderRule>();
 
             var groupIndex = 1;
             foreach (var @group in options.AttributeOrderingRuleGroups)
@@ -26,20 +26,21 @@ namespace Xavalon.XamlStyler.Core.Model
 
                     foreach (var name in names)
                     {
-                        _rules.Add(new AttributeOrderRule(name, groupIndex, priority));
+                        this.rules.Add(new AttributeOrderRule(name, groupIndex, priority));
                         priority++;
                     }
                 }
+
                 groupIndex++;
             }
 
             // Add catch all group at the end ensuring we always get a match;
-            _rules.Add(new AttributeOrderRule("*", groupIndex, 0));
+            this.rules.Add(new AttributeOrderRule("*", groupIndex, 0));
         }
 
         public AttributeOrderRule GetRuleFor(string attributeName)
         {
-            return _rules
+            return this.rules
                 .Where(x => x.Name.IsMatch(attributeName))
                 .OrderByDescending(x => x.MatchScore)
                 .FirstOrDefault();

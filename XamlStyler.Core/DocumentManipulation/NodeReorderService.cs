@@ -26,20 +26,27 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
         public NodeReorderService()
         {
-            IsEnabled = true;
-            ParentNodeNames = new List<NameSelector>();
-            ChildNodeNames = new List<NameSelector>();
-            SortByAttributes = new List<SortBy>();
+            this.IsEnabled = true;
+            this.ParentNodeNames = new List<NameSelector>();
+            this.ChildNodeNames = new List<NameSelector>();
+            this.SortByAttributes = new List<SortBy>();
         }
 
         public void ProcessElement(XElement element)
         {
-            if (!IsEnabled) return;
-            if (!element.HasElements) return;
-
-            if (ParentNodeNames.Any(match => match.IsMatch(element.Name)))
+            if (!this.IsEnabled)
             {
-                ReorderChildNodes(element);
+                return;
+            }
+
+            if (!element.HasElements)
+            {
+                return;
+            }
+
+            if (this.ParentNodeNames.Any(match => match.IsMatch(element.Name)))
+            {
+                this.ReorderChildNodes(element);
             }
         }
 
@@ -55,6 +62,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
             // This indicates if last element matched ChildNodeNames
             bool inMatchingChildBlock = false;
+
             // This value changes each time a non matching ChildNodeName is reached ensuring that only sortable elements are reordered
             int childBlockIndex = 0;
 
@@ -73,7 +81,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                 {
                     XElement childElement = (XElement)child;
 
-                    var isMatchingChild = ChildNodeNames.Any(match => match.IsMatch(childElement.Name));
+                    var isMatchingChild = this.ChildNodeNames.Any(match => match.IsMatch(childElement.Name));
                     if (isMatchingChild == false || inMatchingChildBlock == false)
                     {
                         childBlockIndex++;
@@ -82,7 +90,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
                     if (isMatchingChild)
                     {
-                        currentNodeCollection.SortAttributeValues = SortByAttributes.Select(x => x.GetValue(childElement)).ToArray();
+                        currentNodeCollection.SortAttributeValues = this.SortByAttributes.Select(x => x.GetValue(childElement)).ToArray();
                     }
 
                     currentNodeCollection.BlockIndex = childBlockIndex;
@@ -91,11 +99,15 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                 currentNodeCollection.Nodes.Add(child);
 
                 if (child.NodeType == XmlNodeType.Element)
+                {
                     currentNodeCollection = null;
+                }
             }
 
             if (currentNodeCollection != null)
+            {
                 currentNodeCollection.BlockIndex = childBlockIndex + 1;
+            }
 
             // sort node list
             nodeCollections = nodeCollections.OrderBy(x => x).ToList();

@@ -12,33 +12,43 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 
         public NamedArgument(string name, Value value)
         {
-            if (name == null) throw new ArgumentNullException(nameof(name));
-            if (value == null) throw new ArgumentNullException(nameof(value));
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
 
-            Name = name;
-            Value = value;
-        }
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
 
-        private static string GetMemberName(ParseTreeNode node)
-        {
-            if (node.Term.Name != XamlMarkupExtensionGrammar.MemberNameTerm)
-                throw new Exception("Unparsable extension");
-
-            return node.Token.Text;
+            this.Name = name;
+            this.Value = value;
         }
 
         public static NamedArgument Create(ParseTreeNode node)
         {
             if (node.Term.Name != XamlMarkupExtensionGrammar.NamedArgumentTerm)
+            {
                 return null;
+            }
 
             if (node.ChildNodes.Count != 2)
+            {
                 throw new Exception("Named argument count mismatch");
+            }
 
-            return
-                new NamedArgument(
-                    GetMemberName(node.ChildNodes.First()),
-                    Value.Create(node.ChildNodes.Last()));
+            return new NamedArgument(GetMemberName(node.ChildNodes.First()), Value.Create(node.ChildNodes.Last()));
+        }
+
+        private static string GetMemberName(ParseTreeNode node)
+        {
+            if (node.Term.Name != XamlMarkupExtensionGrammar.MemberNameTerm)
+            {
+                throw new Exception("Unparsable extension");
+            }
+
+            return node.Token.Text;
         }
     }
 }

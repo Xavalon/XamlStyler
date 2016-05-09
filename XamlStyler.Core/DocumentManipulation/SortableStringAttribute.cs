@@ -8,19 +8,19 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
         public SortableStringAttribute(string value)
         {
-            Value = value;
+            this.Value = value;
         }
 
         public int CompareTo(ISortableAttribute other)
         {
-            return String.Compare(Value, ((SortableStringAttribute)other).Value, StringComparison.Ordinal);
+            return String.Compare(this.Value, ((SortableStringAttribute)other).Value, StringComparison.Ordinal);
         }
 
 #if DEBUG
 
         public override string ToString()
         {
-            return Value;
+            return this.Value;
         }
 
 #endif

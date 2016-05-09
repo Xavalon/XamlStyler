@@ -13,12 +13,13 @@ namespace Xavalon.XamlStyler.Core.Options
                 // Set default value if DefaultValueAttribute is present
                 DefaultValueAttribute attr = prop.Attributes[typeof(DefaultValueAttribute)] as DefaultValueAttribute;
                 if (attr != null)
+                {
                     prop.SetValue(this, attr.Value);
+                }
             }
         }
 
-        //Indentation
-
+        // Indentation
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [DefaultValue(2)]
         [Browsable(false)]
@@ -30,7 +31,6 @@ namespace Xavalon.XamlStyler.Core.Options
         public bool IndentWithTabs { get; set; }
 
         // Attribute formatting
-
         [Category("Attribute Formatting")]
         [DisplayName("Attribute tolerance")]
         [Description(@"Defines the attribute number tolerance before XamlStyler starts to break attributes into new lines. 0 = no tolerance.
@@ -97,7 +97,6 @@ Default Value: RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTran
         public byte AttributeIndentation { get; set; }
 
         // Attribute Reordering
-
         [Category("Attribute Reordering")]
         [DisplayName("Enable Attribute Reordering")]
         [Description("If this is disabled, attributes will not be reordered in any way.")]
@@ -145,7 +144,6 @@ Attributes listed earlier in same group takes precedence over the ones listed la
         public bool OrderAttributesByName { get; set; }
 
         // Element formatting
-
         [Category("Element Formatting")]
         [DisplayName("Put ending bracket on new line")]
         [Description(@"Defines whether to put "">"" or ""/>"" on a new line.
@@ -187,7 +185,6 @@ Default = use same rules as other elements")]
         public LineBreakRule RootElementLineBreakRule { get; set; }
 
         // Element reordering
-
         [Category("Element Reordering")]
         [DisplayName("Reorder Grid panel children by row/column")]
         [Description("Defines whether to reorder the children of a Grid by row/column. When this is true, children will be reordered in an ascending fashion by looking at their attached Grid properties: first by Grid.Row, then by Grid.Column.")]
@@ -206,8 +203,7 @@ Default = use same rules as other elements")]
         [DefaultValue(ReorderSettersBy.None)]
         public ReorderSettersBy ReorderSetters { get; set; }
 
-        //Markup Extension
-
+        // Markup Extension
         [Category("Markup Extension")]
         [DisplayName("Enable Markup Extension Formatting")]
         [Description(@"Defines whether to format markup extensions (attributes containing '{}').
@@ -223,7 +219,6 @@ When this setting is true, attributes with markup extensions will always be put 
         public string NoNewLineMarkupExtensions { get; set; }
 
         // Thickness formatting
-
         [Category("Thickness formatting")]
         [DisplayName("Thickness style")]
         [Description("Defines how Thickness properties like Margin, Padding etc. should be formatted")]
@@ -237,7 +232,6 @@ When this setting is true, attributes with markup extensions will always be put 
         public string ThicknessAttributes { get; set; }
 
         // Misc
-
         [Category("Misc")]
         [DisplayName("Beautify on saving XAML")]
         [Description("Defines whether to automatically beautify the active XAML document while saving.")]

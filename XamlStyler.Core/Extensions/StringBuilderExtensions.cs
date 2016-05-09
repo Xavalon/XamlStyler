@@ -21,8 +21,11 @@ namespace Xavalon.XamlStyler.Core.Extensions
             for (int i = sb.Length - 1; i >= 0; i--)
             {
                 if (sb[i] == value)
+                {
                     return i;
+                }
             }
+
             return -1;
         }
 
@@ -38,6 +41,7 @@ namespace Xavalon.XamlStyler.Core.Extensions
             {
                 index--;
             }
+
             sb.Length = index;
             return sb;
         }
@@ -53,9 +57,13 @@ namespace Xavalon.XamlStyler.Core.Extensions
             while (index > 0 && trimChars.Contains(sb[index - 1]))
             {
                 if (index > 1 && sb[index - 2] == '\\')
+                {
                     break;
+                }
+
                 index--;
             }
+
             sb.Length = index;
             return sb;
         }

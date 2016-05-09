@@ -6,21 +6,21 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
 {
     public class AttributeInfoFactory
     {
-        private readonly AttributeOrderRules _orderRules;
-        private readonly MarkupExtensionParser _parser;
+        private readonly AttributeOrderRules orderRules;
+        private readonly MarkupExtensionParser parser;
 
         public AttributeInfoFactory(MarkupExtensionParser parser, AttributeOrderRules orderRules)
         {
-            _parser = parser;
-            _orderRules = orderRules;
+            this.parser = parser;
+            this.orderRules = orderRules;
         }
 
         public AttributeInfo Create(XmlReader xmlReader)
         {
             string attributeName = xmlReader.Name;
             string attributeValue = xmlReader.Value;
-            AttributeOrderRule orderRule = _orderRules.GetRuleFor(attributeName);
-            MarkupExtension markupExtension = ParseMarkupExtension(attributeValue);
+            AttributeOrderRule orderRule = this.orderRules.GetRuleFor(attributeName);
+            MarkupExtension markupExtension = this.ParseMarkupExtension(attributeValue);
 
             return new AttributeInfo(attributeName, attributeValue, orderRule, markupExtension);
         }
@@ -31,9 +31,12 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
             if (value.IndexOf('{') != -1)
             {
                 MarkupExtension markupExtension;
-                if (_parser.TryParse(value, out markupExtension))
+                if (this.parser.TryParse(value, out markupExtension))
+                {
                     return markupExtension;
+                }
             }
+
             return null;
         }
     }

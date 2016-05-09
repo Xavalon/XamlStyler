@@ -8,7 +8,6 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
     // NamedArgs       = NamedArg*("," NamedArg)
     // NamedArg        = MEMBERNAME "=" STRING
     // PositionalArgs  = NamedArg / (STRING 0*1( "," PositionalArgs))
-
     [Language("XamlMarkupExtension", "1.0", "Xaml Markup Extension")]
     public class XamlMarkupExtensionGrammar : Grammar
     {
@@ -32,10 +31,10 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
             var typeName = new TypeNameTerminal(TypeNameTerm);
             var memberName = new MemberNameTerminal(MemberNameTerm);
             var @string = new StringTerminal(StringTerm);
-            var startExtension = ToTransientTerm("{");
-            var endExtension = ToTransientTerm("}");
-            var namedArgumentSeparator = ToTransientTerm("=");
-            var argumentSeparator = ToTransientTerm(",");
+            var startExtension = this.ToTransientTerm("{");
+            var endExtension = this.ToTransientTerm("}");
+            var namedArgumentSeparator = this.ToTransientTerm("=");
+            var argumentSeparator = this.ToTransientTerm(",");
 
             // Setup rules
             markupExtension.Rule = startExtension + typeName + endExtension
@@ -58,7 +57,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
                             | @string;
 
             this.Root = markupExtension;
-            base.MarkTransient(arguments, argument);
+            this.MarkTransient(arguments, argument);
         }
 
         private BnfTerm ToTransientTerm(string text)

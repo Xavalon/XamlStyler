@@ -9,7 +9,11 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 
         public PositionalArgument(Value value)
         {
-            if (value == null) throw new ArgumentNullException(nameof(value));
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
             Value = value;
         }
 
@@ -18,7 +22,9 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
             var value = Value.Create(node);
 
             if (value == null)
+            {
                 return null;
+            }
 
             return new PositionalArgument(value);
         }

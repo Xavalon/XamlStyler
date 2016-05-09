@@ -10,13 +10,13 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 {
     internal class EndElementDocumentProcessor : IDocumentProcessor
     {
-        private readonly IStylerOptions _options;
-        private readonly IndentService _indentService;
+        private readonly IStylerOptions options;
+        private readonly IndentService indentService;
 
         public EndElementDocumentProcessor(IStylerOptions options, IndentService indentService)
         {
-            _indentService = indentService;
-            _options = options;
+            this.indentService = indentService;
+            this.options = options;
         }
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
@@ -29,23 +29,19 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             {
                 output.Append("</").Append(xmlReader.Name).Append(">");
             }
-            // Shrink the current element, if it has no content.
-            // E.g., <Element>  </Element> => <Element />
-            else if (elementProcessContext.Current.ContentType == ContentTypeEnum.NONE && _options.RemoveEndingTagOfEmptyElement)
+            else if (elementProcessContext.Current.ContentType == ContentTypeEnum.NONE && this.options.RemoveEndingTagOfEmptyElement)
             {
-                #region shrink element with no content
-
+                // Shrink the current element, if it has no content.
+                // E.g., <Element>  </Element> => <Element />
                 output = output.TrimEnd(' ', '\t', '\r', '\n');
 
                 int bracketIndex = output.LastIndexOf('>');
                 output.Insert(bracketIndex, '/');
 
-                if (output[bracketIndex - 1] != '\t' && output[bracketIndex - 1] != ' ' && _options.SpaceBeforeClosingSlash)
+                if (output[bracketIndex - 1] != '\t' && output[bracketIndex - 1] != ' ' && this.options.SpaceBeforeClosingSlash)
                 {
                     output.Insert(bracketIndex, ' ');
                 }
-
-                #endregion shrink element with no content
             }
             else if (elementProcessContext.Current.ContentType == ContentTypeEnum.SINGLE_LINE_TEXT_ONLY && elementProcessContext.Current.IsMultlineStartTag == false)
             {
@@ -58,7 +54,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             }
             else
             {
-                string currentIndentString = _indentService.GetIndentString(xmlReader.Depth);
+                string currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
 
                 if (!output.IsNewLine())
                 {
