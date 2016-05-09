@@ -1,3 +1,5 @@
+// © Xavalon. All rights reserved.
+
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 {
     internal class StringTerminal : MemberNameOrStringTerminal

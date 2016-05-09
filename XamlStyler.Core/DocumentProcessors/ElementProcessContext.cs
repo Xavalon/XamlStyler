@@ -1,3 +1,5 @@
+// © Xavalon. All rights reserved.
+
 using System.Collections.Generic;
 using Xavalon.XamlStyler.Core.Parser;
 

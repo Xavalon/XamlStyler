@@ -1,4 +1,6 @@
-﻿using System;
+﻿// © Xavalon. All rights reserved.
+
+using System;
 using System.Linq;
 using System.Text;
 using System.Xml;

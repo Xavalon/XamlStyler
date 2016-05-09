@@ -1,3 +1,5 @@
+// © Xavalon. All rights reserved.
+
 using System.Text.RegularExpressions;
 
 namespace Xavalon.XamlStyler.Core.Services

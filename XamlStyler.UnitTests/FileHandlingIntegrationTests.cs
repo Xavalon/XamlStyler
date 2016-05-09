@@ -1,6 +1,8 @@
-﻿using System.IO;
-using System.Text;
+﻿// © Xavalon. All rights reserved.
+
 using NUnit.Framework;
+using System.IO;
+using System.Text;
 using Xavalon.XamlStyler.Core;
 using Xavalon.XamlStyler.Core.DocumentManipulation;
 using Xavalon.XamlStyler.Core.Options;
@@ -23,7 +25,7 @@ namespace Xavalon.XamlStyler.UnitTests
                 PutEndingBracketOnNewLine = true
             };
 
-            DoTestCase(stylerOptions, attributeIndentation);
+            this.DoTestCase(stylerOptions, attributeIndentation);
         }
 
         [Test]
@@ -37,7 +39,7 @@ namespace Xavalon.XamlStyler.UnitTests
                 PutEndingBracketOnNewLine = true
             };
 
-            DoTest(stylerOptions);
+            this.DoTest(stylerOptions);
         }
 
         [Test]
@@ -49,7 +51,7 @@ namespace Xavalon.XamlStyler.UnitTests
                 RootElementLineBreakRule = LineBreakRule.Always,
             };
 
-            DoTest(stylerOptions);
+            this.DoTest(stylerOptions);
         }
 
         [TestCase(0)]
@@ -63,19 +65,19 @@ namespace Xavalon.XamlStyler.UnitTests
                 CommentSpaces = testNumber,
             };
 
-            DoTestCase(stylerOptions, testNumber);
+            this.DoTestCase(stylerOptions, testNumber);
         }
 
         [Test]
         public void TestCommentAtFirstLine()
         {
-            DoTest();
+            this.DoTest();
         }
 
         [Test]
         public void TestDefaultHandling()
         {
-            DoTest();
+            this.DoTest();
         }
 
         [Test]
@@ -110,7 +112,7 @@ namespace Xavalon.XamlStyler.UnitTests
                 }
             };
 
-            DoTest(stylerOptions);
+            this.DoTest(stylerOptions);
         }
 
         [Test]
@@ -121,7 +123,7 @@ namespace Xavalon.XamlStyler.UnitTests
                 NoNewLineMarkupExtensions = "x:Bind"
             };
 
-            DoTest(stylerOptions);
+            this.DoTest(stylerOptions);
         }
 
         [Test]
@@ -132,13 +134,13 @@ namespace Xavalon.XamlStyler.UnitTests
                 NoNewLineMarkupExtensions = "x:Bind, Binding"
             };
 
-            DoTest(stylerOptions);
+            this.DoTest(stylerOptions);
         }
 
-        [TestCase(false,2)]
-        [TestCase(false,4)]
-        [TestCase(true,2)]
-        [TestCase(true,4)]
+        [TestCase(false, 2)]
+        [TestCase(false, 4)]
+        [TestCase(true, 2)]
+        [TestCase(true, 4)]
         public void TestMarkupExtensionHandling(bool indentWithTabs, int tabSize)
         {
             var stylerOptions = new StylerOptions
@@ -148,7 +150,7 @@ namespace Xavalon.XamlStyler.UnitTests
                 IndentSize = tabSize,
             };
 
-            DoTestCase(stylerOptions, $"{tabSize}_{(indentWithTabs ? "tabs" : "spaces")}");
+            this.DoTestCase(stylerOptions, $"{tabSize}_{(indentWithTabs ? "tabs" : "spaces")}");
         }
 
         [Test]
@@ -160,50 +162,49 @@ namespace Xavalon.XamlStyler.UnitTests
                 AttributesTolerance = 1
             };
 
-            DoTest(stylerOptions);
+            this.DoTest(stylerOptions);
         }
 
         [Test]
         public void TestNoContentElementHandling()
         {
-            DoTest();
+            this.DoTest();
         }
 
         [Test]
         public void TestTextOnlyContentElementHandling()
         {
-            DoTest();
+            this.DoTest();
         }
-
 
         [Test]
         public void TestGridChildrenHandling()
         {
-            DoTest();
+            this.DoTest();
         }
 
         [Test]
         public void TestNestedGridChildrenHandling()
         {
-            DoTest();
+            this.DoTest();
         }
 
         [Test]
         public void TestCanvasChildrenHandling()
         {
-            DoTest();
+            this.DoTest();
         }
 
         [Test]
         public void TestNestedCanvasChildrenHandling()
         {
-            DoTest();
+            this.DoTest();
         }
 
         [Test]
         public void TestNestedPropertiesAndChildrenHandling()
         {
-            DoTest();
+            this.DoTest();
         }
 
         [Test]
@@ -215,7 +216,7 @@ namespace Xavalon.XamlStyler.UnitTests
                 MaxAttributesPerLine = 3,
             };
 
-            DoTest(stylerOptions);
+            this.DoTest(stylerOptions);
         }
 
         [TestCase(ReorderSettersBy.Property)]
@@ -228,7 +229,7 @@ namespace Xavalon.XamlStyler.UnitTests
                 ReorderSetters = reorderSettersBy,
             };
 
-            DoTestCase(stylerOptions, reorderSettersBy);
+            this.DoTestCase(stylerOptions, reorderSettersBy);
         }
 
         [TestCase(1, true)]
@@ -240,19 +241,19 @@ namespace Xavalon.XamlStyler.UnitTests
                 SpaceBeforeClosingSlash = spaceBeforeClosingSlash
             };
 
-            DoTestCase(stylerOptions, testNumber);
+            this.DoTestCase(stylerOptions, testNumber);
         }
 
         [Test]
         public void TestCDATAHandling()
         {
-            DoTest();
+            this.DoTest();
         }
 
         [Test]
         public void TestXmlSpaceHandling()
         {
-            DoTest();
+            this.DoTest();
         }
 
         [TestCase(ThicknessStyle.None)]
@@ -265,7 +266,7 @@ namespace Xavalon.XamlStyler.UnitTests
                 ThicknessStyle = thicknessStyle
             };
 
-            DoTestCase(stylerOptions, thicknessStyle);
+            this.DoTestCase(stylerOptions, thicknessStyle);
         }
 
         [TestCase(1, LineBreakRule.Default)]
@@ -281,33 +282,33 @@ namespace Xavalon.XamlStyler.UnitTests
                 RootElementLineBreakRule = lineBreakRule,
             };
 
-            DoTestCase(stylerOptions, testNumber);
+            this.DoTestCase(stylerOptions, testNumber);
         }
 
         [Test]
         public void TestRunHandling()
         {
-            DoTest();
+            this.DoTest();
         }
 
         private void DoTest([System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
             // ReSharper disable once ExplicitCallerInfoArgument
-            DoTest(new StylerOptions(), callerMemberName);
+            this.DoTest(new StylerOptions(), callerMemberName);
         }
 
         private void DoTest(StylerOptions stylerOptions, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
-            DoTest(stylerOptions, Path.Combine("TestFiles", callerMemberName), null);
+            this.DoTest(stylerOptions, Path.Combine("TestFiles", callerMemberName), null);
         }
 
         private void DoTestCase<T>(StylerOptions stylerOptions, T testIdentifier, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
-            DoTest(stylerOptions, Path.Combine("TestFiles", callerMemberName), testIdentifier.ToString());
+            this.DoTest(stylerOptions, Path.Combine("TestFiles", callerMemberName), testIdentifier.ToString());
         }
 
         /// <summary>
-        /// Style input document and verify output against expected  
+        /// Style input document and verify output against expected
         /// </summary>
         /// <param name="stylerOptions"></param>
         /// <param name="testFileBaseName"></param>
@@ -315,10 +316,10 @@ namespace Xavalon.XamlStyler.UnitTests
         private static void DoTest(StylerOptions stylerOptions, string testFileBaseName, string expectedSuffix)
         {
             var stylerService = new StylerService(stylerOptions);
-            
+
             var testFileResultBaseName = expectedSuffix != null ? testFileBaseName + "_" + expectedSuffix : testFileBaseName;
 
-            // Excercise stylerService using supplied test XAML data
+            // Exercise stylerService using supplied test XAML data
             string actualOutput = stylerService.StyleDocument(File.ReadAllText(testFileBaseName + ".testxaml"));
 
             // Write output to ".actual" file for further investigation

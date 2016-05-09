@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿// © Xavalon. All rights reserved.
+
+using System.ComponentModel;
 using Xavalon.XamlStyler.Core.DocumentManipulation;
 
 namespace Xavalon.XamlStyler.Core.Options

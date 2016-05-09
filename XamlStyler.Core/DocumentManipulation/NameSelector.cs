@@ -1,3 +1,5 @@
+// © Xavalon. All rights reserved.
+
 using System.ComponentModel;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;

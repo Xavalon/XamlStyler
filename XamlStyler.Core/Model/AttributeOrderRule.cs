@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿// © Xavalon. All rights reserved.
+
+using System.Linq;
 using Xavalon.XamlStyler.Core.DocumentManipulation;
 
 namespace Xavalon.XamlStyler.Core.Model

@@ -1,3 +1,5 @@
+// © Xavalon. All rights reserved.
+
 using System;
 using System.ComponentModel;
 using System.Linq;

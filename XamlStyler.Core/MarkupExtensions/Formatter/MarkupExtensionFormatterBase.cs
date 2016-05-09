@@ -1,4 +1,6 @@
-﻿using System;
+﻿// © Xavalon. All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xavalon.XamlStyler.Core.MarkupExtensions.Parser;

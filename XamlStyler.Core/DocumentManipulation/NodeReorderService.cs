@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// © Xavalon. All rights reserved.
+
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;

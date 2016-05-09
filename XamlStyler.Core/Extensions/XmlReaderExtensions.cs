@@ -1,4 +1,6 @@
-﻿using System.Xml;
+﻿// © Xavalon. All rights reserved.
+
+using System.Xml;
 
 namespace Xavalon.XamlStyler.Core.Extensions
 {

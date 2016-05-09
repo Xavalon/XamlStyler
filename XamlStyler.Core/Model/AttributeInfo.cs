@@ -1,4 +1,6 @@
-﻿using Xavalon.XamlStyler.Core.MarkupExtensions.Parser;
+﻿// © Xavalon. All rights reserved.
+
+using Xavalon.XamlStyler.Core.MarkupExtensions.Parser;
 
 namespace Xavalon.XamlStyler.Core.Model
 {

@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿// © Xavalon. All rights reserved.
+
+using NUnit.Framework;
 using Xavalon.XamlStyler.Core.Services;
 
 namespace Xavalon.XamlStyler.UnitTests

@@ -1,3 +1,5 @@
+// © Xavalon. All rights reserved.
+
 using System;
 using System.Linq;
 using System.Reflection;

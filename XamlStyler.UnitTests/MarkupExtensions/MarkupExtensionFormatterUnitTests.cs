@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿// © Xavalon. All rights reserved.
+
+using NUnit.Framework;
 using Xavalon.XamlStyler.Core.Extensions;
 using Xavalon.XamlStyler.Core.MarkupExtensions.Formatter;
 using Xavalon.XamlStyler.Core.MarkupExtensions.Parser;
@@ -8,14 +10,14 @@ namespace Xavalon.XamlStyler.UnitTests.MarkupExtensions
     [TestFixture]
     public class MarkupExtensionFormatterUnitTests
     {
-        private MarkupExtensionParser _parser;
-        private MarkupExtensionFormatter _formatter;
+        private MarkupExtensionParser parser;
+        private MarkupExtensionFormatter formatter;
 
         [SetUp]
         public void Setup()
         {
-            _parser = new MarkupExtensionParser();
-            _formatter = new MarkupExtensionFormatter(new[] { "x:Bind" });
+            this.parser = new MarkupExtensionParser();
+            this.formatter = new MarkupExtensionFormatter(new[] { "x:Bind" });
         }
 
         [TestCase("{Hello}", "{Hello}")]
@@ -38,9 +40,9 @@ namespace Xavalon.XamlStyler.UnitTests.MarkupExtensions
         public void TestFormatter(string sourceText, string expected)
         {
             MarkupExtension markupExtension;
-            Assert.That(_parser.TryParse(sourceText, out markupExtension), Is.EqualTo(true));
+            Assert.That(this.parser.TryParse(sourceText, out markupExtension), Is.EqualTo(true));
 
-            var result = _formatter.Format(markupExtension);
+            var result = this.formatter.Format(markupExtension);
             Assert.That(result, Is.EqualTo(expected.GetLines()));
         }
 
@@ -57,9 +59,9 @@ namespace Xavalon.XamlStyler.UnitTests.MarkupExtensions
         public void TestSingleLineFormatter(string sourceText, string expected)
         {
             MarkupExtension markupExtension;
-            Assert.That(_parser.TryParse(sourceText, out markupExtension), Is.EqualTo(true));
+            Assert.That(this.parser.TryParse(sourceText, out markupExtension), Is.EqualTo(true));
 
-            var result = _formatter.FormatSingleLine(markupExtension);
+            var result = this.formatter.FormatSingleLine(markupExtension);
             Assert.That(result, Is.EqualTo(expected));
         }
     }

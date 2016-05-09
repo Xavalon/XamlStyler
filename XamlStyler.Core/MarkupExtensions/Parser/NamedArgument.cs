@@ -1,3 +1,5 @@
+// © Xavalon. All rights reserved.
+
 using Irony.Parsing;
 using System;
 using System.Linq;

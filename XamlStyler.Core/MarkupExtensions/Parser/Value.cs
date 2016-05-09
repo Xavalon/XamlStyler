@@ -1,4 +1,6 @@
-﻿using Irony.Parsing;
+﻿// © Xavalon. All rights reserved.
+
+using Irony.Parsing;
 
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 {

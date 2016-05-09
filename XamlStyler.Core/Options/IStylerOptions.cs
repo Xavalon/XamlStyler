@@ -1,3 +1,5 @@
+// © Xavalon. All rights reserved.
+
 using Xavalon.XamlStyler.Core.DocumentManipulation;
 
 namespace Xavalon.XamlStyler.Core.Options
