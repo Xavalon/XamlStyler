@@ -39,24 +39,14 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
             var argumentSeparator = this.ToTransientTerm(",");
 
             // Setup rules
-            markupExtension.Rule = startExtension + typeName + endExtension
-                                   | startExtension + typeName + arguments + endExtension;
+            markupExtension.Rule = (startExtension + typeName + endExtension)
+                | (startExtension + typeName + arguments + endExtension);
 
-            arguments.Rule = namedArgs
-                             | positionalArgs
-                             | positionalArgs + argumentSeparator + namedArgs;
-
-            namedArgs.Rule = namedArg
-                             | namedArg + argumentSeparator + namedArgs;
-
-            namedArg.Rule = memberName + namedArgumentSeparator + argument;
-
-            positionalArgs.Rule = namedArgs
-                                  | argument
-                                  | argument + argumentSeparator + positionalArgs;
-
-            argument.Rule = markupExtension
-                            | @string;
+            arguments.Rule = namedArgs | positionalArgs | (positionalArgs + argumentSeparator + namedArgs);
+            namedArgs.Rule = namedArg | (namedArg + argumentSeparator + namedArgs);
+            namedArg.Rule = (memberName + namedArgumentSeparator + argument);
+            positionalArgs.Rule = namedArgs | argument | (argument + argumentSeparator + positionalArgs);
+            argument.Rule = markupExtension | @string;
 
             this.Root = markupExtension;
             this.MarkTransient(arguments, argument);

@@ -22,15 +22,15 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
         {
             if (lastNonWhitespacePosition > source.Position)
             {
-                // Remember position
-                var pos = source.PreviewPosition;
+                // Remember position.
+                var position = source.PreviewPosition;
 
-                // Move position back to last non whitespace (or significant whitespace)
+                // Move position back to last non whitespace (or significant whitespace).
                 source.PreviewPosition = lastNonWhitespacePosition;
                 var token = source.CreateToken(this.OutputTerminal);
 
-                // Restore position
-                source.PreviewPosition = pos;
+                // Restore position.
+                source.PreviewPosition = position;
                 return token;
             }
 
@@ -40,7 +40,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
         private Token MatchQuoted(ParsingContext context, ISourceStream source)
         {
             char quoteChar = source.PreviewChar;
-            if (quoteChar != '\'' && quoteChar != '"')
+            if ((quoteChar != '\'') && (quoteChar != '"'))
             {
                 return null;
             }

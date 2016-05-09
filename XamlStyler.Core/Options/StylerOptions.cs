@@ -9,14 +9,16 @@ namespace Xavalon.XamlStyler.Core.Options
     {
         public StylerOptions()
         {
-            // Initialize all properties with "DefaultValueAttrbute" to their default value
-            foreach (PropertyDescriptor prop in TypeDescriptor.GetProperties(this))
+            // Initialize all properties with "DefaultValueAttrbute" to their default value.
+            foreach (PropertyDescriptor property in TypeDescriptor.GetProperties(this))
             {
-                // Set default value if DefaultValueAttribute is present
-                DefaultValueAttribute attr = prop.Attributes[typeof(DefaultValueAttribute)] as DefaultValueAttribute;
-                if (attr != null)
+                // Set default value if DefaultValueAttribute is present.
+                DefaultValueAttribute attribute =
+                    property.Attributes[typeof(DefaultValueAttribute)] as DefaultValueAttribute;
+
+                if (attribute != null)
                 {
-                    prop.SetValue(this, attr.Value);
+                    property.SetValue(this, attribute.Value);
                 }
             }
         }

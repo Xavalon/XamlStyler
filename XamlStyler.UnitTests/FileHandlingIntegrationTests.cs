@@ -297,14 +297,22 @@ namespace Xavalon.XamlStyler.UnitTests
             this.DoTest(new StylerOptions(), callerMemberName);
         }
 
-        private void DoTest(StylerOptions stylerOptions, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
+        private void DoTest(
+            StylerOptions stylerOptions,
+            [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
             FileHandlingIntegrationTests.DoTest(stylerOptions, Path.Combine("TestFiles", callerMemberName), null);
         }
 
-        private void DoTestCase<T>(StylerOptions stylerOptions, T testIdentifier, [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
+        private void DoTestCase<T>(
+            StylerOptions stylerOptions,
+            T testIdentifier,
+            [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
-            FileHandlingIntegrationTests.DoTest(stylerOptions, Path.Combine("TestFiles", callerMemberName), testIdentifier.ToString());
+            FileHandlingIntegrationTests.DoTest(
+                stylerOptions, 
+                Path.Combine("TestFiles", callerMemberName),
+                testIdentifier.ToString());
         }
 
         /// <summary>

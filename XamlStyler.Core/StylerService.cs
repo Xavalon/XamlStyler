@@ -67,16 +67,16 @@ namespace Xavalon.XamlStyler.Core
             // Escape all xml entity references to ensure that they are output exactly as given.
             var escapedDocument = this.xmlEscapingService.EscapeDocument(xamlSource);
 
-            // parse XDocument
+            // Parse XDocument.
             var xDocument = XDocument.Parse(escapedDocument, LoadOptions.PreserveWhitespace);
 
-            // Manipulate the document tree;
+            // Manipulate the document tree.
             var manipulatedDocument = this.documentManipulationService.ManipulateDocument(xDocument);
 
-            // Format it to a string
+            // Format it to a string.
             var format = this.Format(manipulatedDocument);
 
-            // Restore escaped xml entity references
+            // Restore escaped xml entity references.
             return this.xmlEscapingService.UnescapeDocument(format);
         }
 

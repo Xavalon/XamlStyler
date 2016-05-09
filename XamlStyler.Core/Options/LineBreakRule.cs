@@ -6,6 +6,6 @@ namespace Xavalon.XamlStyler.Core.Options
     {
         Default,
         Always,
-        Never
+        Never,
     }
 }

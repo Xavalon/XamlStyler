@@ -54,8 +54,8 @@ namespace Xavalon.XamlStyler.Core.Extensions
         {
             return !string.IsNullOrEmpty(source)
                 ? source.Split(',')
-                    .Where(x => !string.IsNullOrWhiteSpace(x))
-                    .Select(x => new NameSelector(x.Trim()))
+                    .Where(_ => !string.IsNullOrWhiteSpace(_))
+                    .Select(_ => new NameSelector(_.Trim()))
                     .ToList()
                 : new List<NameSelector>();
         }

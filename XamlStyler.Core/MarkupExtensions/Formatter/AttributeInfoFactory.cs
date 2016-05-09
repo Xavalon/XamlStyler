@@ -29,7 +29,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
 
         private MarkupExtension ParseMarkupExtension(string value)
         {
-            // Only try to parse if there is a chance that it is a markup extension
+            // Only try to parse if there is a chance that it is a markup extension.
             if (value.IndexOf('{') != -1)
             {
                 MarkupExtension markupExtension;

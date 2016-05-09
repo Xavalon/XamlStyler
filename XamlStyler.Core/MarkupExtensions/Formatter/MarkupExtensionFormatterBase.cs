@@ -12,8 +12,8 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
         public IEnumerable<string> Format(MarkupExtension markupExtension)
         {
             return markupExtension.Arguments.Any()
-                ? this.Format('{' + markupExtension.TypeName + ' ', this.Format(markupExtension.Arguments), "}")
-                : new string[] { '{' + markupExtension.TypeName + '}' };
+                ? this.Format($"{{{markupExtension.TypeName} ", this.Format(markupExtension.Arguments), "}")
+                : new string[] { $"{{{markupExtension.TypeName}}}" };
         }
 
         protected abstract IEnumerable<string> Format(Argument[] arguments);
@@ -32,7 +32,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
                 return this.Format((PositionalArgument)argument);
             }
 
-            throw new ArgumentException("Unhandled type " + type.FullName, nameof(argument));
+            throw new ArgumentException($"Unhandled type {type.FullName}", nameof(argument));
         }
 
         private IEnumerable<string> Format(string prefix, IEnumerable<string> lines, string suffix = null)
@@ -43,7 +43,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
             foreach (var line in lines.Skip(1))
             {
                 list.Add(queued);
-                queued = new string(' ', prefix.Length) + line;
+                queued = new String(' ', prefix.Length) + line;
             }
 
             list.Add(queued + suffix);
@@ -83,7 +83,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
                 return this.Format((MarkupExtension)value);
             }
 
-            throw new ArgumentException("Unhandled type " + type.FullName, nameof(value));
+            throw new ArgumentException($"Unhandled type {type.FullName}", nameof(value));
         }
     }
 }

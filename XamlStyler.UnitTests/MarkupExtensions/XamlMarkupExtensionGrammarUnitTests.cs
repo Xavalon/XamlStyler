@@ -17,7 +17,10 @@ namespace Xavalon.XamlStyler.UnitTests.MarkupExtensions
             var grammar = new XamlMarkupExtensionGrammar();
             var language = new LanguageData(grammar);
 
-            this.parser = new Parser(language) { Context = { TracingEnabled = true } };
+            this.parser = new Parser(language)
+            {
+                Context = { TracingEnabled = true }
+            };
         }
 
         [TestCase("{Hello}")]

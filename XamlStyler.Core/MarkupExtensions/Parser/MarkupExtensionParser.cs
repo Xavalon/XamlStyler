@@ -37,7 +37,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
             {
                 ParseTree tree = this.parser.Parse(sourceText);
 #if DEBUG
-                // Save result tree for debugging purposes
+                // Save result tree for debugging purposes.
                 this.LastParseTree = tree;
                 this.LastException = null;
 #endif

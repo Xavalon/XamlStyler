@@ -42,7 +42,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
 
             if (attrInfo.IsMarkupExtension)
             {
-                string currentIndentationString = baseIndentationString + String.Empty.PadLeft(attrInfo.Name.Length + 2, ' ');
+                string currentIndentationString = $"{baseIndentationString}{String.Empty.PadLeft(attrInfo.Name.Length + 2, ' ')}";
                 var lines = this.formatter.Format(attrInfo.MarkupExtension);
 
                 var buffer = new StringBuilder();

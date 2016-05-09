@@ -25,7 +25,7 @@ namespace Xavalon.XamlStyler.Core.Services
                 return new string('\t', depth);
             }
 
-            return new string(' ', depth * this.indentSize);
+            return new string(' ', (depth * this.indentSize));
         }
 
         public string GetIndentString(int depth, int additionalSpaces)
@@ -42,10 +42,11 @@ namespace Xavalon.XamlStyler.Core.Services
 
             if (this.indentWithTabs)
             {
-                return new string('\t', depth + (additionalSpaces / this.indentSize)) + new string(' ', (additionalSpaces % this.indentSize));
+                return new string('\t', depth + (additionalSpaces / this.indentSize))
+                    + new string(' ', (additionalSpaces % this.indentSize));
             }
 
-            return new string(' ', (depth * this.indentSize) + additionalSpaces);
+            return new string(' ', ((depth * this.indentSize) + additionalSpaces));
         }
 
         /// <summary>
@@ -59,16 +60,17 @@ namespace Xavalon.XamlStyler.Core.Services
             if (this.indentWithTabs)
             {
                 int runningSpaces = 0;
-                for (int pos = 0; pos < line.Length; pos++)
+                for (int position = 0; position < line.Length; position++)
                 {
-                    switch (line[pos])
+                    switch (line[position])
                     {
                         case ' ':
                             runningSpaces++;
                             if (runningSpaces == this.indentSize)
                             {
-                                line = line.Substring(0, pos + 1 - runningSpaces) + '\t' + line.Substring(pos + 1);
-                                pos -= runningSpaces - 1;
+                                line = line.Substring(0, position + 1 - runningSpaces)
+                                    + '\t' + line.Substring(position + 1);
+                                position -= runningSpaces - 1;
                                 runningSpaces = 0;
                             }
 

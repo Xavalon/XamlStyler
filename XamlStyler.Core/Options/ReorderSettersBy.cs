@@ -7,6 +7,6 @@ namespace Xavalon.XamlStyler.Core.Options
         None,
         Property,
         TargetName,
-        TargetNameThenProperty
+        TargetNameThenProperty,
     }
 }

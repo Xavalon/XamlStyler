@@ -10,6 +10,6 @@ namespace Xavalon.XamlStyler.Core.Parser
         None = 0,
         SingleLineTextOnly = 1,
         MultiLineTextOnly = 2,
-        Mixed = 4
+        Mixed = 4,
     }
 }

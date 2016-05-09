@@ -25,13 +25,13 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
                             return source.CreateToken(this.OutputTerminal);
                         }
 
-                        return context.CreateErrorToken(this.Name + " was expected");
+                        return context.CreateErrorToken($"{this.Name} was expected");
                 }
 
                 source.PreviewPosition++;
             }
 
-            return context.CreateErrorToken("Unbalanced " + this.Name);
+            return context.CreateErrorToken($"Unbalanced {this.Name}");
         }
     }
 }

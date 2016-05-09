@@ -22,7 +22,11 @@ namespace Xavalon.XamlStyler.Core.Model
             this.Priority = priority;
 
             // Calculate match score. 1=no wildcards 0:contains ? -1:contains *
-            this.MatchScore = name.Any(_ => _ == '*') ? -1 : name.Any(_ => _ == '?') ? 0 : 1;
+            this.MatchScore = name.Any(_ => _ == '*')
+                ? -1
+                : name.Any(_ => _ == '?')
+                    ? 0
+                    : 1;
         }
     }
 }

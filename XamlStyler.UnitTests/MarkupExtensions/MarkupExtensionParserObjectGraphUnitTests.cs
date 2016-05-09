@@ -14,7 +14,6 @@ namespace Xavalon.XamlStyler.UnitTests.MarkupExtensions
         {
             var sourceText = "{Hello}";
             var expected = new MarkupExtension("Hello");
-
             this.ParseAndAssertObjectGraph(sourceText, expected);
         }
 

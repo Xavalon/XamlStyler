@@ -10,21 +10,21 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
     {
         protected override IEnumerable<string> Format(Argument[] arguments)
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder stringBuilder = new StringBuilder();
             foreach (var argument in arguments)
             {
-                if (sb.Length > 0)
+                if (stringBuilder.Length > 0)
                 {
-                    sb.Append(", ");
+                    stringBuilder.Append(", ");
                 }
 
                 foreach (var line in this.Format(argument))
                 {
-                    sb.Append(line);
+                    stringBuilder.Append(line);
                 }
             }
 
-            yield return sb.ToString();
+            yield return stringBuilder.ToString();
         }
     }
 }
