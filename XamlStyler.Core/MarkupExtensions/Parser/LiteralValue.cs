@@ -1,5 +1,5 @@
-using System;
 using Irony.Parsing;
+using System;
 
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 {
@@ -20,6 +20,5 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 
             return new LiteralValue(node.Token.Text);
         }
-
     }
 }

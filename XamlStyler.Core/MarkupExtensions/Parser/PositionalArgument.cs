@@ -1,5 +1,5 @@
-using System;
 using Irony.Parsing;
+using System;
 
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 {

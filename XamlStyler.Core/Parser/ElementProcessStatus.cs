@@ -35,6 +35,5 @@
         /// Access to parent element
         /// </summary>
         public ElementProcessStatus Parent { get; set; }
-
     }
 }

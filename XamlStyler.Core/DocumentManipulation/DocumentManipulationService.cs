@@ -61,16 +61,20 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                 case ReorderSettersBy.None:
                     reorderService.IsEnabled = false;
                     break;
+
                 case ReorderSettersBy.Property:
                     reorderService.SortByAttributes.Add(new SortBy("Property", null, false));
                     break;
+
                 case ReorderSettersBy.TargetName:
                     reorderService.SortByAttributes.Add(new SortBy("TargetName", null, false));
                     break;
+
                 case ReorderSettersBy.TargetNameThenProperty:
                     reorderService.SortByAttributes.Add(new SortBy("TargetName", null, false));
                     reorderService.SortByAttributes.Add(new SortBy("Property", null, false));
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }

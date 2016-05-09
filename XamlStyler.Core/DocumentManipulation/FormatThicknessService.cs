@@ -17,6 +17,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
         public bool IsEnabled { get; }
 
         public ThicknessStyle ThicknessStyle { get; }
+
         public IList<NameSelector> ThicknessAttributeNames { get; }
 
         private const string XamlNamespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation";

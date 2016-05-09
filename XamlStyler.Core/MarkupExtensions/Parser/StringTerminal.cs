@@ -2,7 +2,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 {
     internal class StringTerminal : MemberNameOrStringTerminal
     {
-        public StringTerminal(string name): base(name)
+        public StringTerminal(string name) : base(name)
         {
         }
 

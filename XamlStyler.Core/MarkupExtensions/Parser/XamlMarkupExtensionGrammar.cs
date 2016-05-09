@@ -4,7 +4,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 {
     // Grammar for XAML markup extension: See https://msdn.microsoft.com/en-us/library/ee200269.aspx
     // MarkupExtension = "{" TYPENAME 0*1Arguments "}"
-    // Arguments       = (NamedArgs / (PositionalArgs 0*1("," NamedArgs)) 
+    // Arguments       = (NamedArgs / (PositionalArgs 0*1("," NamedArgs))
     // NamedArgs       = NamedArg*("," NamedArg)
     // NamedArg        = MEMBERNAME "=" STRING
     // PositionalArgs  = NamedArg / (STRING 0*1( "," PositionalArgs))
@@ -28,7 +28,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
             var positionalArgs = new NonTerminal("PositionalArgs");
             var argument = new NonTerminal("Argument");
 
-            // Terminals 
+            // Terminals
             var typeName = new TypeNameTerminal(TypeNameTerm);
             var memberName = new MemberNameTerminal(MemberNameTerm);
             var @string = new StringTerminal(StringTerm);

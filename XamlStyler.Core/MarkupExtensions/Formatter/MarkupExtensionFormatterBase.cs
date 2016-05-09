@@ -9,8 +9,8 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
     {
         public IEnumerable<string> Format(MarkupExtension markupExtension)
         {
-            return markupExtension.Arguments.Any() 
-                ? Format('{' + markupExtension.TypeName + ' ', Format(markupExtension.Arguments), "}") 
+            return markupExtension.Arguments.Any()
+                ? Format('{' + markupExtension.TypeName + ' ', Format(markupExtension.Arguments), "}")
                 : new string[] { '{' + markupExtension.TypeName + '}' };
         }
 

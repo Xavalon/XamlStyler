@@ -14,25 +14,25 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
         [DisplayName("Name")]
         [Description("Match name by name. null/empty = all. 'DOS' Wildcards permitted.")]
         public string Name
-        { 
+        {
             get { return _name; }
             set
             {
                 _name = value;
                 _nameRegex = _name != null ? new Wildcard(_name) : null;
-            } 
+            }
         }
 
         [DisplayName("Namespace")]
         [Description("Match name by namespace. null/empty = all. 'DOS' Wildcards permitted.")]
         public string Namespace
-        { 
+        {
             get { return _namespace; }
             set
             {
                 _namespace = value;
                 _namespaceRegex = _namespace != null ? new Wildcard(_namespace) : null;
-            } 
+            }
         }
 
         public NameSelector()
@@ -59,8 +59,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
         public override string ToString()
         {
-            return
-                (Namespace != null ? Namespace + ":" : null) + Name;
+            return (Namespace != null ? Namespace + ":" : null) + Name;
         }
     }
 }

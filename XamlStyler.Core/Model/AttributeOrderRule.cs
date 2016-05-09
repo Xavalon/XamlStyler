@@ -6,8 +6,11 @@ namespace Xavalon.XamlStyler.Core.Model
     public class AttributeOrderRule
     {
         public Wildcard Name { get; }
+
         public int Group { get; }
+
         public int Priority { get; }
+
         public int MatchScore { get; }
 
         public AttributeOrderRule(string name, int group, int priority)

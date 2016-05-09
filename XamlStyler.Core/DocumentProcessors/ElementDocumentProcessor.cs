@@ -90,7 +90,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 
             // Determine if to put ending bracket on new line
             bool putEndingBracketOnNewLine = (_options.PutEndingBracketOnNewLine && elementProcessContext.Current.IsMultlineStartTag);
-            if(putEndingBracketOnNewLine)
+            if (putEndingBracketOnNewLine)
             {
                 // Indent ending bracket just like an attribute
                 output
@@ -142,13 +142,16 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 {
                     case LineBreakRule.Default:
                         break;
+
                     case LineBreakRule.Always:
                         noLineBreakInAttributes = false;
                         forceLineBreakInAttributes = true;
                         break;
+
                     case LineBreakRule.Never:
                         noLineBreakInAttributes = true;
                         break;
+
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

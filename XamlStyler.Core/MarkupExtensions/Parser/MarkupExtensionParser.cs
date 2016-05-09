@@ -1,5 +1,5 @@
-using System;
 using Irony.Parsing;
+using System;
 
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 {
@@ -9,7 +9,9 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 
 #if DEBUG
         public ParseTree LastParseTree { get; private set; }
+
         public Exception LastException { get; private set; }
+
 #endif
 
         public MarkupExtensionParser()
@@ -42,7 +44,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
                 }
             }
 #if DEBUG
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 LastParseTree = null;
                 LastException = ex;
@@ -55,6 +57,5 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 #endif
             return false;
         }
-
     }
 }

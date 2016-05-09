@@ -5,7 +5,7 @@ using System.Xml.Linq;
 
 namespace Xavalon.XamlStyler.Core.DocumentManipulation
 {
-    public class NodeReorderService: IProcessElementService
+    public class NodeReorderService : IProcessElementService
     {
         public bool IsEnabled { get; set; }
 
@@ -13,10 +13,12 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
         /// Name of parents to reorder children for
         /// </summary>
         public List<NameSelector> ParentNodeNames { get; }
+
         /// <summary>
         /// Name of children to reorder
         /// </summary>
         public List<NameSelector> ChildNodeNames { get; }
+
         /// <summary>
         /// Description on how to sort children
         /// </summary>
@@ -53,7 +55,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
             // This indicates if last element matched ChildNodeNames
             bool inMatchingChildBlock = false;
-            // This value changes each time a non matching ChildNodeName is reached ensuring that only sortable elements are reordered 
+            // This value changes each time a non matching ChildNodeName is reached ensuring that only sortable elements are reordered
             int childBlockIndex = 0;
 
             NodeCollection currentNodeCollection = null;

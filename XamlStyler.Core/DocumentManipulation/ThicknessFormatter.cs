@@ -33,7 +33,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
             var sb = new StringBuilder();
             foreach (Group g in match.Groups)
             {
-                if (g.GetType() == typeof (Group))
+                if (g.GetType() == typeof(Group))
                 {
                     if (sb.Length > 0) sb.Append(separator);
                     sb.Append(g.Value);

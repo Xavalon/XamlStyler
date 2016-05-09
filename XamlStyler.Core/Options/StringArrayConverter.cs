@@ -22,8 +22,8 @@ namespace Xavalon.XamlStyler.Core.Options
         {
             var stringValue = value as string;
 
-            return !string.IsNullOrEmpty(stringValue) 
-                ? stringValue.GetLines().ToArray() 
+            return !string.IsNullOrEmpty(stringValue)
+                ? stringValue.GetLines().ToArray()
                 : base.ConvertFrom(context, culture, value);
         }
 
@@ -31,10 +31,9 @@ namespace Xavalon.XamlStyler.Core.Options
         {
             var stringArray = value as string[];
 
-            return stringArray != null 
-                ? string.Join(Environment.NewLine, stringArray) 
+            return stringArray != null
+                ? string.Join(Environment.NewLine, stringArray)
                 : base.ConvertTo(context, culture, value, destinationType);
         }
     }
 }
-

@@ -33,8 +33,8 @@ namespace Xavalon.XamlStyler.Core.Options
 
         [Category("Attribute Formatting")]
         [DisplayName("Attribute tolerance")]
-        [Description(@"Defines the attribute number tolerance before XamlStyler starts to break attributes into new lines. 0 = no tolerance. 
-e.g., when this setting is 2 
+        [Description(@"Defines the attribute number tolerance before XamlStyler starts to break attributes into new lines. 0 = no tolerance.
+e.g., when this setting is 2
 
 BEFORE BEAUTIFY:
 <TextBlock x:Name=""m_sample""
@@ -48,16 +48,16 @@ Default Value: 2")]
 
         [Category("Attribute Formatting")]
         [DisplayName("Position first attribute on same line as start tag")]
-        [Description(@"Defines whether the first line of attribute(s) shall appear on the same line as the element's start tag. 
-e.g., when this setting is true 
+        [Description(@"Defines whether the first line of attribute(s) shall appear on the same line as the element's start tag.
+e.g., when this setting is true
 
 BEFORE BEAUTIFY:
-""<element a='xyz' b='xyz'>  </element>"" 
+""<element a='xyz' b='xyz'>  </element>""
 
 AFTER BEAUTIFY:
 ""<element a='xyz'
         b='xyz'>
-</element>"" 
+</element>""
 
 Default Value: true")]
         [DefaultValue(true)]
@@ -71,14 +71,14 @@ Default Value: true")]
 
         [Category("Attribute Formatting")]
         [DisplayName("Max attributes per line")]
-        [Description(@"Defines the maximum number of attributes an element can have on each line after the start tag. 0 = no limit. 
+        [Description(@"Defines the maximum number of attributes an element can have on each line after the start tag. 0 = no limit.
 Default Value: 1")]
         [DefaultValue((byte)1)]
         public byte MaxAttributesPerLine { get; set; }
 
         [Category("Attribute Formatting")]
         [DisplayName("Elements no line break between attributes")]
-        [Description(@"Defines a list of elements whose attributes shall not be broken into lines. 
+        [Description(@"Defines a list of elements whose attributes shall not be broken into lines.
 Default Value: RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Setter")]
         [DefaultValue("RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Condition, Setter")]
         public string NoNewLineElements { get; set; }
@@ -106,9 +106,9 @@ Default Value: RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTran
 
         [Category("Attribute Reordering")]
         [DisplayName("Attribute Ordering Rule Groups")]
-        [Description(@"Defines attribute ordering rule groups. Each string element is one group. 
-Use ',' to separate more than one attribute.'DOS' wildcards are allowed. 
-Attributes listed in earlier groups takes precedence over later groups. 
+        [Description(@"Defines attribute ordering rule groups. Each string element is one group.
+Use ',' to separate more than one attribute.'DOS' wildcards are allowed.
+Attributes listed in earlier groups takes precedence over later groups.
 Attributes listed earlier in same group takes precedence over the ones listed later.")]
         [DefaultValue(new[]
         {
@@ -148,21 +148,21 @@ Attributes listed earlier in same group takes precedence over the ones listed la
 
         [Category("Element Formatting")]
         [DisplayName("Put ending bracket on new line")]
-        [Description(@"Defines whether to put "">"" or ""/>"" on a new line. 
+        [Description(@"Defines whether to put "">"" or ""/>"" on a new line.
 Default Value: false")]
         [DefaultValue(false)]
         public bool PutEndingBracketOnNewLine { get; set; }
 
         [Category("Element Formatting")]
         [DisplayName("Remove ending tag of empty element")]
-        [Description(@"Defines whether to remove the ending tag of an empty element. 
-e.g., when this setting is true 
+        [Description(@"Defines whether to remove the ending tag of an empty element.
+e.g., when this setting is true
 
 BEFORE BEAUTIFY:
-""<element>  </element>"" 
+""<element>  </element>""
 
 AFTER BEAUTIFY:
-""<element />"" 
+""<element />""
 
 Default Value: true")]
         [DefaultValue(true)]
@@ -170,10 +170,10 @@ Default Value: true")]
 
         [Category("Element Formatting")]
         [DisplayName("Space before closing slash in self closing element")]
-        [Description(@"Defines whether to have a space before slash in self closing elements 
-e.g., when 
-true <br /> 
-false <br/> 
+        [Description(@"Defines whether to have a space before slash in self closing elements
+e.g., when
+true <br />
+false <br/>
 
 Default Value: true")]
         [DefaultValue(true)]
@@ -181,7 +181,7 @@ Default Value: true")]
 
         [Category("Element Formatting")]
         [DisplayName("Root element line breaks between attributes")]
-        [Description(@"Defines if attributes of the document root element are broken into separate lines or not. 
+        [Description(@"Defines if attributes of the document root element are broken into separate lines or not.
 Default = use same rules as other elements")]
         [DefaultValue(LineBreakRule.Default)]
         public LineBreakRule RootElementLineBreakRule { get; set; }
@@ -210,8 +210,8 @@ Default = use same rules as other elements")]
 
         [Category("Markup Extension")]
         [DisplayName("Enable Markup Extension Formatting")]
-        [Description(@"Defines whether to format markup extensions (attributes containing '{}'). 
-Default Value: true 
+        [Description(@"Defines whether to format markup extensions (attributes containing '{}').
+Default Value: true
 When this setting is true, attributes with markup extensions will always be put on a new line, UNLESS the element is under AttributesTolerance or one of the NoNewLineElements.")]
         [DefaultValue(true)]
         public bool FormatMarkupExtension { get; set; }
@@ -234,7 +234,7 @@ When this setting is true, attributes with markup extensions will always be put 
         [DisplayName("Thickness attributes")]
         [Description("Defines a list of all the attributes that gets reformatted if content looks like a thickness")]
         [DefaultValue("Margin, Padding, BorderThickness, ThumbnailClipMargin")]
-        public string ThicknessAttributes  { get; set; }
+        public string ThicknessAttributes { get; set; }
 
         // Misc
 
@@ -247,8 +247,8 @@ When this setting is true, attributes with markup extensions will always be put 
         [Category("Misc")]
         [DisplayName("Number of spaces to pad comments with")]
         [Description(@"Defines how many spaces a XML comment should be padded with. e.g.:
-2: <!--  Hello world  --> 
-1: <!-- Hello world --> 
+2: <!--  Hello world  -->
+1: <!-- Hello world -->
 0: <!--Hello world-->")]
         [DefaultValue((byte)2)]
         public byte CommentSpaces { get; set; }

@@ -3,10 +3,8 @@
 
 namespace Xavalon.XamlStyler.Package
 {
-    static class PkgCmdIDList
+    internal static class PkgCmdIDList
     {
-        public const uint cmdidBeautifyXaml =        0x100;
-
-
+        public const uint cmdidBeautifyXaml = 0x100;
     };
 }

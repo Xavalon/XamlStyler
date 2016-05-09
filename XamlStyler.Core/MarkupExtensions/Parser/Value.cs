@@ -16,5 +16,3 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
         }
     }
 }
-
-

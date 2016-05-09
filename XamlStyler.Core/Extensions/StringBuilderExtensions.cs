@@ -18,7 +18,7 @@ namespace Xavalon.XamlStyler.Core.Extensions
         /// <returns></returns>
         public static int LastIndexOf(this StringBuilder sb, char value)
         {
-            for (int i = sb.Length-1; i >= 0; i--)
+            for (int i = sb.Length - 1; i >= 0; i--)
             {
                 if (sb[i] == value)
                     return i;
@@ -34,7 +34,7 @@ namespace Xavalon.XamlStyler.Core.Extensions
         public static StringBuilder TrimEnd(this StringBuilder sb, params char[] trimChars)
         {
             int index = sb.Length;
-            while (index > 0 && trimChars.Contains(sb[index-1]))
+            while (index > 0 && trimChars.Contains(sb[index - 1]))
             {
                 index--;
             }
@@ -50,7 +50,7 @@ namespace Xavalon.XamlStyler.Core.Extensions
         public static StringBuilder TrimUnescaped(this StringBuilder sb, params char[] trimChars)
         {
             int index = sb.Length;
-            while (index > 0 && trimChars.Contains(sb[index-1]))
+            while (index > 0 && trimChars.Contains(sb[index - 1]))
             {
                 if (index > 1 && sb[index - 2] == '\\')
                     break;

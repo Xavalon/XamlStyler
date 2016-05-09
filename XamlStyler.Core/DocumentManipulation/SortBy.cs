@@ -5,10 +5,10 @@ using System.Xml.Linq;
 
 namespace Xavalon.XamlStyler.Core.DocumentManipulation
 {
-    public class SortBy: NameSelector
+    public class SortBy : NameSelector
     {
         private bool _isNumeric;
-        private Func<XElement,string> _defaultValue;
+        private Func<XElement, string> _defaultValue;
 
         public SortBy(string name, string @namespace, bool isNumeric)
             : base(name, @namespace)
@@ -24,15 +24,16 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
         [DisplayName("Namespace")]
         [Description("Match name by namespace. null/empty = all. 'DOS' Wildcards permitted.")]
-        public bool IsNumeric { 
+        public bool IsNumeric
+        {
             get { return _isNumeric; }
             set
             {
                 _isNumeric = value;
                 _defaultValue = IsNumeric
-                    ? (Func<XElement, string>) (x => x.Name.LocalName.Contains(".") ? "-32768" : "-32767")
+                    ? (Func<XElement, string>)(x => x.Name.LocalName.Contains(".") ? "-32768" : "-32767")
                     : (x => "");
-            } 
+            }
         }
 
         public ISortableAttribute GetValue(XElement element)
@@ -44,9 +45,9 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                 value = attribute.Value;
             }
 
-            return IsNumeric 
-                ? (ISortableAttribute) new SortableNumericAttribute(value, Double.Parse(_defaultValue(element)))
-                : (ISortableAttribute) new SortableStringAttribute(value ?? _defaultValue(element));
+            return IsNumeric
+                ? (ISortableAttribute)new SortableNumericAttribute(value, Double.Parse(_defaultValue(element)))
+                : (ISortableAttribute)new SortableStringAttribute(value ?? _defaultValue(element));
         }
     }
 }

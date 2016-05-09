@@ -1,12 +1,13 @@
+using Irony.Parsing;
 using System;
 using System.Linq;
-using Irony.Parsing;
 
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 {
     public class NamedArgument : Argument
     {
         public string Name { get; }
+
         public Value Value { get; }
 
         public NamedArgument(string name, Value value)

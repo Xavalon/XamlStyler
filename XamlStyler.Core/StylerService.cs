@@ -29,7 +29,7 @@ namespace Xavalon.XamlStyler.Core
             var indentService = new IndentService(options.IndentWithTabs, options.IndentSize);
             var markupExtensionFormatter = new MarkupExtensionFormatter(options.NoNewLineMarkupExtensions.ToList());
             var attributeInfoFactory = new AttributeInfoFactory(new MarkupExtensionParser(), new AttributeOrderRules(options));
-            var attributeInfoFormatter = new AttributeInfoFormatter(markupExtensionFormatter,indentService);
+            var attributeInfoFormatter = new AttributeInfoFormatter(markupExtensionFormatter, indentService);
 
             _documentProcessors = new Dictionary<XmlNodeType, IDocumentProcessor>
             {

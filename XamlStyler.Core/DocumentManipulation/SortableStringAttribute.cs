@@ -2,7 +2,7 @@ using System;
 
 namespace Xavalon.XamlStyler.Core.DocumentManipulation
 {
-    public class SortableStringAttribute: ISortableAttribute
+    public class SortableStringAttribute : ISortableAttribute
     {
         public string Value { get; private set; }
 
@@ -13,14 +13,16 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
         public int CompareTo(ISortableAttribute other)
         {
-            return String.Compare(Value, ((SortableStringAttribute) other).Value, StringComparison.Ordinal);
+            return String.Compare(Value, ((SortableStringAttribute)other).Value, StringComparison.Ordinal);
         }
 
 #if DEBUG
+
         public override string ToString()
         {
             return Value;
         }
+
 #endif
     }
 }

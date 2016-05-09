@@ -1,5 +1,5 @@
-using System;
 using Irony.Parsing;
+using System;
 
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 {
@@ -51,7 +51,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
                 if (IsMemberName) return null;
                 // Check for special {} at start of token indicating that this is a STRING token.
                 if (source.NextPreviewChar != '}') return null;
-                source.PreviewPosition +=2;
+                source.PreviewPosition += 2;
             }
 
             var runningBraceTotal = 0;
@@ -65,14 +65,17 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
                     case '{':
                         runningBraceTotal++;
                         break;
+
                     case '}':
                         if (--runningBraceTotal < 0)
                             return CreateToken(source, lastNonWhitespacePosition);
                         break;
+
                     case ',':
                         if (runningBraceTotal == 0)
                             return CreateToken(source, lastNonWhitespacePosition);
                         break;
+
                     case '=':
                         if (runningBraceTotal == 0)
                         {
@@ -82,9 +85,11 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
                                 : null;
                         }
                         break;
+
                     case '\\':
                         source.PreviewPosition++;
                         break;
+
                     default:
                         isWhiteSpace = Char.IsWhiteSpace(source.PreviewChar);
                         break;

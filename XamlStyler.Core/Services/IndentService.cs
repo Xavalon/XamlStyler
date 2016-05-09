@@ -60,10 +60,12 @@ namespace Xavalon.XamlStyler.Core.Services
                                 runningSpaces = 0;
                             }
                             break;
+
                         case '\t':
                             if (runningSpaces != 0)
                                 return line;
                             break;
+
                         default:
                             return line;
                     }

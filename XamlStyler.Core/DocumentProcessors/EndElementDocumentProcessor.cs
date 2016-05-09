@@ -13,7 +13,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
         private readonly IStylerOptions _options;
         private readonly IndentService _indentService;
 
-        public EndElementDocumentProcessor(IStylerOptions options,IndentService indentService)
+        public EndElementDocumentProcessor(IStylerOptions options, IndentService indentService)
         {
             _indentService = indentService;
             _options = options;

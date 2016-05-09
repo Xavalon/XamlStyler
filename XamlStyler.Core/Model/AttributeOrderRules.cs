@@ -34,7 +34,7 @@ namespace Xavalon.XamlStyler.Core.Model
             }
 
             // Add catch all group at the end ensuring we always get a match;
-            _rules.Add(new AttributeOrderRule("*",groupIndex,0));
+            _rules.Add(new AttributeOrderRule("*", groupIndex, 0));
         }
 
         public AttributeOrderRule GetRuleFor(string attributeName)

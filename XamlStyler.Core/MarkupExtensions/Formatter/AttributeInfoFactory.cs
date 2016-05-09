@@ -8,7 +8,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
     {
         private readonly AttributeOrderRules _orderRules;
         private readonly MarkupExtensionParser _parser;
-    
+
         public AttributeInfoFactory(MarkupExtensionParser parser, AttributeOrderRules orderRules)
         {
             _parser = parser;
@@ -25,7 +25,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
             return new AttributeInfo(attributeName, attributeValue, orderRule, markupExtension);
         }
 
-        private  MarkupExtension ParseMarkupExtension(string value)
+        private MarkupExtension ParseMarkupExtension(string value)
         {
             // Only try to parse if there is a chance that it is a markup extension
             if (value.IndexOf('{') != -1)

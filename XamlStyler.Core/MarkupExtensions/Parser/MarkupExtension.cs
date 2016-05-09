@@ -1,13 +1,14 @@
+using Irony.Parsing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Irony.Parsing;
 
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 {
     public class MarkupExtension : Value
     {
         public string TypeName { get; }
+
         public Argument[] Arguments { get; }
 
         public MarkupExtension(string typeName, params Argument[] arguments)
@@ -33,7 +34,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
             {
                 var argument =
                     PositionalArgument.Create(node)
-                    ?? (Argument) NamedArgument.Create(node);
+                    ?? (Argument)NamedArgument.Create(node);
 
                 if (argument != null)
                     yield return argument;

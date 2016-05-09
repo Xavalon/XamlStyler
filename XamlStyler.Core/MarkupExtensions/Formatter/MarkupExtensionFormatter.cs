@@ -7,8 +7,8 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
     public class MarkupExtensionFormatter
     {
         private readonly IList<string> _singleLineTypes;
-        readonly MarkupExtensionFormatterBase _singleLineFormatter = new SingleLineMarkupExtensionFormatter();
-        readonly MarkupExtensionFormatterBase _multiLineFormatter = new MultiLineMarkupExtensionFormatter();
+        private readonly MarkupExtensionFormatterBase _singleLineFormatter = new SingleLineMarkupExtensionFormatter();
+        private readonly MarkupExtensionFormatterBase _multiLineFormatter = new MultiLineMarkupExtensionFormatter();
 
         public MarkupExtensionFormatter(IList<string> singleLineTypes)
         {
