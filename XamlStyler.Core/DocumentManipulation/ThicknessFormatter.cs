@@ -32,21 +32,21 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
         private static string Format(Match match, char separator)
         {
-            var sb = new StringBuilder();
-            foreach (Group g in match.Groups)
+            var stringBuilder = new StringBuilder();
+            foreach (Group group in match.Groups)
             {
-                if (g.GetType() == typeof(Group))
+                if (group.GetType() == typeof(Group))
                 {
-                    if (sb.Length > 0)
+                    if (stringBuilder.Length > 0)
                     {
-                        sb.Append(separator);
+                        stringBuilder.Append(separator);
                     }
 
-                    sb.Append(g.Value);
+                    stringBuilder.Append(group.Value);
                 }
             }
 
-            return sb.ToString();
+            return stringBuilder.ToString();
         }
     }
 }

@@ -56,16 +56,14 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
         }
 
 #if DEBUG
-
         public override string ToString()
         {
-            return string.Format(
+            return String.Format(
                 "B{0} A{1} N{2}",
                 this.BlockIndex,
                 String.Join("|", (IEnumerable<ISortableAttribute>)this.SortAttributeValues),
                 String.Join("|", this.Nodes));
         }
-
 #endif
     }
 }

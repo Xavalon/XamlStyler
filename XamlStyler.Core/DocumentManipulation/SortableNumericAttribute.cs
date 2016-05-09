@@ -34,12 +34,10 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
         }
 
 #if DEBUG
-
         public override string ToString()
         {
-            return "D" + this.NumericValue;
+            return $"D{this.NumericValue}";
         }
-
 #endif
     }
 }

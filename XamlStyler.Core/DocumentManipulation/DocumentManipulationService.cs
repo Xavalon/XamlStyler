@@ -36,7 +36,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                 this.HandleNode(rootElement);
             }
 
-            return xmlDeclaration + xDocument;
+            return (xmlDeclaration + xDocument);
         }
 
         private NodeReorderService GetReorderGridChildrenService()
@@ -104,9 +104,9 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                 case XmlNodeType.Element:
                     XElement element = node as XElement;
 
-                    if (element != null && element.Nodes().Any())
+                    // Handle children first.
+                    if (element?.Nodes().Any() ?? false)
                     {
-                        // Handle children first.
                         foreach (var childNode in element.Nodes())
                         {
                             this.HandleNode(childNode);

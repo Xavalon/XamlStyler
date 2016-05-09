@@ -46,7 +46,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                 return;
             }
 
-            if (this.ParentNodeNames.Any(match => match.IsMatch(element.Name)))
+            if (this.ParentNodeNames.Any(_ => _.IsMatch(element.Name)))
             {
                 this.ReorderChildNodes(element);
             }

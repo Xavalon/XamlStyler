@@ -19,12 +19,10 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
         }
 
 #if DEBUG
-
         public override string ToString()
         {
             return this.Value;
         }
-
 #endif
     }
 }

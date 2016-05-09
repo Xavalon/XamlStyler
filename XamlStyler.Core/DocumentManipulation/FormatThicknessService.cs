@@ -41,7 +41,8 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
             if (element.Name == SetterName)
             {
                 var propertyAttribute = element.Attributes("Property").FirstOrDefault();
-                if (propertyAttribute != null && this.ThicknessAttributeNames.Any(match => match.IsMatch(propertyAttribute.Value)))
+                if ((propertyAttribute != null)
+                    && this.ThicknessAttributeNames.Any(match => match.IsMatch(propertyAttribute.Value)))
                 {
                     var valueAttribute = element.Attributes("Value").FirstOrDefault();
                     if (valueAttribute != null)
@@ -55,7 +56,9 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                 // Not setter. Format value of all attributes where attribute name matches ThicknessAttributeNames
                 foreach (var attribute in element.Attributes())
                 {
-                    var isMatchingAttribute = this.ThicknessAttributeNames.Any(match => match.IsMatch(attribute.Name));
+                    var isMatchingAttribute =
+                        this.ThicknessAttributeNames.Any(match => match.IsMatch(attribute.Name));
+
                     if (isMatchingAttribute)
                     {
                         this.FormatAttribute(attribute);
@@ -66,7 +69,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
         private void FormatAttribute(XAttribute attribute)
         {
-            char separator = ThicknessStyle == ThicknessStyle.Comma ? ',' : ' ';
+            char separator = (ThicknessStyle == ThicknessStyle.Comma) ? ',' : ' ';
 
             string formatted;
             if (ThicknessFormatter.TryFormat(attribute.Value, separator, out formatted))

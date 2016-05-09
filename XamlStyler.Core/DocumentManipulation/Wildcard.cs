@@ -21,9 +21,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
         public static string WildcardToRegex(string pattern)
         {
-            return "^" + Escape(pattern)
-                .Replace("\\*", ".*")
-                .Replace("\\?", ".") + "$";
+            return "^" + Escape(pattern).Replace("\\*", ".*").Replace("\\?", ".") + "$";
         }
     }
 }
