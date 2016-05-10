@@ -1,4 +1,6 @@
-﻿using System;
+﻿// © Xavalon. All rights reserved.
+
+using System;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -12,14 +14,20 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             var hasNewline = xmlReader.Value.Contains('\n');
 
             if (elementProcessContext.Current.IsSignificantWhiteSpace && hasNewline)
+            {
                 elementProcessContext.Current.IsSignificantWhiteSpace = false;
+            }
 
             if (hasNewline && !elementProcessContext.Current.IsPreservingSpace)
             {
                 // For WhiteSpaces contain linefeed, trim all spaces/tab，
                 // since the intent of this whitespace node is to break line,
                 // and preserve the line feeds
-                output.Append(xmlReader.Value.Replace(" ", "").Replace("\t", "").Replace("\r", "").Replace("\n", Environment.NewLine));
+                output.Append(xmlReader.Value
+                    .Replace(" ", String.Empty)
+                    .Replace("\t", String.Empty)
+                    .Replace("\r", String.Empty)
+                    .Replace("\n", Environment.NewLine));
             }
             else
             {

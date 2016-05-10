@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿// © Xavalon. All rights reserved.
+
+using System.Text.RegularExpressions;
 
 namespace Xavalon.XamlStyler.Core.DocumentManipulation
 {
@@ -19,9 +21,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
         public static string WildcardToRegex(string pattern)
         {
-            return "^" + Escape(pattern)
-                .Replace("\\*", ".*")
-                .Replace("\\?", ".") + "$";
+            return "^" + Escape(pattern).Replace("\\*", ".*").Replace("\\?", ".") + "$";
         }
     }
 }

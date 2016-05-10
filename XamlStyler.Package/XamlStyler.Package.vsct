@@ -24,7 +24,7 @@
 
 
   <!--The Commands section is where we the commands, menus and menu groups are defined.
-      This section uses a Guid to identify the package that provides the command defined inside it. -->
+      This section uses a guid to identify the package that provides the command defined inside it. -->
   <Commands package="guidXamlStyler_PackagePkg">
     <!-- Inside this section we have different sub-sections: one for the menus, another  
     for the menu groups, one for the buttons (the actual commands), one for the combos 
@@ -93,7 +93,7 @@
     </GuidSymbol>
 
     <!-- 
-      Xaml Editor Context Menu 
+      XAML Editor Context Menu 
       Visual Studio menu/command ids could be identified by using approach documented as below:
         http://blogs.msdn.com/b/dr._ex/archive/2007/04/17/using-enablevsiplogging-to-identify-menus-and-commands-with-vs-2005-sp1.aspx
     -->

@@ -1,14 +1,15 @@
-﻿using Irony.Parsing;
+﻿// © Xavalon. All rights reserved.
+
+using Irony.Parsing;
 
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 {
-    // Grammar for Xaml markup extension: See https://msdn.microsoft.com/en-us/library/ee200269.aspx
+    // Grammar for XAML markup extension: See https://msdn.microsoft.com/en-us/library/ee200269.aspx
     // MarkupExtension = "{" TYPENAME 0*1Arguments "}"
-    // Arguments       = (NamedArgs / (PositionalArgs 0*1("," NamedArgs)) 
+    // Arguments       = (NamedArgs / (PositionalArgs 0*1("," NamedArgs))
     // NamedArgs       = NamedArg*("," NamedArg)
     // NamedArg        = MEMBERNAME "=" STRING
     // PositionalArgs  = NamedArg / (STRING 0*1( "," PositionalArgs))
-
     [Language("XamlMarkupExtension", "1.0", "Xaml Markup Extension")]
     public class XamlMarkupExtensionGrammar : Grammar
     {
@@ -28,37 +29,27 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
             var positionalArgs = new NonTerminal("PositionalArgs");
             var argument = new NonTerminal("Argument");
 
-            // Terminals 
+            // Terminals
             var typeName = new TypeNameTerminal(TypeNameTerm);
             var memberName = new MemberNameTerminal(MemberNameTerm);
             var @string = new StringTerminal(StringTerm);
-            var startExtension = ToTransientTerm("{");
-            var endExtension = ToTransientTerm("}");
-            var namedArgumentSeparator = ToTransientTerm("=");
-            var argumentSeparator = ToTransientTerm(",");
+            var startExtension = this.ToTransientTerm("{");
+            var endExtension = this.ToTransientTerm("}");
+            var namedArgumentSeparator = this.ToTransientTerm("=");
+            var argumentSeparator = this.ToTransientTerm(",");
 
             // Setup rules
-            markupExtension.Rule = startExtension + typeName + endExtension
-                                   | startExtension + typeName + arguments + endExtension;
+            markupExtension.Rule = (startExtension + typeName + endExtension)
+                | (startExtension + typeName + arguments + endExtension);
 
-            arguments.Rule = namedArgs
-                             | positionalArgs
-                             | positionalArgs + argumentSeparator + namedArgs;
-
-            namedArgs.Rule = namedArg
-                             | namedArg + argumentSeparator + namedArgs;
-
-            namedArg.Rule = memberName + namedArgumentSeparator + argument;
-
-            positionalArgs.Rule = namedArgs
-                                  | argument
-                                  | argument + argumentSeparator + positionalArgs;
-
-            argument.Rule = markupExtension
-                            | @string;
+            arguments.Rule = namedArgs | positionalArgs | (positionalArgs + argumentSeparator + namedArgs);
+            namedArgs.Rule = namedArg | (namedArg + argumentSeparator + namedArgs);
+            namedArg.Rule = (memberName + namedArgumentSeparator + argument);
+            positionalArgs.Rule = namedArgs | argument | (argument + argumentSeparator + positionalArgs);
+            argument.Rule = markupExtension | @string;
 
             this.Root = markupExtension;
-            base.MarkTransient(arguments, argument);
+            this.MarkTransient(arguments, argument);
         }
 
         private BnfTerm ToTransientTerm(string text)

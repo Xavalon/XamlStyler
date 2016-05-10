@@ -1,4 +1,6 @@
-﻿using System.Xml;
+﻿// © Xavalon. All rights reserved.
+
+using System.Xml;
 
 namespace Xavalon.XamlStyler.Core.Extensions
 {
@@ -11,7 +13,7 @@ namespace Xavalon.XamlStyler.Core.Extensions
         /// <returns>true if xml:space</returns>
         public static bool IsXmlSpaceAttribute(this XmlReader xmlReader)
         {
-            return (xmlReader.Name.ToLowerInvariant() == "xml:space"); 
+            return (xmlReader.Name.ToLowerInvariant() == "xml:space");
         }
     }
 }

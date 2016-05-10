@@ -1,13 +1,13 @@
-﻿using System;
+﻿using EnvDTE;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using EnvDTE;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
 using Xavalon.XamlStyler.Core;
 using Xavalon.XamlStyler.Core.Options;
 
@@ -32,8 +32,8 @@ namespace Xavalon.XamlStyler.Package
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideOptionPage(typeof (PackageOptions), "Xaml Styler", "General", 101, 106, true)]
-    [ProvideProfile(typeof (PackageOptions), "Xaml Styler", "Xaml Styler Settings", 106, 107, true,
+    [ProvideOptionPage(typeof(PackageOptions), "XAML Styler", "General", 101, 106, true)]
+    [ProvideProfile(typeof(PackageOptions), "XAML Styler", "XAML Styler Settings", 106, 107, true,
         DescriptionResourceID = 108)]
     [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
     [Guid(GuidList.guidXamlStyler_PackagePkgString)]
@@ -61,21 +61,21 @@ namespace Xavalon.XamlStyler.Package
 
         /// <summary>
         /// Initialization of the package; this method is called right after the package is sited, so this is the place
-        /// where you can put all the initilaization code that rely on services provided by VisualStudio.
+        /// where you can put all the initialization code that rely on services provided by VisualStudio.
         /// </summary>
         protected override void Initialize()
         {
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", ToString()));
             base.Initialize();
 
-            _dte = GetService(typeof (DTE)) as DTE;
+            _dte = GetService(typeof(DTE)) as DTE;
 
             if (_dte == null)
             {
                 throw new NullReferenceException("DTE is null");
             }
 
-            _uiShell = GetService(typeof (IVsUIShell)) as IVsUIShell;
+            _uiShell = GetService(typeof(IVsUIShell)) as IVsUIShell;
 
             // Initialize command events listeners
             _events = _dte.Events;
@@ -92,13 +92,13 @@ namespace Xavalon.XamlStyler.Package
 
             //Initialize menu command
             // Add our command handlers for menu (commands must exist in the .vsct file)
-            var menuCommandService = GetService(typeof (IMenuCommandService)) as OleMenuCommandService;
+            var menuCommandService = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
 
             if (null != menuCommandService)
             {
                 // Create the command for the menu item.
                 var menuCommandId = new CommandID(GuidList.guidXamlStyler_PackageCmdSet,
-                                                  (int) PkgCmdIDList.cmdidBeautifyXaml);
+                                                  (int)PkgCmdIDList.cmdidBeautifyXaml);
                 var menuItem = new MenuCommand(MenuItemCallback, menuCommandId);
                 menuCommandService.AddCommand(menuItem);
             }
@@ -125,7 +125,7 @@ namespace Xavalon.XamlStyler.Package
 
             if (IsFormatableDocument(document))
             {
-                var options = GetDialogPage(typeof (PackageOptions)).AutomationObject as IStylerOptions;
+                var options = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
 
                 if (options.BeautifyOnSave)
                 {
@@ -137,8 +137,7 @@ namespace Xavalon.XamlStyler.Package
         private void OnFileSaveAllBeforeExecute(string guid, int id, object customIn, object customOut,
                                                 ref bool cancelDefault)
         {
-
-            // use parallel processing, but only on the documents that are formatable 
+            // use parallel processing, but only on the documents that are formatable
             // (to avoid the overhead of Task creating when it's not necessary)
 
             List<Document> docs = new List<Document>();
@@ -160,7 +159,6 @@ namespace Xavalon.XamlStyler.Package
                     }
                 }
                 );
-
         }
 
         private void Execute(Document document)
@@ -172,14 +170,14 @@ namespace Xavalon.XamlStyler.Package
 
             Properties xamlEditorProps = _dte.Properties["TextEditor", "XAML"];
 
-            var stylerOptions = GetDialogPage(typeof (PackageOptions)).AutomationObject as IStylerOptions;
+            var stylerOptions = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
 
             stylerOptions.IndentSize = Int32.Parse(xamlEditorProps.Item("IndentSize").Value.ToString());
-            stylerOptions.IndentWithTabs = (bool) xamlEditorProps.Item("InsertTabs").Value;
+            stylerOptions.IndentWithTabs = (bool)xamlEditorProps.Item("InsertTabs").Value;
 
             StylerService styler = new StylerService(stylerOptions);
 
-            var textDocument = (TextDocument) document.Object("TextDocument");
+            var textDocument = (TextDocument)document.Object("TextDocument");
 
             TextPoint currentPoint = textDocument.Selection.ActivePoint;
             int originalLine = currentPoint.Line;

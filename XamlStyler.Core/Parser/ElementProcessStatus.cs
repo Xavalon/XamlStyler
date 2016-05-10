@@ -1,4 +1,6 @@
-﻿namespace Xavalon.XamlStyler.Core.Parser
+﻿// © Xavalon. All rights reserved.
+
+namespace Xavalon.XamlStyler.Core.Parser
 {
     public class ElementProcessStatus
     {
@@ -35,6 +37,5 @@
         /// Access to parent element
         /// </summary>
         public ElementProcessStatus Parent { get; set; }
-
     }
 }

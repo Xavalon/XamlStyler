@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+﻿// © Xavalon. All rights reserved.
+
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 
 namespace Xavalon.XamlStyler.Core.DocumentManipulation
 {
-    public class NodeReorderService: IProcessElementService
+    public class NodeReorderService : IProcessElementService
     {
         public bool IsEnabled { get; set; }
 
@@ -13,10 +15,12 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
         /// Name of parents to reorder children for
         /// </summary>
         public List<NameSelector> ParentNodeNames { get; }
+
         /// <summary>
         /// Name of children to reorder
         /// </summary>
         public List<NameSelector> ChildNodeNames { get; }
+
         /// <summary>
         /// Description on how to sort children
         /// </summary>
@@ -24,20 +28,27 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
         public NodeReorderService()
         {
-            IsEnabled = true;
-            ParentNodeNames = new List<NameSelector>();
-            ChildNodeNames = new List<NameSelector>();
-            SortByAttributes = new List<SortBy>();
+            this.IsEnabled = true;
+            this.ParentNodeNames = new List<NameSelector>();
+            this.ChildNodeNames = new List<NameSelector>();
+            this.SortByAttributes = new List<SortBy>();
         }
 
         public void ProcessElement(XElement element)
         {
-            if (!IsEnabled) return;
-            if (!element.HasElements) return;
-
-            if (ParentNodeNames.Any(match => match.IsMatch(element.Name)))
+            if (!this.IsEnabled)
             {
-                ReorderChildNodes(element);
+                return;
+            }
+
+            if (!element.HasElements)
+            {
+                return;
+            }
+
+            if (this.ParentNodeNames.Any(_ => _.IsMatch(element.Name)))
+            {
+                this.ReorderChildNodes(element);
             }
         }
 
@@ -51,14 +62,16 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
             var children = element.Nodes();
 
-            // This indicates if last element matched ChildNodeNames
+            // This indicates if last element matched ChildNodeNames.
             bool inMatchingChildBlock = false;
-            // This value changes each time a non matching ChildNodeName is reached ensuring that only sortable elements are reordered 
+
+            // This value changes each time a non matching ChildNodeName is reached ensuring
+            // that only sortable elements are reordered.
             int childBlockIndex = 0;
 
             NodeCollection currentNodeCollection = null;
 
-            // Run through children
+            // Run through children.
             foreach (var child in children)
             {
                 if (currentNodeCollection == null)
@@ -71,7 +84,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                 {
                     XElement childElement = (XElement)child;
 
-                    var isMatchingChild = ChildNodeNames.Any(match => match.IsMatch(childElement.Name));
+                    var isMatchingChild = this.ChildNodeNames.Any(_ => _.IsMatch(childElement.Name));
                     if (isMatchingChild == false || inMatchingChildBlock == false)
                     {
                         childBlockIndex++;
@@ -80,7 +93,8 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
                     if (isMatchingChild)
                     {
-                        currentNodeCollection.SortAttributeValues = SortByAttributes.Select(x => x.GetValue(childElement)).ToArray();
+                        currentNodeCollection.SortAttributeValues =
+                            this.SortByAttributes.Select(_ => _.GetValue(childElement)).ToArray();
                     }
 
                     currentNodeCollection.BlockIndex = childBlockIndex;
@@ -89,17 +103,21 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                 currentNodeCollection.Nodes.Add(child);
 
                 if (child.NodeType == XmlNodeType.Element)
+                {
                     currentNodeCollection = null;
+                }
             }
 
             if (currentNodeCollection != null)
-                currentNodeCollection.BlockIndex = childBlockIndex + 1;
+            {
+                currentNodeCollection.BlockIndex = (childBlockIndex + 1);
+            }
 
-            // sort node list
-            nodeCollections = nodeCollections.OrderBy(x => x).ToList();
+            // Sort node list.
+            nodeCollections = nodeCollections.OrderBy(_ => _).ToList();
 
-            // replace the element's nodes
-            element.ReplaceNodes(nodeCollections.SelectMany(nc => nc.Nodes));
+            // Replace the element's nodes.
+            element.ReplaceNodes(nodeCollections.SelectMany(_ => _.Nodes));
         }
     }
 }

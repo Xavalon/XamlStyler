@@ -1,9 +1,11 @@
+// © Xavalon. All rights reserved.
+
 using Xavalon.XamlStyler.Core.DocumentManipulation;
 
 namespace Xavalon.XamlStyler.Core.Options
 {
     /// <summary>
-    /// Options controls how Styler works
+    /// Options controls how Styler works.
     /// </summary>
     public interface IStylerOptions
     {

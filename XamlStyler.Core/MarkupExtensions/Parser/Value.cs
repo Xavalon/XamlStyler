@@ -1,4 +1,6 @@
-﻿using Irony.Parsing;
+﻿// © Xavalon. All rights reserved.
+
+using Irony.Parsing;
 
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 {
@@ -6,8 +8,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
     {
         public static Value Create(ParseTreeNode node)
         {
-            return LiteralValue.Create(node)
-                   ?? (Value)MarkupExtension.Create(node);
+            return LiteralValue.Create(node) ?? (Value)MarkupExtension.Create(node);
         }
 
         public static implicit operator Value(string value)
@@ -16,5 +17,3 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
         }
     }
 }
-
-

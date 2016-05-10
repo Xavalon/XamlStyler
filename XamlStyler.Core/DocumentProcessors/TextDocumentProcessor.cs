@@ -1,4 +1,6 @@
-﻿using System;
+﻿// © Xavalon. All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,16 +13,16 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 {
     internal class TextDocumentProcessor : IDocumentProcessor
     {
-        private readonly IndentService _indentService;
+        private readonly IndentService indentService;
 
         public TextDocumentProcessor(IndentService indentService)
         {
-            _indentService = indentService;
+            this.indentService = indentService;
         }
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
         {
-            elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.SINGLE_LINE_TEXT_ONLY);
+            elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.SingleLineTextOnly);
 
             var xmlEncodedContent = xmlReader.Value.ToXmlEncodedString(ignoreCarrier: true);
             if (elementProcessContext.Current.IsPreservingSpace)
@@ -29,8 +31,11 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             }
             else
             {
-                string currentIndentString = _indentService.GetIndentString(xmlReader.Depth);
-                IEnumerable<string> textLines = xmlEncodedContent.Trim().Split('\n').Where(x => x.Trim().Length > 0).ToList();
+                string currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
+                IEnumerable<string> textLines = xmlEncodedContent.Trim()
+                    .Split('\n')
+                    .Where(_ => (_.Trim().Length > 0))
+                    .ToList();
 
                 foreach (var line in textLines)
                 {
@@ -42,9 +47,9 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 }
             }
 
-            if (xmlEncodedContent.Any(x => x == '\n'))
+            if (xmlEncodedContent.Any(_ => (_ == '\n')))
             {
-                elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.MULTI_LINE_TEXT_ONLY);
+                elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.MultiLineTextOnly);
             }
         }
     }

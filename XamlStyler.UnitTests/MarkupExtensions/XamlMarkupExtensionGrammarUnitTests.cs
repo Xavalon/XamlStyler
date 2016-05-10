@@ -1,4 +1,6 @@
-﻿using Irony.Parsing;
+﻿// © Xavalon. All rights reserved.
+
+using Irony.Parsing;
 using NUnit.Framework;
 using Xavalon.XamlStyler.Core.MarkupExtensions.Parser;
 
@@ -7,15 +9,18 @@ namespace Xavalon.XamlStyler.UnitTests.MarkupExtensions
     [TestFixture]
     public class XamlMarkupExtensionGrammarUnitTests
     {
-        private Parser _parser;
+        private Parser parser;
 
         [SetUp]
         public void Setup()
         {
-            var grammar = new XamlMarkupExtensionGrammar();    
+            var grammar = new XamlMarkupExtensionGrammar();
             var language = new LanguageData(grammar);
 
-            _parser = new Parser(language) {Context = {TracingEnabled = true}};
+            this.parser = new Parser(language)
+            {
+                Context = { TracingEnabled = true }
+            };
         }
 
         [TestCase("{Hello}")]
@@ -47,7 +52,7 @@ namespace Xavalon.XamlStyler.UnitTests.MarkupExtensions
         [TestCase("{{}")]
         public void TestParserParsed(string sourceText)
         {
-            ParseTree tree = _parser.Parse(sourceText);
+            ParseTree tree = this.parser.Parse(sourceText);
 
             Assert.That(tree, Is.Not.Null);
             Assert.That(tree.Status, Is.EqualTo(ParseTreeStatus.Parsed));
@@ -61,7 +66,7 @@ namespace Xavalon.XamlStyler.UnitTests.MarkupExtensions
         [TestCase("{Hello}}")]
         public void TestParserError(string sourceText)
         {
-            ParseTree tree = _parser.Parse(sourceText);
+            ParseTree tree = this.parser.Parse(sourceText);
 
             Assert.That(tree, Is.Not.Null);
             Assert.That(tree.Status, Is.EqualTo(ParseTreeStatus.Error));

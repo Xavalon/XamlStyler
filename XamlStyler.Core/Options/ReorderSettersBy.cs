@@ -1,3 +1,5 @@
+// © Xavalon. All rights reserved.
+
 namespace Xavalon.XamlStyler.Core.Options
 {
     public enum ReorderSettersBy
@@ -5,6 +7,6 @@ namespace Xavalon.XamlStyler.Core.Options
         None,
         Property,
         TargetName,
-        TargetNameThenProperty
+        TargetNameThenProperty,
     }
 }

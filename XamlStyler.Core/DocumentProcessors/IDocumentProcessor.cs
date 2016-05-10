@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿// © Xavalon. All rights reserved.
+
+using System.Text;
 using System.Xml;
 
 namespace Xavalon.XamlStyler.Core.DocumentProcessors

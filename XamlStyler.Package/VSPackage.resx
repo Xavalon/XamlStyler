@@ -121,19 +121,19 @@
     <value>JIQAP1ICAAAHPAQ1KRD2ZDKRKPM2HJC1HMC9RDJDKQR9J0MQDMQMHAQEAPZQREIPAQKDR9C1KKA0QIJAZ3D0REQTJRZRQDQTAMP0AKCIA1HEE1Q9JHREKCEQAZRPPAPM</value>
   </data>
   <data name="106" xml:space="preserve">
-    <value>Xaml Styler</value>
+    <value>XAML Styler</value>
   </data>
   <data name="107" xml:space="preserve">
-    <value>Xaml Styler Settings</value>
+    <value>XAML Styler Settings</value>
   </data>
   <data name="108" xml:space="preserve">
-    <value>Xaml Styler settings.</value>
+    <value>XAML Styler settings.</value>
   </data>
   <data name="110" xml:space="preserve">
     <value>XamlStylerVSPackage</value>
   </data>
   <data name="112" xml:space="preserve">
-    <value>Xaml Styler.</value>
+    <value>XAML Styler.</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="400" type="System.Resources.ResXFileRef, System.Windows.Forms">

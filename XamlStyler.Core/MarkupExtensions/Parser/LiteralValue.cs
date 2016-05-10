@@ -1,5 +1,7 @@
-using System;
+// © Xavalon. All rights reserved.
+
 using Irony.Parsing;
+using System;
 
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 {
@@ -9,17 +11,22 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 
         public LiteralValue(string value)
         {
-            if (value == null) throw new ArgumentNullException(nameof(value));
-            Value = value;
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            this.Value = value;
         }
 
-        public new static LiteralValue Create(ParseTreeNode node)
+        public static new LiteralValue Create(ParseTreeNode node)
         {
             if (node.Term.Name != XamlMarkupExtensionGrammar.StringTerm)
+            {
                 return null;
+            }
 
             return new LiteralValue(node.Token.Text);
         }
-
     }
 }

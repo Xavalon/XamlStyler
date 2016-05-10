@@ -1,3 +1,5 @@
+// © Xavalon. All rights reserved.
+
 using Irony.Parsing;
 
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
@@ -19,13 +21,17 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
                     case ' ':
                     case '}':
                         if (source.PreviewPosition > source.Position)
+                        {
                             return source.CreateToken(this.OutputTerminal);
-                        return context.CreateErrorToken(Name + " was expected");
+                        }
+
+                        return context.CreateErrorToken($"{this.Name} was expected");
                 }
+
                 source.PreviewPosition++;
             }
 
-            return context.CreateErrorToken("Unbalanced " + Name);
+            return context.CreateErrorToken($"Unbalanced {this.Name}");
         }
     }
 }

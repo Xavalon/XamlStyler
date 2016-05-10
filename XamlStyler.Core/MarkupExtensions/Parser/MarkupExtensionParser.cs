@@ -1,26 +1,32 @@
-using System;
+// © Xavalon. All rights reserved.
+
 using Irony.Parsing;
+using System;
 
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 {
     public class MarkupExtensionParser : IMarkupExtensionParser
     {
-        private readonly Irony.Parsing.Parser _parser;
+        private readonly Irony.Parsing.Parser parser;
 
 #if DEBUG
         public ParseTree LastParseTree { get; private set; }
+
         public Exception LastException { get; private set; }
+
 #endif
 
         public MarkupExtensionParser()
         {
             var grammar = new XamlMarkupExtensionGrammar();
             var language = new LanguageData(grammar);
-            _parser = new Irony.Parsing.Parser(language)
+            this.parser = new Irony.Parsing.Parser(language)
 #if DEBUG
-            { Context = { TracingEnabled = true } }
+            {
+                Context = { TracingEnabled = true }
+            }
 #endif
-                ;
+            ;
         }
 
         public bool TryParse(string sourceText, out MarkupExtension graph)
@@ -29,11 +35,11 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 
             try
             {
-                ParseTree tree = _parser.Parse(sourceText);
+                ParseTree tree = this.parser.Parse(sourceText);
 #if DEBUG
-                // Save result tree for debugging purposes
-                LastParseTree = tree;
-                LastException = null;
+                // Save result tree for debugging purposes.
+                this.LastParseTree = tree;
+                this.LastException = null;
 #endif
                 if (tree.Status == ParseTreeStatus.Parsed)
                 {
@@ -42,10 +48,10 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
                 }
             }
 #if DEBUG
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                LastParseTree = null;
-                LastException = ex;
+                this.LastParseTree = null;
+                this.LastException = ex;
             }
 #else
             catch
@@ -55,6 +61,5 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 #endif
             return false;
         }
-
     }
 }

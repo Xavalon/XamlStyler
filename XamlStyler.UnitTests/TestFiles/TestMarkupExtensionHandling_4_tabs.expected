@@ -3,11 +3,11 @@
 	  xmlns:sys="clr-namespace:System;assembly=mscorlib"
 	  Title="Page Title">
 	<Grid>
-		<!--  Tolarent element, no break line in markup extension  -->
+		<!--  Tolerant element, no break line in markup extension  -->
 		<TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=Title, StringFormat={}{0}Now{{0}} - {0}}" />
 
 		<!--  Markup extension format  -->
-		<!--  Literal style (Stringformat with no text needs {} in front)  -->
+		<!--  Literal style (StringFormat with no text needs {} in front)  -->
 		<TextBlock HorizontalAlignment="Center"
 				   VerticalAlignment="Center"
 				   FontSize="20"

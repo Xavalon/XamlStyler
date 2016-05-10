@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿// © Xavalon. All rights reserved.
+
+using NUnit.Framework;
 using Xavalon.XamlStyler.Core.DocumentManipulation;
 
 namespace Xavalon.XamlStyler.UnitTests
@@ -6,16 +8,16 @@ namespace Xavalon.XamlStyler.UnitTests
     [TestFixture]
     public class ThicknessFormatterUnitTests
     {
-        [TestCase(" 123",' ',"123")]
-        [TestCase(" 1.5 ",' ',"1.5")]
-        [TestCase(" 1.5 ",',',"1.5")]
-        [TestCase("1,2",' ',"1 2")]
-        [TestCase("1,2",',',"1,2")]
-        [TestCase("1 2",',',"1,2")]
-        [TestCase("1 2",' ',"1 2")]
+        [TestCase(" 123", ' ', "123")]
+        [TestCase(" 1.5 ", ' ', "1.5")]
+        [TestCase(" 1.5 ", ',', "1.5")]
+        [TestCase("1,2", ' ', "1 2")]
+        [TestCase("1,2", ',', "1,2")]
+        [TestCase("1 2", ',', "1,2")]
+        [TestCase("1 2", ' ', "1 2")]
         [TestCase("1.5 2.5 ", ',', "1.5,2.5")]
-        [TestCase("1 2 3",' ',null)]
-        [TestCase("1 2 3",',',null)]
+        [TestCase("1 2 3", ' ', null)]
+        [TestCase("1 2 3", ',', null)]
         [TestCase("1,2,3,4", ' ', "1 2 3 4")]
         [TestCase("1,2,3,4", ',', "1,2,3,4")]
         [TestCase("1 2 3 4", ',', "1,2,3,4")]

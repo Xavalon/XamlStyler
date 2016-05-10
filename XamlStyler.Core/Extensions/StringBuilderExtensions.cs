@@ -1,63 +1,74 @@
-﻿using System.Linq;
+﻿// © Xavalon. All rights reserved.
+
+using System.Linq;
 using System.Text;
 
 namespace Xavalon.XamlStyler.Core.Extensions
 {
     public static class StringBuilderExtensions
     {
-        public static bool IsNewLine(this StringBuilder sb)
+        public static bool IsNewLine(this StringBuilder stringBuilder)
         {
-            return sb.Length > 0 && sb[sb.Length - 1] == '\n';
+            return (stringBuilder.Length > 0)
+                && (stringBuilder[stringBuilder.Length - 1] == '\n');
         }
 
         /// <summary>
-        /// Get index of last occurence of char
+        /// Get index of last occurrence of char
         /// </summary>
-        /// <param name="sb"></param>
+        /// <param name="stringBuilder"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static int LastIndexOf(this StringBuilder sb, char value)
+        public static int LastIndexOf(this StringBuilder stringBuilder, char value)
         {
-            for (int i = sb.Length-1; i >= 0; i--)
+            for (int i = stringBuilder.Length - 1; i >= 0; i--)
             {
-                if (sb[i] == value)
+                if (stringBuilder[i] == value)
+                {
                     return i;
+                }
             }
+
             return -1;
         }
 
-        public static string Substring(this StringBuilder sb, int startIndex, int length)
+        public static string Substring(this StringBuilder stringBuilder, int startIndex, int length)
         {
-            return sb.ToString(startIndex, length);
+            return stringBuilder.ToString(startIndex, length);
         }
 
-        public static StringBuilder TrimEnd(this StringBuilder sb, params char[] trimChars)
+        public static StringBuilder TrimEnd(this StringBuilder stringBuilder, params char[] trimChars)
         {
-            int index = sb.Length;
-            while (index > 0 && trimChars.Contains(sb[index-1]))
+            int index = stringBuilder.Length;
+            while ((index > 0) && trimChars.Contains(stringBuilder[index - 1]))
             {
                 index--;
             }
-            sb.Length = index;
-            return sb;
+
+            stringBuilder.Length = index;
+            return stringBuilder;
         }
 
         /// <summary>
-        /// Trim all trimchars from end of stringbuilder except if escaped
+        /// Trim all trimchars from end of stringBuilder except if escaped
         /// </summary>
-        /// <param name="sb"></param>
+        /// <param name="stringBuilder"></param>
         /// <param name="trimChars"></param>
-        public static StringBuilder TrimUnescaped(this StringBuilder sb, params char[] trimChars)
+        public static StringBuilder TrimUnescaped(this StringBuilder stringBuilder, params char[] trimChars)
         {
-            int index = sb.Length;
-            while (index > 0 && trimChars.Contains(sb[index-1]))
+            int index = stringBuilder.Length;
+            while ((index > 0) && trimChars.Contains(stringBuilder[index - 1]))
             {
-                if (index > 1 && sb[index - 2] == '\\')
+                if ((index > 1) && (stringBuilder[index - 2] == '\\'))
+                {
                     break;
+                }
+
                 index--;
             }
-            sb.Length = index;
-            return sb;
+
+            stringBuilder.Length = index;
+            return stringBuilder;
         }
     }
 }

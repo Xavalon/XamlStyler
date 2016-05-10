@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿// © Xavalon. All rights reserved.
+
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -41,8 +44,8 @@ namespace Xavalon.XamlStyler.Core.Extensions
         {
             return !string.IsNullOrEmpty(source)
                 ? source.Split(',')
-                    .Where(x => !string.IsNullOrWhiteSpace(x))
-                    .Select(x => x.Trim())
+                    .Where(_ => !String.IsNullOrWhiteSpace(_))
+                    .Select(_ => _.Trim())
                     .ToList()
                 : new List<string>();
         }
@@ -51,8 +54,8 @@ namespace Xavalon.XamlStyler.Core.Extensions
         {
             return !string.IsNullOrEmpty(source)
                 ? source.Split(',')
-                    .Where(x => !string.IsNullOrWhiteSpace(x))
-                    .Select(x => new NameSelector(x.Trim()))
+                    .Where(_ => !string.IsNullOrWhiteSpace(_))
+                    .Select(_ => new NameSelector(_.Trim()))
                     .ToList()
                 : new List<NameSelector>();
         }

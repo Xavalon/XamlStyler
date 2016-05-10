@@ -1,3 +1,5 @@
+// © Xavalon. All rights reserved.
+
 using System.Collections.Generic;
 using System.Linq;
 using Xavalon.XamlStyler.Core.MarkupExtensions.Parser;
@@ -6,13 +8,13 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
 {
     public class MarkupExtensionFormatter
     {
-        private readonly IList<string> _singleLineTypes;
-        readonly MarkupExtensionFormatterBase _singleLineFormatter = new SingleLineMarkupExtensionFormatter();
-        readonly MarkupExtensionFormatterBase _multiLineFormatter = new MultiLineMarkupExtensionFormatter();
+        private readonly IList<string> singleLineTypes;
+        private readonly MarkupExtensionFormatterBase singleLineFormatter = new SingleLineMarkupExtensionFormatter();
+        private readonly MarkupExtensionFormatterBase multiLineFormatter = new MultiLineMarkupExtensionFormatter();
 
         public MarkupExtensionFormatter(IList<string> singleLineTypes)
         {
-            _singleLineTypes = singleLineTypes;
+            this.singleLineTypes = singleLineTypes;
         }
 
         /// <summary>
@@ -23,10 +25,9 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
         /// <returns></returns>
         public IEnumerable<string> Format(MarkupExtension markupExtension)
         {
-            var formatter =
-                (_singleLineTypes.Contains(markupExtension.TypeName))
-                    ? _singleLineFormatter
-                    : _multiLineFormatter;
+            var formatter = (this.singleLineTypes.Contains(markupExtension.TypeName))
+                ? this.singleLineFormatter
+                : this.multiLineFormatter;
             return formatter.Format(markupExtension);
         }
 
@@ -37,7 +38,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
         /// <returns></returns>
         public string FormatSingleLine(MarkupExtension markupExtension)
         {
-            return _singleLineFormatter.Format(markupExtension).Single();
+            return this.singleLineFormatter.Format(markupExtension).Single();
         }
     }
 }

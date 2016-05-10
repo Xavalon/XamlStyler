@@ -1,3 +1,5 @@
+// © Xavalon. All rights reserved.
+
 using System.Collections.Generic;
 using Xavalon.XamlStyler.Core.MarkupExtensions.Parser;
 
@@ -12,17 +14,26 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
             foreach (var argument in arguments)
             {
                 if (deferred != null)
+                {
                     deferred += ",";
+                }
 
-                foreach (var line in Format(argument))
+                foreach (var line in this.Format(argument))
                 {
                     if (deferred != null)
+                    {
                         list.Add(deferred);
+                    }
+
                     deferred = line;
                 }
             }
+
             if (deferred != null)
+            {
                 list.Add(deferred);
+            }
+
             return list;
         }
     }
