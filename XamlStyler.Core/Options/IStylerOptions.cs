@@ -33,6 +33,8 @@ namespace Xavalon.XamlStyler.Core.Options
 
         byte AttributeIndentation { get; set; }
 
+        AttributeIndentationStyle AttributeIndentationStyle { get; set; }
+
         #endregion Attribute formatting
 
         #region Attribute Reordering

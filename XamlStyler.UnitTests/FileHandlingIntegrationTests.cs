@@ -148,6 +148,7 @@ namespace Xavalon.XamlStyler.UnitTests
                 FormatMarkupExtension = true,
                 IndentWithTabs = indentWithTabs,
                 IndentSize = tabSize,
+                AttributeIndentationStyle = AttributeIndentationStyle.Mixed,
             };
 
             this.DoTestCase(stylerOptions, $"{tabSize}_{(indentWithTabs ? "tabs" : "spaces")}");
