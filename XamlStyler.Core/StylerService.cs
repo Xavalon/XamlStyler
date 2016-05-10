@@ -26,7 +26,7 @@ namespace Xavalon.XamlStyler.Core
             _xmlEscapingService = new XmlEscapingService();
             _documentManipulationService = new DocumentManipulationService(options);
 
-            var indentService = new IndentService(options.IndentWithTabs, options.IndentSize);
+            var indentService = new IndentService(options);
             var markupExtensionFormatter = new MarkupExtensionFormatter(options.NoNewLineMarkupExtensions.ToList());
             var attributeInfoFactory = new AttributeInfoFactory(new MarkupExtensionParser(), new AttributeOrderRules(options));
             var attributeInfoFormatter = new AttributeInfoFormatter(markupExtensionFormatter,indentService);

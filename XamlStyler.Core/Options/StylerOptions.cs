@@ -96,6 +96,14 @@ Default Value: RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTran
         [DefaultValue((byte)0)]
         public byte AttributeIndentation { get; set; }
 
+        [Category("Attribute Formatting")]
+        [DisplayName("Attribute indentation style")]
+        [Description(@"Defines how attributes are indented after Element indentation has been applied. 
+Mixed = Tabs (if using tabs) then spaces.
+Spaces = Always use spaces.")]
+        [DefaultValue(AttributeIndentationStyle.Spaces)]
+        public AttributeIndentationStyle AttributeIndentationStyle { get; set; }
+
         // Attribute Reordering
 
         [Category("Attribute Reordering")]
