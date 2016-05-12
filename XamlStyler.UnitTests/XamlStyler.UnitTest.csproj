@@ -120,6 +120,12 @@
     <None Include="TestFiles\TestMarkupExtensionHandling_4_tabs.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestFiles\TestValueXmlEntityHandling.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestValueXmlEntityHandling.testxaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\TestRunHandling.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
