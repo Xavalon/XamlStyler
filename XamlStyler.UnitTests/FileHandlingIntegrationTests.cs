@@ -291,6 +291,12 @@ namespace Xavalon.XamlStyler.UnitTests
             DoTest();
         }
 
+        [Test]
+        public void TestValueXmlEntityHandling()
+        {
+            DoTest();
+        }
+
         private void DoTest([System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
             // ReSharper disable once ExplicitCallerInfoArgument

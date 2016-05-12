@@ -4,8 +4,8 @@ namespace Xavalon.XamlStyler.Core.Services
 {
     public class XmlEscapingService
     {
-        private readonly Regex _htmlReservedCharRegex = new Regex(@"&([\d\D][^;]{3,7});");
-        private readonly Regex _htmlReservedCharRestoreRegex = new Regex(@"__amp__([^;]{2,7})__scln__");
+        private readonly Regex _htmlReservedCharRegex = new Regex(@"&([\d\D][^;]{1,7});");
+        private readonly Regex _htmlReservedCharRestoreRegex = new Regex(@"__amp__([\d\D][^;]{1,7})__scln__");
 
         public string EscapeDocument(string source)
         {
