@@ -3,6 +3,10 @@ XamlStyler
 A fork of the original Xaml Styler plugin as found on http://xamlstyler.codeplex.com
 This fork has been created to continue development on the awesome XAML styler plugin created by Chris Chaochen. To support the efforts Chris has put into this project my fork will only support Visual Studio 2013 and higher. For Visual Studio 2012 support please install Chris his version.
 
+Join the discussion
+===================
+https://gitter.im/Xavalon/XamlStyler
+
 Features
 ==========
 * Format/Beautify Xaml markup in one click. 
