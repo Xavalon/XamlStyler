@@ -1,0 +1,18 @@
+﻿<Window x:Class="MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Button
+            Width="200"
+            Height="75"
+            AutomationProperties.AutomationId="TestButton"
+            AutomationProperties.HelpText="Test Button"
+            Content="Test Button"
+            IsEnabled="True"
+            ToolTipService.Placement="Bottom"
+            ToolTipService.ToolTip="Test"
+            Grid.Row="1"
+            Grid.Column="1"
+            Visibility="Visible" />
+    </Grid>
+</Window>
