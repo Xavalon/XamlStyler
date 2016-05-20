@@ -150,6 +150,12 @@
     <None Include="TestFiles\TestThicknessHandling.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestFiles\TestWildcard.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestWildcard.testxaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\TestXmlSpaceHandling.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

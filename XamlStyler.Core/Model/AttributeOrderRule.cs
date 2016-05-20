@@ -21,12 +21,18 @@ namespace Xavalon.XamlStyler.Core.Model
             this.Group = group;
             this.Priority = priority;
 
-            // Calculate match score. 1=no wildcards 0:contains ? -1:contains *
-            this.MatchScore = name.Any(_ => _ == '*')
-                ? -1
-                : name.Any(_ => _ == '?')
-                    ? 0
-                    : 1;
+            // Calculate match score.  
+            // -2 = Catch-all ("*" or "*:*")  
+            // -1 = Contains '*'  
+            //  0 = Contains '?'  
+            //  1 = No Wildcards  
+            this.MatchScore = (name.Equals("*") || name.Equals("*:*"))
+                ? -2
+                : name.Any(_ => (_ == '*'))
+                    ? -1
+                    : name.Any(_ => _ == '?')
+                        ? 0
+                        : 1;
         }
     }
 }
