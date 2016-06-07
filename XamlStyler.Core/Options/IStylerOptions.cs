@@ -19,19 +19,19 @@ namespace Xavalon.XamlStyler.Core.Options
 
         #region Attribute formatting
 
-        byte AttributesTolerance { get; set; }
+        int AttributesTolerance { get; set; }
 
         bool KeepFirstAttributeOnSameLine { get; set; }
 
         int MaxAttributeCharatersPerLine { get; set; }
 
-        byte MaxAttributesPerLine { get; set; }
+        int MaxAttributesPerLine { get; set; }
 
         string NoNewLineElements { get; set; }
 
         bool PutAttributeOrderRuleGroupsOnSeparateLines { get; set; }
 
-        byte AttributeIndentation { get; set; }
+        int AttributeIndentation { get; set; }
 
         AttributeIndentationStyle AttributeIndentationStyle { get; set; }
 
@@ -89,8 +89,16 @@ namespace Xavalon.XamlStyler.Core.Options
 
         bool BeautifyOnSave { get; set; }
 
-        byte CommentSpaces { get; set; }
+        int CommentSpaces { get; set; }
 
         #endregion Misc
+
+        #region Configuration
+
+        string ConfigPath { get; set; }
+
+        bool ResetToDefault { get; set; }
+
+        #endregion Configuration
     }
 }

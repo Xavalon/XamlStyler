@@ -1,0 +1,15 @@
+{
+    "AttributeOrderingRuleGroups": [
+        "x:Class",
+        "xmlns, xmlns:x",
+        "xmlns:*",
+        "Key, x:Key, Uid, x:Uid",
+        "Name, x:Name, Title",
+        "Grid.Row, Grid.RowSpan, Grid.Column, Grid.ColumnSpan, Canvas.Left, Canvas.Top, Canvas.Right, Canvas.Bottom",
+        "Width, Height, MinWidth, MinHeight, MaxWidth, MaxHeight, Margin",
+        "HorizontalAlignment, VerticalAlignment, HorizontalContentAlignment, VerticalContentAlignment, Panel.ZIndex",
+        "*:*, *",
+        "PageSource, PageIndex, Offset, Color, TargetName, Property, Value, StartPoint, EndPoint",
+        "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText"
+    ]
+}
