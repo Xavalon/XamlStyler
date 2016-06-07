@@ -205,7 +205,12 @@ namespace Xavalon.XamlStyler.UnitTests
         [Test]
         public void TestNestedPropertiesAndChildrenHandling()
         {
-            this.DoTest();
+            var stylerOptions = new StylerOptions()
+            {
+                ReorderVSM = VisualStateManagerRule.First
+            };
+
+            this.DoTest(stylerOptions);
         }
 
         [Test]
@@ -317,6 +322,39 @@ namespace Xavalon.XamlStyler.UnitTests
         public void TestValueXmlEntityHandling()
         {
             this.DoTest();
+        }
+
+        [Test]
+        public void TestVisualStateManagerNone()
+        {
+            var stylerOptions = new StylerOptions()
+            {
+                ReorderVSM = VisualStateManagerRule.None
+            };
+
+            this.DoTest(stylerOptions);
+        }
+
+        [Test]
+        public void TestVisualStateManagerFirst()
+        {
+            var stylerOptions = new StylerOptions()
+            {
+                ReorderVSM = VisualStateManagerRule.First
+            };
+
+            this.DoTest(stylerOptions);
+        }
+
+        [Test]
+        public void TestVisualStateManagerLast()
+        {
+            var stylerOptions = new StylerOptions()
+            {
+                ReorderVSM = VisualStateManagerRule.Last
+            };
+
+            this.DoTest(stylerOptions);
         }
 
         private void DoTest([System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
