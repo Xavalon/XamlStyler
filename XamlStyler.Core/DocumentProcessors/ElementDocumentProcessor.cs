@@ -20,6 +20,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
         private readonly AttributeInfoFormatter attributeInfoFormatter;
         private readonly IndentService indentService;
         private readonly IList<string> noNewLineElementsList;
+        private readonly IList<string> firstLineAttributes;
 
         public ElementDocumentProcessor(
             IStylerOptions options,
@@ -32,6 +33,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             this.attributeInfoFormatter = attributeInfoFormatter;
             this.indentService = indentService;
             this.noNewLineElementsList = options.NoNewLineElements.ToList();
+            this.firstLineAttributes = options.FirstLineAttributes.ToList();
         }
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
@@ -130,9 +132,18 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             string attributeIndentationString)
         {
             var list = new List<AttributeInfo>(xmlReader.AttributeCount);
+            var firstLineList = new List<AttributeInfo>(xmlReader.AttributeCount);
+
             while (xmlReader.MoveToNextAttribute())
             {
-                list.Add(this.attributeInfoFactory.Create(xmlReader));
+                var attributeInfo = this.attributeInfoFactory.Create(xmlReader);
+                list.Add(attributeInfo);
+
+                // Maintain separate list of first line attributes.  
+                if (this.options.EnableAttributeReordering && this.IsFirstLineAttribute(attributeInfo.Name))
+                {
+                    firstLineList.Add(attributeInfo);
+                }
 
                 // Check for xml:space as defined in http://www.w3.org/TR/2008/REC-xml-20081126/#sec-white-space
                 if (xmlReader.IsXmlSpaceAttribute())
@@ -144,6 +155,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             if (this.options.EnableAttributeReordering)
             {
                 list.Sort(this.AttributeInfoComparison);
+                firstLineList.Sort(this.AttributeInfoComparison);
             }
 
             var noLineBreakInAttributes = (list.Count <= this.options.AttributesTolerance) || isNoLineBreakElement;
@@ -189,8 +201,27 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 int attributeCountInCurrentLineBuffer = 0;
 
                 AttributeInfo lastAttributeInfo = null;
+
+                // Process first line attributes.  
+                string firstLine = String.Empty;
+                foreach (var attrInfo in firstLineList)
+                {
+                    firstLine = $"{firstLine} {this.attributeInfoFormatter.ToSingleLineString(attrInfo)}";
+                }
+
+                if (firstLine.Length > 0)
+                {
+                    attributeLines.Add(firstLine);
+                }
+
                 foreach (AttributeInfo attrInfo in list)
                 {
+                    // Skip attributes already added to first line.  
+                    if (firstLineList.Contains(attrInfo))
+                    {
+                        continue;
+                    }
+
                     // Attributes with markup extension, always put on new line
                     if (attrInfo.IsMarkupExtension && this.options.FormatMarkupExtension)
                     {
@@ -242,7 +273,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 for (int i = 0; i < attributeLines.Count; i++)
                 {
                     // Put first attribute line on same line as element?
-                    if ((i == 0) && this.options.KeepFirstAttributeOnSameLine)
+                    if ((i == 0) && (this.options.KeepFirstAttributeOnSameLine || (firstLineList.Count > 0)))
                     {
                         output.Append(' ').Append(attributeLines[i].Trim());
                     }
@@ -291,6 +322,11 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             {
                 return this.indentService.GetIndentString(xmlReader.Depth, this.options.AttributeIndentation);
             }
+        }
+
+        private bool IsFirstLineAttribute(string attributeName)
+        {  
+            return this.firstLineAttributes.Contains(attributeName);  
         }
 
         private bool IsNoLineBreakElement(string elementName)

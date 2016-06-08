@@ -10,6 +10,7 @@
     "AttributeIndentationStyle": 0,
     "EnableAttributeReordering": false,
     "AttributeOrderingRuleGroups": [ "x:Class" ],
+    "FirstLineAttributes": "x:Name",
     "OrderAttributesByName": false,
     "PutEndingBracketOnNewLine": true,
     "RemoveEndingTagOfEmptyElement": false,
