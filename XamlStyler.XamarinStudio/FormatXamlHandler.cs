@@ -1,18 +1,15 @@
 ﻿using MonoDevelop.Components.Commands;
 using MonoDevelop.Ide;
 using Xavalon.XamlStyler.Core;
-using Xavalon.XamlStyler.Core.Options;
 
-namespace XamlStyler.XamarinStudio
+namespace Xavalon.XamlStyler.XamarinStudio
 {
 	public class FormatXamlHandler : CommandHandler
 	{
 		protected override void Run()
 		{
-			var styler = new StylerService(new StylerOptions
-			{
-				IndentSize = 4
-			});
+			var options = StylerOptionsConfiguration.ReadFromUserProfile();
+			var styler = new StylerService(options);
 
 			var doc = IdeApp.Workbench.ActiveDocument;
 			var edit = doc.Editor;

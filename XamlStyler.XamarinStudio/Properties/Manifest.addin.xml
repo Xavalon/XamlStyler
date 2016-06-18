@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ExtensionModel>
 	<Runtime>
+    	<Import assembly="Newtonsoft.Json.dll"/>
     	<Import assembly="XamlStyler.Core.dll"/>
     	<Import assembly="XamlStyler.XamarinStudio.dll"/>
 	</Runtime>
@@ -10,25 +11,18 @@
 		<Addin id="::MonoDevelop.SourceEditor2" version="5.0" />
 	</Dependencies>
 	<Extension path="/MonoDevelop/Ide/Commands/Edit">
-		<Command id="XamlStyler.XamarinStudio.FormatXaml" _label="Format Xaml" _description="Reformats the XAML document to be much more readable" defaultHandler="XamlStyler.XamarinStudio.FormatXamlHandler" />
-	</Extension>
-	<Extension path="/MonoDevelop/Ide/ContextMenu/ProjectPad">
-		<Condition id="FileType" fileExtensions=".xaml">
-	        <CommandItem id="XamlStyler.XamarinStudio.FormatXaml" />
-	    </Condition>
+		<Command id="Xavalon.XamlStyler.XamarinStudio.FormatXaml" _label="Format Xaml" _description="Reformats the XAML document to be much more readable" defaultHandler="Xavalon.XamlStyler.XamarinStudio.FormatXamlHandler" />
 	</Extension>
 	<Extension path="/MonoDevelop/SourceEditor2/ContextMenu/Editor">
 	    <Condition id="FileType" fileExtensions=".xaml">
-	        <CommandItem id="XamlStyler.XamarinStudio.FormatXaml" />
+	        <CommandItem id="Xavalon.XamlStyler.XamarinStudio.FormatXaml" />
 	    </Condition>
 	</Extension>
-	<Extension path="/MonoDevelop/Ide/GlobalOptionsDialog">
-		<Section id="NuGetPackageManagement" _label="XamlStyler">
-			<Section
-				id="Options"
-				_label="Options"
-				fill="true"
-				class="Xavalon.XamlStyler.XamarinStudio.Interface.XamlStylerOptionsPanel" />
-		</Section>
+	<Extension path="/MonoDevelop/Ide/GlobalOptionsDialog/Other">
+		<Section
+			id="XamlStylerOptions"
+			_label="XamlStyler Options"
+			fill="true"
+			class="Xavalon.XamlStyler.XamarinStudio.Gui.XamlStylerOptionsPanel" />
 	</Extension>
 </ExtensionModel>

@@ -7,7 +7,7 @@
   <import>
     <widget-library name="../bin/Debug/XamlStyler.XamarinStudio.dll" internal="true" />
   </import>
-  <widget class="Gtk.Bin" id="Xavalon.XamlStyler.XamarinStudio.OptionsWidget" design-size="549 319">
+  <widget class="Gtk.Bin" id="Xavalon.XamlStyler.XamarinStudio.Gui.OptionsWidget" design-size="549 319">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>
