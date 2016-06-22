@@ -28,7 +28,6 @@
                     <property name="ShowScrollbars">True</property>
                     <property name="NRows">3</property>
                     <property name="NColumns">3</property>
-                    <property name="Homogeneous">True</property>
                     <property name="RowSpacing">6</property>
                     <property name="ColumnSpacing">6</property>
                     <child>

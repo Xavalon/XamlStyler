@@ -12,10 +12,12 @@ namespace Xavalon.XamlStyler.XamarinStudio.Gui
 
 		public StylerOptions Options { get; private set; }
 
+		public bool IsDirty { get; set; }
+
 		public void Init()
 		{
 			Options = ReadOptions();
-			
+
 			var optionsList = new List<Option>();
 			foreach (PropertyDescriptor property in TypeDescriptor.GetProperties(Options))
 			{
@@ -32,12 +34,16 @@ namespace Xavalon.XamlStyler.XamarinStudio.Gui
 
 		public void SaveOptions()
 		{
-			StylerOptionsConfiguration.WriteToUserProfile(Options);
+			if (IsDirty)
+			{
+				StylerOptionsConfiguration.WriteToUserProfile(Options);
+			}
 		}
 
 		public void ResetToDefaults()
 		{
 			StylerOptionsConfiguration.Reset();
+			IsDirty = false;
 		}
 	}
 }

@@ -51,6 +51,7 @@ namespace Xavalon.XamlStyler.XamarinStudio.Gui
 				// group label
 				var grouplbl = new Gtk.Label();
 				grouplbl.SetAlignment(0f, 0.5f);
+				grouplbl.HeightRequest = 30;
 				grouplbl.Markup = $"<b> {optionGroup.Key}</b>";
 
 				var box = new Gtk.EventBox();
@@ -64,6 +65,7 @@ namespace Xavalon.XamlStyler.XamarinStudio.Gui
 					// name label
 					var lbl = new Gtk.Label(option.Name) { TooltipText = option.Description };
 					lbl.SetAlignment(0f, 0.5f);
+					lbl.HeightRequest = 30;
 					AddToTable(r, 0, lbl);
 
 					var type = option.PropertyType;
@@ -73,6 +75,7 @@ namespace Xavalon.XamlStyler.XamarinStudio.Gui
 						chk.Clicked += (sender, e) =>
 						{
 							option.Property.SetValue(_viewModel.Options, chk.Active);
+							_viewModel.IsDirty = true;
 						};
 						AddToTable(r, 1, chk);
 					}
@@ -83,6 +86,7 @@ namespace Xavalon.XamlStyler.XamarinStudio.Gui
 						spin.ValueChanged += (sender, e) =>
 						{
 							option.Property.SetValue(_viewModel.Options, (int)spin.Value);
+							_viewModel.IsDirty = true;
 						};
 						AddToTable(r, 1, spin);
 					}
@@ -93,6 +97,7 @@ namespace Xavalon.XamlStyler.XamarinStudio.Gui
 						spin.ValueChanged += (sender, e) =>
 						{
 							option.Property.SetValue(_viewModel.Options, (int)spin.Value);
+							_viewModel.IsDirty = true;
 						};
 						AddToTable(r, 1, spin);
 					}
@@ -104,8 +109,32 @@ namespace Xavalon.XamlStyler.XamarinStudio.Gui
 						txt.Changed += (sender, e) =>
 						{
 							option.Property.SetValue(_viewModel.Options, txt.Text);
+							_viewModel.IsDirty = true;
 						};
 						AddToTable(r, 1, txt);
+					}
+					else if (type == typeof(string[])) 
+					{
+						var vals = (string[])option.Property.GetValue(_viewModel.Options);
+						var val = string.Join(Environment.NewLine, vals);
+						var txt = new Gtk.TextView(new Gtk.TextBuffer(new Gtk.TextTagTable()));
+						txt.LeftMargin = 5;
+						txt.RightMargin = 5;
+						txt.BorderWidth = 1;
+						txt.Buffer.Text = val;
+						txt.Buffer.Changed += (sender, e) =>
+						{
+							var newVals = txt.Buffer.Text.Split(Environment.NewLine.ToCharArray());
+							option.Property.SetValue(_viewModel.Options, newVals);
+							_viewModel.IsDirty = true;
+						};
+
+						var frame = new Gtk.Frame();
+						frame.Shadow = Gtk.ShadowType.In;
+						frame.BorderWidth = 5;
+						frame.Child = txt;
+
+						AddToTable(r, 1, frame);
 					}
 					else if (type.IsEnum)
 					{
@@ -116,6 +145,7 @@ namespace Xavalon.XamlStyler.XamarinStudio.Gui
 						cmb.Changed += (sender, e) =>
 						{
 							option.Property.SetValue(_viewModel.Options, Enum.Parse(type, cmb.ActiveText));
+							_viewModel.IsDirty = true;
 						};
 						AddToTable(r, 1, cmb);
 					}

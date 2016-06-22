@@ -26,7 +26,7 @@ namespace Xavalon.XamlStyler.XamarinStudio.Gui
 			global::Gtk.Viewport w1 = new global::Gtk.Viewport();
 			w1.ShadowType = ((global::Gtk.ShadowType)(0));
 			// Container child GtkViewport.Gtk.Container+ContainerChild
-			this.tblContainer = new global::Gtk.Table(((uint)(3)), ((uint)(3)), true);
+			this.tblContainer = new global::Gtk.Table(((uint)(3)), ((uint)(3)), false);
 			this.tblContainer.Name = "tblContainer";
 			this.tblContainer.RowSpacing = ((uint)(6));
 			this.tblContainer.ColumnSpacing = ((uint)(6));
