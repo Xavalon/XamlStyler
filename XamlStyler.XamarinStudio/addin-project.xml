@@ -1,0 +1,7 @@
+<AddinProject appVersion="6.0">
+  <Project platforms="Mac Linux Win32">
+    <AddinFile>XamlStyler.XamarinStudio/bin/Release/XamlStyler.XamarinStudio.dll</AddinFile>
+    <BuildFile>XamlStyler.sln</BuildFile>
+    <BuildConfiguration>Release</BuildConfiguration>
+  </Project>
+</AddinProject>
