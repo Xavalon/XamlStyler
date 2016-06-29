@@ -11,7 +11,7 @@ using Mono.Addins.Description;
 [assembly:AddinName ("XamlStyler")]
 [assembly:AddinCategory ("IDE extensions")]
 [assembly:AddinDescription ("A Xamarin Studio port of the Visual Studio XamlStyler extension.")]
-[assembly:AddinAuthor ("Xavalon")]
+[assembly:AddinAuthor ("Xavalon & Ben Lacey")]
 
 [assembly:AddinDependency ("::MonoDevelop.Core", MonoDevelop.BuildInfo.Version)]
 [assembly: AddinDependency("::MonoDevelop.Ide", MonoDevelop.BuildInfo.Version)]
