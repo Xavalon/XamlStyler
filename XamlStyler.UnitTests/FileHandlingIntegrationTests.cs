@@ -148,6 +148,7 @@ namespace Xavalon.XamlStyler.UnitTests
                 FormatMarkupExtension = true,
                 IndentWithTabs = indentWithTabs,
                 IndentSize = tabSize,
+                AttributeIndentationStyle = AttributeIndentationStyle.Mixed,
             };
 
             this.DoTestCase(stylerOptions, $"{tabSize}_{(indentWithTabs ? "tabs" : "spaces")}");
@@ -291,6 +292,33 @@ namespace Xavalon.XamlStyler.UnitTests
             this.DoTest();
         }
 
+        [Test]
+        public void TestWildCard()
+        {
+            var stylerOptions = new StylerOptions()
+            {
+                AttributeOrderingRuleGroups = new[]
+                {
+                    "x:Class*",
+                    "xmlns, xmlns:x",
+                    "xmlns:*",
+                    "Grid.*, Canvas.Left, Canvas.Top, Canvas.Right, Canvas.Bottom",
+                    "Width, Height, MinWidth, MinHeight, MaxWidth, MaxHeight",
+                    "*:*, *",
+                    "ToolTipService.*, AutomationProperties.*",
+                    "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText"
+                }
+            };
+
+            this.DoTest(stylerOptions);
+        }
+
+        [Test]
+        public void TestValueXmlEntityHandling()
+        {
+            this.DoTest();
+        }
+
         private void DoTest([System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
             // ReSharper disable once ExplicitCallerInfoArgument
@@ -325,16 +353,18 @@ namespace Xavalon.XamlStyler.UnitTests
         {
             var stylerService = new StylerService(stylerOptions);
 
-            var testFileResultBaseName = expectedSuffix != null ? testFileBaseName + "_" + expectedSuffix : testFileBaseName;
+            var testFileResultBaseName = (expectedSuffix != null)
+                ? $"{testFileBaseName}_{expectedSuffix}"
+                : testFileBaseName;
 
             // Exercise stylerService using supplied test XAML data
-            string actualOutput = stylerService.StyleDocument(File.ReadAllText(testFileBaseName + ".testxaml"));
+            string actualOutput = stylerService.StyleDocument(File.ReadAllText($"{testFileBaseName}.testxaml"));
 
             // Write output to ".actual" file for further investigation
-            File.WriteAllText(testFileResultBaseName + ".actual", actualOutput, Encoding.UTF8);
+            File.WriteAllText($"{testFileResultBaseName}.actual", actualOutput, Encoding.UTF8);
 
             // Check result
-            Assert.That(actualOutput, Is.EqualTo(File.ReadAllText(testFileResultBaseName + ".expected")));
+            Assert.That(actualOutput, Is.EqualTo(File.ReadAllText($"{testFileResultBaseName}.expected")));
         }
     }
 }

@@ -1,16 +1,21 @@
 // © Xavalon. All rights reserved.
 
+using System;
+using Xavalon.XamlStyler.Core.Options;
+
 namespace Xavalon.XamlStyler.Core.Services
 {
     public class IndentService
     {
         private readonly bool indentWithTabs;
         private readonly int indentSize;
+        private readonly AttributeIndentationStyle attributeIndentationStyle;
 
-        public IndentService(bool indentWithTabs, int indentSize)
+        public IndentService(IStylerOptions options)
         {
-            this.indentWithTabs = indentWithTabs;
-            this.indentSize = indentSize;
+            this.indentWithTabs = options.IndentWithTabs;
+            this.indentSize = options.IndentSize;
+            this.attributeIndentationStyle = options.AttributeIndentationStyle;
         }
 
         public string GetIndentString(int depth)
@@ -42,11 +47,19 @@ namespace Xavalon.XamlStyler.Core.Services
 
             if (this.indentWithTabs)
             {
-                return new string('\t', depth + (additionalSpaces / this.indentSize))
-                    + new string(' ', (additionalSpaces % this.indentSize));
+                switch (this.attributeIndentationStyle)
+                {
+                    case AttributeIndentationStyle.Mixed:
+                        return new String('\t', depth + (additionalSpaces / this.indentSize)) + new String(' ', (additionalSpaces % this.indentSize));
+                    case AttributeIndentationStyle.Spaces:
+                        return new String('\t', depth) + new String(' ', additionalSpaces);
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
             }
 
-            return new string(' ', ((depth * this.indentSize) + additionalSpaces));
+            return new String(' ', (depth * this.indentSize) + additionalSpaces);
         }
 
         /// <summary>
@@ -56,8 +69,8 @@ namespace Xavalon.XamlStyler.Core.Services
         /// <returns></returns>
         public string Normalize(string line)
         {
-            // Only do this if indenting with tabs
-            if (this.indentWithTabs)
+            // Only do this if indenting attributes with mixed tabs & spaces
+            if (this.indentWithTabs && (this.attributeIndentationStyle == AttributeIndentationStyle.Mixed))
             {
                 int runningSpaces = 0;
                 for (int position = 0; position < line.Length; position++)
