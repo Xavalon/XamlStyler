@@ -30,7 +30,6 @@
                                 ContentTemplate="{TemplateBinding ContentTemplate}"
                                 ContentTransitions="{TemplateBinding ContentTransitions}"
                                 Padding="{TemplateBinding Padding}" />
-
               <VisualStateManager.VisualStateGroups>
                 <VisualStateGroup x:Name="CommonStates">
                   <VisualState x:Name="Normal">
