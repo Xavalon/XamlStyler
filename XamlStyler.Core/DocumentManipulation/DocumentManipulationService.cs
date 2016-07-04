@@ -19,6 +19,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
             this.options = options;
             this.processElementServices = new List<IProcessElementService>
             {
+                new VSMReorderService() { Mode = this.options.ReorderVSM },
                 new FormatThicknessService(this.options.ThicknessStyle, this.options.ThicknessAttributes),
                 this.GetReorderGridChildrenService(),
                 this.GetReorderCanvasChildrenService(),

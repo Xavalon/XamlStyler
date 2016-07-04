@@ -57,6 +57,8 @@ namespace Xavalon.XamlStyler.Core.Options
 
         LineBreakRule RootElementLineBreakRule { get; set; }
 
+        VisualStateManagerRule ReorderVSM { get; set; }
+
         #endregion Element formatting
 
         #region Element reordering
