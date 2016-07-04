@@ -194,6 +194,13 @@ namespace Xavalon.XamlStyler.Core.Options
 
         // Element reordering
         [Category("Element Reordering")]
+        [DisplayName("Reorder Visual State Manager")]
+        [JsonProperty("ReorderVSM", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("Defines whether to reorder the visual state manager. When set to first or last, the visual state manager will be moved to the first or last child element in its parent, respectively, otherwise it will not be moved.\r\n\r\nDefault Value: Last")]
+        [DefaultValue(VisualStateManagerRule.Last)]
+        public VisualStateManagerRule ReorderVSM { get; set; }
+
+        [Category("Element Reordering")]
         [DisplayName("Reorder Grid panel children by row/column")]
         [JsonProperty("ReorderGridChildren", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [Description("Defines whether to reorder the children of a Grid by row/column. When this is true, children will be reordered in an ascending fashion by looking at their attached Grid properties: first by Grid.Row, then by Grid.Column.\r\n\r\nDefault Value: True")]

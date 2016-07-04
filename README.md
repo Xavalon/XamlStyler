@@ -80,14 +80,6 @@ Features
 
 <img src="http://i59.tinypic.com/o8doon.jpg" alt="export settings" />
 
-Contribute
-==========
-* Download the Visual Studio 2013 SDK from http://www.microsoft.com/en-us/download/details.aspx?id=40758
-* Fork the XamlStyler project into your own GitHub account
-* Develop some awesome features
-* Create a pull request when ready
-* Wait for us to merge your request
-
 Thanks to our contributers!
 ===========================
 * Bart Lannoeye
