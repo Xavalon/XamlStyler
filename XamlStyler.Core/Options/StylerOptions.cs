@@ -157,6 +157,13 @@ namespace Xavalon.XamlStyler.Core.Options
         public string[] AttributeOrderingRuleGroups { get; set; }
 
         [Category("Attribute Reordering")]
+        [DisplayName("First Line Attributes")]
+        [JsonProperty("FirstLineAttributes", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("Defines a list of attributes which should always appear on the same line as the element's start tag. Attribute reordering must be enabled for this setting to take effect.\r\n\r\nDefault Value: None")]
+        [DefaultValue("")]
+        public string FirstLineAttributes { get; set; }
+
+        [Category("Attribute Reordering")]
         [DisplayName("Order Attributes by name")]
         [JsonProperty("OrderAttributesByName", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [Description("Order Attributes by name if order is not determined by Rules.\r\n\r\nDefault Value: True")]
@@ -193,6 +200,13 @@ namespace Xavalon.XamlStyler.Core.Options
         public LineBreakRule RootElementLineBreakRule { get; set; }
 
         // Element reordering
+        [Category("Element Reordering")]
+        [DisplayName("Reorder Visual State Manager")]
+        [JsonProperty("ReorderVSM", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("Defines whether to reorder the visual state manager. When set to first or last, the visual state manager will be moved to the first or last child element in its parent, respectively, otherwise it will not be moved.\r\n\r\nDefault Value: Last")]
+        [DefaultValue(VisualStateManagerRule.Last)]
+        public VisualStateManagerRule ReorderVSM { get; set; }
+
         [Category("Element Reordering")]
         [DisplayName("Reorder Grid panel children by row/column")]
         [JsonProperty("ReorderGridChildren", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

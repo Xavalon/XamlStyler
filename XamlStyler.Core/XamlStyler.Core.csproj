@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DocumentManipulation\DocumentManipulationService.cs" />
+    <Compile Include="DocumentManipulation\VSMReorderService.cs" />
     <Compile Include="DocumentManipulation\AttributeRemovalService.cs" />
     <Compile Include="DocumentManipulation\AttributeSelector.cs" />
     <Compile Include="DocumentProcessors\CDATADocumentProcessor.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="MarkupExtensions\Formatter\MarkupExtensionFormatter.cs" />
     <Compile Include="MarkupExtensions\Formatter\MultiLineMarkupExtensionFormatter.cs" />
     <Compile Include="Options\AttributeIndentationStyle.cs" />
+    <Compile Include="Options\VisualStateManagerRule.cs" />
     <Compile Include="Options\StringArrayConverter.cs" />
     <Compile Include="Services\IndentService.cs" />
     <Compile Include="MarkupExtensions\Formatter\SingleLineMarkupExtensionFormatter.cs" />

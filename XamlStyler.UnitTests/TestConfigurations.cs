@@ -9,6 +9,9 @@ using Xavalon.XamlStyler.Core.Options;
 
 namespace Xavalon.XamlStyler.UnitTests
 {
+    //Should these tests fail with a File -or Directory not found exception, disable Shadow-Copy assemblies in your
+    //test runner (probably ReSharper, it searches for the config files in the wrong directory)
+
     [TestFixture]
     public sealed partial class UnitTests
     {
