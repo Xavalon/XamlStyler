@@ -1,4 +1,17 @@
-﻿2.1
+﻿2.2
+---
+- Adds Option to Remove Design-Time References  
+- Adds First Line Attributes 
+- Adds VSMReorderService 
+- Added support for external configurations; ability to reset to default 
+- Fix issue #13: Wildcards broken after "*:*, *" attribute ordering rule group 
+- Set VS debug environement for F5 deploy of plugin under test  
+- Fix issue #19: Format XAML error "&lt;" "&gt;"  
+- Implement #5: Configurable tab/space attribute indentation.  
+- Merged pull request 
+- Maintenance and Cleanup 
+
+2.1
 ---
 - Switch to .NET 4.5.2
 - New MarkupExtension Parser
