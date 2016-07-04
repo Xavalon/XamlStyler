@@ -140,6 +140,9 @@
     <None Include="TestFiles\TestKeepSelectAttributesOnFirstLine.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestFiles\TestDesignReferenceRemoval.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\TestMarkupExtensionHandling_2_spaces.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -201,6 +204,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestFiles\TestVisualStateManagerNone.testxaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestDesignReferenceRemoval.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="TestFiles\TestWildcard.expected">

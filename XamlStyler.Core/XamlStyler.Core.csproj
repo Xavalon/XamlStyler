@@ -53,6 +53,8 @@
   <ItemGroup>
     <Compile Include="DocumentManipulation\DocumentManipulationService.cs" />
     <Compile Include="DocumentManipulation\VSMReorderService.cs" />
+    <Compile Include="DocumentManipulation\AttributeRemovalService.cs" />
+    <Compile Include="DocumentManipulation\AttributeSelector.cs" />
     <Compile Include="DocumentProcessors\CDATADocumentProcessor.cs" />
     <Compile Include="DocumentProcessors\CommentDocumentProcessor.cs" />
     <Compile Include="DocumentProcessors\ElementDocumentProcessor.cs" />

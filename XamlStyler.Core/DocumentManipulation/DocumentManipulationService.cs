@@ -34,10 +34,22 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
             if (rootElement != null)
             {
+                this.processElementServices.Add(this.GetRemoveDesignTimeReferencesService(rootElement));
                 this.HandleNode(rootElement);
             }
 
             return (xmlDeclaration + xDocument);
+        }
+
+        private AttributeRemovalService GetRemoveDesignTimeReferencesService(XElement element)
+        {
+            var removalService = new AttributeRemovalService() { IsEnabled = this.options.RemoveDesignTimeReferences };
+            removalService.NamespaceDeclarations.Add(XNamespace.Get($"{{{XNamespace.Xmlns.NamespaceName}}}d"));
+            removalService.NamespaceDeclarations.Add(XNamespace.Get($"{{{XNamespace.Xmlns.NamespaceName}}}mc"));
+            removalService.Attributes.Add(new AttributeSelector("*", "d", null));
+            removalService.Attributes.Add(new AttributeSelector("*", "mc", null));
+            removalService.Initialize(element);
+            return removalService;
         }
 
         private NodeReorderService GetReorderGridChildrenService()

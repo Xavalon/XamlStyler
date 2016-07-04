@@ -29,6 +29,17 @@ namespace Xavalon.XamlStyler.UnitTests
         }
 
         [Test]
+        public void TestDesignReferenceRemoval()
+        {
+            var stylerOptions = new StylerOptions
+            {
+                RemoveDesignTimeReferences = true
+            };
+
+            this.DoTest(stylerOptions);
+        }
+
+        [Test]
         public void TestAttributeThresholdHandling()
         {
             var stylerOptions = new StylerOptions

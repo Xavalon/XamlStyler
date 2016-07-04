@@ -109,6 +109,13 @@ namespace Xavalon.XamlStyler.Core.Options
         [DefaultValue(AttributeIndentationStyle.Spaces)]
         public AttributeIndentationStyle AttributeIndentationStyle { get; set; }
 
+        [Category("Attribute Formatting")]
+        [DisplayName("Remove Design Time References")]
+        [JsonProperty("RemoveDesignTimeReferences", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("Removes design-time references automatically added to new pages and controls.\r\n\r\nDefault Value: false")]
+        [DefaultValue(false)]
+        public bool RemoveDesignTimeReferences { get; set; }
+
         // Attribute Reordering
         [Category("Attribute Reordering")]
         [DisplayName("Enable Attribute Reordering")]

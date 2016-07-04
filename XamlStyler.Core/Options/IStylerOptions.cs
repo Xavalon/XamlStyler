@@ -35,6 +35,8 @@ namespace Xavalon.XamlStyler.Core.Options
 
         int AttributeIndentation { get; set; }
 
+        bool RemoveDesignTimeReferences { get; set; }
+
         AttributeIndentationStyle AttributeIndentationStyle { get; set; }
 
         #endregion Attribute formatting
