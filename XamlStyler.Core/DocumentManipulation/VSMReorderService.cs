@@ -47,10 +47,16 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
             NodeCollection vsmNodeCollection = new NodeCollection();
 
             var parentName = element.Name;
-            var children = element.Nodes();
+            var children = element.Nodes().ToList();
             bool hasCollectionBeenAdded = false;
 
             NodeCollection currentNodeCollection = null;
+
+            //remove last new line node to prevent new lines on every format
+            if (this.Mode == VisualStateManagerRule.Last)
+            {
+                children.Remove(children.Last());
+            }
 
             foreach (var child in children)
             {
@@ -95,13 +101,21 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                 nodeCollections.Add(currentNodeCollection);
             }
 
-            var newNodes = (this.Mode == VisualStateManagerRule.Last)
+            var newNodes = ((this.Mode == VisualStateManagerRule.Last)
                 ? propertyElementCollection.SelectMany(_ => _.Nodes)
                     .Concat(nodeCollections.SelectMany(_ => _.Nodes))
                     .Concat(vsmNodeCollection.Nodes)
                 : propertyElementCollection.SelectMany(_ => _.Nodes)
                     .Concat(vsmNodeCollection.Nodes)
-                    .Concat(nodeCollections.SelectMany(_ => _.Nodes));
+                    .Concat(nodeCollections.SelectMany(_ => _.Nodes))).ToList();
+
+            var firstNode = newNodes.First() as XText;
+            if ((this.Mode == VisualStateManagerRule.Last) 
+                && firstNode != null 
+                && string.IsNullOrWhiteSpace(firstNode.Value.Trim()))
+            {
+                newNodes.Remove(firstNode);
+            }
 
             element.ReplaceNodes(newNodes);
         }
