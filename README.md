@@ -81,8 +81,7 @@ Features
 <img src="http://i59.tinypic.com/o8doon.jpg" alt="export settings" />
 
 * External Configurations
-
-A valid XAML Styler configuration is a JSON file with one or more configuration options specified. Below is a complete external configuration that contains the default values. This path can be a local or network location.
+ * A valid XAML Styler configuration is a JSON file with one or more configuration options specified. Below is a complete external configuration that contains the default values. This path can be a local or network location.
 
 Default Configuration:
 ```json
