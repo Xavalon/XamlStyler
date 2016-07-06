@@ -11,7 +11,7 @@
 		<Addin id="::MonoDevelop.SourceEditor2" version="5.0" />
 	</Dependencies>
 	<Extension path="/MonoDevelop/Ide/Commands/Edit">
-		<Command id="Xavalon.XamlStyler.XamarinStudio.FormatXaml" _label="Format Xaml" _description="Reformats the XAML document to be much more readable" defaultHandler="Xavalon.XamlStyler.XamarinStudio.FormatXamlHandler" />
+		<Command id="Xavalon.XamlStyler.XamarinStudio.FormatXaml" _label="Format Xaml" _description="Reformats the XAML document to be much more readable" defaultHandler="Xavalon.XamlStyler.XamarinStudio.FormatXamlHandler" shortcut="Ctrl|Shift|I" />
 	</Extension>
 	<Extension path="/MonoDevelop/SourceEditor2/ContextMenu/Editor">
 	    <Condition id="FileType" fileExtensions=".xaml">
