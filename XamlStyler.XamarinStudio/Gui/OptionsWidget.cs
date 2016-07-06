@@ -7,10 +7,23 @@ namespace Xavalon.XamlStyler.XamarinStudio.Gui
 	public partial class OptionsWidget : Gtk.Bin
 	{
 		private OptionsViewModel _viewModel;
+		private Gdk.Color _groupHeaderColor;
+		private Gdk.Color _altRowColor;
 
 		public OptionsWidget(OptionsViewModel viewModel)
 		{
 			_viewModel = viewModel;
+
+			if (MonoDevelop.Ide.IdeApp.Preferences.UserInterfaceTheme == MonoDevelop.Ide.Theme.Dark)
+			{
+				_groupHeaderColor = new Gdk.Color(0x22, 0x22, 0x22);
+				_altRowColor = new Gdk.Color(0x44, 0x44, 0x44);
+			}
+			else
+			{
+				_groupHeaderColor = new Gdk.Color(0xaa, 0xaa, 0xaa);
+				_altRowColor = new Gdk.Color(0xee, 0xee, 0xee);
+			}
 
 			this.Build();
 			this.InitializeWidget();
@@ -51,11 +64,11 @@ namespace Xavalon.XamlStyler.XamarinStudio.Gui
 				// group label
 				var grouplbl = new Gtk.Label();
 				grouplbl.SetAlignment(0f, 0.5f);
-				grouplbl.HeightRequest = 30;
+				grouplbl.HeightRequest = 40;
 				grouplbl.Markup = $"<b> {optionGroup.Key}</b>";
 
 				var box = new Gtk.EventBox();
-				box.ModifyBg(Gtk.StateType.Normal, new Gdk.Color(0xaa, 0xaa, 0xaa));
+				box.ModifyBg(Gtk.StateType.Normal, _groupHeaderColor);
 				box.Add(grouplbl);
 				tblContainer.Attach(box, 0, 2, r, r + 1, Gtk.AttachOptions.Fill, Gtk.AttachOptions.Fill, 0, 0);
 				r++;
@@ -121,6 +134,7 @@ namespace Xavalon.XamlStyler.XamarinStudio.Gui
 						txt.LeftMargin = 5;
 						txt.RightMargin = 5;
 						txt.BorderWidth = 1;
+						txt.SetSizeRequest(320, 150);
 						txt.Buffer.Text = val;
 						txt.Buffer.Changed += (sender, e) =>
 						{
@@ -167,7 +181,7 @@ namespace Xavalon.XamlStyler.XamarinStudio.Gui
 
 			if (row % 2 == 1)
 			{
-				box.ModifyBg(Gtk.StateType.Normal, new Gdk.Color(0xee, 0xee, 0xee));
+				box.ModifyBg(Gtk.StateType.Normal, _altRowColor);
 			}
 
 			tblContainer.Attach(box, col, col + colSpan, row, row + 1, Gtk.AttachOptions.Fill, Gtk.AttachOptions.Fill, 0, 0);
