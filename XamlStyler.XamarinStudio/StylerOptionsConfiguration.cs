@@ -20,8 +20,10 @@ namespace Xavalon.XamlStyler.XamarinStudio
 			catch (FileNotFoundException)
 			{
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				LoggingService.LogError("Exception when saving user XamlStyler options", ex);
+
 				// delete file on any other exception (malformed etc.)
 				File.Delete(filePath);
 			}
@@ -53,8 +55,9 @@ namespace Xavalon.XamlStyler.XamarinStudio
 				var text = JsonConvert.SerializeObject(options);
 				File.WriteAllText(GetOptionsFilePath().ToString(), text);
 			}
-			catch (Exception)
+			catch (Exception ex)
 			{
+				LoggingService.LogError("Exception when saving user XamlStyler options", ex);
 			}
 		}
 

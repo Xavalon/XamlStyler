@@ -109,7 +109,7 @@ namespace Xavalon.XamlStyler.XamarinStudio.Gui
 						var spin = new Gtk.SpinButton(0, 10, 1) { Value = val, WidthChars = 3 };
 						spin.ValueChanged += (sender, e) =>
 						{
-							option.Property.SetValue(_viewModel.Options, (int)spin.Value);
+							option.Property.SetValue(_viewModel.Options, (byte)spin.Value);
 							_viewModel.IsDirty = true;
 						};
 						AddToTable(r, 1, spin);
