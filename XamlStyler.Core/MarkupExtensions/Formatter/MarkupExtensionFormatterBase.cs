@@ -9,6 +9,13 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
 {
     internal abstract class MarkupExtensionFormatterBase
     {
+	    protected readonly MarkupExtensionFormatter markupExtensionFormatter;
+
+	    protected MarkupExtensionFormatterBase(MarkupExtensionFormatter markupExtensionFormatter)
+	    {
+		    this.markupExtensionFormatter = markupExtensionFormatter;
+	    }
+
         public IEnumerable<string> Format(MarkupExtension markupExtension)
         {
             return markupExtension.Arguments.Any()
@@ -80,7 +87,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
 
             if (type == typeof(MarkupExtension))
             {
-                return this.Format((MarkupExtension)value);
+                return this.markupExtensionFormatter.Format((MarkupExtension)value);
             }
 
             throw new ArgumentException($"Unhandled type {type.FullName}", nameof(value));

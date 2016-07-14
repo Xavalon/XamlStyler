@@ -183,8 +183,8 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 }
             }
 
-            // No need to break attributes.
-            if (noLineBreakInAttributes)
+            // No need to break attributes if there are no markup extensions formatting.
+            if (noLineBreakInAttributes && (!this.options.FormatMarkupExtension || list.TrueForAll(info => !info.IsMarkupExtension)))
             {
                 foreach (var attrInfo in list)
                 {
