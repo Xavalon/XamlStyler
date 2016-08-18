@@ -23,16 +23,18 @@ namespace Xavalon.XamlStyler.Core.Options
             }
         }
 
-        // Indentation
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [DefaultValue(2)]
-        [Browsable(false)]
-        public int IndentSize { get; set; }
+		// Indentation
+		[Category("Indentation")]
+		[DisplayName("Indent size")]
+		[Description("How many spaces will be used to indent each subsequent nested element")]
+		[DefaultValue(4)]
+		public int IndentSize { get; set; }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [DefaultValue(false)]
-        [Browsable(false)]
-        public bool IndentWithTabs { get; set; }
+		[Category("Indentation")]
+		[DisplayName("Indent with tabs")]
+		[Description("Indentation is performed with tab characters instead of spaces")]
+		[DefaultValue(false)]
+		public bool IndentWithTabs { get; set; }
 
         // Attribute formatting
         [Category("Attribute Formatting")]

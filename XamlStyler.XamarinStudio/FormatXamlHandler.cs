@@ -1,4 +1,5 @@
 ﻿using MonoDevelop.Components.Commands;
+using MonoDevelop.Core;
 using MonoDevelop.Ide;
 using Xavalon.XamlStyler.Core;
 
@@ -32,10 +33,12 @@ namespace Xavalon.XamlStyler.XamarinStudio
 			var doc = IdeApp.Workbench.ActiveDocument;
 			if (doc != null || doc.FileName.Extension.ToLowerInvariant() == ".xaml")
 			{
+				LoggingService.LogInfo($"XamlStyler: Filename is {doc.FileName}, extension is ENABLED");
 				info.Enabled = info.Visible = true;
 			}
 			else
 			{
+				LoggingService.LogInfo($"XamlStyler: Filename is {doc.FileName}, extension is DISABLED");
 				info.Visible = false;
 			}
 		}
