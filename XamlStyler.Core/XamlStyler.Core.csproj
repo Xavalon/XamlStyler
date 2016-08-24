@@ -119,7 +119,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Key.snk" />
-    <EmbeddedResource Include="Options\DefaultSettings.json" />
+    <EmbeddedResource Include="Options\DefaultSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

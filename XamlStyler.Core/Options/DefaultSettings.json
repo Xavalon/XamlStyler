@@ -20,7 +20,8 @@
         "HorizontalAlignment, VerticalAlignment, HorizontalContentAlignment, VerticalContentAlignment, Panel.ZIndex",
         "*:*, *",
         "PageSource, PageIndex, Offset, Color, TargetName, Property, Value, StartPoint, EndPoint",
-        "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText"
+        "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText",
+        "Storyboard.*, From, To, Duration"
     ],
     "FirstLineAttributes": "",
     "OrderAttributesByName": true,

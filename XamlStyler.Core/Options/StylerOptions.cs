@@ -152,6 +152,8 @@ namespace Xavalon.XamlStyler.Core.Options
             "PageSource, PageIndex, Offset, Color, TargetName, Property, Value, StartPoint, EndPoint",
             // Blend related group
             "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText",
+            //Storyboards, fixes #30
+            "Storyboard.*, From, To, Duration",
         })]
         [TypeConverter(typeof(StringArrayConverter))]
         public string[] AttributeOrderingRuleGroups { get; set; }
