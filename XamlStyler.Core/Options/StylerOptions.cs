@@ -56,63 +56,63 @@ namespace Xavalon.XamlStyler.Core.Options
         [Category("Attribute Formatting")]
         [DisplayName("Attribute tolerance")]
         [JsonProperty("AttributesTolerance", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines the attribute number tolerance before XamlStyler starts to break attributes into new lines. 0 = no tolerance.\r\n\r\ne.g., when this setting is 2\r\n\r\nBEFORE BEAUTIFY:\r\n<TextBlock x:Name=\"m_sample\"\r\n    Text=\"asdf\" />\r\n\r\nAFTER BEAUTIFY:\r\n<TextBlock x:Name=\"m_sample\" Text=\"asdf\" />\r\n\r\nDefault Value: 2")]
+        [Description("Defines the maximum number of attributes allowed on a single line. If the number of attributes exceeds this value, XAML Styler will break the attributes up across multiple lines. A value of less than 1 means always break up the attributes.\r\n\r\nDefault Value: 2")]
         [DefaultValue(2)]
         public int AttributesTolerance { get; set; }
 
         [Category("Attribute Formatting")]
-        [DisplayName("Position first attribute on same line as start tag")]
+        [DisplayName("Keep first attribute on same line")]
         [JsonProperty("KeepFirstAttributeOnSameLine", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines whether the first line of attribute(s) shall appear on the same line as the element's start tag.\r\n\r\ne.g., when this setting is true\r\n\r\nBEFORE BEAUTIFY:\r\n\"<element a='xyz' b='xyz'>  </element>\"\n\r\nAFTER BEAUTIFY:\r\n\"<element a='xyz'\r\n        b='xyz'>\r\n</element>\"\r\n\r\nDefault Value: true")]
-        [DefaultValue(true)]
+        [Description("Defines whether the first line of attribute(s) should appear on the same line as the element's start tag.\r\n\r\nDefault Value: false")]
+        [DefaultValue(false)]
         public bool KeepFirstAttributeOnSameLine { get; set; }
 
         [Category("Attribute Formatting")]
         [DisplayName("Max attribute characters per line")]
         [JsonProperty("MaxAttributeCharatersPerLine", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines the maximum character length (not including indentation characters) of attributes an element can have on each line after the start tag. A value less than 1 meaning no limit.\r\n\r\nDefault Value: 0")]
+        [Description("Defines the maximum character length of attributes an element can have on each line after the start tag (not including indentation characters). A value of less than 1 means no limit. Note: This setting only takes effect if Max Attributes Per Line is greater than 1 and Attribute Tolerance is greater than 2.\r\n\r\nDefault Value: 0")]
         [DefaultValue(0)]
         public int MaxAttributeCharatersPerLine { get; set; }
 
         [Category("Attribute Formatting")]
         [DisplayName("Max attributes per line")]
         [JsonProperty("MaxAttributesPerLine", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines the maximum number of attributes an element can have on each line after the start tag. 0 = no limit.\r\n\r\nDefault Value: 1")]
+        [Description("Defines the maximum number of attributes an element can have on each line after the start tag if the number of attributes exceeds the attribute tolerance. A value of less than 1 means no limit.\r\n\r\nDefault Value: 1")]
         [DefaultValue(1)]
         public int MaxAttributesPerLine { get; set; }
 
         [Category("Attribute Formatting")]
-        [DisplayName("Elements no line break between attributes")]
+        [DisplayName("Newline exemption elements")]
         [JsonProperty("NewlineExemptionElements", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines a list of elements whose attributes shall not be broken into lines.\r\n\r\nDefault Value: RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Setter")]
+        [Description("Defines a list of elements whose attributes should not be broken across lines.\r\n\r\nDefault Value: RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Setter")]
         [DefaultValue("RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Condition, Setter")]
         public string NoNewLineElements { get; set; }
 
         [Category("Attribute Formatting")]
-        [DisplayName("Put Rule Groups on separate Lines")]
+        [DisplayName("Separate by groups")]
         [JsonProperty("SeparateByGroups", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Put attributes belonging to different rule groups on different lines and keep identical groups on same line if possible\r\n\r\nDefault Value: false")]
+        [Description("Defines whether attributes belonging to different rule groups should be put on separate lines, while, if possible, keeping attributes in the same group on the same line.\r\n\r\nDefault Value: false")]
         [DefaultValue(false)]
         public bool PutAttributeOrderRuleGroupsOnSeparateLines { get; set; }
 
         [Category("Attribute Formatting")]
         [DisplayName("Attribute indentation")]
         [JsonProperty("AttributeIndentation", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines the number of spaces that attributes are indented, on elements with more than one line of attributes.\r\n\r\n0 = align with first attribute.\r\n\r\nDefault Value: 0")]
+        [Description("Defines the number of spaces that attributes are indented on elements with more than one line of attributes. A value of 0 will align indentation with the first attribute.\r\n\r\nDefault Value: 0")]
         [DefaultValue(0)]
         public int AttributeIndentation { get; set; }
 
         [Category("Attribute Formatting")]
         [DisplayName("Attribute indentation style")]
         [JsonProperty("AttributeIndentationStyle", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines how attributes are indented after Element indentation has been applied.\r\n\r\nMixed = Tabs (if using tabs) then spaces.\r\nSpaces = Always use spaces.\r\n\r\nDefault Value: Spaces")]
+        [Description("Defines how attributes are indented.\r\n\r\nDefault Value: Spaces")]
         [DefaultValue(AttributeIndentationStyle.Spaces)]
         public AttributeIndentationStyle AttributeIndentationStyle { get; set; }
 
         [Category("Attribute Formatting")]
-        [DisplayName("Remove Design Time References")]
+        [DisplayName("Remove design-time references")]
         [JsonProperty("RemoveDesignTimeReferences", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Removes design-time references automatically added to new pages and controls.\r\n\r\nDefault Value: false")]
+        [Description("Defines whether design-time references automatically added to new pages and controls should be removed.\r\n\r\nDefault Value: false")]
         [DefaultValue(false)]
         public bool RemoveDesignTimeReferences { get; set; }
 
@@ -120,109 +120,97 @@ namespace Xavalon.XamlStyler.Core.Options
         [Category("Attribute Reordering")]
         [DisplayName("Enable Attribute Reordering")]
         [JsonProperty("EnableAttributeReordering", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("If this is disabled, attributes will not be reordered in any way.\r\n\r\nDefault Value: True")]
+        [Description("Defines whether attributes should be reordered. If false, attributes will not be reordered in any way.\r\n\r\nDefault Value: true")]
         [DefaultValue(true)]
         public bool EnableAttributeReordering { get; set; }
 
         [Category("Attribute Reordering")]
-        [DisplayName("Attribute Ordering Rule Groups")]
+        [DisplayName("Attribute ordering rule groups")]
         [JsonProperty("AttributeOrderingRuleGroups", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines attribute ordering rule groups. Each string element is one group. Use ',' to separate more than one attribute.'DOS' wildcards are allowed. Attributes listed in earlier groups takes precedence over later groups. Attributes listed earlier in same group takes precedence over the ones listed later.")]
+        [Description("Defines attribute ordering rule groups. Each string element is one group. Use ',' as a delimiter between attributes. 'DOS' wildcards are allowed. XAML Styler will order attributes in groups from top to bottom, and within groups left to right.")]
         [DefaultValue(new[]
         {
-            // Class definition group
             "x:Class",
-            // WPF Namespaces group
             "xmlns, xmlns:x",
-            // Other namespace
             "xmlns:*",
-            // Element key group
-            "Key, x:Key, Uid, x:Uid",
-            // Element name group
-            "Name, x:Name, Title",
-            // Attached layout group
+            "x:Key, Key, x:Name, Name, x:Uid, Uid, Title",
             "Grid.Row, Grid.RowSpan, Grid.Column, Grid.ColumnSpan, Canvas.Left, Canvas.Top, Canvas.Right, Canvas.Bottom",
-            // Core layout group
-            "Width, Height, MinWidth, MinHeight, MaxWidth, MaxHeight, Margin",
-            // Alignment layout group
-            "HorizontalAlignment, VerticalAlignment, HorizontalContentAlignment, VerticalContentAlignment, Panel.ZIndex",
-            // Unmatched
+            "Width, Height, MinWidth, MinHeight, MaxWidth, MaxHeight",
+            "Margin, Padding, HorizontalAlignment, VerticalAlignment, HorizontalContentAlignment, VerticalContentAlignment, Panel.ZIndex",
             "*:*, *",
-            // Miscellaneous/Other attributes group
             "PageSource, PageIndex, Offset, Color, TargetName, Property, Value, StartPoint, EndPoint",
-            // Blend related group
             "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText",
         })]
         [TypeConverter(typeof(StringArrayConverter))]
         public string[] AttributeOrderingRuleGroups { get; set; }
 
         [Category("Attribute Reordering")]
-        [DisplayName("First Line Attributes")]
+        [DisplayName("First-line attributes")]
         [JsonProperty("FirstLineAttributes", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [Description("Defines a list of attributes which should always appear on the same line as the element's start tag. Attribute reordering must be enabled for this setting to take effect.\r\n\r\nDefault Value: None")]
         [DefaultValue("")]
         public string FirstLineAttributes { get; set; }
 
         [Category("Attribute Reordering")]
-        [DisplayName("Order Attributes by name")]
+        [DisplayName("Order attributes by name")]
         [JsonProperty("OrderAttributesByName", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Order Attributes by name if order is not determined by Rules.\r\n\r\nDefault Value: True")]
+        [Description("Defines whether attributes should be ordered by name if not determined by a rule.\r\n\r\nDefault Value: true")]
         [DefaultValue(true)]
         public bool OrderAttributesByName { get; set; }
 
         // Element formatting
         [Category("Element Formatting")]
-        [DisplayName("Put ending bracket on new line")]
+        [DisplayName("Put ending brackets on new line")]
         [JsonProperty("PutEndingBracketOnNewLine", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines whether to put \">\" or \"/>\" on a new line.\r\n\r\nDefault Value: false")]
+        [Description("Defines whether to put ending brackets on a new line.\r\n\r\nDefault Value: false")]
         [DefaultValue(false)]
         public bool PutEndingBracketOnNewLine { get; set; }
 
         [Category("Element Formatting")]
-        [DisplayName("Remove ending tag of empty element")]
+        [DisplayName("Remove ending tag of empty elements")]
         [JsonProperty("RemoveEndingTagOfEmptyElement", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines whether to remove the ending tag of an empty element.\r\n\r\ne.g., when this setting is true\r\n\r\nBEFORE BEAUTIFY:\r\n\"<element>  </element>\"\r\n\r\nAFTER BEAUTIFY:\r\n\"<element />\"\r\n\r\nDefault Value: true")]
+        [Description("Defines whether to remove the end tag of an empty element.\r\n\r\nDefault Value: true")]
         [DefaultValue(true)]
         public bool RemoveEndingTagOfEmptyElement { get; set; }
 
         [Category("Element Formatting")]
-        [DisplayName("Space before closing slash in self closing element")]
+        [DisplayName("Space before ending slash in self-closing elements")]
         [JsonProperty("SpaceBeforeClosingSlash", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines whether to have a space before slash in self closing elements\r\n\r\ne.g., when:\r\ntrue: <br />\r\nfalse: <br/>\r\n\r\nDefault Value: true")]
+        [Description("Defines whether there should be a space before the slash in ending brackets for self-closing elements.\r\n\r\nDefault Value: true")]
         [DefaultValue(true)]
         public bool SpaceBeforeClosingSlash { get; set; }
 
         [Category("Element Formatting")]
         [DisplayName("Root element line breaks between attributes")]
         [JsonProperty("RootElementLineBreakRule", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines if attributes of the document root element are broken into separate lines or not.\r\n\r\nDefault Value: Default (use same rules as other elements)")]
+        [Description("Defines whether attributes of the document root element are broken into multiple lines.\r\n\r\nDefault Value: Default (use same rules as other elements)")]
         [DefaultValue(LineBreakRule.Default)]
         public LineBreakRule RootElementLineBreakRule { get; set; }
 
         // Element reordering
         [Category("Element Reordering")]
-        [DisplayName("Reorder Visual State Manager")]
+        [DisplayName("Reorder visual state manager")]
         [JsonProperty("ReorderVSM", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [Description("Defines whether to reorder the visual state manager. When set to first or last, the visual state manager will be moved to the first or last child element in its parent, respectively, otherwise it will not be moved.\r\n\r\nDefault Value: Last")]
         [DefaultValue(VisualStateManagerRule.Last)]
         public VisualStateManagerRule ReorderVSM { get; set; }
 
         [Category("Element Reordering")]
-        [DisplayName("Reorder Grid panel children by row/column")]
+        [DisplayName("Reorder grid panel children")]
         [JsonProperty("ReorderGridChildren", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines whether to reorder the children of a Grid by row/column. When this is true, children will be reordered in an ascending fashion by looking at their attached Grid properties: first by Grid.Row, then by Grid.Column.\r\n\r\nDefault Value: True")]
-        [DefaultValue(true)]
+        [Description("Defines whether to reorder the children of a Grid by row/column. When true, children will be reordered in an ascending fashion by looking first at Grid.Row, then by Grid.Column.\r\n\r\nDefault Value: false")]
+        [DefaultValue(false)]
         public bool ReorderGridChildren { get; set; }
 
         [Category("Element Reordering")]
-        [DisplayName("Reorder Canvas panel children by left/top/right/bottom")]
+        [DisplayName("Reorder canvas panel children")]
         [JsonProperty("ReorderCanvasChildren", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines whether to reorder the children of a Canvas by left/top/right/bottom.  When this is true, children will be reordered in an ascending fashion by looking at their attached Canvas properties: first by Canvas.Left, then by Canvas.Top, then by Canvas.Right, then by Canvas.Bottom.\r\n\r\nDefault Value: True")]
-        [DefaultValue(true)]
+        [Description("Defines whether to reorder the children of a Canvas by left/top/right/bottom. When true, children will be reordered in an ascending fashion by first at Canvas.Left, then by Canvas.Top, Canvas.Right, and finally, Canvas.Bottom.\r\n\r\nDefault Value: false")]
+        [DefaultValue(false)]
         public bool ReorderCanvasChildren { get; set; }
 
         [Category("Element Reordering")]
-        [DisplayName("Reorder Setters by")]
+        [DisplayName("Reorder setters")]
         [JsonProperty("ReorderSetters", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [Description("Defines whether to reorder 'Setter' elements in style/trigger elements. When this is set, children will be reordered in an ascending fashion by looking at their Property and/or TargetName properties.\r\n\r\nDefault Value: None")]
         [DefaultValue(ReorderSettersBy.None)]
@@ -230,46 +218,46 @@ namespace Xavalon.XamlStyler.Core.Options
 
         // Markup Extension
         [Category("Markup Extension")]
-        [DisplayName("Enable Markup Extension Formatting")]
+        [DisplayName("Enable markup extension formatting")]
         [JsonProperty("FormatMarkupExtension", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines whether to format markup extensions (attributes containing '{}'). When this setting is true, attributes with markup extensions will always be put on a new line, UNLESS the element is under AttributesTolerance or one of the NoNewLineElements.\r\n\r\nDefault Value: True")]
+        [Description("Defines whether to format Markup Extensions (attributes containing '{}'). When true, attributes with markup extensions will always be put on a new line, unless the element is under the attribute tolerance or one of the specified elements is in the list of elements with no line breaks between attributes.\r\n\r\nDefault Value: true")]
         [DefaultValue(true)]
         public bool FormatMarkupExtension { get; set; }
 
         [Category("Markup Extension")]
-        [DisplayName("Keep Markup Extensions of these types on one line")]
+        [DisplayName("Keep markup extensions of these types on one line")]
         [JsonProperty("NoNewLineMarkupExtensions", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines a comma separated list of Markup Extensions that are always kept on one line.\r\n\r\nDefault Value: x:Bind")]
-        [DefaultValue("x:Bind")]
+        [Description("Defines a comma-separated list of Markup Extensions that are always kept on a single line\r\n\r\nDefault Value: x:Bind, Binding")]
+        [DefaultValue("x:Bind, Binding")]
         public string NoNewLineMarkupExtensions { get; set; }
 
         // Thickness formatting
         [Category("Thickness formatting")]
-        [DisplayName("Thickness style")]
+        [DisplayName("Thickness separator")]
         [JsonProperty("ThicknessSeparator", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines how Thickness properties like Margin, Padding etc. should be formatted.\r\n\r\nDefault Value: None")]
-        [DefaultValue(ThicknessStyle.None)]
+        [Description("Defines how thickness attributes (i.e., margin, padding, etc.) should be formatted.\r\n\r\nDefault Value: Comma")]
+        [DefaultValue(ThicknessStyle.Comma)]
         public ThicknessStyle ThicknessStyle { get; set; }
 
         [Category("Thickness formatting")]
         [DisplayName("Thickness attributes")]
         [JsonProperty("ThicknessAttributes", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines a list of all the attributes that gets reformatted if content looks like a thickness\r\n\r\nDefault Value: Margin, Padding, BorderThickness, ThumbnailClipMargin")]
+        [Description("Defines a list of attributes that get reformatted if content appears to be a thickness.\r\n\r\nDefault Value: Margin, Padding, BorderThickness, ThumbnailClipMargin")]
         [DefaultValue("Margin, Padding, BorderThickness, ThumbnailClipMargin")]
         public string ThicknessAttributes { get; set; }
 
         // Misc
         [Category("Misc")]
-        [DisplayName("Beautify on saving XAML")]
+        [DisplayName("Format XAML on save")]
         [JsonProperty("FormatOnSave", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines whether to automatically beautify the active XAML document while saving.\r\n\r\nDefault Value: True")]
+        [Description("Defines whether to automatically format the active XAML document while saving.\r\n\r\nDefault Value: false")]
         [DefaultValue(true)]
         public bool BeautifyOnSave { get; set; }
 
         [Category("Misc")]
-        [DisplayName("Number of spaces to pad comments with")]
+        [DisplayName("Comment padding")]
         [JsonProperty("CommentPadding", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines how many spaces a XML comment should be padded with. e.g.:\r\n2: <!--  Hello world  -->\r\n1: <!-- Hello world -->\r\n0: <!--Hello world-->.\r\n\r\nDefault Value: 2")]
+        [Description("Determines the number of spaces a XAML comment should be padded with.\r\n\r\nDefault Value: 2")]
         [DefaultValue(2)]
         public int CommentSpaces { get; set; }
 
@@ -278,8 +266,8 @@ namespace Xavalon.XamlStyler.Core.Options
 
         [Category("XAML Styler Configuration")]
         [RefreshProperties(RefreshProperties.All)]
-        [DisplayName("Reset to Default")]
-        [Description("When set to true, all XAML Styler settings will be reset to their defaults.")]
+        [DisplayName("Reset to default")]
+        [Description("When set to true, all XAML Styler settings will be reset to their defaults.\r\n\r\nDefault Value: false")]
         [DefaultValue(false)]
         [JsonIgnore]
         public bool ResetToDefault
@@ -301,7 +289,7 @@ namespace Xavalon.XamlStyler.Core.Options
 
         [Category("XAML Styler Configuration")]
         [RefreshProperties(RefreshProperties.All)]
-        [DisplayName("External Configuration File")]
+        [DisplayName("External configuration file")]
         [Description("Defines location of external XAML Styler configuration file. Specifying an external configuration file allows you to easily point multiple instances to a shared configuration. The configuration path can be local or network-based. Invalid configurations will be ignored.\r\n\r\nDefault Value: N/A")]
         [DefaultValue("")]
         [JsonIgnore]

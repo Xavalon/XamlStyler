@@ -116,6 +116,9 @@
     <Content Include="TestConfigurations\Single.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="TestConfigurations\LegacyTestSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="TestFiles\TestAttributeIndentationHandling.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
