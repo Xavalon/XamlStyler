@@ -1,0 +1,4 @@
+﻿1.0
+----
+- Command line support for XAML Styler Visual Studio Extension
+- Process list of files with file type check and full settings support
