@@ -168,10 +168,8 @@
   <ItemGroup>
     <VSCTCompile Include="XamlStyler.Package.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
+      <SubType>Designer</SubType>
     </VSCTCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Images.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="LICENSE.txt">
@@ -186,6 +184,11 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="Resources\Preview.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Resource Include="Resources\CommandIcon.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XamlStyler.Core\XamlStyler.Core.csproj">
