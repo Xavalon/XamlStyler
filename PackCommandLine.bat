@@ -1,8 +1,5 @@
 @Set SOLUTION=XamlStyler.sln
 
-@echo Restoring nuget packages
-packages\NuGet.CommandLine.3.4.3\tools\nuget.exe restore %SOLUTION%
-
 @echo Finding msbuild
 for /f "skip=2 tokens=2,*" %%A in ('reg.exe query "HKLM\SOFTWARE\Microsoft\MSBuild\ToolsVersions\14.0" /v MSBuildToolsPath') do SET MSBUILDDIR=%%B
 @IF NOT EXIST "%MSBUILDDIR%" goto MissingMSBuildToolsPath
