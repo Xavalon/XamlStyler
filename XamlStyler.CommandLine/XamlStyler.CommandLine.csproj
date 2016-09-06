@@ -41,6 +41,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XamlStyler.Core\XamlStyler.Core.csproj">
+      <Project>{bd2a5b6f-0b1c-4b1d-90af-707f62bb12c0}</Project>
+      <Name>XamlStyler.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
