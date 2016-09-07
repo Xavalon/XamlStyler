@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+	<metadata>
+		<id>XamlStyler.CommandLine</id>
+		<version>2.2.0.0</version>
+		<authors>Xavalon</authors>
+		<owners>Xavalon</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<developmentDependency>true</developmentDependency>
+		<description>Xavalon Command line utility for styling xaml</description>
+		<tags>cli xaml</tags>
+		<copyright>Copyright © Xavalon 2016</copyright>
+	</metadata>
+	<files>
+		<file src="XamlStyler.CommandLine\bin\Release\**" target="tools" />
+	</files>
+</package>
