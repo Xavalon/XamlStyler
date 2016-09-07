@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{913A5DF2-09DC-4155-9BA9-3881B0104F4C}"
+	ProjectSection(SolutionItems) = preProject
+		XamlStyler.Console.nuspec = XamlStyler.Console.nuspec
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SigningKey", "SigningKey", "{FE6737DA-3DB2-4DD2-95E8-B3E20E0BFB42}"
 	ProjectSection(SolutionItems) = preProject
