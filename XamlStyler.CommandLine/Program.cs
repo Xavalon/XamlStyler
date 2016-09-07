@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using Xavalon.XamlStyler.Core;
 using Xavalon.XamlStyler.Core.Options;
 
@@ -18,7 +19,7 @@ namespace XamlStyler.CommandLine
                 return 0;
             }
             var executeOptions = GetOptions(new Queue<string>(args));
-            if(!File.Exists(executeOptions.XamlFile))
+            if (!File.Exists(executeOptions.XamlFile))
             {
                 Console.WriteLine($"File not found \"{executeOptions.XamlFile}\"");
                 return 1;
@@ -30,8 +31,17 @@ namespace XamlStyler.CommandLine
             }
             var xamlOptions = new StylerOptions(executeOptions.SettingFile);
             var service = new StylerService(xamlOptions);
-            var result = service.StyleDocument(File.ReadAllText(executeOptions.XamlFile));
-            File.WriteAllText(executeOptions.OutputXamlFile, result);
+            string originalContent;
+            Encoding encoding = Encoding.UTF8; // Visual Studio by default uses UTF8
+            using (var reader = new StreamReader(executeOptions.XamlFile))
+            {
+                originalContent = reader.ReadToEnd();
+                encoding = reader.CurrentEncoding;
+            }
+            var formattedOutput = service.StyleDocument(originalContent);
+            using (var writer = new StreamWriter(executeOptions.OutputXamlFile, false, encoding))
+                writer.Write(formattedOutput);
+
             return 0;
         }
         private static Options GetOptions(Queue<string> args)
@@ -47,13 +57,13 @@ namespace XamlStyler.CommandLine
                 {
                     case "-s":
                         options.SettingFile = args.Dequeue();
-                    break;
+                        break;
                     case "-o":
                         options.OutputXamlFile = args.Dequeue();
                         break;
                     default:
                         Console.WriteLine($"Unknown key: \"{key}\"");
-                    break;
+                        break;
                 }
             }
             if (options.OutputXamlFile == null)
