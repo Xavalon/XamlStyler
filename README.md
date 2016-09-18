@@ -6,7 +6,7 @@ XAML Styler is a visual studio extension, which formats XAML source code by sort
 
 [![Join the chat at https://gitter.im/Xavalon/XamlStyler](https://badges.gitter.im/Xavalon/XamlStyler.svg)](https://gitter.im/Xavalon/XamlStyler?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
 
-<sub>XAML Styler is a fork of Chris Chaochen's [XAML Styler](http://xamlstyler.codeplex.com). To support the efforts Chris has put into this awesome plugin, this fork will only officially support Visual Studio 2013 and later. For Visual Studio 2012 support please install Chris's version.<sub>
+<sub>This is a fork of the awesome plugin originally created by Chris Chaochen (http://xamlstyler.codeplex.com). To support the efforts Chris has put into this project, this fork will only officially support Visual Studio 2013 and later. For Visual Studio 2012 support please install Chris's version.<sub>
 
 ==========
 
