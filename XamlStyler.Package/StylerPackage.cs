@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Xavalon.XamlStyler.Core;
@@ -175,6 +176,13 @@ namespace Xavalon.XamlStyler.Package
             stylerOptions.IndentSize = Int32.Parse(xamlEditorProps.Item("IndentSize").Value.ToString());
             stylerOptions.IndentWithTabs = (bool)xamlEditorProps.Item("InsertTabs").Value;
 
+            var configPath = GetConfigPathForItem(document.Path);
+
+            if (configPath != null)
+            {
+                stylerOptions.ConfigPath = configPath;
+            }
+
             StylerService styler = new StylerService(stylerOptions);
 
             var textDocument = (TextDocument)document.Object("TextDocument");
@@ -199,6 +207,32 @@ namespace Xavalon.XamlStyler.Package
             {
                 textDocument.Selection.GotoLine(textDocument.EndPoint.Line);
             }
+        }
+
+        private string GetConfigPathForItem(string path)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(path))
+                {
+                    return null;
+                }
+
+                while ((path = Path.GetDirectoryName(path)) != null)
+                {
+                    var configFile = Path.Combine(path, "Settings.XamlStyler");
+
+                    if (File.Exists(configFile))
+                    {
+                        return configFile;
+                    }
+                }
+            }
+            catch
+            {
+            }
+
+            return null;
         }
 
         /// <summary>
