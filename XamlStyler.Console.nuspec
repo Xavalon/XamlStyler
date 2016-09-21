@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
+	<metadata>
+		<id>XamlStyler.Console</id>
+		<version>2.2.0.0</version>
+		<authors>Xavalon</authors>
+		<owners>Xavalon</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<developmentDependency>true</developmentDependency>
+		<description>XAML Styler is a visual studio extension, which formats XAML source code by sorting the attributes based on their importance. This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.</description>
+		<tags>cli xaml</tags>
+		<copyright>Copyright © Xavalon 2016</copyright>
+	</metadata>
+	<files>
+		<file src="XamlStyler.Console\bin\Release\**" target="tools" />
+	</files>
+</package>
