@@ -13,8 +13,16 @@
 	<Extension path="/MonoDevelop/Ide/Commands/Edit">
 		<Command id="Xavalon.XamlStyler.XamarinStudio.FormatXaml" _label="Format Xaml" _description="Reformats the XAML document to be much more readable" defaultHandler="Xavalon.XamlStyler.XamarinStudio.FormatXamlHandler" shortcut="Ctrl|Shift|I" />
 	</Extension>
+	<Extension path="/MonoDevelop/Ide/Commands/Edit">
+		<Command id="Xavalon.XamlStyler.XamarinStudio.FormatXamlBatch" _label="Batch Format Xaml" _description="Reformats all XAML documents to be much more readable" defaultHandler="Xavalon.XamlStyler.XamarinStudio.FormatXamlBatchHandler" shortcut="Ctrl|Shift|I" />
+	</Extension>
 	<Extension path="/MonoDevelop/SourceEditor2/ContextMenu/Editor">
         <CommandItem id="Xavalon.XamlStyler.XamarinStudio.FormatXaml" />
+	</Extension>
+	<Extension path="/MonoDevelop/Ide/ContextMenu/ProjectPad">
+		<Condition id="ItemType" value="Project|Solution">
+			<CommandItem id="Xavalon.XamlStyler.XamarinStudio.FormatXamlBatch" />
+		</Condition>
 	</Extension>
 	<Extension path="/MonoDevelop/Ide/GlobalOptionsDialog/Other">
 		<Section

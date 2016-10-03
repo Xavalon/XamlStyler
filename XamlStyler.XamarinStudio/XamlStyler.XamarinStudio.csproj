@@ -53,6 +53,7 @@
     <Compile Include="Gui\OptionsViewModel.cs" />
     <Compile Include="Gui\OptionsWidget.cs" />
     <Compile Include="gtk-gui\Xavalon.XamlStyler.XamarinStudio.Gui.OptionsWidget.cs" />
+    <Compile Include="FormatXamlHandlerBatch.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />

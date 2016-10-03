@@ -252,13 +252,19 @@ When this setting is true, attributes with markup extensions will always be put 
         [DefaultValue(true)]
         public bool BeautifyOnSave { get; set; }
 
-        [Category("Misc")]
-        [DisplayName("Number of spaces to pad comments with")]
-        [Description(@"Defines how many spaces a XML comment should be padded with. e.g.:
+		[Category("Misc")]
+		[DisplayName("Number of spaces to pad comments with")]
+		[Description(@"Defines how many spaces a XML comment should be padded with. e.g.:
 2: <!--  Hello world  -->
 1: <!-- Hello world -->
 0: <!--Hello world-->")]
-        [DefaultValue((byte)2)]
-        public byte CommentSpaces { get; set; }
-    }
+		[DefaultValue((byte)2)]
+		public byte CommentSpaces { get; set; }
+
+		[Category("Misc")]
+		[DisplayName("Open files when batch processing")]
+		[Description(@"Defines whether the add-in should open files as they are batch processed (enabling undo) or should batch process and save all files in the background.")]
+		[DefaultValue(false)]
+		public bool BatchOpenFiles { get; set; }
+	}
 }
