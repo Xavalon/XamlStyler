@@ -46,6 +46,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <RunCodeAnalysis>true</RunCodeAnalysis>
+    <DeployExtension>false</DeployExtension>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
