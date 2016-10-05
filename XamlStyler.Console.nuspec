@@ -11,6 +11,7 @@
 		<tags>XAML, add-in, WPF, Visual Studio, Silverlight, Extension, formatter, winrt, xamarin, WP8, uwp, Win10</tags>
 		<projectUrl>https://github.com/Xavalon/XamlStyler</projectUrl>
 		<licenseUrl>https://github.com/Xavalon/XamlStyler/blob/master/LICENSE.txt</licenseUrl>
+		<iconUrl>http://i.imgur.com/WEXCraF.png</iconUrl>
 		<copyright>Copyright © Xavalon 2016</copyright>
 	</metadata>
 	<files>
