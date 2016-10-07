@@ -181,6 +181,8 @@ namespace Xavalon.XamlStyler.Package
 
             if (configPath != null)
             {
+                stylerOptions = ((StylerOptions)stylerOptions).Clone();
+
                 stylerOptions.ConfigPath = configPath;
             }
 
