@@ -1,9 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{913A5DF2-09DC-4155-9BA9-3881B0104F4C}"
+	ProjectSection(SolutionItems) = preProject
+		XamlStyler.Console.nuspec = XamlStyler.Console.nuspec
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SigningKey", "SigningKey", "{FE6737DA-3DB2-4DD2-95E8-B3E20E0BFB42}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.UnitTest", "XamlStyler.UnitTests\XamlStyler.UnitTest.csproj", "{E5245034-9CD0-4FC6-B141-BAE17BC251A5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.Package", "XamlStyler.Package\XamlStyler.Package.csproj", "{92321883-06AD-4FF8-8B6C-A259D72ED7E9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.Console", "XamlStyler.Console\XamlStyler.Console.csproj", "{5284FEA7-FC0B-45EA-8B16-9DA7F5E6D7B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +39,10 @@ Global
 		{92321883-06AD-4FF8-8B6C-A259D72ED7E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92321883-06AD-4FF8-8B6C-A259D72ED7E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92321883-06AD-4FF8-8B6C-A259D72ED7E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5284FEA7-FC0B-45EA-8B16-9DA7F5E6D7B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5284FEA7-FC0B-45EA-8B16-9DA7F5E6D7B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5284FEA7-FC0B-45EA-8B16-9DA7F5E6D7B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5284FEA7-FC0B-45EA-8B16-9DA7F5E6D7B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -116,3 +116,4 @@ XamlStylerVSPackage.sln.DotSettings
 
 # Misc
 *.config
+*.nupkg

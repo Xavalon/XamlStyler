@@ -59,7 +59,7 @@
 
       <Button guid="guidXamlStyler_PackageCmdSet" id="cmdidBeautifyXaml" priority="0x0100" type="Button">
         <Parent guid="guidXamlStyler_PackageCmdSet" id="MyMenuGroup" />
-        <Icon guid="guidImages" id="bmpPic1" />
+        <Icon guid="CommandIcon" id="CommandIcon1" />
         <Strings>
           <CommandName>cmdidBeautifyXaml</CommandName>
           <ButtonText>Format XAML</ButtonText>
@@ -74,7 +74,7 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used 
             inside a button definition. An important aspect of this declaration is that the element id 
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-      <Bitmap guid="guidImages" href="Resources\Images_32bit.bmp" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows"/>
+      <Bitmap guid="CommandIcon" href="Resources\CommandIcon.bmp" usedList="CommandIcon1"/>
     </Bitmaps>
   </Commands>
 
@@ -101,13 +101,8 @@
       <IDSymbol name="XamlEditorContextMenu" value="0x0103" />
     </GuidSymbol>
 
-    <GuidSymbol name="guidImages" value="{c2b97881-5cae-4577-b91b-07bdfefcb2fd}" >
-      <IDSymbol name="bmpPic1" value="1" />
-      <IDSymbol name="bmpPic2" value="2" />
-      <IDSymbol name="bmpPicSearch" value="3" />
-      <IDSymbol name="bmpPicX" value="4" />
-      <IDSymbol name="bmpPicArrows" value="5" />
-      <IDSymbol name="bmpPicStrikethrough" value="6" />
+    <GuidSymbol name="CommandIcon" value="{c2b97881-5cae-4577-b91b-07bdfefcb2fd}" >
+      <IDSymbol name="CommandIcon1" value="1" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>
