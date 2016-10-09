@@ -309,6 +309,17 @@ namespace Xavalon.XamlStyler.Core.Options
             }
         }
 
+        /// <summary>
+        /// Creates a clone from the current instance.
+        /// </summary>
+        /// <returns>A clone from the current instance.</returns>
+        public IStylerOptions Clone()
+        {
+            var jsonStylerOptions = JsonConvert.SerializeObject(this);
+
+            return JsonConvert.DeserializeObject<StylerOptions>(jsonStylerOptions);
+        }
+
         private void InitializeProperties()
         {
             if (!this.TryLoadExternalConfiguration())
