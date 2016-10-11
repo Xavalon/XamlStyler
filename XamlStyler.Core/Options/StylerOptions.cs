@@ -12,6 +12,7 @@ namespace Xavalon.XamlStyler.Core.Options
     public class StylerOptions : IStylerOptions
     {
         private const string DefaultOptionsPath = "Xavalon.XamlStyler.Core.Options.DefaultSettings.json";
+        private const int FallbackIndentSize = 2;
 
         public StylerOptions()
         {
@@ -41,10 +42,16 @@ namespace Xavalon.XamlStyler.Core.Options
 
         // Indentation
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [DefaultValue(2)]
+        [DefaultValue(-1)]
         [JsonProperty("IndentSize", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [Browsable(false)]
         public int IndentSize { get; set; }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DefaultValue(true)]
+        [Browsable(false)]
+        [JsonIgnore]
+        public bool UseVisualStudioIndentSize { get; private set; } = true;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         [DefaultValue(false)]
@@ -363,7 +370,36 @@ namespace Xavalon.XamlStyler.Core.Options
                             continue;
                         }
 
-                        propertyDescriptor.SetValue(this, propertyDescriptor.GetValue(configOptions));
+                        // If a valid IndentSize is specified in configuration, do not load VS settings.
+                        if (propertyDescriptor.Name.Equals(nameof(this.IndentSize)))
+                        {
+                            int indentSize;
+                            try
+                            {
+                                indentSize = Convert.ToInt32(propertyDescriptor.GetValue(configOptions));
+                            }
+                            catch (Exception)
+                            {
+                                indentSize = -1;
+                            }
+                            
+
+                            // Cannot specify MissingMemberHandling for a single property, so relying on JSON default
+                            // value to detect missing member, and setting default on detection.
+                            if (indentSize > 0)
+                            {
+                                this.IndentSize = indentSize;
+                                this.UseVisualStudioIndentSize = false;
+                            }
+                            else
+                            {
+                                this.IndentSize = StylerOptions.FallbackIndentSize;
+                            }
+                        }
+                        else
+                        {
+                            propertyDescriptor.SetValue(this, propertyDescriptor.GetValue(configOptions));
+                        }
                     }
                 }
             }
