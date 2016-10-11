@@ -173,9 +173,6 @@ namespace Xavalon.XamlStyler.Package
 
             var stylerOptions = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
 
-            stylerOptions.IndentSize = Int32.Parse(xamlEditorProps.Item("IndentSize").Value.ToString());
-            stylerOptions.IndentWithTabs = (bool)xamlEditorProps.Item("InsertTabs").Value;
-
             var solutionPath = string.IsNullOrEmpty(_dte.Solution?.FullName) ? string.Empty : Path.GetDirectoryName(_dte.Solution.FullName);
             var configPath = GetConfigPathForItem(document.Path, solutionPath);
 
@@ -185,6 +182,9 @@ namespace Xavalon.XamlStyler.Package
 
                 stylerOptions.ConfigPath = configPath;
             }
+
+            stylerOptions.IndentSize = Int32.Parse(xamlEditorProps.Item("IndentSize").Value.ToString());
+            stylerOptions.IndentWithTabs = (bool)xamlEditorProps.Item("InsertTabs").Value;
 
             StylerService styler = new StylerService(stylerOptions);
 
