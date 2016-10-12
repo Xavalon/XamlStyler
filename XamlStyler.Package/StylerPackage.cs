@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Xavalon.XamlStyler.Core;
@@ -172,6 +173,16 @@ namespace Xavalon.XamlStyler.Package
 
             var stylerOptions = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
 
+            var solutionPath = string.IsNullOrEmpty(_dte.Solution?.FullName) ? string.Empty : Path.GetDirectoryName(_dte.Solution.FullName);
+            var configPath = GetConfigPathForItem(document.Path, solutionPath);
+
+            if (configPath != null)
+            {
+                stylerOptions = ((StylerOptions)stylerOptions).Clone();
+
+                stylerOptions.ConfigPath = configPath;
+            }
+
             stylerOptions.IndentSize = Int32.Parse(xamlEditorProps.Item("IndentSize").Value.ToString());
             stylerOptions.IndentWithTabs = (bool)xamlEditorProps.Item("InsertTabs").Value;
 
@@ -199,6 +210,32 @@ namespace Xavalon.XamlStyler.Package
             {
                 textDocument.Selection.GotoLine(textDocument.EndPoint.Line);
             }
+        }
+
+        private string GetConfigPathForItem(string path, string solutionPath)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(path))
+                {
+                    return null;
+                }
+
+                while ((path = Path.GetDirectoryName(path)) != null && path.StartsWith(solutionPath, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    var configFile = Path.Combine(path, "Settings.XamlStyler");
+
+                    if (File.Exists(configFile))
+                    {
+                        return configFile;
+                    }
+                }
+            }
+            catch
+            {
+            }
+
+            return null;
         }
 
         /// <summary>
