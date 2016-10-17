@@ -1,4 +1,5 @@
 {
+    "IndentSize":2,
     "AttributeOrderingRuleGroups": [
         "x:Class",
         "xmlns, xmlns:x",

@@ -13,6 +13,8 @@ namespace Xavalon.XamlStyler.Core.Options
 
         int IndentSize { get; set; }
 
+        bool UseVisualStudioIndentSize { get; }
+
         bool IndentWithTabs { get; set; }
 
         #endregion Indentation
