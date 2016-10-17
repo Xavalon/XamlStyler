@@ -23,19 +23,11 @@ namespace Xavalon.XamlStyler.Xmagic
             {
                 this.options = options;
 
-                StylerOptions stylerOptions = new StylerOptions();
+                IStylerOptions stylerOptions = new StylerOptions();
 
                 if (this.options.Configuration != null)
                 {
-                    var config = File.ReadAllText(this.options.Configuration);
-                    stylerOptions = JsonConvert.DeserializeObject<StylerOptions>(config);
-
-                    if (this.options.LogLevel == LogLevel.Insanity)
-                    {
-                        this.Log(JsonConvert.SerializeObject(stylerOptions), LogLevel.Insanity);
-                    }
-
-                    this.Log(JsonConvert.SerializeObject(stylerOptions.AttributeOrderingRuleGroups), LogLevel.Debug);
+                    stylerOptions = this.LoadConfiguration(this.options.Configuration);
                 }
 
                 this.stylerService = new StylerService(stylerOptions);
@@ -64,6 +56,8 @@ namespace Xavalon.XamlStyler.Xmagic
                     var path = Path.GetFullPath(file);
                     this.Log($"Full Path: {file}", LogLevel.Debug);
 
+                    string configurationPath = this.GetConfigurationFromPath(path);
+
                     string originalContent = null;
                     Encoding encoding = Encoding.UTF8; // Visual Studio by default uses UTF8
                     using (var reader = new StreamReader(path))
@@ -73,11 +67,14 @@ namespace Xavalon.XamlStyler.Xmagic
                         this.Log($"\nOriginal Content:\n\n{originalContent}\n", LogLevel.Insanity);
                     }
 
-                    var formattedOutput = stylerService.StyleDocument(originalContent);
+                    var formattedOutput = String.IsNullOrWhiteSpace(configurationPath)
+                        ? stylerService.StyleDocument(originalContent)
+                        : new StylerService(this.LoadConfiguration(configurationPath)).StyleDocument(originalContent);
+
                     this.Log($"\nFormatted Output:\n\n{formattedOutput}\n", LogLevel.Insanity);
 
                     using (var writer = new StreamWriter(path, false, encoding))
-                    { 
+                    {
                         try
                         {
                             writer.Write(formattedOutput);
@@ -90,10 +87,50 @@ namespace Xavalon.XamlStyler.Xmagic
                             this.Log($"Exception: {e.Message}", LogLevel.Verbose);
                             this.Log($"StackTrace: {e.StackTrace}", LogLevel.Debug);
                         }
-                    }                        
+                    }
                 }
 
                 this.Log($"Processed {successCount} of {this.options.Files.Count} files.", LogLevel.Minimal);
+            }
+
+            private IStylerOptions LoadConfiguration(string path)
+            {
+                StylerOptions stylerOptions = new StylerOptions(path);
+                this.Log(JsonConvert.SerializeObject(stylerOptions), LogLevel.Insanity);
+                this.Log(JsonConvert.SerializeObject(stylerOptions.AttributeOrderingRuleGroups), LogLevel.Debug);
+                return stylerOptions;
+            }
+
+            private string GetConfigurationFromPath(string path)
+            {
+                try
+                {
+                    if (String.IsNullOrWhiteSpace(path))
+                    {
+                        return null;
+                    }
+
+                    bool isSolutionRoot = false;
+
+                    while (!isSolutionRoot && ((path = Path.GetDirectoryName(path)) != null))
+                    {
+                        isSolutionRoot = Directory.Exists(Path.Combine(path, ".vs"));
+                        this.Log($"In solution root: {isSolutionRoot}");
+                        var configFile = Path.Combine(path, "Settings.XamlStyler");
+                        this.Log($"Looking in: {path}");
+
+                        if (File.Exists(configFile))
+                        {
+                            this.Log($"Configuration Found: {configFile}");
+                            return configFile;
+                        }
+                    }
+                }
+                catch
+                {
+                }
+
+                return null;
             }
 
             private void Log(string value, LogLevel logLevel = LogLevel.Default)
