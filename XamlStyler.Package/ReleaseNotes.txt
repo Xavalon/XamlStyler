@@ -1,4 +1,13 @@
-﻿2.2
+﻿2.3
+---
+- Settings per project / sln
+- Proposed changes to default settings
+- Enhance XXXAnimation tag format
+- Port: First Line Attribute Option
+- Bugfixes
+- https://github.com/Xavalon/XamlStyler/milestone/1?closed=1
+
+2.2
 ---
 - Adds Option to Remove Design-Time References  
 - Adds First Line Attributes 
