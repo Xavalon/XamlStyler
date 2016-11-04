@@ -56,7 +56,8 @@ namespace Xavalon.XamlStyler.Xmagic
                     var path = Path.GetFullPath(file);
                     this.Log($"Full Path: {file}", LogLevel.Debug);
 
-                    string configurationPath = this.GetConfigurationFromPath(path);
+                    // If the options already has a configuration file set, we don't need to go hunting for one
+                    string configurationPath = string.IsNullOrEmpty(this.options.Configuration) ? this.GetConfigurationFromPath(path) : null;
 
                     string originalContent = null;
                     Encoding encoding = Encoding.UTF8; // Visual Studio by default uses UTF8
