@@ -1,4 +1,4 @@
-@ScottIsAFool###XAML Styler###
+###XAML Styler###
 XAML Styler is a visual studio extension, which formats XAML source code by sorting the attributes based on their importance. This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.
 
 |[Download from VS Gallery](https://visualstudiogallery.msdn.microsoft.com/3de2a3c6-def5-42c4-924d-cc13a29ff5b7)|[Documentation](https://github.com/Xavalon/XamlStyler/wiki)|[Script Integration](https://github.com/Xavalon/XamlStyler/wiki/Script-Integration)|[Changelog](https://github.com/Xavalon/XamlStyler/wiki/Changelog)|[Contributing](https://github.com/Xavalon/XamlStyler/blob/master/CONTRIBUTING.md)|
