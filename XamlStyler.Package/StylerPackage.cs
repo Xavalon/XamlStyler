@@ -271,7 +271,7 @@ namespace Xavalon.XamlStyler.Package
                 string title = string.Format("Error in {0}:", GetType().Name);
                 string message = string.Format(
                     CultureInfo.CurrentCulture,
-                    "{0}\r\n\r\nIf this deems a malfunctioning of styler, please kindly submit an issue at https://github.com/NicoVermeir/XamlStyler.",
+                    "{0}\r\n\r\nIf this deems a malfunctioning of styler, please kindly submit an issue at https://github.com/Xavalon/XamlStyler.",
                     ex.Message);
 
                 ShowMessageBox(title, message);
