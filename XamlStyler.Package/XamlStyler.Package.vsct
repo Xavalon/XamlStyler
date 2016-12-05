@@ -102,9 +102,7 @@
     </GuidSymbol>
 
     <!-- XML editor guid -->
-    <GuidSymbol name="guidXmlUiCmds" value="{fb87333b-16c8-400e-bc8f-f6b890410582}">
-      <IDSymbol name="XMLEditorContextMenu" value="0x0103" />
-    </GuidSymbol>
+    <GuidSymbol name="guidXmlUiCmds" value="{fb87333b-16c8-400e-bc8f-f6b890410582}" />
 
     <GuidSymbol name="CommandIcon" value="{c2b97881-5cae-4577-b91b-07bdfefcb2fd}" >
       <IDSymbol name="CommandIcon1" value="1" />
