@@ -64,7 +64,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
                 else
                 {
                     // Unwrap argument.
-                    foreach (var markupExtensionArgument in GetArguments(node.ChildNodes))
+                    foreach (var markupExtensionArgument in MarkupExtension.GetArguments(node.ChildNodes))
                     {
                         yield return markupExtensionArgument;
                     }

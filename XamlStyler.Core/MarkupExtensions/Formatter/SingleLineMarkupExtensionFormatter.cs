@@ -8,6 +8,11 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
 {
     internal class SingleLineMarkupExtensionFormatter : MarkupExtensionFormatterBase
     {
+        internal SingleLineMarkupExtensionFormatter(MarkupExtensionFormatter markupExtensionFormatter)
+            : base(markupExtensionFormatter)
+        {
+        }
+
         protected override IEnumerable<string> Format(Argument[] arguments)
         {
             StringBuilder stringBuilder = new StringBuilder();

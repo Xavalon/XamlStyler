@@ -175,6 +175,20 @@ namespace Xavalon.XamlStyler.UnitTests
         }
 
         [Test]
+        public void TestNestedCustomMarkupExtensionsWithBindings()
+        {
+            var stylerOptions = new StylerOptions(
+                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+            {
+                KeepFirstAttributeOnSameLine = false,
+                AttributesTolerance = 1,
+                NoNewLineMarkupExtensions = "x:Bind, Binding"
+            };
+
+            this.DoTest(stylerOptions);
+        }
+
+        [Test]
         public void TestMarkupWithAttributeNotOnFirstLine()
         {
             var stylerOptions = new StylerOptions(
