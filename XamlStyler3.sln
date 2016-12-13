@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.25906.0
+MinimumVisualStudioVersion = 15.0
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.Console", "XamlStyler.Console\XamlStyler.Console.csproj", "{5284FEA7-FC0B-45EA-8B16-9DA7F5E6D7B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.Core", "XamlStyler.Core\XamlStyler.Core.csproj", "{BD2A5B6F-0B1C-4B1D-90AF-707F62BB12C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.UnitTest", "XamlStyler.UnitTests\XamlStyler.UnitTest.csproj", "{E5245034-9CD0-4FC6-B141-BAE17BC251A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C8AD4D67-4BF9-441D-B663-FD9608BC4599}"
+	ProjectSection(SolutionItems) = preProject
+		XamlStyler.Console.nuspec = XamlStyler.Console.nuspec
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler3.Package", "XamlStyler3.Package\XamlStyler3.Package.csproj", "{92321883-06AD-4FF8-8B6C-A259D72ED7E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5284FEA7-FC0B-45EA-8B16-9DA7F5E6D7B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5284FEA7-FC0B-45EA-8B16-9DA7F5E6D7B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5284FEA7-FC0B-45EA-8B16-9DA7F5E6D7B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5284FEA7-FC0B-45EA-8B16-9DA7F5E6D7B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD2A5B6F-0B1C-4B1D-90AF-707F62BB12C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD2A5B6F-0B1C-4B1D-90AF-707F62BB12C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD2A5B6F-0B1C-4B1D-90AF-707F62BB12C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD2A5B6F-0B1C-4B1D-90AF-707F62BB12C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5245034-9CD0-4FC6-B141-BAE17BC251A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5245034-9CD0-4FC6-B141-BAE17BC251A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5245034-9CD0-4FC6-B141-BAE17BC251A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5245034-9CD0-4FC6-B141-BAE17BC251A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92321883-06AD-4FF8-8B6C-A259D72ED7E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92321883-06AD-4FF8-8B6C-A259D72ED7E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92321883-06AD-4FF8-8B6C-A259D72ED7E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92321883-06AD-4FF8-8B6C-A259D72ED7E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
