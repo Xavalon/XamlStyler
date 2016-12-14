@@ -116,13 +116,13 @@ namespace Xavalon.XamlStyler.Xmagic
                     while (!isSolutionRoot && ((path = Path.GetDirectoryName(path)) != null))
                     {
                         isSolutionRoot = Directory.Exists(Path.Combine(path, ".vs"));
-                        this.Log($"In solution root: {isSolutionRoot}");
+                        this.Log($"In solution root: {isSolutionRoot}", LogLevel.Debug);
                         var configFile = Path.Combine(path, "Settings.XamlStyler");
-                        this.Log($"Looking in: {path}");
+                        this.Log($"Looking in: {path}", LogLevel.Debug);
 
                         if (File.Exists(configFile))
                         {
-                            this.Log($"Configuration Found: {configFile}");
+                            this.Log($"Configuration Found: {configFile}", LogLevel.Verbose);
                             return configFile;
                         }
                     }
