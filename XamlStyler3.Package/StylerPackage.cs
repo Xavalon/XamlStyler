@@ -19,12 +19,12 @@ namespace Xavalon.XamlStyler3.Package
 {
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#1110", "#1112", "1.0", IconResourceID = 1400)] // Info on this package for Help/About
-    [Guid(GuidList.guidXamlStyler_PackagePkgString)]
+    [Guid(Guids.XamlStylerPackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     [ProvideMenuResource("Menus1.ctmenu", 1)]
     [ProvideService(typeof(StylerService), IsAsyncQueryable = true)]
-    [ProvideAutoLoad(GuidList.UIContextGuid, PackageAutoLoadFlags.BackgroundLoad)]
-    [ProvideUIContextRule(GuidList.UIContextGuid, name: "XAML load", expression: "Dotxaml", termNames: new[] { "Dotxaml" }, termValues: new[] { "HierSingleSelectionName:.xaml$" })]
+    [ProvideAutoLoad(Guids.UIContextGuid, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideUIContextRule(Guids.UIContextGuid, name: "XAML load", expression: "Dotxaml", termNames: new[] { "Dotxaml" }, termValues: new[] { "HierSingleSelectionName:.xaml$" })]
     public sealed class StylerPackage : Microsoft.VisualStudio.Shell.Package
     {
         private DTE _dte;
@@ -72,8 +72,7 @@ namespace Xavalon.XamlStyler3.Package
             if (null != menuCommandService)
             {
                 // Create the command for the menu item.
-                var menuCommandId = new CommandID(GuidList.guidXamlStyler_PackageCmdSet,
-                                                  (int)PkgCmdIDList.cmdidBeautifyXaml);
+                var menuCommandId = new CommandID(Guids.CommandSetGuid, (int)PackageCommandIds.FormatXamlCommandId);
                 var menuItem = new MenuCommand(MenuItemCallback, menuCommandId);
                 menuCommandService.AddCommand(menuItem);
             }

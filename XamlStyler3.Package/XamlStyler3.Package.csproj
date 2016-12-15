@@ -148,7 +148,7 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PkgCmdID.cs" />
+    <Compile Include="PackageCommandIds.cs" />
     <Compile Include="StylerPackage.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -196,10 +196,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Resource Include="Resources\StylerCommand.png" />
-    <VSCTCompile Include="StylerPackage.vsct">
-      <ResourceName>Menus1.ctmenu</ResourceName>
-      <SubType>Designer</SubType>
-    </VSCTCompile>
     <Resource Include="Resources\StylerPackage.ico" />
     <Resource Include="Resources\CommandIcon.bmp" />
   </ItemGroup>
