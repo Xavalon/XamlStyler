@@ -143,7 +143,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="StylerPackage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PkgCmdID.cs" />
+    <Compile Include="PackageCommandIds.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">

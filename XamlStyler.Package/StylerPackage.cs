@@ -37,7 +37,7 @@ namespace Xavalon.XamlStyler.Package
     [ProvideProfile(typeof(PackageOptions), "XAML Styler", "XAML Styler Settings", 106, 107, true,
         DescriptionResourceID = 108)]
     [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
-    [Guid(GuidList.guidXamlStyler_PackagePkgString)]
+    [Guid(Guids.XamlStylerPackageGuidString)]
     public sealed class StylerPackage : Microsoft.VisualStudio.Shell.Package //, IDTExtensibility2
     {
         private DTE _dte;
@@ -98,8 +98,7 @@ namespace Xavalon.XamlStyler.Package
             if (null != menuCommandService)
             {
                 // Create the command for the menu item.
-                var menuCommandId = new CommandID(GuidList.guidXamlStyler_PackageCmdSet,
-                                                  (int)PkgCmdIDList.cmdidBeautifyXaml);
+                var menuCommandId = new CommandID(Guids.CommandSetGuid, (int)PackageCommandIds.FormatXamlCommandId);
                 var menuItem = new MenuCommand(MenuItemCallback, menuCommandId);
                 menuCommandService.AddCommand(menuItem);
             }
