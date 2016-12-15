@@ -169,13 +169,8 @@ namespace Xavalon.XamlStyler.Package
             }
 
             Properties xamlEditorProps = _dte.Properties["TextEditor", "XAML"];
-
             var stylerOptions = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
-
-            var solutionPath = String.IsNullOrEmpty(_dte.Solution?.FullName)
-                ? String.Empty
-                : Path.GetDirectoryName(_dte.Solution.FullName);
-            var configPath = GetConfigPathForItem(document.Path, solutionPath);
+            var configPath = GetConfigPathForItem(document.Path);
 
             if (configPath != null)
             {
@@ -221,30 +216,66 @@ namespace Xavalon.XamlStyler.Package
             }
         }
 
-        private string GetConfigPathForItem(string path, string solutionPath)
+        private string GetConfigPathForItem(string path)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(path))
+                if (String.IsNullOrWhiteSpace(path))
                 {
                     return null;
                 }
 
-                while ((path = Path.GetDirectoryName(path)) != null && path.StartsWith(solutionPath, StringComparison.InvariantCultureIgnoreCase))
-                {
-                    var configFile = Path.Combine(path, "Settings.XamlStyler");
+                var solutionRoot = String.IsNullOrEmpty(_dte.Solution?.FullName)
+                    ? String.Empty
+                    : Path.GetDirectoryName(_dte.Solution.FullName);
 
-                    if (File.Exists(configFile))
+                IEnumerator<string> configPaths
+                    = (path.StartsWith(solutionRoot, StringComparison.InvariantCultureIgnoreCase))
+                        ? StylerPackage.GetConfigPathInsideSolution(path, solutionRoot).GetEnumerator()
+                        : StylerPackage.GetConfigPathOutsideSolution(path).GetEnumerator();
+
+                while (configPaths.MoveNext())
+                {
+                    if (File.Exists(configPaths.Current))
                     {
-                        return configFile;
+                        return configPaths.Current;
                     }
                 }
             }
             catch
             {
+                // Fail gracefully.
             }
 
             return null;
+        }
+
+        // Searches for configuration file up through solution root directory.
+        private static IEnumerable<string> GetConfigPathInsideSolution(string path, string root)
+        {
+            string configDirectory = File.GetAttributes(path).HasFlag(FileAttributes.Directory)
+                ? path
+                : Path.GetDirectoryName(path);
+
+            while (configDirectory.StartsWith(root, StringComparison.InvariantCultureIgnoreCase))
+            {
+                yield return Path.Combine(configDirectory, "Settings.XamlStyler");
+                configDirectory = Path.GetDirectoryName(configDirectory);
+            }
+        }
+
+        // Searches for configuration file up through project root directory.
+        private static IEnumerable<string> GetConfigPathOutsideSolution(string path)
+        {
+            string configDirectory = File.GetAttributes(path).HasFlag(FileAttributes.Directory)
+                ? path
+                : Path.GetDirectoryName(path);
+
+            do
+            {
+                yield return Path.Combine(configDirectory, "Settings.XamlStyler");
+                configDirectory = Path.GetDirectoryName(configDirectory);
+            } while (Directory.GetFiles(configDirectory, "*.csproj").Length == 0);
         }
 
         /// <summary>
