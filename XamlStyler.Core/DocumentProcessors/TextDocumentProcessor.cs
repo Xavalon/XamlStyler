@@ -1,7 +1,6 @@
 ﻿// © Xavalon. All rights reserved.
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -31,11 +30,11 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             }
             else
             {
-                string currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
-                IEnumerable<string> textLines = xmlEncodedContent.Trim()
-                    .Split('\n')
-                    .Where(_ => (_.Trim().Length > 0))
-                    .ToList();
+                var currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
+                var textLines = xmlEncodedContent.Trim()
+                                                 .Split('\n')
+                                                 .Where(content => (content.Trim().Length > 0))
+                                                 .ToList();
 
                 foreach (var line in textLines)
                 {
@@ -47,7 +46,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 }
             }
 
-            if (xmlEncodedContent.Any(_ => (_ == '\n')))
+            if (xmlEncodedContent.Any(content => (content == '\n')))
             {
                 elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.MultiLineTextOnly);
             }

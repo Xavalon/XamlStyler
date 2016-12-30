@@ -21,10 +21,9 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             this.options = options;
         }
 
-        public void Process(
-            XmlReader xmlReader, 
-            StringBuilder output,
-            ElementProcessContext elementProcessContext)
+        public void Process(XmlReader xmlReader,
+                            StringBuilder output,
+                            ElementProcessContext elementProcessContext)
         {
             if (elementProcessContext.Current.IsPreservingSpace)
             {
@@ -34,8 +33,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             {
                 output.Append("</").Append(xmlReader.Name).Append(">");
             }
-            else if ((elementProcessContext.Current.ContentType == ContentTypeEnum.None)
-                && this.options.RemoveEndingTagOfEmptyElement)
+            else if ((elementProcessContext.Current.ContentType == ContentTypeEnum.None) && this.options.RemoveEndingTagOfEmptyElement)
             {
                 // Shrink the current element, if it has no content.
                 // E.g., <Element>  </Element> => <Element />
@@ -44,7 +42,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 int bracketIndex = output.LastIndexOf('>');
                 output.Insert(bracketIndex, '/');
 
-                if ((output[bracketIndex - 1] != '\t') 
+                if ((output[bracketIndex - 1] != '\t')
                     && (output[bracketIndex - 1] != ' ')
                     && this.options.SpaceBeforeClosingSlash)
                 {
@@ -52,19 +50,17 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 }
             }
             else if ((elementProcessContext.Current.ContentType == ContentTypeEnum.SingleLineTextOnly)
-                && !elementProcessContext.Current.IsMultlineStartTag)
+                     && !elementProcessContext.Current.IsMultlineStartTag)
             {
-                int bracketIndex = output.LastIndexOf('>');
-
-                string text = output.Substring((bracketIndex + 1), (output.Length - bracketIndex - 1)).Trim();
+                var bracketIndex = output.LastIndexOf('>');
+                var text = output.Substring((bracketIndex + 1), (output.Length - bracketIndex - 1)).Trim();
 
                 output.Length = (bracketIndex + 1);
                 output.Append(text).Append("</").Append(xmlReader.Name).Append(">");
             }
             else
             {
-                string currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
-
+                var currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
                 if (!output.IsNewLine())
                 {
                     output.Append(Environment.NewLine);

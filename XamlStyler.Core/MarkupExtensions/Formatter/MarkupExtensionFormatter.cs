@@ -25,9 +25,8 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
         /// <returns></returns>
         public IEnumerable<string> Format(MarkupExtension markupExtension)
         {
-            var formatter = (this.singleLineTypes.Contains(markupExtension.TypeName))
-                ? this.singleLineFormatter
-                : this.multiLineFormatter;
+            var formatter = (this.singleLineTypes.Contains(markupExtension.TypeName)) ? this.singleLineFormatter
+                                                                                      : this.multiLineFormatter;
             return formatter.Format(markupExtension);
         }
 

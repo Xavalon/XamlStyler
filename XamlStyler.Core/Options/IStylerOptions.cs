@@ -51,6 +51,8 @@ namespace Xavalon.XamlStyler.Core.Options
 
         bool OrderAttributesByName { get; set; }
 
+        bool OrderAttributesByLenght { get; set; }
+
         #endregion Attribute Reordering
 
         #region Element formatting
