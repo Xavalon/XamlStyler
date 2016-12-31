@@ -88,11 +88,12 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             if (xmlReader.HasAttributes)
             {
                 var isNoLineBreakElement = this.IsNoLineBreakElement(elementName);
-                this.ProcessAttributes(xmlReader,
-                                       output,
-                                       elementProcessContext,
-                                       isNoLineBreakElement,
-                                       attributeIndetationString);
+                this.ProcessAttributes(
+                    xmlReader,
+                    output,
+                    elementProcessContext,
+                    isNoLineBreakElement,
+                    attributeIndetationString);
             }
 
             // Determine if to put ending bracket on new line.

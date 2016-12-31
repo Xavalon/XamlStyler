@@ -67,8 +67,9 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
         /// <returns></returns>
         public string ToSingleLineString(AttributeInfo attributeInfo)
         {
-            var valuePart = attributeInfo.IsMarkupExtension ? this.formatter.FormatSingleLine(attributeInfo.MarkupExtension)
-                                                            : attributeInfo.Value.ToXmlEncodedString();
+            var valuePart = attributeInfo.IsMarkupExtension
+                ? this.formatter.FormatSingleLine(attributeInfo.MarkupExtension)
+                : attributeInfo.Value.ToXmlEncodedString();
 
             return $"{attributeInfo.Name}=\"{valuePart}\"";
         }

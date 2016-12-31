@@ -23,10 +23,11 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 // For WhiteSpaces contain linefeed, trim all spaces/tab，
                 // since the intent of this whitespace node is to break line,
                 // and preserve the line feeds
-                output.Append(xmlReader.Value.Replace(" ", string.Empty)
-                                             .Replace("\t", string.Empty)
-                                             .Replace("\r", string.Empty)
-                                             .Replace("\n", Environment.NewLine));
+                output.Append(xmlReader.Value
+                    .Replace(" ", string.Empty)
+                    .Replace("\t", string.Empty)
+                    .Replace("\r", string.Empty)
+                    .Replace("\n", Environment.NewLine));
             }
             else
             {
