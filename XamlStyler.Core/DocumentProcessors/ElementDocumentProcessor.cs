@@ -22,10 +22,11 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
         private readonly IList<string> noNewLineElementsList;
         private readonly IList<string> firstLineAttributes;
 
-        public ElementDocumentProcessor(IStylerOptions options,
-                                        AttributeInfoFactory attributeInfoFactory,
-                                        AttributeInfoFormatter attributeInfoFormatter,
-                                        IndentService indentService)
+        public ElementDocumentProcessor(
+            IStylerOptions options,
+            AttributeInfoFactory attributeInfoFactory,
+            AttributeInfoFormatter attributeInfoFormatter,
+            IndentService indentService)
         {
             this.options = options;
             this.attributeInfoFactory = attributeInfoFactory;
@@ -40,14 +41,15 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.Mixed);
 
             var elementName = xmlReader.Name;
-            elementProcessContext.Push(new ElementProcessStatus
-            {
-                Parent = elementProcessContext.Current,
-                Name = elementName,
-                ContentType = ContentTypeEnum.None,
-                IsMultlineStartTag = false,
-                IsPreservingSpace = elementProcessContext.Current.IsPreservingSpace
-            });
+            elementProcessContext.Push(
+                new ElementProcessStatus
+                {
+                    Parent = elementProcessContext.Current,
+                    Name = elementName,
+                    ContentType = ContentTypeEnum.None,
+                    IsMultlineStartTag = false,
+                    IsPreservingSpace = elementProcessContext.Current.IsPreservingSpace
+                });
 
             var currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
             var attributeIndetationString = this.GetAttributeIndetationString(xmlReader);
@@ -94,7 +96,8 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             }
 
             // Determine if to put ending bracket on new line.
-            var putEndingBracketOnNewLine = (this.options.PutEndingBracketOnNewLine && elementProcessContext.Current.IsMultlineStartTag);
+            var putEndingBracketOnNewLine = (this.options.PutEndingBracketOnNewLine &&
+                                             elementProcessContext.Current.IsMultlineStartTag);
             if (putEndingBracketOnNewLine)
             {
                 // Indent ending bracket just like an attribute.
@@ -119,11 +122,12 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             }
         }
 
-        private void ProcessAttributes(XmlReader xmlReader,
-                                       StringBuilder output,
-                                       ElementProcessContext elementProcessContext,
-                                       bool isNoLineBreakElement,
-                                       string attributeIndentationString)
+        private void ProcessAttributes(
+            XmlReader xmlReader,
+            StringBuilder output,
+            ElementProcessContext elementProcessContext,
+            bool isNoLineBreakElement,
+            string attributeIndentationString)
         {
             var attributesInfo = new List<AttributeInfo>(xmlReader.AttributeCount);
             var firstLineAttributes = new List<AttributeInfo>(xmlReader.AttributeCount);
@@ -272,7 +276,8 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                     }
                     else
                     {
-                        output.Append(Environment.NewLine).Append(this.indentService.Normalize(attributeIndentationString + attributeLines[i].Trim()));
+                        output.Append(Environment.NewLine)
+                              .Append(this.indentService.Normalize(attributeIndentationString + attributeLines[i].Trim()));
                     }
                 }
 

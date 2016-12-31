@@ -21,9 +21,10 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             this.options = options;
         }
 
-        public void Process(XmlReader xmlReader,
-                            StringBuilder output,
-                            ElementProcessContext elementProcessContext)
+        public void Process(
+            XmlReader xmlReader,
+            StringBuilder output,
+            ElementProcessContext elementProcessContext)
         {
             if (elementProcessContext.Current.IsPreservingSpace)
             {
@@ -33,7 +34,8 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             {
                 output.Append("</").Append(xmlReader.Name).Append(">");
             }
-            else if ((elementProcessContext.Current.ContentType == ContentTypeEnum.None) && this.options.RemoveEndingTagOfEmptyElement)
+            else if ((elementProcessContext.Current.ContentType == ContentTypeEnum.None)
+                && this.options.RemoveEndingTagOfEmptyElement)
             {
                 // Shrink the current element, if it has no content.
                 // E.g., <Element>  </Element> => <Element />

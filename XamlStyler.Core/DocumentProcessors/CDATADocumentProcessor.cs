@@ -39,9 +39,10 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             // All newlines are returned by XmlReader as '\n' due to requirements in the XML Specification.
             // http://www.w3.org/TR/2008/REC-xml-20081126/#sec-line-ends
             // Change them back into the environment newline characters.
-            output.Append("<![CDATA[")
-                  .Append(xmlReader.Value.Replace("\n", Environment.NewLine))
-                  .Append("]]>");
+            output
+                .Append("<![CDATA[")
+                .Append(xmlReader.Value.Replace("\n", Environment.NewLine))
+                .Append("]]>");
         }
     }
 }

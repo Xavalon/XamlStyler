@@ -71,12 +71,13 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             }
             else
             {
-                output.Append(currentIndentString)
-                      .Append("<!--")
-                      .Append(' ', this.options.CommentSpaces)
-                      .Append(content.Trim())
-                      .Append(' ', this.options.CommentSpaces)
-                      .Append("-->");
+                output
+                    .Append(currentIndentString)
+                    .Append("<!--")
+                    .Append(' ', this.options.CommentSpaces)
+                    .Append(content.Trim())
+                    .Append(' ', this.options.CommentSpaces)
+                    .Append("-->");
             }
         }
     }
