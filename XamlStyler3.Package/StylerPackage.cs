@@ -1,30 +1,29 @@
-﻿using System;
+﻿using EnvDTE;
+using Microsoft.VisualStudio.Shell;
+using Microsoft.VisualStudio.Shell.Interop;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Runtime.InteropServices;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Shell.Interop;
-using EnvDTE;
 using System.IO;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using Xavalon.XamlStyler.Core;
 using Xavalon.XamlStyler.Core.Options;
 using Xavalon.XamlStyler.Package;
-using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Threading;
 
 namespace Xavalon.XamlStyler3.Package
 {
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#1110", "#1112", "1.0", IconResourceID = 1400)] // Info on this package for Help/About
+    [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(Guids.XamlStylerPackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
-    [ProvideMenuResource("Menus1.ctmenu", 1)]
     [ProvideService(typeof(StylerService), IsAsyncQueryable = true)]
-    [ProvideAutoLoad(Guids.UIContextGuid, PackageAutoLoadFlags.BackgroundLoad)]
-    [ProvideUIContextRule(Guids.UIContextGuid, name: "XAML load", expression: "Dotxaml", termNames: new[] { "Dotxaml" }, termValues: new[] { "HierSingleSelectionName:.xaml$" })]
+    [ProvideAutoLoad(Guids.UIContextGuidString, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideUIContextRule(Guids.UIContextGuidString, name: "XAML load", expression: "Dotxaml", termNames: new[] { "Dotxaml" }, termValues: new[] { "HierSingleSelectionName:.xaml$" })]
     public sealed class StylerPackage : Microsoft.VisualStudio.Shell.Package
     {
         private DTE _dte;

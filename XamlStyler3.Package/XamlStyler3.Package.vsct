@@ -35,7 +35,7 @@
       <Bitmap guid="CommandIconGuid" href="Resources\CommandIcon.bmp" usedList="CommandIcon1"/>
     </Bitmaps>
   </Commands>
-
+ 
   <!-- Keyboard Shortcuts -->
   <KeyBindings>
     <KeyBinding guid="CommandSetGuid" id="FormatXamlCommandId" editor="guidVSStd97" key1="K" mod1="Control" key2="2" mod2="Control" />
@@ -53,10 +53,13 @@
           Flags = 0x00000000
           NameLoc = XAML Editor
       4) The GUID and the CmdID are necessary to create a symbol. The CmdID needs to be mapped to a hex value.
+      
+    Alternatively, install the Extensibility Tools from the Visual Studio Marketplace:
+    https://github.com/madskristensen/ExtensibilityTools
   -->
   <Symbols>
     <GuidSymbol name="XamlStylerPackageGuid" value="{a224be3c-88d1-4a57-9804-181dbef68021}" />
-
+    
     <!-- Package Command Set Group -->
     <GuidSymbol name="CommandSetGuid" value="{83fc41d5-eacb-4fa8-aaa3-9a9bdd5f6407}">
       <IDSymbol name="MenuGroup" value="0x1020" />
