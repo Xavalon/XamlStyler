@@ -7,6 +7,11 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
 {
     internal class MultiLineMarkupExtensionFormatter : MarkupExtensionFormatterBase
     {
+        internal MultiLineMarkupExtensionFormatter(MarkupExtensionFormatter markupExtensionFormatter)
+            : base(markupExtensionFormatter)
+        {
+        }
+
         protected override IEnumerable<string> Format(Argument[] arguments)
         {
             var list = new List<string>();
