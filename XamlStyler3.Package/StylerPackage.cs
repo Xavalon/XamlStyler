@@ -22,6 +22,8 @@ namespace Xavalon.XamlStyler3.Package
     [Guid(Guids.XamlStylerPackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     [ProvideService(typeof(StylerService), IsAsyncQueryable = true)]
+    [ProvideOptionPage(typeof(PackageOptions), "XAML Styler", "General", 101, 106, true)]
+    [ProvideProfile(typeof(PackageOptions), "XAML Styler", "XAML Styler Settings", 106, 107, true, DescriptionResourceID = 108)]
     [ProvideAutoLoad(Guids.UIContextGuidString, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideUIContextRule(Guids.UIContextGuidString, name: "XAML load", expression: "Dotxaml", termNames: new[] { "Dotxaml" }, termValues: new[] { "HierSingleSelectionName:.xaml$" })]
     public sealed class StylerPackage : Microsoft.VisualStudio.Shell.Package
