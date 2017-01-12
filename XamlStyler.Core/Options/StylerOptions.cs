@@ -76,10 +76,10 @@ namespace Xavalon.XamlStyler.Core.Options
 
         [Category("Attribute Formatting")]
         [DisplayName("Max attribute characters per line")]
-        [JsonProperty("MaxAttributeCharatersPerLine", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [JsonProperty("MaxAttributeCharactersPerLine", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [Description("Defines the maximum character length of attributes an element can have on each line after the start tag (not including indentation characters). A value of less than 1 means no limit. Note: This setting only takes effect if Max Attributes Per Line is greater than 1 and Attribute Tolerance is greater than 2.\r\n\r\nDefault Value: 0")]
         [DefaultValue(0)]
-        public int MaxAttributeCharatersPerLine { get; set; }
+        public int MaxAttributeCharactersPerLine { get; set; }
 
         [Category("Attribute Formatting")]
         [DisplayName("Max attributes per line")]

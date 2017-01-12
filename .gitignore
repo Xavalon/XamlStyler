@@ -1,6 +1,7 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 [Bb]in/
 [Oo]bj/
+_output/
 
 # mstest test results
 TestResults
@@ -117,3 +118,4 @@ XamlStylerVSPackage.sln.DotSettings
 # Misc
 *.config
 *.nupkg
+UpgradeLog.htm

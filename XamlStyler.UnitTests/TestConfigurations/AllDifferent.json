@@ -2,7 +2,7 @@
     "IndentSize": 4,
     "AttributesTolerance": 3,
     "KeepFirstAttributeOnSameLine": true,
-    "MaxAttributeCharatersPerLine": 1,
+    "MaxAttributeCharactersPerLine": 1,
     "MaxAttributesPerLine": 0,
     "NewlineExemptionElements": "Setter",
     "SeparateByGroups": true,

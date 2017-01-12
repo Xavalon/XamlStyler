@@ -27,7 +27,7 @@ namespace Xavalon.XamlStyler.Core.Options
 
         string FirstLineAttributes { get; set; }
 
-        int MaxAttributeCharatersPerLine { get; set; }
+        int MaxAttributeCharactersPerLine { get; set; }
 
         int MaxAttributesPerLine { get; set; }
 
