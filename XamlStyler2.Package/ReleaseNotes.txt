@@ -1,4 +1,11 @@
-﻿2.3
+﻿2.4
+----
+- Fix console config bug
+- Bugfixes
+- Cleanup
+- Add right-click option in Xamarin Forms
+
+2.3
 ---
 - Settings per project / sln
 - Proposed changes to default settings
