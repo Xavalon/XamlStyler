@@ -1,0 +1,13 @@
+﻿<Window
+  x:Class="WpfApplication.MainWindow"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="clr-namespace:WpfApplication"
+  Title="MainWindow">
+  <Grid>
+    <Button
+      Content="Click Me"
+      Foreground="Black"
+      IsEnabled="{LogicalAnd {Binding IsWritable}, {Binding ElementName=CheckBox, Path=IsChecked}, {CustomMarkupExtension ElementName=CheckBox, Path=IsChecked}}" />
+  </Grid>
+</Window>

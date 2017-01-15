@@ -9,12 +9,15 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
     public class MarkupExtensionFormatter
     {
         private readonly IList<string> singleLineTypes;
-        private readonly MarkupExtensionFormatterBase singleLineFormatter = new SingleLineMarkupExtensionFormatter();
-        private readonly MarkupExtensionFormatterBase multiLineFormatter = new MultiLineMarkupExtensionFormatter();
+        private readonly MarkupExtensionFormatterBase singleLineFormatter;
+        private readonly MarkupExtensionFormatterBase multiLineFormatter;
 
         public MarkupExtensionFormatter(IList<string> singleLineTypes)
         {
             this.singleLineTypes = singleLineTypes;
+
+            this.singleLineFormatter = new SingleLineMarkupExtensionFormatter(this);
+            this.multiLineFormatter = new MultiLineMarkupExtensionFormatter(this);
         }
 
         /// <summary>

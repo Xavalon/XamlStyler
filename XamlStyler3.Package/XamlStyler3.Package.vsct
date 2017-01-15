@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- Headers define the ids for all commands exposed by Visual Studio and menus exposed by the shell. -->
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+
+  <!--Commands: Define own command set to avoid collisions with command ids defined by other packages. -->
+  <Commands package="XamlStylerPackageGuid">
+    <!-- Menu Groups: Container used for other menus or buttons (menu contained between two lines). -->
+    <!-- Note: MenuGroups can point to multiple parents. -->
+    <Groups>
+      <Group guid="CommandSetGuid" id="MenuGroup" priority="0x0001">
+        <Parent guid="XamlEditorCommandSetGuid" id="XamlEditorContextMenuCommandId"/>
+      </Group>
+      <Group guid="CommandSetGuid" id="MenuGroup" priority="0x0001">
+        <Parent guid="XamarinEditorCommandSetGuid" id="XamarinEditorContextMenuCommandId"/>
+      </Group>
+    </Groups>
+
+    <!-- Buttons: Defines elements user can interact with. -->
+    <Buttons>
+      <Button guid="CommandSetGuid" id="FormatXamlCommandId" priority="0x0100" type="Button">
+        <Parent guid="CommandSetGuid" id="MenuGroup" />
+        <Icon guid="CommandIconGuid" id="CommandIcon1" />
+        <Strings>
+          <CommandName>FormatXamlCommandId</CommandName>
+          <ButtonText>Format XAML</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+
+    <!-- Bitmaps: Defines bitmaps used for commands. -->
+    <!-- Note: Element id must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
+    <Bitmaps>
+      <Bitmap guid="CommandIconGuid" href="Resources\CommandIcon.bmp" usedList="CommandIcon1"/>
+    </Bitmaps>
+  </Commands>
+ 
+  <!-- Keyboard Shortcuts -->
+  <KeyBindings>
+    <KeyBinding guid="CommandSetGuid" id="FormatXamlCommandId" editor="guidVSStd97" key1="K" mod1="Control" key2="2" mod2="Control" />
+  </KeyBindings>
+
+  <!--
+    Capturing GUID + Command ID Instructions
+      1) Add EnableVSIPLogging DWORD with value 1 to: HKEY_CURRENT_USER\SOFTWARE\Microsoft\VisualStudio\14.0\General
+      2) Hold Ctrl + Shift and interact with IDE
+      3) A message dialog will pop up. For example, the XAML Editor will show:
+          Guid = {4C87B692-1202-46AA-B64C-EF01FAEC53DA}
+          GuidID = 225
+          CmdID = 259
+          Type = 0x00000400
+          Flags = 0x00000000
+          NameLoc = XAML Editor
+      4) The GUID and the CmdID are necessary to create a symbol. The CmdID needs to be mapped to a hex value.
+      
+    Alternatively, install the Extensibility Tools from the Visual Studio Marketplace:
+    https://github.com/madskristensen/ExtensibilityTools
+  -->
+  <Symbols>
+    <GuidSymbol name="XamlStylerPackageGuid" value="{a224be3c-88d1-4a57-9804-181dbef68021}" />
+    
+    <!-- Package Command Set Group -->
+    <GuidSymbol name="CommandSetGuid" value="{83fc41d5-eacb-4fa8-aaa3-9a9bdd5f6407}">
+      <IDSymbol name="MenuGroup" value="0x1020" />
+      <IDSymbol name="FormatXamlCommandId" value="0x0100" />
+    </GuidSymbol>
+
+    <!-- XAML Editor Context Menu -->
+    <GuidSymbol name="XamlEditorCommandSetGuid" value="{4C87B692-1202-46AA-B64C-EF01FAEC53DA}">
+      <IDSymbol name="XamlEditorContextMenuCommandId" value="0x0103" />
+    </GuidSymbol>
+
+    <!-- Xamarin Editor Context Menu -->
+    <GuidSymbol name="XamarinEditorCommandSetGuid" value="{D309F791-903F-11D0-9EFC-00A0C911004F}">
+      <IDSymbol name="XamarinEditorContextMenuCommandId" value="0x040D" />
+    </GuidSymbol>
+
+    <!-- Command Icon GUID -->
+    <GuidSymbol name="CommandIconGuid" value="{c2b97881-5cae-4577-b91b-07bdfefcb2fd}" >
+      <IDSymbol name="CommandIcon1" value="1" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>

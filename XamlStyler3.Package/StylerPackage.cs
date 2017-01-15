@@ -5,65 +5,40 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Xavalon.XamlStyler.Core;
 using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.Package;
 
-namespace Xavalon.XamlStyler.Package
+namespace Xavalon.XamlStyler3.Package
 {
-    /// <summary>
-    /// This is the class that implements the package exposed by this assembly.
-    ///
-    /// The minimum requirement for a class to be considered a valid package for Visual Studio
-    /// is to implement the IVsPackage interface and register itself with the shell.
-    /// This package uses the helper classes defined inside the Managed Package Framework (MPF)
-    /// to do it: it derives from the Package class that provides the implementation of the
-    /// IVsPackage interface and uses the registration attributes defined in the framework to
-    /// register itself and its components with the shell.
-    /// </summary>
-    // This attribute tells the PkgDef creation utility (CreatePkgDef.exe) that this class is
-    // a package.
-    // This attribute is used to register the informations needed to show the this package
-    // in the Help/About dialog of Visual Studio.
-    // This attribute is needed to let the shell know that this package exposes some menus.
-    [ProvideLoadKey("Standard", "2.1", "XAML Styler", "Xavalon", 104)]
-    [PackageRegistration(UseManagedResourcesOnly = true)]
-    [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
+    [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
+    [InstalledProductRegistration("#1110", "#1112", "1.0", IconResourceID = 1400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [ProvideOptionPage(typeof(PackageOptions), "XAML Styler", "General", 101, 106, true)]
-    [ProvideProfile(typeof(PackageOptions), "XAML Styler", "XAML Styler Settings", 106, 107, true,
-        DescriptionResourceID = 108)]
-    [ProvideAutoLoad(UIContextGuids80.SolutionExists)]
     [Guid(Guids.XamlStylerPackageGuidString)]
-    public sealed class StylerPackage : Microsoft.VisualStudio.Shell.Package //, IDTExtensibility2
+    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
+    [ProvideService(typeof(StylerService), IsAsyncQueryable = true)]
+    [ProvideOptionPage(typeof(PackageOptions), "XAML Styler", "General", 101, 106, true)]
+    [ProvideProfile(typeof(PackageOptions), "XAML Styler", "XAML Styler Settings", 106, 107, true, DescriptionResourceID = 108)]
+    [ProvideAutoLoad(Guids.UIContextGuidString, PackageAutoLoadFlags.BackgroundLoad)]
+    [ProvideUIContextRule(Guids.UIContextGuidString, name: "XAML load", expression: "Dotxaml", termNames: new[] { "Dotxaml" }, termValues: new[] { "HierSingleSelectionName:.xaml$" })]
+    public sealed class StylerPackage : Microsoft.VisualStudio.Shell.Package
     {
         private DTE _dte;
         private Events _events;
         private CommandEvents _fileSaveAll;
         private CommandEvents _fileSaveSelectedItems;
         private IVsUIShell _uiShell;
-
-        /// <summary>
-        /// Default constructor of the package.
-        /// Inside this method you can place any initialization code that does not require
-        /// any Visual Studio service because at this point the package object is created but
-        /// not sited yet inside Visual Studio environment. The place to do all the other
-        /// initialization is the Initialize method.
-        /// </summary>
+        
         public StylerPackage()
         {
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", ToString()));
         }
-
-        #region Methods
-
-        /// <summary>
-        /// Initialization of the package; this method is called right after the package is sited, so this is the place
-        /// where you can put all the initialization code that rely on services provided by VisualStudio.
-        /// </summary>
+        
         protected override void Initialize()
         {
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", ToString()));
@@ -150,14 +125,14 @@ namespace Xavalon.XamlStyler.Package
             }
 
             Parallel.ForEach(docs, document =>
-                {
-                    var options = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
+            {
+                var options = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
 
-                    if (options.BeautifyOnSave)
-                    {
-                        Execute(document);
-                    }
+                if (options.BeautifyOnSave)
+                {
+                    Execute(document);
                 }
+            }
                 );
         }
 
@@ -295,7 +270,5 @@ namespace Xavalon.XamlStyler.Package
                 0, // false
                 out result);
         }
-
-        #endregion Methods
     }
 }

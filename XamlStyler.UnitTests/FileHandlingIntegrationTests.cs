@@ -22,7 +22,7 @@ namespace Xavalon.XamlStyler.UnitTests
             {
                 AttributeIndentation = attributeIndentation,
                 AttributesTolerance = 0,
-                MaxAttributeCharatersPerLine = 80,
+                MaxAttributeCharactersPerLine = 80,
                 MaxAttributesPerLine = 3,
                 PutEndingBracketOnNewLine = true
             };
@@ -49,7 +49,7 @@ namespace Xavalon.XamlStyler.UnitTests
                 config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 AttributesTolerance = 0,
-                MaxAttributeCharatersPerLine = 80,
+                MaxAttributeCharactersPerLine = 80,
                 MaxAttributesPerLine = 3,
                 PutEndingBracketOnNewLine = true
             };
@@ -172,6 +172,20 @@ namespace Xavalon.XamlStyler.UnitTests
             };
 
             this.DoTestCase(stylerOptions, $"{tabSize}_{(indentWithTabs ? "tabs" : "spaces")}");
+        }
+
+        [Test]
+        public void TestNestedCustomMarkupExtensionsWithBindings()
+        {
+            var stylerOptions = new StylerOptions(
+                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+            {
+                KeepFirstAttributeOnSameLine = false,
+                AttributesTolerance = 1,
+                NoNewLineMarkupExtensions = "x:Bind, Binding"
+            };
+
+            this.DoTest(stylerOptions);
         }
 
         [Test]
