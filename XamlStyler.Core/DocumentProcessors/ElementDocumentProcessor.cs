@@ -238,8 +238,8 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                         string pendingAppend = this.attributeInfoFormatter.ToSingleLineString(attributeInfo);
 
                         var isAttributeCharLengthExceeded = (attributeCountInCurrentLineBuffer > 0)
-                                                             && (this.options.MaxAttributeCharatersPerLine > 0)
-                                                             && ((currentLineBuffer.Length + pendingAppend.Length) > this.options.MaxAttributeCharatersPerLine);
+                                                             && (this.options.MaxAttributeCharactersPerLine > 0)
+                                                             && ((currentLineBuffer.Length + pendingAppend.Length) > this.options.MaxAttributeCharactersPerLine);
 
                         var isAttributeCountExceeded = (this.options.MaxAttributesPerLine > 0)
                                                         && ((attributeCountInCurrentLineBuffer + 1) > this.options.MaxAttributesPerLine);
