@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
 	<metadata>
 		<id>XamlStyler.Console</id>
-		<version>2.3.0.0</version>
+		<version>3.0.0.0</version>
 		<authors>Xavalon</authors>
 		<owners>Xavalon</owners>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
