@@ -63,11 +63,13 @@ namespace Xavalon.XamlStyler.Core.Options
 
         LineBreakRule RootElementLineBreakRule { get; set; }
 
-        VisualStateManagerRule ReorderVSM { get; set; }
+        bool ConvertVSMStoryboardsToSetters { get; set; }
 
         #endregion Element formatting
 
         #region Element reordering
+
+        VisualStateManagerRule ReorderVSM { get; set; }
 
         bool ReorderGridChildren { get; set; }
 

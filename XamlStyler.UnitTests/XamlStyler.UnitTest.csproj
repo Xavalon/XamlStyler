@@ -221,6 +221,12 @@
     <None Include="TestFiles\TestVisualStateManagerFirst.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestFiles\TestVisualStateManagerStoryboardConversion.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestVisualStateManagerStoryboardConversion.testxaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\TestVisualStateManagerLast.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

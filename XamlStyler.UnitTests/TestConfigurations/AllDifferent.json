@@ -17,6 +17,7 @@
     "RemoveEndingTagOfEmptyElement": false,
     "SpaceBeforeClosingSlash": false,
     "RootElementLineBreakRule": 1,
+    "ConvertVSMStoryboardsToSetters": true,
     "ReorderVSM": 1,
     "ReorderGridChildren": true,
     "ReorderCanvasChildren": true,

@@ -70,7 +70,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DocumentManipulation\DocumentManipulationService.cs" />
-    <Compile Include="DocumentManipulation\VSMReorderService.cs" />
+    <Compile Include="DocumentManipulation\VisualStateManager\StoryboardElements\DoubleAnimationElement.cs" />
+    <Compile Include="DocumentManipulation\VisualStateManager\StoryboardElements\NeutralStoryboardElement.cs" />
+    <Compile Include="DocumentManipulation\VisualStateManager\StoryboardElements\DoubleAnimationUsingKeyFramesElement.cs" />
+    <Compile Include="DocumentManipulation\VisualStateManager\StoryboardElements\StoryboardElement.cs" />
+    <Compile Include="DocumentManipulation\VisualStateManager\StoryboardElements\ObjectAnimationUsingKeyFramesElement.cs" />
+    <Compile Include="DocumentManipulation\VisualStateManager\StoryboardElements\StoryboardElementFactory.cs" />
+    <Compile Include="DocumentManipulation\VisualStateManager\VSMSetterConvertService.cs" />
+    <Compile Include="DocumentManipulation\VisualStateManager\VSMReorderService.cs" />
     <Compile Include="DocumentManipulation\AttributeRemovalService.cs" />
     <Compile Include="DocumentManipulation\AttributeSelector.cs" />
     <Compile Include="DocumentProcessors\CDATADocumentProcessor.cs" />
@@ -84,10 +91,12 @@
     <Compile Include="DocumentProcessors\IDocumentProcessor.cs" />
     <Compile Include="DocumentProcessors\WhitespaceDocumentProcessor.cs" />
     <Compile Include="DocumentProcessors\XmlDeclarationDocumentProcessor.cs" />
+    <Compile Include="Extensions\XAttributeExtensions.cs" />
+    <Compile Include="Extensions\XElementExtensions.cs" />
     <Compile Include="MarkupExtensions\Formatter\AttributeInfoFactory.cs" />
     <Compile Include="MarkupExtensions\Formatter\MarkupExtensionFormatterBase.cs" />
     <Compile Include="Extensions\XmlReaderExtensions.cs" />
-    <Compile Include="Extensions\StringExtension.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="MarkupExtensions\Formatter\AttributeInfoFormatter.cs" />
     <Compile Include="MarkupExtensions\Formatter\MarkupExtensionFormatter.cs" />
     <Compile Include="MarkupExtensions\Formatter\MultiLineMarkupExtensionFormatter.cs" />

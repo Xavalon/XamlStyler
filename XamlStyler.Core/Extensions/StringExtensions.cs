@@ -9,7 +9,7 @@ using Xavalon.XamlStyler.Core.DocumentManipulation;
 
 namespace Xavalon.XamlStyler.Core.Extensions
 {
-    public static class StringExtension
+    public static class StringExtensions
     {
         public static string ToXmlEncodedString(this string input, bool ignoreCarrier = false)
         {

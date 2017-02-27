@@ -379,6 +379,17 @@ namespace Xavalon.XamlStyler.UnitTests
         }
 
         [Test]
+        public void TestVisualStateManagerStoryboardConversion()
+        {
+            var stylerOptions = new StylerOptions()
+            {
+                ConvertVSMStoryboardsToSetters = true
+            };
+
+            this.DoTest(stylerOptions);
+        }
+
+        [Test]
         public void TestVisualStateManagerNone()
         {
             var stylerOptions = new StylerOptions(

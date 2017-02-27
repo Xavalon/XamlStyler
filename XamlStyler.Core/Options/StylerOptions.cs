@@ -147,7 +147,6 @@ namespace Xavalon.XamlStyler.Core.Options
             "*:*, *",
             "PageSource, PageIndex, Offset, Color, TargetName, Property, Value, StartPoint, EndPoint",
             "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText",
-            //Storyboards, fixes #30
             "Storyboard.*, From, To, Duration",
         })]
         [TypeConverter(typeof(StringArrayConverter))]
@@ -195,6 +194,13 @@ namespace Xavalon.XamlStyler.Core.Options
         [Description("Defines whether attributes of the document root element are broken into multiple lines.\r\n\r\nDefault Value: Default (use same rules as other elements)")]
         [DefaultValue(LineBreakRule.Default)]
         public LineBreakRule RootElementLineBreakRule { get; set; }
+
+        [Category("Element Formatting")]
+        [DisplayName("Convert visual state manager storyboards to setters")]
+        [JsonProperty("ConvertVSMStoryboardsToSetters", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("Defines whether storyboard elements should be converted into setters if possible.\r\n\r\nDefault Value: false")]
+        [DefaultValue(false)]
+        public bool ConvertVSMStoryboardsToSetters { get; set; }
 
         // Element reordering
         [Category("Element Reordering")]

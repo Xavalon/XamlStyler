@@ -11,7 +11,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
     {
         private List<NameSelector> ignoredNodeNames { get; } = new List<NameSelector>()
         {
-            new NameSelector("VisualStateManager.VisualStateGroups", null)
+            new NameSelector("VisualStateManager.VisualStateGroups")
         };
 
         public bool IsEnabled { get; set; } = true;

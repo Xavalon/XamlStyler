@@ -47,7 +47,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
             this.Name = name;
         }
 
-        public NameSelector(string name, string @namespace)
+        public NameSelector(string name, string @namespace = null)
         {
             this.Name = name;
             this.Namespace = @namespace;

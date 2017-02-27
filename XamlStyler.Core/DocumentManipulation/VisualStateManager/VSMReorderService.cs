@@ -10,7 +10,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 {
     public class VSMReorderService : IProcessElementService
     {
-        public readonly NameSelector VSMNode = new NameSelector("VisualStateManager.VisualStateGroups", null);
+        public readonly NameSelector VSMNode = new NameSelector("VisualStateManager.VisualStateGroups");
 
         public VisualStateManagerRule Mode { get; set; } = VisualStateManagerRule.None;
 
@@ -31,7 +31,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                 if (element.Parent != null)
                 {
                     // Reorder the parent of any element that contains a VSM.
-                    this.ReorderChildNodes(element.Parent);
+                    this.ProcessChildNodes(element.Parent);
                 }
             }
         }
@@ -40,7 +40,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
         /// Move VSM to last child of element.
         /// </summary>
         /// <param name="element">Element that is getting its VSM moved to the end.</param>
-        private void ReorderChildNodes(XElement element)
+        private void ProcessChildNodes(XElement element)
         {
             List<NodeCollection> nodeCollections = new List<NodeCollection>();
             List<NodeCollection> propertyElementCollection = new List<NodeCollection>();
