@@ -1,4 +1,4 @@
-// © Xavalon. All rights reserved.
+// Â© Xavalon. All rights reserved.
 
 using System;
 using System.Collections.Generic;
@@ -25,7 +25,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
         public ElementDocumentProcessor(
             IStylerOptions options,
             AttributeInfoFactory attributeInfoFactory,
-            AttributeInfoFormatter attributeInfoFormatter, 
+            AttributeInfoFormatter attributeInfoFormatter,
             IndentService indentService)
         {
             this.options = options;
@@ -83,23 +83,22 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             // Output the element itself.
             output.Append('<').Append(elementName);
 
-            bool isEmptyElement = xmlReader.IsEmptyElement;
+            var isEmptyElement = xmlReader.IsEmptyElement;
 
             if (xmlReader.HasAttributes)
             {
-                bool isNoLineBreakElement = this.IsNoLineBreakElement(elementName);
+                var isNoLineBreakElement = this.IsNoLineBreakElement(elementName);
                 this.ProcessAttributes(
-                    xmlReader, 
-                    output, 
+                    xmlReader,
+                    output,
                     elementProcessContext,
                     isNoLineBreakElement,
                     attributeIndetationString);
             }
 
             // Determine if to put ending bracket on new line.
-            bool putEndingBracketOnNewLine = (this.options.PutEndingBracketOnNewLine
-                && elementProcessContext.Current.IsMultlineStartTag);
-
+            var putEndingBracketOnNewLine = (this.options.PutEndingBracketOnNewLine &&
+                                             elementProcessContext.Current.IsMultlineStartTag);
             if (putEndingBracketOnNewLine)
             {
                 // Indent ending bracket just like an attribute.
@@ -125,24 +124,24 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
         }
 
         private void ProcessAttributes(
-            XmlReader xmlReader, 
-            StringBuilder output, 
-            ElementProcessContext elementProcessContext, 
-            bool isNoLineBreakElement, 
+            XmlReader xmlReader,
+            StringBuilder output,
+            ElementProcessContext elementProcessContext,
+            bool isNoLineBreakElement,
             string attributeIndentationString)
         {
-            var list = new List<AttributeInfo>(xmlReader.AttributeCount);
-            var firstLineList = new List<AttributeInfo>(xmlReader.AttributeCount);
+            var attributesInfo = new List<AttributeInfo>(xmlReader.AttributeCount);
+            var firstLineAttributes = new List<AttributeInfo>(xmlReader.AttributeCount);
 
             while (xmlReader.MoveToNextAttribute())
             {
                 var attributeInfo = this.attributeInfoFactory.Create(xmlReader);
-                list.Add(attributeInfo);
+                attributesInfo.Add(attributeInfo);
 
                 // Maintain separate list of first line attributes.  
                 if (this.options.EnableAttributeReordering && this.IsFirstLineAttribute(attributeInfo.Name))
                 {
-                    firstLineList.Add(attributeInfo);
+                    firstLineAttributes.Add(attributeInfo);
                 }
 
                 // Check for xml:space as defined in http://www.w3.org/TR/2008/REC-xml-20081126/#sec-white-space
@@ -154,11 +153,11 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 
             if (this.options.EnableAttributeReordering)
             {
-                list.Sort(this.AttributeInfoComparison);
-                firstLineList.Sort(this.AttributeInfoComparison);
+                attributesInfo.Sort(this.AttributeInfoComparison);
+                firstLineAttributes.Sort(this.AttributeInfoComparison);
             }
 
-            var noLineBreakInAttributes = (list.Count <= this.options.AttributesTolerance) || isNoLineBreakElement;
+            var noLineBreakInAttributes = (attributesInfo.Count <= this.options.AttributesTolerance) || isNoLineBreakElement;
             var forceLineBreakInAttributes = false;
 
             // Root element?
@@ -186,9 +185,9 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             // No need to break attributes.
             if (noLineBreakInAttributes)
             {
-                foreach (var attrInfo in list)
+                foreach (var attributInfo in attributesInfo)
                 {
-                    output.Append(' ').Append(this.attributeInfoFormatter.ToSingleLineString(attrInfo));
+                    output.Append(' ').Append(this.attributeInfoFormatter.ToSingleLineString(attributInfo));
                 }
 
                 elementProcessContext.Current.IsMultlineStartTag = false;
@@ -204,7 +203,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 
                 // Process first line attributes.  
                 string firstLine = String.Empty;
-                foreach (var attrInfo in firstLineList)
+                foreach (var attrInfo in firstLineAttributes)
                 {
                     firstLine = $"{firstLine} {this.attributeInfoFormatter.ToSingleLineString(attrInfo)}";
                 }
@@ -214,16 +213,16 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                     attributeLines.Add(firstLine);
                 }
 
-                foreach (AttributeInfo attrInfo in list)
+                foreach (AttributeInfo attributeInfo in attributesInfo)
                 {
                     // Skip attributes already added to first line.  
-                    if (firstLineList.Contains(attrInfo))
+                    if (firstLineAttributes.Contains(attributeInfo))
                     {
                         continue;
                     }
 
                     // Attributes with markup extension, always put on new line
-                    if (attrInfo.IsMarkupExtension && this.options.FormatMarkupExtension)
+                    if (attributeInfo.IsMarkupExtension && this.options.FormatMarkupExtension)
                     {
                         if (currentLineBuffer.Length > 0)
                         {
@@ -232,23 +231,22 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                             attributeCountInCurrentLineBuffer = 0;
                         }
 
-                        attributeLines.Add(
-                            this.attributeInfoFormatter.ToMultiLineString(attrInfo, attributeIndentationString));
+                        attributeLines.Add(this.attributeInfoFormatter.ToMultiLineString(attributeInfo, attributeIndentationString));
                     }
                     else
                     {
-                        string pendingAppend = this.attributeInfoFormatter.ToSingleLineString(attrInfo);
+                        string pendingAppend = this.attributeInfoFormatter.ToSingleLineString(attributeInfo);
 
-                        bool isAttributeCharLengthExceeded = (attributeCountInCurrentLineBuffer > 0)
-                            && (this.options.MaxAttributeCharactersPerLine > 0)
-                            && ((currentLineBuffer.Length + pendingAppend.Length) > this.options.MaxAttributeCharactersPerLine);
+                        var isAttributeCharLengthExceeded = (attributeCountInCurrentLineBuffer > 0)
+                                                             && (this.options.MaxAttributeCharactersPerLine > 0)
+                                                             && ((currentLineBuffer.Length + pendingAppend.Length) > this.options.MaxAttributeCharactersPerLine);
 
-                        bool isAttributeCountExceeded = (this.options.MaxAttributesPerLine > 0)
-                            && ((attributeCountInCurrentLineBuffer + 1) > this.options.MaxAttributesPerLine);
+                        var isAttributeCountExceeded = (this.options.MaxAttributesPerLine > 0)
+                                                        && ((attributeCountInCurrentLineBuffer + 1) > this.options.MaxAttributesPerLine);
 
-                        bool isAttributeRuleGroupChanged = this.options.PutAttributeOrderRuleGroupsOnSeparateLines
-                            && (lastAttributeInfo != null)
-                            && (lastAttributeInfo.OrderRule.Group != attrInfo.OrderRule.Group);
+                        var isAttributeRuleGroupChanged = this.options.PutAttributeOrderRuleGroupsOnSeparateLines
+                                                           && (lastAttributeInfo != null)
+                                                           && (lastAttributeInfo.OrderRule.Group != attributeInfo.OrderRule.Group);
 
                         if ((currentLineBuffer.Length > 0)
                             && (forceLineBreakInAttributes || isAttributeCharLengthExceeded || isAttributeCountExceeded || isAttributeRuleGroupChanged))
@@ -262,7 +260,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                         attributeCountInCurrentLineBuffer++;
                     }
 
-                    lastAttributeInfo = attrInfo;
+                    lastAttributeInfo = attributeInfo;
                 }
 
                 if (currentLineBuffer.Length > 0)
@@ -273,14 +271,14 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 for (int i = 0; i < attributeLines.Count; i++)
                 {
                     // Put first attribute line on same line as element?
-                    if ((i == 0) && (this.options.KeepFirstAttributeOnSameLine || (firstLineList.Count > 0)))
+                    if ((i == 0) && (this.options.KeepFirstAttributeOnSameLine || (firstLineAttributes.Count > 0)))
                     {
                         output.Append(' ').Append(attributeLines[i].Trim());
                     }
                     else
                     {
                         output.Append(Environment.NewLine)
-                            .Append(this.indentService.Normalize(attributeIndentationString + attributeLines[i].Trim()));
+                              .Append(this.indentService.Normalize(attributeIndentationString + attributeLines[i].Trim()));
                     }
                 }
 
@@ -290,19 +288,26 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 
         private int AttributeInfoComparison(AttributeInfo x, AttributeInfo y)
         {
+            var result = 0;
+
             if (x.OrderRule.Group != y.OrderRule.Group)
             {
-                return x.OrderRule.Group.CompareTo(y.OrderRule.Group);
+                result = x.OrderRule.Group.CompareTo(y.OrderRule.Group);
             }
-
-            if (x.OrderRule.Priority != y.OrderRule.Priority)
+            else if (x.OrderRule.Priority != y.OrderRule.Priority)
             {
-                return x.OrderRule.Priority.CompareTo(y.OrderRule.Priority);
+                result = x.OrderRule.Priority.CompareTo(y.OrderRule.Priority);
+            }
+            else if (this.options.OrderAttributesByLenght)
+            {
+                result = x.ToString().Length.CompareTo(y.ToString().Length);
+            }
+            else if (this.options.OrderAttributesByName)
+            {
+                result = string.Compare(x.Name, y.Name, StringComparison.Ordinal);
             }
 
-            return this.options.OrderAttributesByName
-                ? String.Compare(x.Name, y.Name, StringComparison.Ordinal)
-                : 0;
+            return result;
         }
 
         private string GetAttributeIndetationString(XmlReader xmlReader)
@@ -325,8 +330,8 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
         }
 
         private bool IsFirstLineAttribute(string attributeName)
-        {  
-            return this.firstLineAttributes.Contains(attributeName);  
+        {
+            return this.firstLineAttributes.Contains(attributeName);
         }
 
         private bool IsNoLineBreakElement(string elementName)

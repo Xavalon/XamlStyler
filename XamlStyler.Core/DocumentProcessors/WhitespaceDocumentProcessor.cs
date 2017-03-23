@@ -24,9 +24,9 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 // since the intent of this whitespace node is to break line,
                 // and preserve the line feeds
                 output.Append(xmlReader.Value
-                    .Replace(" ", String.Empty)
-                    .Replace("\t", String.Empty)
-                    .Replace("\r", String.Empty)
+                    .Replace(" ", string.Empty)
+                    .Replace("\t", string.Empty)
+                    .Replace("\r", string.Empty)
                     .Replace("\n", Environment.NewLine));
             }
             else

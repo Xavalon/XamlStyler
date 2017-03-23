@@ -14,7 +14,7 @@ namespace Xavalon.XamlStyler.Core.Model
 
         public MarkupExtension MarkupExtension { get; }
 
-        public bool IsMarkupExtension => MarkupExtension != null;
+        public bool IsMarkupExtension => this.MarkupExtension != null;
 
         public AttributeInfo(string name, string value, AttributeOrderRule orderRule, MarkupExtension markupExtension)
         {
@@ -22,6 +22,11 @@ namespace Xavalon.XamlStyler.Core.Model
             this.Value = value;
             this.OrderRule = orderRule;
             this.MarkupExtension = markupExtension;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.Name}=\"{this.Value}\"";
         }
     }
 }

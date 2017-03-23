@@ -167,6 +167,13 @@ namespace Xavalon.XamlStyler.Core.Options
         [DefaultValue(true)]
         public bool OrderAttributesByName { get; set; }
 
+        [Category("Attribute Reordering")]
+        [DisplayName("Order attributes by lenght")]
+        [JsonProperty("OrderAttributesByLenght", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("Defines whether attributes should be ordered by lengh always.\r\n\r\nDefault Value: false")]
+        [DefaultValue(false)]
+        public bool OrderAttributesByLenght { get; set; }
+
         // Element formatting
         [Category("Element Formatting")]
         [DisplayName("Put ending brackets on new line")]
@@ -304,12 +311,16 @@ namespace Xavalon.XamlStyler.Core.Options
         [JsonIgnore]
         public string ConfigPath
         {
-            get { return this.configPath; }
+            get
+            {
+                return this.configPath;
+            }
+
             set
             {
                 this.configPath = value;
 
-                if(!String.IsNullOrEmpty(value))
+                if (!string.IsNullOrEmpty(value))
                 {
                     this.TryLoadExternalConfiguration();
                 }
@@ -382,7 +393,7 @@ namespace Xavalon.XamlStyler.Core.Options
                             {
                                 indentSize = -1;
                             }
-                            
+
 
                             // Cannot specify MissingMemberHandling for a single property, so relying on JSON default
                             // value to detect missing member, and setting default on detection.

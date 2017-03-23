@@ -82,14 +82,13 @@ namespace Xavalon.XamlStyler.Core
 
         private string Format(string xamlSource)
         {
-            StringBuilder output = new StringBuilder();
+            var output = new StringBuilder();
 
             using (var sourceReader = new StringReader(xamlSource))
             {
-                using (XmlReader xmlReader = XmlReader.Create(sourceReader))
+                using (var xmlReader = XmlReader.Create(sourceReader))
                 {
                     var elementProcessContext = new ElementProcessContext();
-
                     while (xmlReader.Read())
                     {
                         IDocumentProcessor processor;

@@ -28,25 +28,24 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
         ///                          key1=value1,
         ///                          key2=value2}"
         /// </summary>
-        /// <param name="attrInfo"></param>
+        /// <param name="attributeInfo"></param>
         /// <param name="baseIndentationString"></param>
         /// <returns></returns>
-        public string ToMultiLineString(AttributeInfo attrInfo, string baseIndentationString)
+        public string ToMultiLineString(AttributeInfo attributeInfo, string baseIndentationString)
         {
-            if (!attrInfo.IsMarkupExtension)
+            if (!attributeInfo.IsMarkupExtension)
             {
-                throw new ArgumentException(
-                    "AttributeInfo shall have a markup extension value.",
-                    MethodBase.GetCurrentMethod().GetParameters()[0].Name);
+                throw new ArgumentException("AttributeInfo shall have a markup extension value.",
+                                            MethodBase.GetCurrentMethod().GetParameters()[0].Name);
             }
 
-            if (attrInfo.IsMarkupExtension)
+            if (attributeInfo.IsMarkupExtension)
             {
-                string currentIndentationString = $"{baseIndentationString}{String.Empty.PadLeft(attrInfo.Name.Length + 2, ' ')}";
-                var lines = this.formatter.Format(attrInfo.MarkupExtension);
+                var currentIndentationString = $"{baseIndentationString}{string.Empty.PadLeft(attributeInfo.Name.Length + 2, ' ')}";
+                var lines = this.formatter.Format(attributeInfo.MarkupExtension);
 
                 var buffer = new StringBuilder();
-                buffer.AppendFormat("{0}=\"{1}", attrInfo.Name, lines.First());
+                buffer.AppendFormat("{0}=\"{1}", attributeInfo.Name, lines.First());
                 foreach (var line in lines.Skip(1))
                 {
                     buffer.AppendLine();
@@ -57,22 +56,22 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
                 return buffer.ToString();
             }
 
-            return $"{attrInfo.Name}=\"{attrInfo.Value}\"";
+            return $"{attributeInfo.Name}=\"{attributeInfo.Value}\"";
         }
 
         /// <summary>
         /// Single line value line in style as:
         /// attribute_name="attribute_value"
         /// </summary>
-        /// <param name="attrInfo"></param>
+        /// <param name="attributeInfo"></param>
         /// <returns></returns>
-        public string ToSingleLineString(AttributeInfo attrInfo)
+        public string ToSingleLineString(AttributeInfo attributeInfo)
         {
-            var valuePart = attrInfo.IsMarkupExtension
-                ? this.formatter.FormatSingleLine(attrInfo.MarkupExtension)
-                : attrInfo.Value.ToXmlEncodedString();
+            var valuePart = attributeInfo.IsMarkupExtension
+                ? this.formatter.FormatSingleLine(attributeInfo.MarkupExtension)
+                : attributeInfo.Value.ToXmlEncodedString();
 
-            return $"{attrInfo.Name}=\"{valuePart}\"";
+            return $"{attributeInfo.Name}=\"{valuePart}\"";
         }
     }
 }

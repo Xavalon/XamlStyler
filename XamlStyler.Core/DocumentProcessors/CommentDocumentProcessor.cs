@@ -26,14 +26,13 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
         {
             elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.Mixed);
 
-            string currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
-            string content = xmlReader.Value;
-
-            if ((output.Length > 0) && !output.IsNewLine())
+            if (output.Length > 0 && !output.IsNewLine())
             {
                 output.Append(Environment.NewLine);
             }
 
+            var currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
+            var content = xmlReader.Value;
             if (content.Contains("<") && content.Contains(">"))
             {
                 output.Append(currentIndentString);
@@ -42,7 +41,6 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 if (content.Contains("\n"))
                 {
                     output.Append(String.Join(Environment.NewLine, content.GetLines().Select(_ => _.TrimEnd(' '))));
-
                     if (content.TrimEnd(' ').EndsWith("\n"))
                     {
                         output.Append(currentIndentString);

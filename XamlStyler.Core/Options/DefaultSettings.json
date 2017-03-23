@@ -24,6 +24,7 @@
     ],
     "FirstLineAttributes": "",
     "OrderAttributesByName": true,
+    "OrderAttributesByLength": false,
     "PutEndingBracketOnNewLine": false,
     "RemoveEndingTagOfEmptyElement": true,
     "SpaceBeforeClosingSlash": true,
