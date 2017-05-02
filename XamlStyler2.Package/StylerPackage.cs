@@ -248,7 +248,7 @@ namespace Xavalon.XamlStyler.Package
                     .Where(x => string.Equals(x.Name, "FullPath"))
                     .Select(x => x.Value as string);
 
-                configPaths.Concat(filePathsInProject);
+                configPaths = configPaths.Concat(filePathsInProject);
 
                 var configPathEnumerator = configPaths.GetEnumerator();
                 while (configPathEnumerator.MoveNext())
