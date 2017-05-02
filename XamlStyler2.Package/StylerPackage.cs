@@ -250,12 +250,14 @@ namespace Xavalon.XamlStyler.Package
 
                 configPaths = configPaths.Concat(filePathsInProject);
 
-                var configPathEnumerator = configPaths.GetEnumerator();
-                while (configPathEnumerator.MoveNext())
+                using (var configPathEnumerator = configPaths.GetEnumerator())
                 {
-                    if (File.Exists(configPathEnumerator.Current))
+                    while (configPathEnumerator.MoveNext())
                     {
-                        return configPathEnumerator.Current;
+                        if (File.Exists(configPathEnumerator.Current))
+                        {
+                            return configPathEnumerator.Current;
+                        }
                     }
                 }
             }
