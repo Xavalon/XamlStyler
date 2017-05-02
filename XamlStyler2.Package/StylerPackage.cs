@@ -7,6 +7,7 @@ using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Xavalon.XamlStyler.Core;
@@ -229,21 +230,32 @@ namespace Xavalon.XamlStyler.Package
                     ? String.Empty
                     : Path.GetDirectoryName(_dte.Solution.FullName);
 
-                var projectFullName = _dte.ActiveDocument?.ProjectItem?.ContainingProject?.FullName;
+                var project = _dte.ActiveDocument?.ProjectItem?.ContainingProject;
+                var projectFullName = project?.FullName;
                 var projectDirectory = String.IsNullOrEmpty(projectFullName)
                     ? String.Empty
                     : Path.GetDirectoryName(projectFullName);
 
-                IEnumerator<string> configPaths
+                IEnumerable<string> configPaths
                     = (path.StartsWith(solutionRoot, StringComparison.InvariantCultureIgnoreCase))
-                        ? StylerPackage.GetConfigPathBetweenPaths(path, solutionRoot).GetEnumerator()
-                        : StylerPackage.GetConfigPathBetweenPaths(path, projectDirectory).GetEnumerator();
+                        ? StylerPackage.GetConfigPathBetweenPaths(path, solutionRoot)
+                        : StylerPackage.GetConfigPathBetweenPaths(path, projectDirectory);
 
-                while (configPaths.MoveNext())
+                // find the FullPath of "Settings.XamlStyler" ref in project
+                var filePathsInProject = project.ProjectItems.Cast<ProjectItem>()
+                    .Where(x => string.Equals(x.Name, "Settings.XamlStyler"))
+                    .SelectMany(x => x.Properties.Cast<Property>())
+                    .Where(x => string.Equals(x.Name, "FullPath"))
+                    .Select(x => x.Value as string);
+
+                configPaths.Concat(filePathsInProject);
+
+                var configPathEnumerator = configPaths.GetEnumerator();
+                while (configPathEnumerator.MoveNext())
                 {
-                    if (File.Exists(configPaths.Current))
+                    if (File.Exists(configPathEnumerator.Current))
                     {
-                        return configPaths.Current;
+                        return configPathEnumerator.Current;
                     }
                 }
             }
