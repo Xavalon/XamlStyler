@@ -242,13 +242,16 @@ namespace Xavalon.XamlStyler.Package
                         : StylerPackage.GetConfigPathBetweenPaths(path, projectDirectory);
 
                 // find the FullPath of "Settings.XamlStyler" ref in project
-                var filePathsInProject = project.ProjectItems.Cast<ProjectItem>()
+                var filePathsInProject = project?.ProjectItems.Cast<ProjectItem>()
                     .Where(x => string.Equals(x.Name, "Settings.XamlStyler"))
                     .SelectMany(x => x.Properties.Cast<Property>())
                     .Where(x => string.Equals(x.Name, "FullPath"))
                     .Select(x => x.Value as string);
 
-                configPaths = configPaths.Concat(filePathsInProject);
+                if (filePathsInProject != null)
+                {
+                    configPaths = configPaths.Concat(filePathsInProject);
+                }
 
                 using (var configPathEnumerator = configPaths.GetEnumerator())
                 {
