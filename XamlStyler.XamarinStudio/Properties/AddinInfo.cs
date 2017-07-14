@@ -5,7 +5,7 @@ using Mono.Addins.Description;
 [assembly:Addin (
     "XamlStyler",
     Namespace = "Xavalon",
-    Version = "1.0.3"
+    Version = "1.0.4"
 )]
 
 [assembly:AddinName ("XamlStyler")]
