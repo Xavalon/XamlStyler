@@ -13,6 +13,21 @@ namespace Xavalon.XamlStyler.UnitTests
     [TestFixture]
     public class FileHandlingIntegrationTests
     {
+
+        [Test]
+        public void TestAlignWithOpeningBracket()
+        {
+            var stylerOptions = new StylerOptions(
+                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+            {
+                RemoveDesignTimeReferences = true,
+                PutEndingBracketOnNewLine = true,
+                AlignWithOpeningBracket = true,
+            };
+
+            this.DoTest(stylerOptions);
+        }
+
         [TestCase(0)]
         [TestCase(4)]
         public void TestAttributeIndentationHandling(byte attributeIndentation)

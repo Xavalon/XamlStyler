@@ -103,7 +103,15 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             if (putEndingBracketOnNewLine)
             {
                 // Indent ending bracket just like an attribute.
-                output.Append(Environment.NewLine).Append(attributeIndetationString);
+                output.Append(Environment.NewLine);
+                if (this.options.AlignWithOpeningBracket)
+                {
+                    output.Append(currentIndentString);
+                }
+                else
+                {
+                    output.Append(attributeIndetationString);
+                }
             }
 
             if (isEmptyElement)

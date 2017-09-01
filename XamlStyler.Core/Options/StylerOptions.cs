@@ -175,6 +175,14 @@ namespace Xavalon.XamlStyler.Core.Options
         [DefaultValue(false)]
         public bool PutEndingBracketOnNewLine { get; set; }
 
+        // Element formatting
+        [Category("Element Formatting")]
+        [DisplayName("Align with opening bracket")]
+        [JsonProperty("AlignWithOpeningBracket", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("Defines whether to align ending brackets on a new line with the opening brackets of the element.\r\nOnly applies when \"Put ending brackets on new line\" is set to true.\r\n\r\nDefault Value: false")]
+        [DefaultValue(false)]
+        public bool AlignWithOpeningBracket { get; set; }
+
         [Category("Element Formatting")]
         [DisplayName("Remove ending tag of empty elements")]
         [JsonProperty("RemoveEndingTagOfEmptyElement", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]

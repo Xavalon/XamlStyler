@@ -56,6 +56,7 @@ namespace Xavalon.XamlStyler.Core.Options
         #region Element formatting
 
         bool PutEndingBracketOnNewLine { get; set; }
+        bool AlignWithOpeningBracket { get; set; }
 
         bool RemoveEndingTagOfEmptyElement { get; set; }
 
