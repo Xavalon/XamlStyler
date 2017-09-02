@@ -193,27 +193,15 @@ namespace Xavalon.XamlStyler.Package
             StylerService styler = new StylerService(stylerOptions);
 
             var textDocument = (TextDocument)document.Object("TextDocument");
-
-            TextPoint currentPoint = textDocument.Selection.ActivePoint;
-            int originalLine = currentPoint.Line;
-            int originalOffset = currentPoint.LineCharOffset;
-
+            
             EditPoint startPoint = textDocument.StartPoint.CreateEditPoint();
             EditPoint endPoint = textDocument.EndPoint.CreateEditPoint();
 
             string xamlSource = startPoint.GetText(endPoint);
             xamlSource = styler.StyleDocument(xamlSource);
 
-            startPoint.ReplaceText(endPoint, xamlSource, 0);
-
-            if (originalLine <= textDocument.EndPoint.Line)
-            {
-                textDocument.Selection.MoveToLineAndOffset(originalLine, originalOffset);
-            }
-            else
-            {
-                textDocument.Selection.GotoLine(textDocument.EndPoint.Line);
-            }
+            const int vsEPReplaceTextKeepMarkers = 1;
+            startPoint.ReplaceText(endPoint, xamlSource, vsEPReplaceTextKeepMarkers);
         }
 
         private string GetConfigPathForItem(string path)
