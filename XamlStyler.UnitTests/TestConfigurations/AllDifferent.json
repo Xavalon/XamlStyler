@@ -14,6 +14,7 @@
     "FirstLineAttributes": "x:Name",
     "OrderAttributesByName": false,
     "PutEndingBracketOnNewLine": true,
+    "AlignWithOpeningBracket": true,
     "RemoveEndingTagOfEmptyElement": false,
     "SpaceBeforeClosingSlash": false,
     "RootElementLineBreakRule": 1,
