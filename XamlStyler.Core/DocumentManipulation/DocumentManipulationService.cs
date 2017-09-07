@@ -14,6 +14,8 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
         private readonly IStylerOptions options;
         private readonly List<IProcessElementService> processElementServices;
 
+        public bool AllowProcessing => !this.options.SuppressProcessing;
+
         public DocumentManipulationService(IStylerOptions options)
         {
             this.options = options;

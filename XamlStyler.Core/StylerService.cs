@@ -64,20 +64,27 @@ namespace Xavalon.XamlStyler.Core
         /// <returns></returns>
         public string StyleDocument(string xamlSource)
         {
-            // Escape all xml entity references to ensure that they are output exactly as given.
-            var escapedDocument = this.xmlEscapingService.EscapeDocument(xamlSource);
+            string xamlOutput = xamlSource;
 
-            // Parse XDocument.
-            var xDocument = XDocument.Parse(escapedDocument, LoadOptions.PreserveWhitespace);
+            if (this.documentManipulationService.AllowProcessing)
+            {
+                // Escape all xml entity references to ensure that they are output exactly as given.
+                var escapedDocument = this.xmlEscapingService.EscapeDocument(xamlSource);
 
-            // Manipulate the document tree.
-            var manipulatedDocument = this.documentManipulationService.ManipulateDocument(xDocument);
+                // Parse XDocument.
+                var xDocument = XDocument.Parse(escapedDocument, LoadOptions.PreserveWhitespace);
 
-            // Format it to a string.
-            var format = this.Format(manipulatedDocument);
+                // Manipulate the document tree.
+                var manipulatedDocument = this.documentManipulationService.ManipulateDocument(xDocument);
 
-            // Restore escaped xml entity references.
-            return this.xmlEscapingService.UnescapeDocument(format);
+                // Format it to a string.
+                var format = this.Format(manipulatedDocument);
+
+                // Restore escaped xml entity references.
+                xamlOutput = this.xmlEscapingService.UnescapeDocument(format);
+            }
+
+            return xamlOutput;
         }
 
         private string Format(string xamlSource)
