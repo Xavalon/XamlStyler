@@ -16,6 +16,7 @@ using Xavalon.XamlStyler.Package;
 
 namespace Xavalon.XamlStyler3.Package
 {
+    [ProvideLoadKey("Standard", "2.1", "XAML Styler", "Xavalon", 104)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#1110", "#1112", "1.0", IconResourceID = 1400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
