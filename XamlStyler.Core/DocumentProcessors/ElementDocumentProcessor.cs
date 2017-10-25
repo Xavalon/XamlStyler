@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using Xavalon.XamlStyler.Core.Extensions;
@@ -21,6 +22,8 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
         private readonly IndentService indentService;
         private readonly IList<string> noNewLineElementsList;
         private readonly IList<string> firstLineAttributes;
+        private readonly string[] inlineCollections = { "TextBlock", "RichTextBlock", "Paragraph", "Span" };
+        private readonly string[] inlineTypes = { "Run", "Hyperlink", "Bold", "Italic", "Underline", "LineBreak", "Paragraph", "Span" };
 
         public ElementDocumentProcessor(
             IStylerOptions options,
@@ -57,8 +60,10 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             // Calculate how element should be indented
             if (!elementProcessContext.Current.IsPreservingSpace)
             {
-                // "Run" get special treatment to try to preserve spacing. Use xml:space='preserve' to make sure!
-                if (elementName.Equals("Run"))
+                // Preserve spacing if element is an inline type has a parent that supports inline types.
+                if ((elementProcessContext.Current.Parent.Name != null)
+                    && this.inlineCollections.Any(elementProcessContext.Current.Parent.Name.Contains)
+                    && this.inlineTypes.Any(elementName.Contains))
                 {
                     elementProcessContext.Current.Parent.IsSignificantWhiteSpace = true;
                     if ((output.Length == 0) || output.IsNewLine())
