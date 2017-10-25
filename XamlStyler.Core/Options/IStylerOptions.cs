@@ -107,6 +107,8 @@ namespace Xavalon.XamlStyler.Core.Options
 
         bool ResetToDefault { get; set; }
 
+        bool SuppressProcessing { get; set; }
+
         #endregion Configuration
     }
 }

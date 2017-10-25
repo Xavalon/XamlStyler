@@ -316,6 +316,12 @@ namespace Xavalon.XamlStyler.Core.Options
             }
         }
 
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [JsonProperty("SuppressProcessing", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [DefaultValue(false)]
+        [Browsable(false)]
+        public bool SuppressProcessing { get; set; }
+
         /// <summary>
         /// Creates a clone from the current instance.
         /// </summary>
