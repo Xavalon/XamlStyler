@@ -7,6 +7,7 @@ using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Xavalon.XamlStyler.Core;
@@ -217,16 +218,37 @@ namespace Xavalon.XamlStyler.Package
                     ? String.Empty
                     : Path.GetDirectoryName(_dte.Solution.FullName);
 
-                IEnumerator<string> configPaths
-                    = (path.StartsWith(solutionRoot, StringComparison.InvariantCultureIgnoreCase))
-                        ? StylerPackage.GetConfigPathInsideSolution(path, solutionRoot).GetEnumerator()
-                        : StylerPackage.GetConfigPathOutsideSolution(path).GetEnumerator();
+                var project = _dte.ActiveDocument?.ProjectItem?.ContainingProject;
+                var projectFullName = project?.FullName;
+                var projectDirectory = String.IsNullOrEmpty(projectFullName)
+                    ? String.Empty
+                    : Path.GetDirectoryName(projectFullName);
 
-                while (configPaths.MoveNext())
+                IEnumerable<string> configPaths
+                    = (path.StartsWith(solutionRoot, StringComparison.InvariantCultureIgnoreCase))
+                        ? StylerPackage.GetConfigPathBetweenPaths(path, solutionRoot)
+                        : StylerPackage.GetConfigPathBetweenPaths(path, projectDirectory);
+
+                // find the FullPath of "Settings.XamlStyler" ref in project
+                var filePathsInProject = project?.ProjectItems.Cast<ProjectItem>()
+                    .Where(x => string.Equals(x.Name, "Settings.XamlStyler"))
+                    .SelectMany(x => x.Properties.Cast<Property>())
+                    .Where(x => string.Equals(x.Name, "FullPath"))
+                    .Select(x => x.Value as string);
+
+                if (filePathsInProject != null)
                 {
-                    if (File.Exists(configPaths.Current))
+                    configPaths = configPaths.Concat(filePathsInProject);
+                }
+
+                using (var configPathEnumerator = configPaths.GetEnumerator())
+                {
+                    while (configPathEnumerator.MoveNext())
                     {
-                        return configPaths.Current;
+                        if (File.Exists(configPathEnumerator.Current))
+                        {
+                            return configPathEnumerator.Current;
+                        }
                     }
                 }
             }
@@ -239,7 +261,7 @@ namespace Xavalon.XamlStyler.Package
         }
 
         // Searches for configuration file up through solution root directory.
-        private static IEnumerable<string> GetConfigPathInsideSolution(string path, string root)
+        private static IEnumerable<string> GetConfigPathBetweenPaths(string path, string root)
         {
             string configDirectory = File.GetAttributes(path).HasFlag(FileAttributes.Directory)
                 ? path
@@ -250,20 +272,6 @@ namespace Xavalon.XamlStyler.Package
                 yield return Path.Combine(configDirectory, "Settings.XamlStyler");
                 configDirectory = Path.GetDirectoryName(configDirectory);
             }
-        }
-
-        // Searches for configuration file up through project root directory.
-        private static IEnumerable<string> GetConfigPathOutsideSolution(string path)
-        {
-            string configDirectory = File.GetAttributes(path).HasFlag(FileAttributes.Directory)
-                ? path
-                : Path.GetDirectoryName(path);
-
-            do
-            {
-                yield return Path.Combine(configDirectory, "Settings.XamlStyler");
-                configDirectory = Path.GetDirectoryName(configDirectory);
-            } while (Directory.GetFiles(configDirectory, "*.csproj").Length == 0);
         }
 
         /// <summary>
