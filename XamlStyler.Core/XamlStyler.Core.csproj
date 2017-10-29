@@ -84,6 +84,7 @@
     <Compile Include="DocumentProcessors\IDocumentProcessor.cs" />
     <Compile Include="DocumentProcessors\WhitespaceDocumentProcessor.cs" />
     <Compile Include="DocumentProcessors\XmlDeclarationDocumentProcessor.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="MarkupExtensions\Formatter\AttributeInfoFactory.cs" />
     <Compile Include="MarkupExtensions\Formatter\MarkupExtensionFormatterBase.cs" />
     <Compile Include="Extensions\XmlReaderExtensions.cs" />

@@ -159,8 +159,13 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 
             if (this.options.EnableAttributeReordering)
             {
-                list.Sort(this.AttributeInfoComparison);
-                firstLineList.Sort(this.AttributeInfoComparison);
+                // .NET performs insertion sort if collection partition size is fewer than 16 elements, but it uses
+                // Heapsort or Quicksort under different conditions. This can lead to an unstable sort and randomized
+                // attributbes while formatting. Even though insertion sort is less performant, XAML elements with more
+                // than 16 attributes are not common, so the effect of forcing insertion sort is negligable in all but
+                // the most extreme of cases. - https://msdn.microsoft.com/en-us/library/b0zbh7b6(v=vs.110).aspx
+                list.InsertionSort(this.AttributeInfoComparison);
+                firstLineList.InsertionSort(this.AttributeInfoComparison);
             }
 
             var noLineBreakInAttributes = (list.Count <= this.options.AttributesTolerance) || isNoLineBreakElement;
