@@ -1,0 +1,5 @@
+﻿<Window>
+  <Grid>
+    <Setter Property="Template" Value="{DynamicResource {ComponentResourceKey ResourceId=SubmenuItemTemplateKey, TypeInTargetAssembly={x:Type MenuItem}}}" />
+  </Grid>
+</Window>

@@ -13,7 +13,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
         {
         }
 
-        protected override IEnumerable<string> Format(Argument[] arguments)
+        protected override IEnumerable<string> FormatArguments(Argument[] arguments, bool isNested = false)
         {
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var argument in arguments)
@@ -23,7 +23,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
                     stringBuilder.Append(", ");
                 }
 
-                foreach (var line in this.Format(argument))
+                foreach (var line in this.FormatArgument(argument, isNested: true))
                 {
                     stringBuilder.Append(line);
                 }

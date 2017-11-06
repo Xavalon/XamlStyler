@@ -201,6 +201,12 @@ namespace Xavalon.XamlStyler.UnitTests
         }
 
         [Test]
+        public void TestSingleLineNestedMarkupExtensions()
+        {
+            this.DoTest(new StylerOptions());
+        }
+
+        [Test]
         public void TestMarkupWithAttributeNotOnFirstLine()
         {
             var stylerOptions = new StylerOptions(
