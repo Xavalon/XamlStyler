@@ -146,6 +146,12 @@
     <None Include="TestFiles\TestAttributeIndentationHandling_0.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestFiles\TestSingleLineNestedMarkupExtensions.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestSingleLineNestedMarkupExtensions.testxaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\TestSuppressedDefaultHandling.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

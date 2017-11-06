@@ -12,7 +12,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
         {
         }
 
-        protected override IEnumerable<string> Format(Argument[] arguments)
+        protected override IEnumerable<string> FormatArguments(Argument[] arguments, bool isNested = false)
         {
             var list = new List<string>();
             string deferred = null;
@@ -23,7 +23,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
                     deferred += ",";
                 }
 
-                foreach (var line in this.Format(argument))
+                foreach (var line in this.FormatArgument(argument, isNested: isNested))
                 {
                     if (deferred != null)
                     {

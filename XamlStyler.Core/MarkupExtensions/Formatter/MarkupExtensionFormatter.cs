@@ -25,13 +25,14 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
         /// Indention from previous element/attribute/tags must be applied separately
         /// </summary>
         /// <param name="markupExtension"></param>
+        /// /// <param name="isNested"></param>
         /// <returns></returns>
-        public IEnumerable<string> Format(MarkupExtension markupExtension)
+        public IEnumerable<string> Format(MarkupExtension markupExtension, bool isNested = false)
         {
-            var formatter = (this.singleLineTypes.Contains(markupExtension.TypeName))
+            var formatter = (isNested || this.singleLineTypes.Contains(markupExtension.TypeName))
                 ? this.singleLineFormatter
                 : this.multiLineFormatter;
-            return formatter.Format(markupExtension);
+            return formatter.FormatArguments(markupExtension, isNested: isNested);
         }
 
         /// <summary>
@@ -41,7 +42,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
         /// <returns></returns>
         public string FormatSingleLine(MarkupExtension markupExtension)
         {
-            return this.singleLineFormatter.Format(markupExtension).Single();
+            return this.singleLineFormatter.FormatArguments(markupExtension).Single();
         }
     }
 }
