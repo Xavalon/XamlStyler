@@ -58,7 +58,7 @@ git pull [--rebase] upstream master
 6. Ensure that your changes pass all unit tests.
 7. Push your topic branch up to your fork:
 ```
-git push origin <topic-branch-name>
+git push origin <feature-branch-name>
 ```
 
 8. [Open a Pull Request](https://help.github.com/articles/using-pull-requests/) with a clear title and description against the master branch.
