@@ -1,13 +1,13 @@
 ﻿<Window x:Class="MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="WPF3D"
-        Width="534" Height="254">
+        Width="534" Height="254" >
   <Window.Resources>
-    <Style TargetType="TextBox">
+    <Style TargetType="TextBox" >
       <Setter Property="Text" Value="Default Text &amp;&lt;" />
       <Style.Triggers>
         <!--  Elements no line break between attributes: "Trigger"  -->
-        <Trigger Property="IsEnabled" Value="false">
+        <Trigger Property="IsEnabled" Value="false" >
           <Setter Property="Background" Value="#EEEEEE" />
         </Trigger>
 
@@ -34,7 +34,7 @@
     <DockPanel Grid.Row="0" Grid.RowSpan="1" Grid.Column="0"
                Grid.ColumnSpan="1"
                Width="Auto" Height="Auto" Margin="0,0,0,0"
-               HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+               HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
       <StackPanel>
         <StackPanel.Background>
           <LinearGradientBrush>
@@ -44,7 +44,7 @@
             <GradientStop Offset="1" Color="White" />
           </LinearGradientBrush>
         </StackPanel.Background>
-        <StackPanel Margin="10">
+        <StackPanel Margin="10" >
           <TextBlock Text="Camera X Position:" />
           <TextBox Name="cameraPositionXTextBox"
                    HorizontalAlignment="Left"
@@ -72,12 +72,12 @@
                    MaxLength="5" Text="-10" />
           <Separator />
 
-          <Button Name="simpleButton" Click="simpleButtonClick">Simple</Button>
-          <Button Name="cubeButton" Click="cubeButtonClick">Cube</Button>
+          <Button Name="simpleButton" Click="simpleButtonClick" >Simple</Button>
+          <Button Name="cubeButton" Click="cubeButtonClick" >Cube</Button>
         </StackPanel>
       </StackPanel>
       <!--#region This is a ViewPort-->
-      <Viewport3D Name="mainViewport" ClipToBounds="True">
+      <Viewport3D Name="mainViewport" ClipToBounds="True" >
         <Viewport3D.Camera>
           <PerspectiveCamera FarPlaneDistance="100" FieldOfView="70" LookDirection="-11,-10,-9"
                              NearPlaneDistance="1" Position="11,10,9" UpDirection="0,1,0" />

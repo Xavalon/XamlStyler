@@ -1,7 +1,7 @@
 ﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:sys="clr-namespace:System;assembly=mscorlib"
-      Title="Page Title">
+      Title="Page Title" >
   <Grid>
     <!--  Tolerant element, no break line in markup extension  -->
     <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Page}}, Path=Title, StringFormat={}{0}Now{{0}} - {0}}" />

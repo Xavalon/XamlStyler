@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="WPF3D"
         Width="534"
-        Height="254">
+        Height="254" >
   <![CDATA[An in-depth look at creating applications with XML, using <, >,]]>
   <Grid>
     <!--  Attribute Value With XML Character Entities, e.g., &#10;  -->
@@ -34,7 +34,7 @@
                Margin="0,0,0,0"
                Panel.ZIndex="1"
                HorizontalAlignment="Stretch"
-               VerticalAlignment="Stretch">
+               VerticalAlignment="Stretch" >
       <StackPanel>
         <StackPanel.Background>
           <LinearGradientBrush>
@@ -44,7 +44,7 @@
             <GradientStop Offset="1" Color="White" />
           </LinearGradientBrush>
         </StackPanel.Background>
-        <StackPanel Margin="10">
+        <StackPanel Margin="10" >
           <TextBlock Text="Camera X Position:" />
           <TextBox Name="cameraPositionXTextBox"
                    HorizontalAlignment="Left"
@@ -78,11 +78,11 @@
                    Text="-10" />
           <Separator />
 
-          <Button Name="simpleButton" Click="simpleButtonClick">Simple</Button>
-          <Button Name="cubeButton" Click="cubeButtonClick">Cube</Button>
+          <Button Name="simpleButton" Click="simpleButtonClick" >Simple</Button>
+          <Button Name="cubeButton" Click="cubeButtonClick" >Cube</Button>
         </StackPanel>
       </StackPanel>
-      <Viewport3D Name="mainViewport" ClipToBounds="True">
+      <Viewport3D Name="mainViewport" ClipToBounds="True" >
         <Viewport3D.Camera>
           <PerspectiveCamera FarPlaneDistance="100"
                              FieldOfView="70"

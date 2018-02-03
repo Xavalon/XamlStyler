@@ -12,28 +12,28 @@
              d:DataContext="{d:DesignInstance documentViewModels:DocumentViewModel}"
              d:DesignHeight="70"
              d:DesignWidth="1024"
-             mc:Ignorable="d">
+             mc:Ignorable="d" >
   <UserControl.Resources>
     <SolidColorBrush x:Key="DocumentForegroundBrush" Color="#333" />
     <SolidColorBrush x:Key="DocumentHoverBrush" Color="#F5F5F5" />
     <SolidColorBrush x:Key="DocumentBorderBrush" Color="#DDD" />
 
     <Style x:Key="EmptySetterStyle" TargetType="Border" />
-    <Style x:Key="SingleSetterStyle" TargetType="Border">
+    <Style x:Key="SingleSetterStyle" TargetType="Border" >
       <!--  Test: Verify that comments are kept  -->
       <Setter Property="BorderBrush" Value="{StaticResource DocumentBorderBrush}" />
       <!--  Test: Verify that comments are kept at bottom  -->
     </Style>
-    <Style x:Key="DocumentTableStyle" TargetType="Border">
+    <Style x:Key="DocumentTableStyle" TargetType="Border" >
       <Setter Property="BorderThickness" Value="0.5" />
       <Setter Property="BorderBrush" Value="{StaticResource DocumentBorderBrush}" />
     </Style>
     <!--  Test: Verify that custom nodes are not reordered despite containing setters  -->
-    <SomeCustomElement x:Key="DocumentTableStyle" TargetType="Border">
+    <SomeCustomElement x:Key="DocumentTableStyle" TargetType="Border" >
       <Setter Property="BorderThickness" Value="0.5" />
       <Setter Property="BorderBrush" Value="{StaticResource DocumentBorderBrush}" />
     </SomeCustomElement>
-    <Style x:Key="DocumentTableTextStyle" TargetType="FrameworkElement">
+    <Style x:Key="DocumentTableTextStyle" TargetType="FrameworkElement" >
       <!--  Test: Verify that comments are moved with VerticalAlignment element  -->
       <Setter Property="VerticalAlignment" Value="Center" />
       <Setter Property="TextBlock.Foreground" Value="{StaticResource DocumentForegroundBrush}" />
@@ -42,15 +42,15 @@
       <Setter Property="Margin" Value="8" />
       <!--  Test: Verify that comments are not moved from last position  -->
     </Style>
-    <Style x:Key="GridHooverStyle" TargetType="Grid">
+    <Style x:Key="GridHooverStyle" TargetType="Grid" >
       <Style.Triggers>
-        <Trigger Property="IsMouseOver" Value="True">
+        <Trigger Property="IsMouseOver" Value="True" >
           <Setter Property="Background" Value="{StaticResource DocumentHoverBrush}" />
           <Setter Property="Foreground" Value="{StaticResource DocumentForegroundHoverBrush}" />
         </Trigger>
       </Style.Triggers>
     </Style>
-    <Style x:Key="QuestionDisplayTextStyle" TargetType="TextBlock">
+    <Style x:Key="QuestionDisplayTextStyle" TargetType="TextBlock" >
       <Setter Property="FontFamily" Value="Helvetica Neue,Helvetica,Arial,sans-serif" />
       <Setter Property="FontSize" Value="14" />
       <Setter Property="Foreground" Value="{StaticResource QuestionnaireColorBrush}" />
@@ -60,7 +60,7 @@
       <Setter Property="VerticalAlignment" Value="Center" />
       <!--  Different styling when used from QuickSizing  -->
       <Style.Triggers>
-        <DataTrigger Binding="{Binding QuestionOwnerType}" Value="{x:Type sizingViewModels:QuickSizingViewModel}">
+        <DataTrigger Binding="{Binding QuestionOwnerType}" Value="{x:Type sizingViewModels:QuickSizingViewModel}" >
           <Setter Property="HorizontalAlignment" Value="Right" />
           <Setter Property="FontStyle" Value="Italic" />
           <Setter Property="TextAlignment" Value="Right" />
@@ -69,7 +69,7 @@
         <MultiDataTrigger>
           <MultiDataTrigger.Conditions>
             <Condition Binding="{Binding QuestionOwnerType}" Value="{x:Type sizingViewModels:QuickSizingViewModel}" />
-            <Condition Binding="{Binding SettingsViewModel.WindowSize, Source={StaticResource ViewModelLocator}}">
+            <Condition Binding="{Binding SettingsViewModel.WindowSize, Source={StaticResource ViewModelLocator}}" >
               <Condition.Value>
                 <enums:WindowSize>MediumSmall</enums:WindowSize>
               </Condition.Value>
@@ -79,7 +79,7 @@
           <Setter Property="TextAlignment" Value="Left" />
           <Setter Property="MaxWidth" Value="{x:Static sys:Double.PositiveInfinity}" />
         </MultiDataTrigger>
-        <DataTrigger Binding="{Binding SettingsViewModel.WindowSize, Source={StaticResource ViewModelLocator}}">
+        <DataTrigger Binding="{Binding SettingsViewModel.WindowSize, Source={StaticResource ViewModelLocator}}" >
           <DataTrigger.Value>
             <enums:WindowSize>Small</enums:WindowSize>
           </DataTrigger.Value>
@@ -89,7 +89,7 @@
         </DataTrigger>
       </Style.Triggers>
     </Style>
-    <Style TargetType="{x:Type TabControl}">
+    <Style TargetType="{x:Type TabControl}" >
       <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
       <Setter Property="Padding" Value="4,4,4,4" />
       <Setter Property="BorderThickness" Value="1" />
@@ -97,12 +97,12 @@
       <Setter Property="Background" Value="{StaticResource TabBackgroundBrush}" />
       <Setter Property="HorizontalContentAlignment" Value="Center" />
       <Setter Property="VerticalContentAlignment" Value="Center" />
-      <Setter Property="Template">
+      <Setter Property="Template" >
         <Setter.Value>
-          <ControlTemplate TargetType="{x:Type TabControl}">
+          <ControlTemplate TargetType="{x:Type TabControl}" >
             <Grid ClipToBounds="true"
                   KeyboardNavigation.TabNavigation="Local"
-                  SnapsToDevicePixels="true">
+                  SnapsToDevicePixels="true" >
               <Grid.ColumnDefinitions>
                 <ColumnDefinition x:Name="ColumnDefinition0" />
                 <ColumnDefinition x:Name="ColumnDefinition1" Width="0" />
@@ -127,7 +127,7 @@
                       BorderThickness="{TemplateBinding BorderThickness}"
                       KeyboardNavigation.DirectionalNavigation="Contained"
                       KeyboardNavigation.TabIndex="2"
-                      KeyboardNavigation.TabNavigation="Local">
+                      KeyboardNavigation.TabNavigation="Local" >
                 <ContentPresenter x:Name="PART_SelectedContentHost"
                                   Margin="{TemplateBinding Padding}"
                                   ContentSource="SelectedContent"
@@ -135,17 +135,17 @@
               </Border>
             </Grid>
             <ControlTemplate.Triggers>
-              <Trigger Property="TabStripPlacement" Value="Top">
+              <Trigger Property="TabStripPlacement" Value="Top" >
                 <!--<Setter Property="Height" TargetName="HeaderPanel" Value="38" />-->
               </Trigger>
-              <Trigger Property="TabStripPlacement" Value="Bottom">
+              <Trigger Property="TabStripPlacement" Value="Bottom" >
                 <Setter TargetName="ContentPanel" Property="Grid.Row" Value="0" />
                 <Setter TargetName="HeaderPanel" Property="Grid.Row" Value="1" />
                 <Setter TargetName="HeaderPanel" Property="Margin" Value="0,-1,0,0" />
                 <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
                 <Setter TargetName="RowDefinition1" Property="Height" Value="Auto" />
               </Trigger>
-              <Trigger Property="TabStripPlacement" Value="Left">
+              <Trigger Property="TabStripPlacement" Value="Left" >
                 <Setter TargetName="ColumnDefinition0" Property="Width" Value="Auto" />
                 <Setter TargetName="ColumnDefinition1" Property="Width" Value="*" />
                 <Setter TargetName="ContentPanel" Property="Grid.Row" Value="0" />
@@ -157,7 +157,7 @@
                 <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
                 <Setter TargetName="RowDefinition1" Property="Height" Value="0" />
               </Trigger>
-              <Trigger Property="TabStripPlacement" Value="Right">
+              <Trigger Property="TabStripPlacement" Value="Right" >
                 <Setter TargetName="ColumnDefinition0" Property="Width" Value="*" />
                 <Setter TargetName="ColumnDefinition1" Property="Width" Value="Auto" />
                 <Setter TargetName="ContentPanel" Property="Grid.Row" Value="0" />
@@ -168,7 +168,7 @@
                 <Setter TargetName="RowDefinition0" Property="Height" Value="*" />
                 <Setter TargetName="RowDefinition1" Property="Height" Value="0" />
               </Trigger>
-              <Trigger Property="IsEnabled" Value="false">
+              <Trigger Property="IsEnabled" Value="false" >
                 <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
               </Trigger>
             </ControlTemplate.Triggers>
@@ -176,18 +176,18 @@
         </Setter.Value>
       </Setter>
     </Style>
-    <Style TargetType="{x:Type TabItem}">
-      <Setter Property="Template">
+    <Style TargetType="{x:Type TabItem}" >
+      <Setter Property="Template" >
         <Setter.Value>
-          <ControlTemplate TargetType="{x:Type TabItem}">
+          <ControlTemplate TargetType="{x:Type TabItem}" >
             <Grid HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch"
-                  SnapsToDevicePixels="true">
+                  SnapsToDevicePixels="true" >
               <Border Name="Border"
                       Background="{StaticResource TabEnabledBackgroundBrush}"
                       BorderBrush="{StaticResource LightBorderBrush}"
                       BorderThickness="1"
-                      CornerRadius="0">
+                      CornerRadius="0" >
                 <ContentPresenter x:Name="ContentSite"
                                   Margin="15,10,15,10"
                                   HorizontalAlignment="Center"
@@ -197,20 +197,20 @@
               </Border>
             </Grid>
             <ControlTemplate.Triggers>
-              <Trigger Property="TabStripPlacement" Value="Top">
+              <Trigger Property="TabStripPlacement" Value="Top" >
                 <!--<Setter TargetName="ContentSite" Property="Height" Value="38" />-->
                 <Setter TargetName="Border" Property="Margin" Value="0,0,0,-1" />
               </Trigger>
-              <Trigger Property="TabStripPlacement" Value="Left">
+              <Trigger Property="TabStripPlacement" Value="Left" >
                 <Setter TargetName="Border" Property="Margin" Value="0,0,-1,0" />
                 <Setter TargetName="ContentSite" Property="Height" Value="95" />
                 <Setter TargetName="ContentSite" Property="Margin" Value="0" />
               </Trigger>
-              <Trigger Property="IsMouseOver" Value="True">
+              <Trigger Property="IsMouseOver" Value="True" >
                 <Setter Property="TextBlock.Foreground" Value="{StaticResource TabMouseOverForegroundBrush}" />
                 <Setter TargetName="Border" Property="Background" Value="{StaticResource TabMouseOverBackgroundBrush}" />
               </Trigger>
-              <Trigger Property="IsSelected" Value="True">
+              <Trigger Property="IsSelected" Value="True" >
                 <Setter Property="Panel.ZIndex" Value="1" />
                 <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
                 <Setter Property="TextBlock.FontWeight" Value="Bold" />
@@ -233,10 +233,10 @@
                 </MultiTrigger.Conditions>
                 <Setter TargetName="Border" Property="BorderThickness" Value="1,1,0,1" />
               </MultiTrigger>
-              <Trigger Property="IsEnabled" Value="True">
+              <Trigger Property="IsEnabled" Value="True" >
                 <Setter TargetName="Border" Property="Cursor" Value="Hand" />
               </Trigger>
-              <Trigger Property="IsEnabled" Value="False">
+              <Trigger Property="IsEnabled" Value="False" >
                 <Setter Property="TextBlock.Foreground" Value="{StaticResource TabDisabledForegroundBrush}" />
                 <Setter TargetName="Border" Property="Background" Value="{StaticResource TabDisabledBackgroundBrush}" />
               </Trigger>
@@ -246,7 +246,7 @@
       </Setter>
     </Style>
   </UserControl.Resources>
-  <Grid Style="{StaticResource GridHooverStyle}" ToolTip="{Binding Description}">
+  <Grid Style="{StaticResource GridHooverStyle}" ToolTip="{Binding Description}" >
     <i:Interaction.Behaviors>
       <behaviors:CommandBehavior Command="{Binding ToggleCheckBoxCommand}" />
       <behaviors:CommandBehavior Command="{Binding DataContext.RecalculateAllIsCheckedCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type documentViews:DocumentsView}}}" />
@@ -261,32 +261,32 @@
       <ColumnDefinition Width="Auto" SharedSizeGroup="LitDate" />
     </Grid.ColumnDefinitions>
 
-    <Border Grid.Column="0" Style="{StaticResource DocumentTableStyle}">
+    <Border Grid.Column="0" Style="{StaticResource DocumentTableStyle}" >
       <CheckBox Margin="10,0,0,0"
                 Command="{Binding DataContext.RecalculateAllIsCheckedCommand,
                                   RelativeSource={RelativeSource FindAncestor,
                                                                  AncestorType={x:Type documentViews:DocumentsView}}}"
                 IsChecked="{Binding IsChecked}" />
     </Border>
-    <Border Grid.Column="1" Style="{StaticResource DocumentTableStyle}">
+    <Border Grid.Column="1" Style="{StaticResource DocumentTableStyle}" >
       <TextBlock Margin="8"
                  HorizontalAlignment="Left"
-                 VerticalAlignment="Center">
-        <Hyperlink Command="{Binding DocumentClickCommand}" Style="{StaticResource HyperlinkStyle}">
+                 VerticalAlignment="Center" >
+        <Hyperlink Command="{Binding DocumentClickCommand}" Style="{StaticResource HyperlinkStyle}" >
           <TextBlock Text="{Binding Title}" />
         </Hyperlink>
       </TextBlock>
     </Border>
-    <Border Grid.Column="2" Style="{StaticResource DocumentTableStyle}">
+    <Border Grid.Column="2" Style="{StaticResource DocumentTableStyle}" >
       <TextBlock Style="{StaticResource DocumentTableTextStyle}" Text="{Binding PrefixedLanguageCode}" />
     </Border>
-    <Border Grid.Column="3" Style="{StaticResource DocumentTableStyle}">
+    <Border Grid.Column="3" Style="{StaticResource DocumentTableStyle}" >
       <TextBlock Style="{StaticResource DocumentTableTextStyle}" Text="{Binding TypeCode}" />
     </Border>
-    <Border Grid.Column="4" Style="{StaticResource DocumentTableStyle}">
+    <Border Grid.Column="4" Style="{StaticResource DocumentTableStyle}" >
       <TextBlock Style="{StaticResource DocumentTableTextStyle}" Text="{Binding DataContext.ProductType, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type documentViews:DocumentsView}}}" />
     </Border>
-    <Border Grid.Column="5" Style="{StaticResource DocumentTableStyle}">
+    <Border Grid.Column="5" Style="{StaticResource DocumentTableStyle}" >
       <TextBlock Style="{StaticResource DocumentTableTextStyle}" Text="{Binding PublishedDate}" />
     </Border>
   </Grid>
