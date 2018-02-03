@@ -9,7 +9,7 @@
       <Setter Property="Text" Value="Default Text &amp;&lt;" />
       <Style.Triggers>
         <!--  Elements no line break between attributes: "Trigger"  -->
-        <Trigger Property="IsEnabled" Value="false">
+        <Trigger Property="IsEnabled" Value="false" >
           <Setter Property="Background" Value="#EEEEEE" />
         </Trigger>
 

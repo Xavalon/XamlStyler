@@ -125,6 +125,11 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             }
             else
             {
+                if (this.options.SpaceBeforeClosingSlash && !putEndingBracketOnNewLine && xmlReader.HasAttributes)
+                {
+                    output.Append(' ');
+                }
+
                 output.Append(">");
             }
         }

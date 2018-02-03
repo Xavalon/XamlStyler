@@ -1,12 +1,12 @@
 ﻿<Window x:Class="MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
   <Window.Resources>
-    <Style TargetType="TextBox">
+    <Style TargetType="TextBox" >
       <Setter Property="Text" Value="Default Text &amp;&lt;" />
       <Style.Triggers>
         <!--  Elements no line break between attributes: "Trigger"  -->
-        <Trigger Property="IsEnabled" Value="false">
+        <Trigger Property="IsEnabled" Value="false" >
           <Setter Property="Background" Value="#EEEEEE" />
         </Trigger>
 
@@ -38,7 +38,7 @@
                Height="Auto"
                Margin="0,0,0,0"
                HorizontalAlignment="Stretch"
-               VerticalAlignment="Stretch">
+               VerticalAlignment="Stretch" >
       <StackPanel>
         <StackPanel.Background>
           <LinearGradientBrush>
@@ -48,7 +48,7 @@
             <GradientStop Offset="1" Color="White" />
           </LinearGradientBrush>
         </StackPanel.Background>
-        <StackPanel Margin="10">
+        <StackPanel Margin="10" >
           <TextBlock Text="Camera X Position:" />
           <TextBox Name="cameraPositionXTextBox" HorizontalAlignment="Left" />
           <TextBlock Text="Camera Y Position:" />
@@ -67,11 +67,11 @@
                    Text="-9" />
           <Separator />
 
-          <Button Name="simpleButton" Click="simpleButtonClick">Simple</Button>
-          <Button Name="cubeButton" Click="cubeButtonClick">Cube</Button>
+          <Button Name="simpleButton" Click="simpleButtonClick" >Simple</Button>
+          <Button Name="cubeButton" Click="cubeButtonClick" >Cube</Button>
         </StackPanel>
       </StackPanel>
-      <Viewport3D Name="mainViewport" ClipToBounds="True">
+      <Viewport3D Name="mainViewport" ClipToBounds="True" >
         <Viewport3D.Camera>
           <PerspectiveCamera FarPlaneDistance="100"
                              FieldOfView="70"

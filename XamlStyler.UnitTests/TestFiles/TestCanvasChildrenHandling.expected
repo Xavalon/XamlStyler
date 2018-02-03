@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="WPF3D"
         Width="534"
-        Height="254">
+        Height="254" >
 
   <Grid>
 

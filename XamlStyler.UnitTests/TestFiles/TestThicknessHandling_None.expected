@@ -6,12 +6,12 @@
         Title="{Binding Title}"
         Width="525"
         Height="350"
-        Padding="3,2 ">
+        Padding="3,2 " >
   <Window.Resources>
-    <Style TargetType="TextBox">
+    <Style TargetType="TextBox" >
       <Setter Property="Text" Value="Default Text &amp;&lt;" />
       <Style.Triggers>
-        <Trigger Property="IsEnabled" Value="false">
+        <Trigger Property="IsEnabled" Value="false" >
           <Setter Property="Margin" Value=" 2" />
           <Setter Property="Padding" Value=" 2,4 " />
         </Trigger>
@@ -26,7 +26,7 @@
              Height="Auto"
              Margin="0,0,0,0"
              HorizontalAlignment="Stretch"
-             VerticalAlignment="Stretch">
+             VerticalAlignment="Stretch" >
     <StackPanel>
       <TextBox Margin="1 2 3 4" />
     </StackPanel>

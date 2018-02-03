@@ -3,7 +3,7 @@
     a="a"
     b="{Binding Test,
                 Converter={StaticResource VisibilityConverter},
-                ConverterParameter=Inverse}">
+                ConverterParameter=Inverse}" >
     test here
   </SingleLineContent>
   <SingleLineNoContent
@@ -15,7 +15,7 @@
     a="a"
     b="{Binding Test,
                 Converter={StaticResource VisibilityConverter},
-                ConverterParameter=Inverse}">
+                ConverterParameter=Inverse}" >
     test here
   </MultiLineContent>
   <MultiLineNoContent
@@ -27,7 +27,7 @@
     a="a"
     b="{Binding Test,
                 Converter={StaticResource VisibilityConverter},
-                ConverterParameter=Inverse}">
+                ConverterParameter=Inverse}" >
     test here
   </MultiLineProperContent>
   <MultiLineProperNoContent

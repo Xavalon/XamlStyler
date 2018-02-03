@@ -5,7 +5,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="{Binding Title}"
         Width="525"
-        Height="350">
+        Height="350" >
   <DockPanel Grid.Row="0"
              Grid.RowSpan="1"
              Grid.Column="0"
@@ -14,7 +14,7 @@
              Height="Auto"
              Margin="0,0,0,0"
              HorizontalAlignment="Stretch"
-             VerticalAlignment="Stretch">
+             VerticalAlignment="Stretch" >
     <StackPanel>
       <!--  one liners  -->
       <TextBlock><Run>A</Run></TextBlock>
@@ -29,12 +29,12 @@
         <Run>C</Run> <Run>D</Run>
       </TextBlock>
       <!--  preserve with xml:space  -->
-      <TextBlock xml:space="preserve"><Run>A</Run></TextBlock>
-      <TextBlock xml:space="preserve"><Run>A</Run><Run>B</Run></TextBlock>
-      <TextBlock xml:space="preserve">
+      <TextBlock xml:space="preserve" ><Run>A</Run></TextBlock>
+      <TextBlock xml:space="preserve" ><Run>A</Run><Run>B</Run></TextBlock>
+      <TextBlock xml:space="preserve" >
     <Run>C</Run><Run>D</Run>
   </TextBlock>
-      <TextBlock xml:space="preserve">
+      <TextBlock xml:space="preserve" >
     <Run>E</Run> <Run>F</Run>
   </TextBlock>
       <!--  No significant whitespace  -->

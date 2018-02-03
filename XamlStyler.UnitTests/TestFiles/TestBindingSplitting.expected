@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow"
         Width="525"
-        Height="350">
+        Height="350" >
   <Grid>
     <TextBlock FontFamily="Arial"
                FontSize="18"

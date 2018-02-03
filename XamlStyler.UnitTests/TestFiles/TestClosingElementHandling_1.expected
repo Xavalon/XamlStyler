@@ -10,10 +10,10 @@
   <SingleAmp>&amp;</SingleAmp>
   <SingleLine>test here</SingleLine>
   <SingleLine>test here</SingleLine>
-  <SingleLine a="a" b="b">test here</SingleLine>
+  <SingleLine a="a" b="b" >test here</SingleLine>
   <SingleLineWithLinefeed a="a"
                           b="b"
-                          c="c">
+                          c="c" >
     line
   </SingleLineWithLinefeed>
   <SingleLineWithComment>
