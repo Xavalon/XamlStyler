@@ -465,9 +465,9 @@ namespace Xavalon.XamlStyler.UnitTests
         /// <summary>
         /// Style input document and verify output against expected
         /// </summary>
-        /// <param name="stylerOptions" ></param>
-        /// <param name="testFileBaseName" ></param>
-        /// <param name="expectedSuffix" ></param>
+        /// <param name="stylerOptions"></param>
+        /// <param name="testFileBaseName"></param>
+        /// <param name="expectedSuffix"></param>
         private static void DoTest(StylerOptions stylerOptions, string testFileBaseName, string expectedSuffix)
         {
             var stylerService = new StylerService(stylerOptions);
