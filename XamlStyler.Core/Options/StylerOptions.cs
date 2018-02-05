@@ -190,6 +190,13 @@ namespace Xavalon.XamlStyler.Core.Options
         public bool SpaceBeforeClosingSlash { get; set; }
 
         [Category("Element Formatting")]
+        [DisplayName("Space between last attribute and closing brace of single line element")]
+        [JsonProperty("SpaceBetweenLastAttributeAndClosingBrace", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("Defines whether there should be a space between the last attribute and the closing brace of a single line element.\r\n\r\nDefault Value: false")]
+        [DefaultValue(false)]
+        public bool SpaceBetweenLastAttributeAndClosingBrace { get; set; }
+
+        [Category("Element Formatting")]
         [DisplayName("Root element line breaks between attributes")]
         [JsonProperty("RootElementLineBreakRule", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [Description("Defines whether attributes of the document root element are broken into multiple lines.\r\n\r\nDefault Value: Default (use same rules as other elements)")]

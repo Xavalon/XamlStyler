@@ -125,6 +125,14 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             }
             else
             {
+                // add a space between the last attribute and close brace for single line elements
+                if (this.options.SpaceBetweenLastAttributeAndClosingBrace
+                    && !putEndingBracketOnNewLine
+                    && xmlReader.HasAttributes)
+                {
+                    output.Append(' ');
+                }
+
                 output.Append(">");
             }
         }

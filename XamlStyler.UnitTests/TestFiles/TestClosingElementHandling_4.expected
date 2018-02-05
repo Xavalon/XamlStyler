@@ -1,0 +1,36 @@
+﻿<Root>
+
+  <!--  START: Test for closing element handling  -->
+  <EmptyNode/>
+  <EmptyNode2/>
+  <SingleSpace/>
+  <SingleSpace2/>
+  <SingleTab/>
+  <SingleTab2/>
+  <SingleAmp>&amp;</SingleAmp>
+  <SingleLine>test here</SingleLine>
+  <SingleLine>test here</SingleLine>
+  <SingleLine a="a" b="b" >test here</SingleLine>
+  <SingleLineWithLinefeed a="a"
+                          b="b"
+                          c="c" >
+    line
+  </SingleLineWithLinefeed>
+  <SingleLineWithComment>
+    <!--  Comment  -->
+  </SingleLineWithComment>
+  <MultipleSpaces/>
+  <MultipleTabs/>
+  <MultiLine>
+    first line
+    second line
+  </MultiLine>
+  <MultiLineMixed>
+    first line
+    second line
+    <Child/>
+    third line
+  </MultiLineMixed>
+  <!--  END: Test for closing element handling  -->
+
+</Root>

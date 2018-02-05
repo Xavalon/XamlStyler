@@ -16,6 +16,7 @@
     "PutEndingBracketOnNewLine": true,
     "RemoveEndingTagOfEmptyElement": false,
     "SpaceBeforeClosingSlash": false,
+    "SpaceBetweenLastAttributeAndClosingBrace": true,
     "RootElementLineBreakRule": 1,
     "ReorderVSM": 1,
     "ReorderGridChildren": true,

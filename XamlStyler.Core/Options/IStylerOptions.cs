@@ -61,6 +61,8 @@ namespace Xavalon.XamlStyler.Core.Options
 
         bool SpaceBeforeClosingSlash { get; set; }
 
+        bool SpaceBetweenLastAttributeAndClosingBrace { get; set; }
+
         LineBreakRule RootElementLineBreakRule { get; set; }
 
         VisualStateManagerRule ReorderVSM { get; set; }

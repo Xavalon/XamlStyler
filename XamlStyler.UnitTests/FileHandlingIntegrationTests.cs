@@ -306,14 +306,20 @@ namespace Xavalon.XamlStyler.UnitTests
             this.DoTestCase(stylerOptions, reorderSettersBy);
         }
 
-        [TestCase(1, true)]
-        [TestCase(2, false)]
-        public void TestClosingElementHandling(int testNumber, bool spaceBeforeClosingSlash)
+        [TestCase(1, true, false)]
+        [TestCase(2, false, false)]
+        [TestCase(3, true, true)]
+        [TestCase(4, false, true)]
+        public void TestClosingElementHandling(
+            int testNumber,
+            bool spaceBeforeClosingSlash,
+            bool spaceBetweenAttributeAndClose)
         {
             var stylerOptions = new StylerOptions(
                 config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
-                SpaceBeforeClosingSlash = spaceBeforeClosingSlash
+                SpaceBeforeClosingSlash = spaceBeforeClosingSlash,
+                SpaceBetweenLastAttributeAndClosingBrace = spaceBetweenAttributeAndClose
             };
 
             this.DoTestCase(stylerOptions, testNumber);
@@ -459,9 +465,9 @@ namespace Xavalon.XamlStyler.UnitTests
         /// <summary>
         /// Style input document and verify output against expected
         /// </summary>
-        /// <param name="stylerOptions"></param>
-        /// <param name="testFileBaseName"></param>
-        /// <param name="expectedSuffix"></param>
+        /// <param name="stylerOptions" ></param>
+        /// <param name="testFileBaseName" ></param>
+        /// <param name="expectedSuffix" ></param>
         private static void DoTest(StylerOptions stylerOptions, string testFileBaseName, string expectedSuffix)
         {
             var stylerService = new StylerService(stylerOptions);
