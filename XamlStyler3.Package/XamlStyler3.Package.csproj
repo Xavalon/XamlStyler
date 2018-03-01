@@ -44,6 +44,8 @@
     <StartAction>Program</StartAction>
     <StartProgram>$(DevEnvDir)\devenv.exe</StartProgram>
     <StartArguments>/rootsuffix Exp</StartArguments>
+    <CreateVsixContainer>True</CreateVsixContainer>
+    <DeployExtension>True</DeployExtension>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -137,6 +139,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocumentExtensions.cs" />
     <Compile Include="Guids.cs" />
     <Compile Include="PackageOptions.cs">
       <SubType>Component</SubType>
