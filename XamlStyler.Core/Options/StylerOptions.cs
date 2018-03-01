@@ -264,6 +264,13 @@ namespace Xavalon.XamlStyler.Core.Options
         public bool BeautifyOnSave { get; set; }
 
         [Category("Misc")]
+        [DisplayName("Format XAML of opened documents only on save")]
+        [JsonProperty("FormatOpenedOnlyOnSave", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("Defines whether to automatically format opened XAML document while saving.\r\n\r\nDefault Value: false")]
+        [DefaultValue(true)]
+        public bool BeautifyOpenedOnlyOnSave { get; set; }
+
+        [Category("Misc")]
         [DisplayName("Comment padding")]
         [JsonProperty("CommentPadding", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [Description("Determines the number of spaces a XAML comment should be padded with.\r\n\r\nDefault Value: 2")]
@@ -309,7 +316,7 @@ namespace Xavalon.XamlStyler.Core.Options
             {
                 this.configPath = value;
 
-                if(!String.IsNullOrEmpty(value))
+                if (!String.IsNullOrEmpty(value))
                 {
                     this.TryLoadExternalConfiguration();
                 }
@@ -388,7 +395,7 @@ namespace Xavalon.XamlStyler.Core.Options
                             {
                                 indentSize = -1;
                             }
-                            
+
 
                             // Cannot specify MissingMemberHandling for a single property, so relying on JSON default
                             // value to detect missing member, and setting default on detection.
