@@ -97,8 +97,6 @@ namespace Xavalon.XamlStyler.Core.Options
 
         bool BeautifyOnSave { get; set; }
 
-        bool BeautifyOpenedOnlyOnSave { get; set; }
-
         int CommentSpaces { get; set; }
 
         #endregion Misc

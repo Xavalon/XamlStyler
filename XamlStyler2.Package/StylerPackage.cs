@@ -143,7 +143,7 @@ namespace Xavalon.XamlStyler.Package
             IStylerOptions options = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
             if (options.BeautifyOnSave)
             {
-                IEnumerable<Document> docs = GetFormatableDocuments().OpenedOnly(options.BeautifyOpenedOnlyOnSave);
+                IEnumerable<Document> docs = GetFormatableDocuments().OpenedDocumentsOnly();
 
                 Parallel.ForEach(docs, Execute);
             }

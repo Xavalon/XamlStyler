@@ -264,13 +264,6 @@ namespace Xavalon.XamlStyler.Core.Options
         public bool BeautifyOnSave { get; set; }
 
         [Category("Misc")]
-        [DisplayName("Format XAML of opened documents only on save")]
-        [JsonProperty("FormatOpenedOnlyOnSave", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines whether to automatically format opened XAML document while saving.\r\n\r\nDefault Value: false")]
-        [DefaultValue(true)]
-        public bool BeautifyOpenedOnlyOnSave { get; set; }
-
-        [Category("Misc")]
         [DisplayName("Comment padding")]
         [JsonProperty("CommentPadding", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [Description("Determines the number of spaces a XAML comment should be padded with.\r\n\r\nDefault Value: 2")]
