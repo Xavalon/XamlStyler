@@ -150,6 +150,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocumentExtensions.cs" />
     <Compile Include="Guids.cs" />
     <Compile Include="PackageOptions.cs">
       <SubType>Component</SubType>

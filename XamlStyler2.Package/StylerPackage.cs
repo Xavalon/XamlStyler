@@ -140,26 +140,20 @@ namespace Xavalon.XamlStyler.Package
         {
             // use parallel processing, but only on the documents that are formatable
             // (to avoid the overhead of Task creating when it's not necessary)
-
-            List<Document> docs = new List<Document>();
-            foreach (Document document in _dte.Documents)
+            IStylerOptions options = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
+            if (options.BeautifyOnSave)
             {
-                if (IsFormatableDocument(document))
-                {
-                    docs.Add(document);
-                }
+                IEnumerable<Document> docs = GetFormatableDocuments().OpenedDocumentsOnly();
+
+                Parallel.ForEach(docs, Execute);
             }
+        }
 
-            Parallel.ForEach(docs, document =>
-                {
-                    var options = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
-
-                    if (options.BeautifyOnSave)
-                    {
-                        Execute(document);
-                    }
-                }
-                );
+        private IEnumerable<Document> GetFormatableDocuments()
+        {
+            return _dte.Documents
+                       .Cast<Document>()
+                       .Where(IsFormatableDocument);
         }
 
         private void Execute(Document document)
@@ -194,7 +188,7 @@ namespace Xavalon.XamlStyler.Package
             StylerService styler = new StylerService(stylerOptions);
 
             var textDocument = (TextDocument)document.Object("TextDocument");
-            
+
             EditPoint startPoint = textDocument.StartPoint.CreateEditPoint();
             EditPoint endPoint = textDocument.EndPoint.CreateEditPoint();
 

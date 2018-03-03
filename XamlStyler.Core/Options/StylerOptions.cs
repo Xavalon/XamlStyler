@@ -309,7 +309,7 @@ namespace Xavalon.XamlStyler.Core.Options
             {
                 this.configPath = value;
 
-                if(!String.IsNullOrEmpty(value))
+                if (!String.IsNullOrEmpty(value))
                 {
                     this.TryLoadExternalConfiguration();
                 }
@@ -388,7 +388,7 @@ namespace Xavalon.XamlStyler.Core.Options
                             {
                                 indentSize = -1;
                             }
-                            
+
 
                             // Cannot specify MissingMemberHandling for a single property, so relying on JSON default
                             // value to detect missing member, and setting default on detection.
