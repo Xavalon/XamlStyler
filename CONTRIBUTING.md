@@ -1,7 +1,7 @@
 # Contributing
 Looking to contribute something? **Here's how you can help.**
 
-**Please ask first before embarking on any significant pull request** (e.g., implementing features, refactoring code, porting to a different language), otherwise you risk spending a lot of time working on something that the project's developers might not want to merge into the project.
+**Please ask first before embarking on any significant pull request** (e.g., implementing features, refactoring code, porting to a different language), otherwise you risk spending a lot of time working on something that the project's developers might not want to merge into the project. _Open_ bugs that are _tagged_ as **Type: Bug** and _open_ tasks that are _tagged_ as both **Type: Task** and **~approved** are good places to start.
 
 ## Found a Bug?
 A bug is a demonstrable problem that is caused by the code in the repository. If you find a bug, you can help us by submitting a bug report.
