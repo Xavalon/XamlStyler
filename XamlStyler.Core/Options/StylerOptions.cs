@@ -271,6 +271,15 @@ namespace Xavalon.XamlStyler.Core.Options
         public int CommentSpaces { get; set; }
 
         // Configuration
+
+        [Category("XAML Styler Configuration")]
+        [RefreshProperties(RefreshProperties.All)]
+        [DisplayName("Search to drives root")]
+        [Description("When set to true, XAML Styler will look for an external XAML Styler configuration file not only up through your solution directory, but up through the drives root of the current solution so you can share one configuration file through multiple solutions.\r\n\r\nDefault Value: true")]
+        [DefaultValue(true)]
+        [JsonIgnore]
+        public bool SearchToDrivesRoot { get; set; }
+
         private bool resetToDefault;
 
         [Category("XAML Styler Configuration")]
