@@ -125,6 +125,12 @@ namespace Xavalon.XamlStyler.Package
             List<Document> docs = new List<Document>();
             foreach (Document document in _dte.Documents)
             {
+                // exclude unopened document.
+                if (document.ActiveWindow == null)
+                {
+                    continue;
+                }
+
                 if (IsFormatableDocument(document))
                 {
                     docs.Add(document);
