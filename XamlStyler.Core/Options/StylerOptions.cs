@@ -91,8 +91,8 @@ namespace Xavalon.XamlStyler.Core.Options
         [Category("Attribute Formatting")]
         [DisplayName("Newline exemption elements")]
         [JsonProperty("NewlineExemptionElements", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines a list of elements whose attributes should not be broken across lines.\r\n\r\nDefault Value: RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Setter")]
-        [DefaultValue("RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransfom, SkewTransform, RotateTransform, TranslateTransform, Trigger, Condition, Setter")]
+        [Description("Defines a list of elements whose attributes should not be broken across lines.\r\n\r\nDefault Value: RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransform, SkewTransform, RotateTransform, TranslateTransform, Trigger, Setter")]
+        [DefaultValue("RadialGradientBrush, GradientStop, LinearGradientBrush, ScaleTransform, SkewTransform, RotateTransform, TranslateTransform, Trigger, Condition, Setter")]
         public string NoNewLineElements { get; set; }
 
         [Category("Attribute Formatting")]
