@@ -10,10 +10,12 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
 using Xavalon.XamlStyler.Core;
 using Xavalon.XamlStyler.Core.Options;
 using Xavalon.XamlStyler.Package;
+using Task = System.Threading.Tasks.Task;
 
 namespace Xavalon.XamlStyler3.Package
 {
@@ -28,7 +30,7 @@ namespace Xavalon.XamlStyler3.Package
     [ProvideProfile(typeof(PackageOptions), "XAML Styler", "XAML Styler Settings", 106, 107, true, DescriptionResourceID = 108)]
     [ProvideAutoLoad(Guids.UIContextGuidString, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideUIContextRule(Guids.UIContextGuidString, name: "XAML load", expression: "Dotxaml", termNames: new[] { "Dotxaml" }, termValues: new[] { "HierSingleSelectionName:.xaml$" })]
-    public sealed class StylerPackage : Microsoft.VisualStudio.Shell.Package
+    public sealed class StylerPackage : AsyncPackage
     {
         private DTE _dte;
         private Events _events;
@@ -40,20 +42,21 @@ namespace Xavalon.XamlStyler3.Package
         {
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", ToString()));
         }
-        
-        protected override void Initialize()
+
+        protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", ToString()));
             base.Initialize();
-
-            _dte = GetService(typeof(DTE)) as DTE;
+            
+            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+            _dte = await GetServiceAsync(typeof(DTE)) as DTE;
 
             if (_dte == null)
             {
                 throw new NullReferenceException("DTE is null");
             }
 
-            _uiShell = GetService(typeof(IVsUIShell)) as IVsUIShell;
+            _uiShell = await GetServiceAsync(typeof(IVsUIShell)) as IVsUIShell;
 
             // Initialize command events listeners
             _events = _dte.Events;
@@ -70,9 +73,7 @@ namespace Xavalon.XamlStyler3.Package
 
             //Initialize menu command
             // Add our command handlers for menu (commands must exist in the .vsct file)
-            var menuCommandService = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-
-            if (null != menuCommandService)
+            if (await GetServiceAsync(typeof(IMenuCommandService)) is OleMenuCommandService menuCommandService)
             {
                 // Create the command for the menu item.
                 var menuCommandId = new CommandID(Guids.CommandSetGuid, (int)PackageCommandIds.FormatXamlCommandId);
@@ -83,8 +84,7 @@ namespace Xavalon.XamlStyler3.Package
 
         private bool IsFormatableDocument(Document document)
         {
-            bool isFormatableDocument;
-            isFormatableDocument = !document.ReadOnly && document.Language == "XAML";
+            var isFormatableDocument = !document.ReadOnly && document.Language == "XAML";
 
             if (!isFormatableDocument)
             {
