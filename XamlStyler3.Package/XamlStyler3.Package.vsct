@@ -39,6 +39,7 @@
  
   <VisibilityConstraints>
     <VisibilityItem context="XamlEditorCommandSetGuid" guid="CommandSetGuid" id="FormatXamlCommandId"/>
+    <VisibilityItem context="XamarinEditorCommandSetGuid" guid="CommandSetGuid" id="FormatXamlCommandId"/>
   </VisibilityConstraints>
   <!-- Keyboard Shortcuts -->
   <KeyBindings>

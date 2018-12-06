@@ -1,4 +1,9 @@
-﻿3.0
+﻿3.2
+----
+- VS2019 support
+- Package gets loaded dynamically when opening a XAML file
+
+3.0
 ---
 VS2017 release
 
