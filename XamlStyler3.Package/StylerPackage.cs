@@ -45,10 +45,10 @@ namespace Xavalon.XamlStyler3.Package
 
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
+            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", ToString()));
             base.Initialize();
             
-            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             _dte = await GetServiceAsync(typeof(DTE)) as DTE;
 
             if (_dte == null)
