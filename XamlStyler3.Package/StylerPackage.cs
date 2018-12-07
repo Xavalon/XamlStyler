@@ -151,7 +151,7 @@ namespace Xavalon.XamlStyler3.Package
 
             var solutionPath = String.IsNullOrEmpty(_dte.Solution?.FullName)
                 ? String.Empty
-                : (stylerOptions.SearchToDrivesRoot ? Path.GetPathRoot(_dte.Solution.FullName) : Path.GetDirectoryName(_dte.Solution.FullName));
+                : (stylerOptions.SearchToDriveRoot ? Path.GetPathRoot(_dte.Solution.FullName) : Path.GetDirectoryName(_dte.Solution.FullName));
             var project = _dte.ActiveDocument?.ProjectItem?.ContainingProject;
 
             var configPath = GetConfigPathForItem(document.Path, solutionPath, project);
