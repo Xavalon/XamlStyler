@@ -10,10 +10,13 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Threading.Tasks;
+using Microsoft;
 using Xavalon.XamlStyler.Core;
 using Xavalon.XamlStyler.Core.Options;
 using Xavalon.XamlStyler.Package;
+using Task = System.Threading.Tasks.Task;
 
 namespace Xavalon.XamlStyler3.Package
 {
@@ -28,7 +31,7 @@ namespace Xavalon.XamlStyler3.Package
     [ProvideProfile(typeof(PackageOptions), "XAML Styler", "XAML Styler Settings", 106, 107, true, DescriptionResourceID = 108)]
     [ProvideAutoLoad(Guids.UIContextGuidString, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideUIContextRule(Guids.UIContextGuidString, name: "XAML load", expression: "Dotxaml", termNames: new[] { "Dotxaml" }, termValues: new[] { "HierSingleSelectionName:.xaml$" })]
-    public sealed class StylerPackage : Microsoft.VisualStudio.Shell.Package
+    public sealed class StylerPackage : AsyncPackage
     {
         private DTE _dte;
         private Events _events;
@@ -40,20 +43,23 @@ namespace Xavalon.XamlStyler3.Package
         {
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", ToString()));
         }
-        
-        protected override void Initialize()
+
+        protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
+            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", ToString()));
             base.Initialize();
 
-            _dte = GetService(typeof(DTE)) as DTE;
+            _dte = await GetServiceAsync(typeof(DTE)) as DTE;
+            Assumes.Present(_dte);
 
             if (_dte == null)
             {
                 throw new NullReferenceException("DTE is null");
             }
 
-            _uiShell = GetService(typeof(IVsUIShell)) as IVsUIShell;
+            _uiShell = await GetServiceAsync(typeof(IVsUIShell)) as IVsUIShell;
+            Assumes.Present(_uiShell);
 
             // Initialize command events listeners
             _events = _dte.Events;
@@ -70,9 +76,7 @@ namespace Xavalon.XamlStyler3.Package
 
             //Initialize menu command
             // Add our command handlers for menu (commands must exist in the .vsct file)
-            var menuCommandService = GetService(typeof(IMenuCommandService)) as OleMenuCommandService;
-
-            if (null != menuCommandService)
+            if (await GetServiceAsync(typeof(IMenuCommandService)) is OleMenuCommandService menuCommandService)
             {
                 // Create the command for the menu item.
                 var menuCommandId = new CommandID(Guids.CommandSetGuid, (int)PackageCommandIds.FormatXamlCommandId);
@@ -83,8 +87,8 @@ namespace Xavalon.XamlStyler3.Package
 
         private bool IsFormatableDocument(Document document)
         {
-            bool isFormatableDocument;
-            isFormatableDocument = !document.ReadOnly && document.Language == "XAML";
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var isFormatableDocument = !document.ReadOnly && document.Language == "XAML";
 
             if (!isFormatableDocument)
             {
@@ -98,6 +102,7 @@ namespace Xavalon.XamlStyler3.Package
         private void OnFileSaveSelectedItemsBeforeExecute(string guid, int id, object customIn, object customOut,
                                                           ref bool cancelDefault)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Document document = _dte.ActiveDocument;
 
             if (IsFormatableDocument(document))
@@ -116,7 +121,7 @@ namespace Xavalon.XamlStyler3.Package
         {
             // use parallel processing, but only on the documents that are formatable
             // (to avoid the overhead of Task creating when it's not necessary)
-
+            ThreadHelper.ThrowIfNotOnUIThread();
             List<Document> docs = new List<Document>();
             foreach (Document document in _dte.Documents)
             {
@@ -140,6 +145,7 @@ namespace Xavalon.XamlStyler3.Package
 
         private void Execute(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!IsFormatableDocument(document))
             {
                 return;
@@ -164,8 +170,7 @@ namespace Xavalon.XamlStyler3.Package
 
             if (stylerOptions.UseVisualStudioIndentSize)
             {
-                int outIndentSize;
-                if (Int32.TryParse(xamlEditorProps.Item("IndentSize").Value.ToString(), out outIndentSize)
+                if (Int32.TryParse(xamlEditorProps.Item("IndentSize").Value.ToString(), out int outIndentSize)
                     && (outIndentSize > 0))
                 {
                     stylerOptions.IndentSize = outIndentSize;
@@ -250,6 +255,7 @@ namespace Xavalon.XamlStyler3.Package
         /// </summary>
         private void MenuItemCallback(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             try
             {
                 _uiShell.SetWaitCursor();
@@ -263,7 +269,7 @@ namespace Xavalon.XamlStyler3.Package
             }
             catch (Exception ex)
             {
-                string title = string.Format("Error in {0}:", GetType().Name);
+                string title = $"Error in {GetType().Name}:";
                 string message = string.Format(
                     CultureInfo.CurrentCulture,
                     "{0}\r\n\r\nIf this deems a malfunctioning of styler, please kindly submit an issue at https://github.com/Xavalon/XamlStyler.",
@@ -275,6 +281,7 @@ namespace Xavalon.XamlStyler3.Package
 
         private void ShowMessageBox(string title, string message)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Guid clsid = Guid.Empty;
             int result;
 
