@@ -12,6 +12,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft;
 using Xavalon.XamlStyler.Core;
 using Xavalon.XamlStyler.Core.Options;
 using Xavalon.XamlStyler.Package;
@@ -45,11 +46,12 @@ namespace Xavalon.XamlStyler3.Package
 
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
+            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", ToString()));
             base.Initialize();
-            
-            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+
             _dte = await GetServiceAsync(typeof(DTE)) as DTE;
+            Assumes.Present(_dte);
 
             if (_dte == null)
             {
@@ -57,6 +59,7 @@ namespace Xavalon.XamlStyler3.Package
             }
 
             _uiShell = await GetServiceAsync(typeof(IVsUIShell)) as IVsUIShell;
+            Assumes.Present(_uiShell);
 
             // Initialize command events listeners
             _events = _dte.Events;
@@ -84,6 +87,7 @@ namespace Xavalon.XamlStyler3.Package
 
         private bool IsFormatableDocument(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             var isFormatableDocument = !document.ReadOnly && document.Language == "XAML";
 
             if (!isFormatableDocument)
@@ -98,6 +102,7 @@ namespace Xavalon.XamlStyler3.Package
         private void OnFileSaveSelectedItemsBeforeExecute(string guid, int id, object customIn, object customOut,
                                                           ref bool cancelDefault)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Document document = _dte.ActiveDocument;
 
             if (IsFormatableDocument(document))
@@ -116,7 +121,7 @@ namespace Xavalon.XamlStyler3.Package
         {
             // use parallel processing, but only on the documents that are formatable
             // (to avoid the overhead of Task creating when it's not necessary)
-
+            ThreadHelper.ThrowIfNotOnUIThread();
             List<Document> docs = new List<Document>();
             foreach (Document document in _dte.Documents)
             {
@@ -140,6 +145,7 @@ namespace Xavalon.XamlStyler3.Package
 
         private void Execute(Document document)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             if (!IsFormatableDocument(document))
             {
                 return;
@@ -164,8 +170,7 @@ namespace Xavalon.XamlStyler3.Package
 
             if (stylerOptions.UseVisualStudioIndentSize)
             {
-                int outIndentSize;
-                if (Int32.TryParse(xamlEditorProps.Item("IndentSize").Value.ToString(), out outIndentSize)
+                if (Int32.TryParse(xamlEditorProps.Item("IndentSize").Value.ToString(), out int outIndentSize)
                     && (outIndentSize > 0))
                 {
                     stylerOptions.IndentSize = outIndentSize;
@@ -250,6 +255,7 @@ namespace Xavalon.XamlStyler3.Package
         /// </summary>
         private void MenuItemCallback(object sender, EventArgs e)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             try
             {
                 _uiShell.SetWaitCursor();
@@ -263,7 +269,7 @@ namespace Xavalon.XamlStyler3.Package
             }
             catch (Exception ex)
             {
-                string title = string.Format("Error in {0}:", GetType().Name);
+                string title = $"Error in {GetType().Name}:";
                 string message = string.Format(
                     CultureInfo.CurrentCulture,
                     "{0}\r\n\r\nIf this deems a malfunctioning of styler, please kindly submit an issue at https://github.com/Xavalon/XamlStyler.",
@@ -275,6 +281,7 @@ namespace Xavalon.XamlStyler3.Package
 
         private void ShowMessageBox(string title, string message)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Guid clsid = Guid.Empty;
             int result;
 

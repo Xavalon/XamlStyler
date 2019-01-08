@@ -22,6 +22,7 @@
       <Button guid="CommandSetGuid" id="FormatXamlCommandId" priority="0x0100" type="Button">
         <Parent guid="CommandSetGuid" id="MenuGroup" />
         <Icon guid="CommandIconGuid" id="CommandIcon1" />
+        <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
           <CommandName>FormatXamlCommandId</CommandName>
           <ButtonText>Format XAML</ButtonText>
@@ -36,6 +37,10 @@
     </Bitmaps>
   </Commands>
  
+  <VisibilityConstraints>
+    <VisibilityItem context="XamlEditorCommandSetGuid" guid="CommandSetGuid" id="FormatXamlCommandId"/>
+    <VisibilityItem context="XamarinEditorCommandSetGuid" guid="CommandSetGuid" id="FormatXamlCommandId"/>
+  </VisibilityConstraints>
   <!-- Keyboard Shortcuts -->
   <KeyBindings>
     <KeyBinding guid="CommandSetGuid" id="FormatXamlCommandId" editor="guidVSStd97" key1="K" mod1="Control" key2="2" mod2="Control" />
