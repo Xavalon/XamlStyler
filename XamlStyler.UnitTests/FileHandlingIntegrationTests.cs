@@ -293,6 +293,12 @@ namespace Xavalon.XamlStyler.UnitTests
             this.DoTest(stylerOptions);
         }
 
+        [Test]
+        public void TestXmlnsAliasesHandling()
+        {
+            this.DoTest(this.GetLegacyStylerOptions());
+        }
+
         [TestCase(ReorderSettersBy.Property)]
         [TestCase(ReorderSettersBy.TargetName)]
         [TestCase(ReorderSettersBy.TargetNameThenProperty)]

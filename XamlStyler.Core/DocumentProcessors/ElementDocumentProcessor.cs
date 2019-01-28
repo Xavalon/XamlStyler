@@ -20,6 +20,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
         private readonly AttributeInfoFactory attributeInfoFactory;
         private readonly AttributeInfoFormatter attributeInfoFormatter;
         private readonly IndentService indentService;
+        private readonly XmlEscapingService xmlEscapingService;
         private readonly IList<string> noNewLineElementsList;
         private readonly IList<string> firstLineAttributes;
         private readonly string[] inlineCollections = { "TextBlock", "RichTextBlock", "Paragraph", "Span" };
@@ -29,12 +30,14 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             IStylerOptions options,
             AttributeInfoFactory attributeInfoFactory,
             AttributeInfoFormatter attributeInfoFormatter, 
-            IndentService indentService)
+            IndentService indentService,
+            XmlEscapingService xmlEscapingService)
         {
             this.options = options;
             this.attributeInfoFactory = attributeInfoFactory;
             this.attributeInfoFormatter = attributeInfoFormatter;
             this.indentService = indentService;
+            this.xmlEscapingService = xmlEscapingService;
             this.noNewLineElementsList = options.NoNewLineElements.ToList();
             this.firstLineAttributes = options.FirstLineAttributes.ToList();
         }
@@ -209,6 +212,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 var attributeLines = new List<string>();
                 var currentLineBuffer = new StringBuilder();
                 int attributeCountInCurrentLineBuffer = 0;
+                int xmlnsAliasesBypassLengthInCurrentLine = 0;
 
                 AttributeInfo lastAttributeInfo = null;
 
@@ -248,10 +252,12 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                     else
                     {
                         string pendingAppend = this.attributeInfoFormatter.ToSingleLineString(attrInfo);
+                        var actualPendingAppend = this.xmlEscapingService.RestoreXmlnsAliasesBypass(pendingAppend);
+                        xmlnsAliasesBypassLengthInCurrentLine += pendingAppend.Length - actualPendingAppend.Length;
 
                         bool isAttributeCharLengthExceeded = (attributeCountInCurrentLineBuffer > 0)
                             && (this.options.MaxAttributeCharactersPerLine > 0)
-                            && ((currentLineBuffer.Length + pendingAppend.Length) > this.options.MaxAttributeCharactersPerLine);
+                            && ((currentLineBuffer.Length + pendingAppend.Length - xmlnsAliasesBypassLengthInCurrentLine) > this.options.MaxAttributeCharactersPerLine);
 
                         bool isAttributeCountExceeded = (this.options.MaxAttributesPerLine > 0)
                             && ((attributeCountInCurrentLineBuffer + 1) > this.options.MaxAttributesPerLine);
@@ -266,10 +272,12 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                             attributeLines.Add(currentLineBuffer.ToString());
                             currentLineBuffer.Length = 0;
                             attributeCountInCurrentLineBuffer = 0;
+                            xmlnsAliasesBypassLengthInCurrentLine = 0;
                         }
 
                         currentLineBuffer.AppendFormat("{0} ", pendingAppend);
                         attributeCountInCurrentLineBuffer++;
+                        xmlnsAliasesBypassLengthInCurrentLine += pendingAppend.Length - actualPendingAppend.Length;
                     }
 
                     lastAttributeInfo = attrInfo;
