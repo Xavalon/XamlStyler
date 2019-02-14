@@ -14,7 +14,7 @@ Visual Studio 2015 (deprecated) - [Download](https://marketplace.visualstudio.co
 Standalone: [XamlStyler.Console-3.0.0.zip](https://github.com/Xavalon/XamlStyler/releases/download/3.0/XamlStyler.Console-3.0.0.zip)
 
 #### Thanks to our Contributors
-AndrewSt, Bart Lannoeye, IanSavchenko, jyardin, Kevin Dockx, Pedro Lamas, Philip Hoppe, RandomEngy, and Scott Lovegrove
+AndrewSt, Bart Lannoeye, IanSavchenko, jyardin, Kevin Dockx, Pedro Lamas, Philip Hoppe, RandomEngy, Scott Lovegrove, SokoFromNZ, adn Yoshihiro Ito
 
 [![Join the chat at https://gitter.im/Xavalon/XamlStyler](https://badges.gitter.im/Xavalon/XamlStyler.svg)](https://gitter.im/Xavalon/XamlStyler?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
 
