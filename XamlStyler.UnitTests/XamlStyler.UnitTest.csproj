@@ -254,6 +254,12 @@
     <None Include="TestFiles\TestWildcard.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestFiles\TestXmlnsAliasesHandling.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestXmlnsAliasesHandling.testxaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\TestXmlSpaceHandling.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

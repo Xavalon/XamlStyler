@@ -36,7 +36,7 @@ namespace Xavalon.XamlStyler.Core
             this.documentProcessors = new Dictionary<XmlNodeType, IDocumentProcessor>
             {
                 // { XmlNodeType.None, null },
-                { XmlNodeType.Element, new ElementDocumentProcessor(options, attributeInfoFactory, attributeInfoFormatter, indentService) },
+                { XmlNodeType.Element, new ElementDocumentProcessor(options, attributeInfoFactory, attributeInfoFormatter, indentService, xmlEscapingService) },
                 // { XmlNodeType.Attribute, null },
                 { XmlNodeType.Text, new TextDocumentProcessor(indentService) },
                 { XmlNodeType.CDATA, new CDATADocumentProcessor(indentService) },
