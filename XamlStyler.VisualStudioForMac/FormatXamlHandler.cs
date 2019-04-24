@@ -3,9 +3,9 @@ using MonoDevelop.Core;
 using MonoDevelop.Ide;
 using Xavalon.XamlStyler.Core;
 
-namespace Xavalon.XamlStyler.XamarinStudio
+namespace Xavalon.XamlStyler.VisualStudioForMac
 {
-	public class FormatXamlHandler : CommandHandler
+    public class FormatXamlHandler : CommandHandler
 	{
 		protected override void Run()
 		{
@@ -13,7 +13,7 @@ namespace Xavalon.XamlStyler.XamarinStudio
 			var styler = new StylerService(options);
 
 			var doc = IdeApp.Workbench.ActiveDocument;
-			var edit = doc.Editor;
+            var edit = doc.Editor;
 
 			if (edit != null)
 			{

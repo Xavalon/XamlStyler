@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Xavalon.XamlStyler.XamarinStudio.Gui
+namespace Xavalon.XamlStyler.VisualStudioForMac.Gui
 {
 	public class Option
 	{

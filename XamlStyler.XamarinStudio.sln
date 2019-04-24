@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.Core", "XamlStyler.Core\XamlStyler.Core.csproj", "{BD2A5B6F-0B1C-4B1D-90AF-707F62BB12C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.XamarinStudio", "XamlStyler.XamarinStudio\XamlStyler.XamarinStudio.csproj", "{D15B9402-3251-45C1-9FAB-5496450018C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.VisualStudioForMac", "XamlStyler.VisualStudioForMac\XamlStyler.VisualStudioForMac.csproj", "{D15B9402-3251-45C1-9FAB-5496450018C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace Xavalon.XamlStyler.XamarinStudio.Gui
+namespace Xavalon.XamlStyler.VisualStudioForMac.Gui
 {
 	[System.ComponentModel.ToolboxItem(true)]
 	public partial class OptionsWidget : Gtk.Bin

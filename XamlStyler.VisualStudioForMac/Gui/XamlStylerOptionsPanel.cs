@@ -1,6 +1,6 @@
 ﻿using MonoDevelop.Ide.Gui.Dialogs;
 
-namespace Xavalon.XamlStyler.XamarinStudio.Gui
+namespace Xavalon.XamlStyler.VisualStudioForMac.Gui
 {
 	public class XamlStylerOptionsPanel : OptionsPanel
 	{
