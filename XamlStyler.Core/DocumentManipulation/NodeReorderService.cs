@@ -9,30 +9,27 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 {
     public class NodeReorderService : IProcessElementService
     {
-        public bool IsEnabled { get; set; }
+        private List<NameSelector> ignoredNodeNames { get; } = new List<NameSelector>()
+        {
+            new NameSelector("VisualStateManager.VisualStateGroups", null)
+        };
+
+        public bool IsEnabled { get; set; } = true;
 
         /// <summary>
         /// Name of parents to reorder children for
         /// </summary>
-        public List<NameSelector> ParentNodeNames { get; }
+        public List<NameSelector> ParentNodeNames { get; } = new List<NameSelector>();
 
         /// <summary>
         /// Name of children to reorder
         /// </summary>
-        public List<NameSelector> ChildNodeNames { get; }
+        public List<NameSelector> ChildNodeNames { get; } = new List<NameSelector>();
 
         /// <summary>
         /// Description on how to sort children
         /// </summary>
-        public List<SortBy> SortByAttributes { get; }
-
-        public NodeReorderService()
-        {
-            this.IsEnabled = true;
-            this.ParentNodeNames = new List<NameSelector>();
-            this.ChildNodeNames = new List<NameSelector>();
-            this.SortByAttributes = new List<SortBy>();
-        }
+        public List<SortBy> SortByAttributes { get; } = new List<SortBy>();
 
         public void ProcessElement(XElement element)
         {
@@ -84,8 +81,10 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                 {
                     XElement childElement = (XElement)child;
 
-                    var isMatchingChild = this.ChildNodeNames.Any(_ => _.IsMatch(childElement.Name));
-                    if (isMatchingChild == false || inMatchingChildBlock == false)
+                    var isMatchingChild = this.ChildNodeNames.Any(_ => _.IsMatch(childElement.Name))
+                        && !this.ignoredNodeNames.Any(_ => _.IsMatch(childElement.Name));
+
+                    if (!isMatchingChild || !inMatchingChildBlock)
                     {
                         childBlockIndex++;
                         inMatchingChildBlock = isMatchingChild;

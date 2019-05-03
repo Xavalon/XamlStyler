@@ -41,7 +41,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
             if (element.Name == SetterName)
             {
                 var propertyAttribute = element.Attributes("Property").FirstOrDefault();
-                if ((propertyAttribute != null)
+                if ((propertyAttribute != null) && !propertyAttribute.Value.Contains(":")
                     && this.ThicknessAttributeNames.Any(_ => _.IsMatch(propertyAttribute.Value)))
                 {
                     var valueAttribute = element.Attributes("Value").FirstOrDefault();

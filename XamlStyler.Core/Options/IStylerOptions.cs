@@ -13,25 +13,31 @@ namespace Xavalon.XamlStyler.Core.Options
 
         int IndentSize { get; set; }
 
+        bool UseVisualStudioIndentSize { get; }
+
         bool IndentWithTabs { get; set; }
 
         #endregion Indentation
 
         #region Attribute formatting
 
-        byte AttributesTolerance { get; set; }
+        int AttributesTolerance { get; set; }
 
         bool KeepFirstAttributeOnSameLine { get; set; }
 
-        int MaxAttributeCharatersPerLine { get; set; }
+        string FirstLineAttributes { get; set; }
 
-        byte MaxAttributesPerLine { get; set; }
+        int MaxAttributeCharactersPerLine { get; set; }
+
+        int MaxAttributesPerLine { get; set; }
 
         string NoNewLineElements { get; set; }
 
         bool PutAttributeOrderRuleGroupsOnSeparateLines { get; set; }
 
-        byte AttributeIndentation { get; set; }
+        int AttributeIndentation { get; set; }
+
+        bool RemoveDesignTimeReferences { get; set; }
 
         AttributeIndentationStyle AttributeIndentationStyle { get; set; }
 
@@ -56,6 +62,8 @@ namespace Xavalon.XamlStyler.Core.Options
         bool SpaceBeforeClosingSlash { get; set; }
 
         LineBreakRule RootElementLineBreakRule { get; set; }
+
+        VisualStateManagerRule ReorderVSM { get; set; }
 
         #endregion Element formatting
 
@@ -89,8 +97,20 @@ namespace Xavalon.XamlStyler.Core.Options
 
         bool BeautifyOnSave { get; set; }
 
-        byte CommentSpaces { get; set; }
+        int CommentSpaces { get; set; }
 
         #endregion Misc
+
+        #region Configuration
+
+        string ConfigPath { get; set; }
+
+        bool SearchToDriveRoot { get; set; }
+
+        bool ResetToDefault { get; set; }
+
+        bool SuppressProcessing { get; set; }
+
+        #endregion Configuration
     }
 }

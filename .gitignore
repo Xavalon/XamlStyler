@@ -1,6 +1,7 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 [Bb]in/
 [Oo]bj/
+_output/
 
 # mstest test results
 TestResults
@@ -36,6 +37,9 @@ x64/
 *.vspscc
 *.vssscc
 .builds
+
+# Visual Studio 2015 cache/options directory
+.vs/
 
 # Visual C++ cache files
 ipch/
@@ -113,3 +117,8 @@ XamlStylerVSPackage.sln.DotSettings
 
 # Leftovers from merging
 *.orig
+
+# Misc
+*.config
+*.nupkg
+UpgradeLog.htm

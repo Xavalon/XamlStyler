@@ -9,27 +9,43 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
 {
     internal abstract class MarkupExtensionFormatterBase
     {
-        public IEnumerable<string> Format(MarkupExtension markupExtension)
+        protected readonly MarkupExtensionFormatter markupExtensionFormatter;
+
+        protected MarkupExtensionFormatterBase(MarkupExtensionFormatter markupExtensionFormatter)
+        {
+            this.markupExtensionFormatter = markupExtensionFormatter;
+        }
+
+        public IEnumerable<string> FormatArguments(MarkupExtension markupExtension, bool isNested = false)
         {
             return markupExtension.Arguments.Any()
-                ? this.Format($"{{{markupExtension.TypeName} ", this.Format(markupExtension.Arguments), "}")
+                ? this.Format($"{{{markupExtension.TypeName} ", this.FormatArguments(markupExtension.Arguments, isNested: isNested), "}")
                 : new string[] { $"{{{markupExtension.TypeName}}}" };
         }
 
-        protected abstract IEnumerable<string> Format(Argument[] arguments);
+        protected abstract IEnumerable<string> FormatArguments(Argument[] arguments, bool isNested = false);
 
-        protected IEnumerable<string> Format(Argument argument)
+        protected IEnumerable<string> FormatArgument(Argument argument, bool isNested = false)
         {
             var type = argument.GetType();
 
             if (type == typeof(NamedArgument))
             {
-                return this.Format((NamedArgument)argument);
+                return this.FormatNamedArgument((NamedArgument)argument);
             }
 
             if (type == typeof(PositionalArgument))
             {
-                return this.Format((PositionalArgument)argument);
+                var positionalArgument = (PositionalArgument)argument;
+
+                if (positionalArgument.Value.GetType() == typeof(MarkupExtension))
+                {
+                    return this.markupExtensionFormatter.Format((MarkupExtension)positionalArgument.Value, isNested: isNested);
+                }
+                else
+                {
+                    return this.FormatPositionalArgument(positionalArgument);
+                }
             }
 
             throw new ArgumentException($"Unhandled type {type.FullName}", nameof(argument));
@@ -51,17 +67,17 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
             return list;
         }
 
-        private IEnumerable<string> Format(NamedArgument namedArgument)
+        private IEnumerable<string> FormatNamedArgument(NamedArgument namedArgument)
         {
-            return this.Format($"{namedArgument.Name}=", this.Format(namedArgument.Value));
+            return this.Format($"{namedArgument.Name}=", this.FormatValue(namedArgument.Value));
         }
 
-        private IEnumerable<string> Format(PositionalArgument positionalArgument)
+        private IEnumerable<string> FormatPositionalArgument(PositionalArgument positionalArgument)
         {
-            return this.Format(positionalArgument.Value);
+            return this.FormatValue(positionalArgument.Value);
         }
 
-        private IEnumerable<string> Format(LiteralValue literalValue)
+        private IEnumerable<string> FormatLiteralValue(LiteralValue literalValue)
         {
             return new[]
             {
@@ -69,18 +85,18 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
             };
         }
 
-        private IEnumerable<string> Format(Value value)
+        private IEnumerable<string> FormatValue(Value value)
         {
             var type = value.GetType();
 
             if (type == typeof(LiteralValue))
             {
-                return this.Format((LiteralValue)value);
+                return this.FormatLiteralValue((LiteralValue)value);
             }
 
             if (type == typeof(MarkupExtension))
             {
-                return this.Format((MarkupExtension)value);
+                return this.FormatArguments((MarkupExtension)value);
             }
 
             throw new ArgumentException($"Unhandled type {type.FullName}", nameof(value));

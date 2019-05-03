@@ -51,6 +51,20 @@
     <Run>I</Run> <Run>J</Run>
     <!-- Test2 -->
   </TextBlock>
+  <!-- Additional inline types -->
+  <TextBlock>
+    <Bold>Bold</Bold><Hyperlink>Hyperlink</Hyperlink><Italic>Italic</Italic><Run>Run</Run><Span>Span</Span><Underline>Underline</Underline><LineBreak /><LineBreak />
+  </TextBlock>
+  <!-- Span -->
+  <TextBlock>
+    <Span><Bold>Bold</Bold><Hyperlink>Hyperlink</Hyperlink><Italic>Italic</Italic><Run>Run</Run><Underline>Underline</Underline><LineBreak /><LineBreak /></Span>
+  </TextBlock>
+  <!-- RichTextBlock + Paragraph -->
+  <RichTextBlock>
+    <Paragraph>
+      <Bold>Bold</Bold><Hyperlink>Hyperlink</Hyperlink><Italic>Italic</Italic><Run>Run</Run><Span>Span</Span><Underline>Underline</Underline><LineBreak /><LineBreak />
+    </Paragraph>
+  </RichTextBlock>
 </StackPanel>
 </DockPanel>
 </Window>

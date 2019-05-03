@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using Xavalon.XamlStyler.Core.Extensions;
@@ -19,19 +20,26 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
         private readonly AttributeInfoFactory attributeInfoFactory;
         private readonly AttributeInfoFormatter attributeInfoFormatter;
         private readonly IndentService indentService;
+        private readonly XmlEscapingService xmlEscapingService;
         private readonly IList<string> noNewLineElementsList;
+        private readonly IList<string> firstLineAttributes;
+        private readonly string[] inlineCollections = { "TextBlock", "RichTextBlock", "Paragraph", "Span" };
+        private readonly string[] inlineTypes = { "Run", "Hyperlink", "Bold", "Italic", "Underline", "LineBreak", "Paragraph", "Span" };
 
         public ElementDocumentProcessor(
             IStylerOptions options,
             AttributeInfoFactory attributeInfoFactory,
             AttributeInfoFormatter attributeInfoFormatter, 
-            IndentService indentService)
+            IndentService indentService,
+            XmlEscapingService xmlEscapingService)
         {
             this.options = options;
             this.attributeInfoFactory = attributeInfoFactory;
             this.attributeInfoFormatter = attributeInfoFormatter;
             this.indentService = indentService;
+            this.xmlEscapingService = xmlEscapingService;
             this.noNewLineElementsList = options.NoNewLineElements.ToList();
+            this.firstLineAttributes = options.FirstLineAttributes.ToList();
         }
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
@@ -55,8 +63,10 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             // Calculate how element should be indented
             if (!elementProcessContext.Current.IsPreservingSpace)
             {
-                // "Run" get special treatment to try to preserve spacing. Use xml:space='preserve' to make sure!
-                if (elementName.Equals("Run"))
+                // Preserve spacing if element is an inline type has a parent that supports inline types.
+                if ((elementProcessContext.Current.Parent.Name != null)
+                    && this.inlineCollections.Any(elementProcessContext.Current.Parent.Name.Contains)
+                    && this.inlineTypes.Any(elementName.Contains))
                 {
                     elementProcessContext.Current.Parent.IsSignificantWhiteSpace = true;
                     if ((output.Length == 0) || output.IsNewLine())
@@ -130,9 +140,18 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             string attributeIndentationString)
         {
             var list = new List<AttributeInfo>(xmlReader.AttributeCount);
+            var firstLineList = new List<AttributeInfo>(xmlReader.AttributeCount);
+
             while (xmlReader.MoveToNextAttribute())
             {
-                list.Add(this.attributeInfoFactory.Create(xmlReader));
+                var attributeInfo = this.attributeInfoFactory.Create(xmlReader);
+                list.Add(attributeInfo);
+
+                // Maintain separate list of first line attributes.  
+                if (this.options.EnableAttributeReordering && this.IsFirstLineAttribute(attributeInfo.Name))
+                {
+                    firstLineList.Add(attributeInfo);
+                }
 
                 // Check for xml:space as defined in http://www.w3.org/TR/2008/REC-xml-20081126/#sec-white-space
                 if (xmlReader.IsXmlSpaceAttribute())
@@ -143,7 +162,13 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 
             if (this.options.EnableAttributeReordering)
             {
-                list.Sort(this.AttributeInfoComparison);
+                // .NET performs insertion sort if collection partition size is fewer than 16 elements, but it uses
+                // Heapsort or Quicksort under different conditions. This can lead to an unstable sort and randomized
+                // attributbes while formatting. Even though insertion sort is less performant, XAML elements with more
+                // than 16 attributes are not common, so the effect of forcing insertion sort is negligable in all but
+                // the most extreme of cases. - https://msdn.microsoft.com/en-us/library/b0zbh7b6(v=vs.110).aspx
+                list.InsertionSort(this.AttributeInfoComparison);
+                firstLineList.InsertionSort(this.AttributeInfoComparison);
             }
 
             var noLineBreakInAttributes = (list.Count <= this.options.AttributesTolerance) || isNoLineBreakElement;
@@ -187,10 +212,30 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 var attributeLines = new List<string>();
                 var currentLineBuffer = new StringBuilder();
                 int attributeCountInCurrentLineBuffer = 0;
+                int xmlnsAliasesBypassLengthInCurrentLine = 0;
 
                 AttributeInfo lastAttributeInfo = null;
+
+                // Process first line attributes.  
+                string firstLine = String.Empty;
+                foreach (var attrInfo in firstLineList)
+                {
+                    firstLine = $"{firstLine} {this.attributeInfoFormatter.ToSingleLineString(attrInfo)}";
+                }
+
+                if (firstLine.Length > 0)
+                {
+                    attributeLines.Add(firstLine);
+                }
+
                 foreach (AttributeInfo attrInfo in list)
                 {
+                    // Skip attributes already added to first line.  
+                    if (firstLineList.Contains(attrInfo))
+                    {
+                        continue;
+                    }
+
                     // Attributes with markup extension, always put on new line
                     if (attrInfo.IsMarkupExtension && this.options.FormatMarkupExtension)
                     {
@@ -207,10 +252,12 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                     else
                     {
                         string pendingAppend = this.attributeInfoFormatter.ToSingleLineString(attrInfo);
+                        var actualPendingAppend = this.xmlEscapingService.RestoreXmlnsAliasesBypass(pendingAppend);
+                        xmlnsAliasesBypassLengthInCurrentLine += pendingAppend.Length - actualPendingAppend.Length;
 
                         bool isAttributeCharLengthExceeded = (attributeCountInCurrentLineBuffer > 0)
-                            && (this.options.MaxAttributeCharatersPerLine > 0)
-                            && ((currentLineBuffer.Length + pendingAppend.Length) > this.options.MaxAttributeCharatersPerLine);
+                            && (this.options.MaxAttributeCharactersPerLine > 0)
+                            && ((currentLineBuffer.Length + pendingAppend.Length - xmlnsAliasesBypassLengthInCurrentLine) > this.options.MaxAttributeCharactersPerLine);
 
                         bool isAttributeCountExceeded = (this.options.MaxAttributesPerLine > 0)
                             && ((attributeCountInCurrentLineBuffer + 1) > this.options.MaxAttributesPerLine);
@@ -225,10 +272,12 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                             attributeLines.Add(currentLineBuffer.ToString());
                             currentLineBuffer.Length = 0;
                             attributeCountInCurrentLineBuffer = 0;
+                            xmlnsAliasesBypassLengthInCurrentLine = 0;
                         }
 
                         currentLineBuffer.AppendFormat("{0} ", pendingAppend);
                         attributeCountInCurrentLineBuffer++;
+                        xmlnsAliasesBypassLengthInCurrentLine += pendingAppend.Length - actualPendingAppend.Length;
                     }
 
                     lastAttributeInfo = attrInfo;
@@ -242,7 +291,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 for (int i = 0; i < attributeLines.Count; i++)
                 {
                     // Put first attribute line on same line as element?
-                    if ((i == 0) && this.options.KeepFirstAttributeOnSameLine)
+                    if ((i == 0) && (this.options.KeepFirstAttributeOnSameLine || (firstLineList.Count > 0)))
                     {
                         output.Append(' ').Append(attributeLines[i].Trim());
                     }
@@ -291,6 +340,11 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             {
                 return this.indentService.GetIndentString(xmlReader.Depth, this.options.AttributeIndentation);
             }
+        }
+
+        private bool IsFirstLineAttribute(string attributeName)
+        {  
+            return this.firstLineAttributes.Contains(attributeName);  
         }
 
         private bool IsNoLineBreakElement(string elementName)

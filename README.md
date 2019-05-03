@@ -1,89 +1,21 @@
-XamlStyler
-==========
-A fork of the original Xaml Styler plugin as found on http://xamlstyler.codeplex.com
-This fork has been created to continue development on the awesome XAML styler plugin created by Chris Chaochen. To support the efforts Chris has put into this project my fork will only support Visual Studio 2013 and higher. For Visual Studio 2012 support please install Chris his version.
+### XAML Styler
+XAML Styler is a visual studio extension that formats XAML source code based on a set of styling rules. This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.
 
-####Join the discussion####
+|[Documentation](https://github.com/Xavalon/XamlStyler/wiki)|[Script Integration](https://github.com/Xavalon/XamlStyler/wiki/Script-Integration)|[Changelog](https://github.com/Xavalon/XamlStyler/wiki/Changelog)|[Contributing](https://github.com/Xavalon/XamlStyler/blob/master/CONTRIBUTING.md)|
+|---|---|---|---|
+
+#### Visual Studio 2017 - [Download](https://marketplace.visualstudio.com/items?itemName=TeamXavalon.XAMLStyler)
+[![Build status](https://ci.appveyor.com/api/projects/status/vvxrkc95amh6v82n/branch/XamlStyler3?svg=true&passingText=VS2017%20-%20Build%20Passing&failingText=VS2017%20RC%20-%20Build%20Failing&pendingText=VS2017%20RC%20-%20Build%20Pending)](https://ci.appveyor.com/project/grochocki/xamlstyler-92wnc/branch/XamlStyler3)
+
+Visual Studio 2015 (deprecated) - [Download](https://marketplace.visualstudio.com/items?itemName=NicoVermeir.XAMLStyler)
+
+#### Console
+[![NuGet version](https://badge.fury.io/nu/XamlStyler.Console.svg)](https://badge.fury.io/nu/XamlStyler.Console)  
+Standalone: [XamlStyler.Console-3.0.0.zip](https://github.com/Xavalon/XamlStyler/releases/download/3.0/XamlStyler.Console-3.0.0.zip)
+
+#### Thanks to our Contributors
+AndrewSt, Bart Lannoeye, IanSavchenko, jyardin, Kevin Dockx, Pedro Lamas, Philip Hoppe, RandomEngy, Scott Lovegrove, SokoFromNZ, XiaotianNetlift, and Yoshihiro Ito
+
 [![Join the chat at https://gitter.im/Xavalon/XamlStyler](https://badges.gitter.im/Xavalon/XamlStyler.svg)](https://gitter.im/Xavalon/XamlStyler?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
 
-Features
-==========
-* Format/Beautify Xaml markup in one click. 
-
-<img src="http://i59.tinypic.com/fehok3.jpg" alt="beautify option" />
-
-* Sort attributes based on following rules:
-  * x:Class 
-  * XML Namespaces 
-    * WPF built-in namespaces 
-    *  User defined namespaces 
-  * Key, Name or Title attributes 
-    * x:Key 
-    * x:Name 
-    * Title 
-  * Grid or Canvas related attached layout attributes 
-    * Numeric layout attributes Width/MinWidth/MaxWidth 
-    * Height/MinHeight/MaxHeight 
-    * Margin 
-  * Alignment related attributes HorizontalAlignment/ContentHorizontalAlignment 
-    * VerticalAlignment/ContentVerticalAlignment 
-    * Panel.ZIndex 
-  * Other attributes 
-* Short attributes tolerance. 
-  * When an element contains 2 or less than 2 attributes, line break is not applied for * better readability. 
-* Special characters(e.g., &) are preserved. 
-* Respect "significant" whitespace situation. 
-  * No new linefeed will be added to <Run/>, if it is immediatly following *another element to prevent the rendering of unexpected space. 
-
-<table>
-<tbody>
-<tr>
-<th width="350">Significant Whitespace between &lt;Run/&gt;<br>
-</th>
-<th>&nbsp;</th>
-<th width="350">No Whitespace between &lt;Run/&gt;</th>
-</tr>
-<tr>
-<td><img src="http://xamlstyler.codeplex.com/download?DownloadId=156790" alt="" width="125" height="72"></td>
-<td>&nbsp;vs</td>
-<td><img src="http://xamlstyler.codeplex.com/download?DownloadId=156789" alt="" width="84" height="78"></td>
-</tr>
-<tr>
-<td>
-<div>
-<pre><span>&lt;</span><span>TextBlock</span><span>&gt;</span><br>  <span>&lt;</span><span>Run</span><span>&gt;</span>A<span>&lt;/</span><span>Run</span><span>&gt;</span><br>  <span>&lt;</span><span>Run</span><span>&gt;</span>B<span>&lt;/</span><span>Run</span><span>&gt;</span><br><span>&lt;/</span><span>TextBlock</span><span>&gt;</span><br></pre>
-</div>
-</td>
-<td>&nbsp;vs</td>
-<td>
-<div>
-<pre><span>&lt;</span><span>TextBlock</span><span>&gt;</span><br>  <span>&lt;</span><span>Run</span><span>&gt;</span>A<span>&lt;/</span><span>Run</span><span>&gt;</span><span>&lt;</span><span>Run</span><span>&gt;</span>B<span>&lt;/</span><span>Run</span><span>&gt;</span><br><span>&lt;/</span><span>TextBlock</span><span>&gt;</span><br></pre>
-</div>
-</td>
-</tr>
-</tbody>
-</table>
-
-* Indent Xaml markup based on "Tab Size/Indent Size/Indent Charater" settings available in "Option/Text Editor/XAML/Tabs" page. 
-
-<img src="http://i60.tinypic.com/106x5pi.jpg" alt="markup settings" />
-
-* XamlStyler specific options. 
-  * Define your own attribute ordering rules 
-  * Define your own attribute line break rules 
-  * Markup extension formatting 
-  * Automatically reformat Xaml file on saving 
-  
-<img src="http://i62.tinypic.com/11tbpqp.jpg" alt="xamlstyler options" /> 
-  
-* Import/Export XamlStyler settings. 
-
-<img src="http://i59.tinypic.com/o8doon.jpg" alt="export settings" />
-
-Thanks to our contributers!
-===========================
-* Bart Lannoeye
-* Kevin Dockx
-* Philip Hoppe
-* Pedro Lamas
-* RandomEngy
+<sub>This is a fork of the awesome plugin originally created by Chris Chaochen (http://xamlstyler.codeplex.com). To support the efforts Chris has put into this project, this fork will only officially support Visual Studio 2013 and later. For Visual Studio 2012 support please install Chris's version.<sub>

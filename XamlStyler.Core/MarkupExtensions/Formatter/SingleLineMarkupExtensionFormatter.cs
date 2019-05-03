@@ -8,7 +8,12 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
 {
     internal class SingleLineMarkupExtensionFormatter : MarkupExtensionFormatterBase
     {
-        protected override IEnumerable<string> Format(Argument[] arguments)
+        internal SingleLineMarkupExtensionFormatter(MarkupExtensionFormatter markupExtensionFormatter)
+            : base(markupExtensionFormatter)
+        {
+        }
+
+        protected override IEnumerable<string> FormatArguments(Argument[] arguments, bool isNested = false)
         {
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var argument in arguments)
@@ -18,7 +23,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
                     stringBuilder.Append(", ");
                 }
 
-                foreach (var line in this.Format(argument))
+                foreach (var line in this.FormatArgument(argument, isNested: true))
                 {
                     stringBuilder.Append(line);
                 }
