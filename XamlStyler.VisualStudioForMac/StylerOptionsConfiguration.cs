@@ -11,11 +11,10 @@ namespace Xavalon.XamlStyler.VisualStudioForMac
 		public static StylerOptions ReadFromUserProfile()
 		{
 			var filePath = GetOptionsFilePath().ToString();
-
-			try
-			{
-				var text = File.ReadAllText(filePath);
-				return JsonConvert.DeserializeObject<StylerOptions>(text);
+            try
+            {
+                var optionsJsonString = File.ReadAllText(filePath);
+				var stylerOptions = JsonConvert.DeserializeObject<StylerOptions>(optionsJsonString);
 			}
 			catch (FileNotFoundException)
 			{
@@ -23,8 +22,6 @@ namespace Xavalon.XamlStyler.VisualStudioForMac
 			catch (Exception ex)
 			{
 				LoggingService.LogError("Exception when saving user XamlStyler options", ex);
-
-				// delete file on any other exception (malformed etc.)
 				File.Delete(filePath);
 			}
 
@@ -32,7 +29,8 @@ namespace Xavalon.XamlStyler.VisualStudioForMac
 			var options = new StylerOptions()
 			{
 				IndentSize = 4,
-			};
+                KeepFirstAttributeOnSameLine = true
+            };
 
 			try
 			{

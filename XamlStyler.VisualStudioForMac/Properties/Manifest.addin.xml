@@ -10,20 +10,22 @@
 		<Addin id="::MonoDevelop.Ide" version="8.0.4" />
 		<Addin id="::MonoDevelop.SourceEditor2" version="8.0.4" />
 	</Dependencies>
-	<Extension path="/MonoDevelop/Ide/Commands/Edit">
-		<Command id="Xavalon.XamlStyler.VisualStudioForMac.FormatXaml" _label="Format Xaml" _description="Reformats the XAML document to be much more readable" defaultHandler="Xavalon.XamlStyler.VisualStudioForMac.FormatXamlHandler" shortcut="Ctrl|Shift|I" />
-	</Extension>
-	<Extension path="/MonoDevelop/Ide/Commands/Edit">
-		<Command id="Xavalon.XamlStyler.VisualStudioForMac.FormatXamlBatch" _label="Batch Format Xaml" _description="Reformats all XAML documents to be much more readable" defaultHandler="Xavalon.XamlStyler.VisualStudioForMac.FormatXamlBatchHandler" shortcut="Ctrl|Shift|I" />
-	</Extension>
-	<Extension path="/MonoDevelop/SourceEditor2/ContextMenu/Editor">
+    <Extension path="/MonoDevelop/Ide/MainMenu/Edit">
+        <CommandItem id="Xavalon.XamlStyler.VisualStudioForMac.FormatXaml" />
+    </Extension>
+    <Extension path="/MonoDevelop/SourceEditor2/ContextMenu/Editor">
         <CommandItem id="Xavalon.XamlStyler.VisualStudioForMac.FormatXaml" />
 	</Extension>
-	<Extension path="/MonoDevelop/Ide/ContextMenu/ProjectPad">
-		<Condition id="ItemType" value="Project|Solution">
-			<CommandItem id="Xavalon.XamlStyler.VisualStudioForMac.FormatXamlBatch" />
-		</Condition>
-	</Extension>
+    <Extension path="/MonoDevelop/Ide/ContextMenu/ProjectPad">
+        <Condition id="ItemType" value="Project|Solution">
+            <CommandItem id="Xavalon.XamlStyler.VisualStudioForMac.FormatXamlBatch" />
+        </Condition>
+    </Extension>
+    <Extension path="/MonoDevelop/Ide/Commands/Edit">
+        <Command id="Xavalon.XamlStyler.VisualStudioForMac.FormatXaml" _label="Format Xaml" _description="Reformats the XAML document to be much more readable" defaultHandler="Xavalon.XamlStyler.VisualStudioForMac.FormatXamlHandler" macShortcut="Meta|Shift|I" />
+        <Command id="Xavalon.XamlStyler.VisualStudioForMac.FormatXamlBatch" _label="Batch Format Xaml" _description="Reformats all XAML documents to be much more readable" defaultHandler="Xavalon.XamlStyler.VisualStudioForMac.FormatXamlBatchHandler" />
+    </Extension>
+	
 	<Extension path="/MonoDevelop/Ide/GlobalOptionsDialog/Other">
 		<Section
 			id="XamlStylerOptions"

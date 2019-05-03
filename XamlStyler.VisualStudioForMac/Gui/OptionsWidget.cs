@@ -188,4 +188,3 @@ namespace Xavalon.XamlStyler.VisualStudioForMac.Gui
 		}
 	}
 }
-
