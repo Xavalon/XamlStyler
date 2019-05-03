@@ -15,6 +15,7 @@ namespace Xavalon.XamlStyler.VisualStudioForMac
             {
                 var optionsJsonString = File.ReadAllText(filePath);
 				var stylerOptions = JsonConvert.DeserializeObject<StylerOptions>(optionsJsonString);
+                return stylerOptions;
 			}
 			catch (FileNotFoundException)
 			{
