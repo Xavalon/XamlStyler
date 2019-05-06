@@ -1,11 +1,11 @@
 ﻿using Mono.Addins;
 using Mono.Addins.Description;
 
-[assembly: Addin("XamlStyler", Namespace = "Xavalon", Version = "1.1.1")]
+[assembly: Addin("XAML Styler", Namespace = "Xavalon", Version = "1.1.2")]
 
-[assembly: AddinName("XamlStyler")]
+[assembly: AddinName("XAML Styler")]
 [assembly: AddinCategory("IDE extensions")]
-[assembly: AddinDescription("A Visual Studio for Mac port of the XamlStyler Visual Studio extension.\nReformat your XAML to be more readable, maintainable and beautiful)")]
+[assembly: AddinDescription("XAML Styler is a visual studio extension that formats XAML source code based on a set of styling rules. This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.")]
 [assembly: AddinAuthor("Xavalon; Ben Lacey; Taras Shevchuk")]
 [assembly: AddinUrl("https://github.com/Xavalon/XamlStyler/")]
 
