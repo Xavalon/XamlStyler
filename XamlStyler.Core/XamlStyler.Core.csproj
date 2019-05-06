@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xavalon.XamlStyler.Core</RootNamespace>
     <AssemblyName>XamlStyler.Core</AssemblyName>
-    <TargetFrameworkVersion Condition=" '$(Os)'!='Unix' ">v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -67,9 +67,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Irony">
-      <HintPath>..\lib\Irony.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DocumentManipulation\DocumentManipulationService.cs" />

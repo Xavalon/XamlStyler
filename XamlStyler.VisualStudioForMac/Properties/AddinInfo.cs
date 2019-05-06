@@ -7,7 +7,7 @@ using Mono.Addins.Description;
 [assembly: AddinCategory("IDE extensions")]
 [assembly: AddinDescription("A Visual Studio for Mac port of the XamlStyler Visual Studio extension.\nReformat your XAML to be more readable, maintainable and beautiful)")]
 [assembly: AddinAuthor("Xavalon; Ben Lacey; Taras Shevchuk")]
-[assembly: AddinUrl("https://github.com/Saratsin/XamlStyler/")]
+[assembly: AddinUrl("https://github.com/Xavalon/XamlStyler/")]
 
 [assembly: AddinDependency("::MonoDevelop.Core", MonoDevelop.BuildInfo.Version)]
 [assembly: AddinDependency("::MonoDevelop.Ide", MonoDevelop.BuildInfo.Version)]
