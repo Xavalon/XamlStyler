@@ -19,8 +19,8 @@ steps:
     inputs:
       solution: XamlStyler.sln
       vsVersion: 15.0
-      #platform: $(BuildPlatform)
-      #configuration: $(BuildConfiguration)
+      platform: $(BuildPlatform)
+      configuration: $(BuildConfiguration)
       clean: true
       maximumCpuCount: true
 
