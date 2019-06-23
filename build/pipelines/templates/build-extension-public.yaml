@@ -6,9 +6,6 @@ jobs:
   displayName: Build AnyCPU
   pool:
     vmImage: vs2017-win2016
-  variables:
-    BuildConfiguration: Release
-    BuildPlatform: AnyCPU
   workspace:
     clean: outputs
   steps:
@@ -32,7 +29,7 @@ jobs:
     inputs:
       solution: XamlStyler.sln
       vsVersion: 15.0
-      platform: AnyCPU
+      platform: 'Any CPU'
       configuration: Release
       clean: true
       maximumCpuCount: true
