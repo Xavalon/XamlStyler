@@ -1,0 +1,12 @@
+#
+# Continuous Integration (CI)
+# This pipeline builds and validate the extension in all supported configurations.
+#
+
+trigger:
+- master
+
+pr:
+- master
+
+name: 3.$(Date:yyMM).$(DayOfMonth)$(Rev:rr).0
