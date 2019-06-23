@@ -15,9 +15,9 @@ steps:
       arguments: restore XamlStyler.sln -Verbosity Detailed -NonInteractive
 
   - task: VSBuild@1
-    displayName: 'Build solution src/Calculator.sln'
+    displayName: 'Build solution XamlStyler.sln'
     inputs:
-      solution: src/Calculator.sln
+      solution: XamlStyler.sln
       vsVersion: 15.0
       platform: $(BuildPlatform)
       configuration: $(BuildConfiguration)
