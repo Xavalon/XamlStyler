@@ -1,1 +1,23 @@
+# This template contains a job to build the app for a single architecture.
+# Only the contents of the public repository are built; internal resources are not used.
 
+parameters:
+  platform: ''
+  condition: ''
+
+jobs:
+- job: Build${{ parameters.platform }}
+  displayName: Build ${{ parameters.platform }}
+  condition: ${{ parameters.condition }}
+  pool:
+    vmImage: vs2017-win2016
+  variables:
+    BuildConfiguration: Release
+    BuildPlatform: ${{ parameters.platform }}
+  workspace:
+    clean: outputs
+  steps:
+  - checkout: self
+    clean: true
+  
+  - template: ./build-single-architecture.yaml
