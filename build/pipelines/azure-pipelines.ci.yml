@@ -1,0 +1,15 @@
+#
+# Continuous Integration (CI)
+# This pipeline builds and validate the extension in all supported configurations.
+#
+
+trigger:
+- master
+
+pr:
+- master
+
+name: 0.$(Date:yyMM).$(DayOfMonth)$(Rev:rr).0
+
+jobs:
+- template: ./templates/build-extension-public.yaml
