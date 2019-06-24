@@ -119,6 +119,4 @@ XamlStylerVSPackage.sln.DotSettings
 *.orig
 
 # Misc
-*.config
 *.nupkg
-UpgradeLog.htm
