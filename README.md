@@ -7,7 +7,6 @@ XAML Styler is a visual studio extension that formats XAML source code based on 
 #### Visual Studio for Mac 2019 - [Download](http://addins.monodevelop.com/Project/Index/382#)
 
 #### Visual Studio 2017 - [Download](https://marketplace.visualstudio.com/items?itemName=TeamXavalon.XAMLStyler)
-[![Build status](https://ci.appveyor.com/api/projects/status/vvxrkc95amh6v82n/branch/XamlStyler3?svg=true&passingText=VS2017%20-%20Build%20Passing&failingText=VS2017%20RC%20-%20Build%20Failing&pendingText=VS2017%20RC%20-%20Build%20Pending)](https://ci.appveyor.com/project/grochocki/xamlstyler-92wnc/branch/XamlStyler3)
 
 Visual Studio 2015 (deprecated) - [Download](https://marketplace.visualstudio.com/items?itemName=NicoVermeir.XAMLStyler)
 
