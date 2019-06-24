@@ -43,6 +43,8 @@ jobs:
   - task: VSTest@2
     displayName: 'Run unit tests'
     inputs:
-      testAssemblyVer2: bin\Release\Test\XamlStyler.UnitTests.dll
+      testAssemblyVer2: |
+        **\**\*UnitTests*.dll
+        **\**\**\*UnitTests*.dll
         !**\*TestAdapter.dll
         !**\obj\**'
