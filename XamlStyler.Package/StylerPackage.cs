@@ -18,7 +18,7 @@ using Xavalon.XamlStyler.Core.Options;
 using Xavalon.XamlStyler.Package;
 using Task = System.Threading.Tasks.Task;
 
-namespace Xavalon.XamlStyler3.Package
+namespace Xavalon.XamlStyler.Package
 {
     [ProvideLoadKey("Standard", "2.1", "XAML Styler", "Xavalon", 104)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]

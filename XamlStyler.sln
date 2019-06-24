@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.UnitTest", "Xaml
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.Console", "XamlStyler.Console\XamlStyler.Console.csproj", "{5284FEA7-FC0B-45EA-8B16-9DA7F5E6D7B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler3.Package", "XamlStyler3.Package\XamlStyler3.Package.csproj", "{36E90337-BD31-49CF-89E9-7069CB5009C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.Package", "XamlStyler.Package\XamlStyler.Package.csproj", "{36E90337-BD31-49CF-89E9-7069CB5009C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
