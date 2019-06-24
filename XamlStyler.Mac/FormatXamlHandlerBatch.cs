@@ -5,7 +5,7 @@ using MonoDevelop.Ide;
 using MonoDevelop.Projects;
 using Xavalon.XamlStyler.Core;
 
-namespace Xavalon.XamlStyler.VisualStudioForMac
+namespace Xavalon.XamlStyler.Mac
 {
     public class FormatXamlBatchHandler : CommandHandler
     {

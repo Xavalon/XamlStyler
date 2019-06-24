@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using Xavalon.XamlStyler.Core.Options;
 
-namespace Xavalon.XamlStyler.VisualStudioForMac.Gui
+namespace Xavalon.XamlStyler.Mac.Gui
 {
 	public class OptionsViewModel
 	{

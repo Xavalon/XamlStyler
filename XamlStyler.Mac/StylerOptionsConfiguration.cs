@@ -4,7 +4,7 @@ using MonoDevelop.Core;
 using Newtonsoft.Json;
 using Xavalon.XamlStyler.Core.Options;
 
-namespace Xavalon.XamlStyler.VisualStudioForMac
+namespace Xavalon.XamlStyler.Mac
 {
     public static class StylerOptionsConfiguration
     {

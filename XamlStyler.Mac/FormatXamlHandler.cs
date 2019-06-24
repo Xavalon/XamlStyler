@@ -3,7 +3,7 @@ using MonoDevelop.Ide;
 using Xavalon.XamlStyler.Core;
 using MonoDevelop.Components;
 
-namespace Xavalon.XamlStyler.VisualStudioForMac
+namespace Xavalon.XamlStyler.Mac
 {
     public class FormatXamlHandler : CommandHandler
     {
