@@ -4,10 +4,10 @@ XAML Styler is a visual studio extension that formats XAML source code based on 
 |[Documentation](https://github.com/Xavalon/XamlStyler/wiki)|[Script Integration](https://github.com/Xavalon/XamlStyler/wiki/Script-Integration)|[Changelog](https://github.com/Xavalon/XamlStyler/wiki/Changelog)|[Contributing](https://github.com/Xavalon/XamlStyler/blob/master/CONTRIBUTING.md)|
 |---|---|---|---|
 
-#### Visual Studio 2017/2019 - [Download](https://marketplace.visualstudio.com/items?itemName=TeamXavalon.XAMLStyler)
+#### Visual Studio 2019 - [Download](https://marketplace.visualstudio.com/items?itemName=TeamXavalon.XAMLStyler)
 #### Visual Studio for Mac 2019 - [Download](http://addins.monodevelop.com/Project/Index/382#)
-
-Visual Studio 2015 (deprecated) - [Download](https://marketplace.visualstudio.com/items?itemName=NicoVermeir.XAMLStyler)
+#### Visual Studio 2017 - [Download](https://marketplace.visualstudio.com/items?itemName=TeamXavalon.XAMLStyler)
+_Visual Studio 2015 (deprecated) - [Download](https://marketplace.visualstudio.com/items?itemName=NicoVermeir.XAMLStyler)_
 
 #### Console
 [![NuGet version](https://badge.fury.io/nu/XamlStyler.Console.svg)](https://badge.fury.io/nu/XamlStyler.Console)  
