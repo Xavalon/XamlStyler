@@ -1,7 +1,6 @@
 ﻿using MonoDevelop.Components.Commands;
 using MonoDevelop.Ide;
 using Xavalon.XamlStyler.Core;
-using MonoDevelop.Components;
 
 namespace Xavalon.XamlStyler.Mac
 {
@@ -9,37 +8,33 @@ namespace Xavalon.XamlStyler.Mac
     {
         protected override void Run()
         {
-            var options = StylerOptionsConfiguration.ReadFromUserProfile();
-            var styler = new StylerService(options);
+            var document = IdeApp.Workbench.ActiveDocument;
 
-            var doc = IdeApp.Workbench.ActiveDocument;
-            var edit = doc.Editor;
-
-            if (edit != null)
+            if (!StylerOptionsConfiguration.IsFormatableDocument(document))
             {
-                var styledXaml = styler.StyleDocument(edit.Text);
-
-                using (edit.OpenUndoGroup())
-                {
-                    edit.RemoveText(0, edit.Text.Length);
-                    edit.InsertText(0, styledXaml);
-                }
-                doc.IsDirty = true;
+                return;
             }
+
+            var stylerOptions = StylerOptionsConfiguration.GetOptionsForDocument(document.FileName, document.Project);
+            var styler = new StylerService(stylerOptions);
+            var editor = document.Editor;
+
+            using (editor.OpenUndoGroup())
+            {
+                var styledText = styler.StyleDocument(editor.Text);
+                editor.Text = styledText;
+            }
+
+            document.IsDirty = true;
         }
 
         protected override void Update(CommandInfo info)
         {
-            var doc = IdeApp.Workbench.ActiveDocument;
-            if (doc?.FileName.Extension.ToLowerInvariant() == ".xaml")
-            {
-                info.Enabled = true;
-                info.Visible = true;
-            }
-            else
-            {
-                info.Visible = false;
-            }
+            var document = IdeApp.Workbench.ActiveDocument;
+
+            var isDocumentFormattable = StylerOptionsConfiguration.IsFormatableDocument(document);
+            info.Enabled = isDocumentFormattable;
+            info.Visible = isDocumentFormattable;
         }
     }
 }
