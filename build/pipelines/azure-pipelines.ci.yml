@@ -3,9 +3,6 @@
 # This pipeline builds and validate the extension in all supported configurations.
 #
 
-trigger:
-- master
-
 pr:
 - master
 
