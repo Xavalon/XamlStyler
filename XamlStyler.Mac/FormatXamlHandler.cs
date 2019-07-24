@@ -1,5 +1,6 @@
 ﻿using MonoDevelop.Components.Commands;
 using MonoDevelop.Ide;
+using MonoDevelop.Projects;
 using Xavalon.XamlStyler.Core;
 
 namespace Xavalon.XamlStyler.Mac
@@ -15,7 +16,7 @@ namespace Xavalon.XamlStyler.Mac
                 return;
             }
 
-            var stylerOptions = StylerOptionsConfiguration.GetOptionsForDocument(document.FileName, document.Project);
+            var stylerOptions = StylerOptionsConfiguration.GetOptionsForDocument(document.FileName, document.Owner as Project);
             var styler = new StylerService(stylerOptions);
             var editor = document.Editor;
 
