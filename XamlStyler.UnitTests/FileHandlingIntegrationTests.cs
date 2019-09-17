@@ -1,6 +1,7 @@
 ﻿// © Xavalon. All rights reserved.
 
 using NUnit.Framework;
+using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -473,12 +474,15 @@ namespace Xavalon.XamlStyler.UnitTests
         {
             var stylerService = new StylerService(stylerOptions);
 
+            var activeDir = Path.GetDirectoryName(new Uri(typeof(FileHandlingIntegrationTests).Assembly.CodeBase).LocalPath);
+            var testFile = Path.Combine(activeDir, testFileBaseName);
+
             var testFileResultBaseName = (expectedSuffix != null)
-                ? $"{testFileBaseName}_{expectedSuffix}"
-                : testFileBaseName;
+                ? $"{testFile}_{expectedSuffix}"
+                : testFile;
 
             // Exercise stylerService using supplied test XAML data
-            string actualOutput = stylerService.StyleDocument(File.ReadAllText($"{testFileBaseName}.testxaml"));
+            string actualOutput = stylerService.StyleDocument(File.ReadAllText($"{testFile}.testxaml"));
 
             // Write output to ".actual" file for further investigation
             File.WriteAllText($"{testFileResultBaseName}.actual", actualOutput, Encoding.UTF8);

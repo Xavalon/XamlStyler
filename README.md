@@ -4,14 +4,19 @@ XAML Styler is a visual studio extension that formats XAML source code based on 
 |[Documentation](https://github.com/Xavalon/XamlStyler/wiki)|[Script Integration](https://github.com/Xavalon/XamlStyler/wiki/Script-Integration)|[Changelog](https://github.com/Xavalon/XamlStyler/wiki/Changelog)|[Contributing](https://github.com/Xavalon/XamlStyler/blob/master/CONTRIBUTING.md)|
 |---|---|---|---|
 
-#### Visual Studio 2017 - [Download](https://marketplace.visualstudio.com/items?itemName=TeamXavalon.XAMLStyler)
-[![Build status](https://ci.appveyor.com/api/projects/status/vvxrkc95amh6v82n/branch/XamlStyler3?svg=true&passingText=VS2017%20-%20Build%20Passing&failingText=VS2017%20RC%20-%20Build%20Failing&pendingText=VS2017%20RC%20-%20Build%20Pending)](https://ci.appveyor.com/project/grochocki/xamlstyler-92wnc/branch/XamlStyler3)
+[![Build Status](https://dev.azure.com/xavalon/XAML%20Styler/_apis/build/status/XAML%20Styler%20Azure%20Pipelines%20CI?branchName=master)](https://dev.azure.com/xavalon/XAML%20Styler/_build/latest?definitionId=1&branchName=master)
 
-Visual Studio 2015 (deprecated) - [Download](https://marketplace.visualstudio.com/items?itemName=NicoVermeir.XAMLStyler)
+#### Downloads
+[![VS2019](https://img.shields.io/visual-studio-marketplace/v/TeamXavalon.XAMLStyler.svg?label=Visual%20Studio%202019)](https://marketplace.visualstudio.com/items?itemName=TeamXavalon.XAMLStyler)
 
-#### Console
-[![NuGet version](https://badge.fury.io/nu/XamlStyler.Console.svg)](https://badge.fury.io/nu/XamlStyler.Console)  
-Standalone: [XamlStyler.Console-3.0.0.zip](https://github.com/Xavalon/XamlStyler/releases/download/3.0/XamlStyler.Console-3.0.0.zip)
+[![VS2017](https://img.shields.io/visual-studio-marketplace/v/TeamXavalon.XAMLStyler.svg?label=Visual%20Studio%202017)](https://marketplace.visualstudio.com/items?itemName=TeamXavalon.XAMLStyler)
+
+[![VSMAC](https://img.shields.io/badge/Visual%20Studio%20for%20Mac%202019-v1.1.4-blue.svg)](http://addins.monodevelop.com/Project/Index/382#)
+
+[![NuGet](https://img.shields.io/nuget/v/XamlStyler.Console.svg?label=XAML%20Styler%20Console)](https://www.nuget.org/packages/XamlStyler.Console)  
+<sub>Standalone: [XamlStyler.Console-3.0.0.zip](https://github.com/Xavalon/XamlStyler/releases/download/3.0/XamlStyler.Console-3.0.0.zip)</sub>
+
+[![VS2015](https://img.shields.io/badge/Visual%20Studio%202015-v2.4%20(deprecated)-lightgrey.svg)](https://marketplace.visualstudio.com/items?itemName=NicoVermeir.XAMLStyler)
 
 #### Thanks to our Contributors
 AndrewSt, Bart Lannoeye, IanSavchenko, jyardin, Kevin Dockx, Pedro Lamas, Philip Hoppe, RandomEngy, Scott Lovegrove, SokoFromNZ, XiaotianNetlift, and Yoshihiro Ito
