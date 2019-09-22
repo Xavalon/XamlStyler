@@ -1,7 +1,6 @@
 ﻿// © Xavalon. All rights reserved.
 
 using CommandLine;
-using CommandLine.Text;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
