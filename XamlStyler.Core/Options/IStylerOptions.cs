@@ -107,6 +107,8 @@ namespace Xavalon.XamlStyler.Core.Options
 
         string ConfigPath { get; set; }
 
+        bool SearchToDriveRoot { get; set; }
+
         bool ResetToDefault { get; set; }
 
         bool SuppressProcessing { get; set; }

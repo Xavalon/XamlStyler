@@ -1,7 +1,6 @@
 ﻿// © Xavalon. All rights reserved.
 
 using CommandLine;
-using CommandLine.Text;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -174,38 +173,46 @@ namespace Xavalon.XamlStyler.Xmagic
 
         public static void Main(string[] args)
         {
-            var options = new Options();
-            Parser.Default.ParseArgumentsStrict(args, options);
+            var writer = new StringWriter();
+            var parser = new Parser(_ => _.HelpWriter = writer);
+            var result = parser.ParseArguments<Options>(args);
 
-            if (options.LogLevel >= LogLevel.Debug)
+            result.WithNotParsed(_ =>
             {
-                Console.WriteLine($"File Parameter: '{options.File}'");
-                Console.WriteLine($"File Count: {options.File?.Count ?? -1}");
-                Console.WriteLine($"File Directory: '{options.Directory}'");
-            }
-
-            bool isFileOptionSpecified = ((options.File?.Count ?? 0) != 0);
-            bool isDirectoryOptionSpecified = !String.IsNullOrEmpty(options.Directory);
-
-            if (isFileOptionSpecified ^ isDirectoryOptionSpecified)
+                Console.WriteLine(writer.ToString());
+                Environment.Exit(1);
+            })
+            .WithParsed(options =>
             {
-                var xamlStylerConsole = new XamlStylerConsole(options);
-                xamlStylerConsole.Process(isFileOptionSpecified ? ProcessType.File : ProcessType.Directory);
-            }
-            else
-            {
-                var errorString = (isFileOptionSpecified && isDirectoryOptionSpecified)
-                    ? "Cannot specify both file(s) and directory"
-                    : "Must specify file(s) or directory";
+                if (options.LogLevel >= LogLevel.Debug)
+                {
+                    Console.WriteLine($"File Parameter: '{options.File}'");
+                    Console.WriteLine($"File Count: {options.File?.Count ?? -1}");
+                    Console.WriteLine($"File Directory: '{options.Directory}'");
+                }
 
-                Console.WriteLine($"\nError: {errorString}\n");
-                Console.WriteLine(options.GetUsage());
-            }
+                bool isFileOptionSpecified = ((options.File?.Count ?? 0) != 0);
+                bool isDirectoryOptionSpecified = !String.IsNullOrEmpty(options.Directory);
+
+                if (isFileOptionSpecified ^ isDirectoryOptionSpecified)
+                {
+                    var xamlStylerConsole = new XamlStylerConsole(options);
+                    xamlStylerConsole.Process(isFileOptionSpecified ? ProcessType.File : ProcessType.Directory);
+                }
+                else
+                {
+                    var errorString = (isFileOptionSpecified && isDirectoryOptionSpecified)
+                        ? "Cannot specify both file(s) and directory"
+                        : "Must specify file(s) or directory";
+
+                    Console.WriteLine($"\nError: {errorString}\n");
+                }
+            });
         }
 
         public sealed class Options
         {
-            [OptionList('f', "file", Separator = ',', HelpText = "XAML file to process (supports comma-separated list).")]
+            [Option('f', "file", Separator = ',', HelpText = "XAML file to process (supports comma-separated list).")]
             public IList<string> File { get; set; }
 
             [Option('d', "directory", HelpText = "Directory to process XAML files in.")]
@@ -214,23 +221,14 @@ namespace Xavalon.XamlStyler.Xmagic
             [Option('c', "config", HelpText = "JSON file containing XAML Styler settings configuration.")]
             public string Configuration { get; set; }
 
-            [Option('i', "ignore", DefaultValue = false, HelpText = "Ignore XAML file type check and process all files.")]
+            [Option('i', "ignore", Default = false, HelpText = "Ignore XAML file type check and process all files.")]
             public bool Ignore { get; set; }
 
-            [Option('r', "recursive", DefaultValue = false, HelpText = "Recursively process specified directory.")]
+            [Option('r', "recursive", Default = false, HelpText = "Recursively process specified directory.")]
             public bool IsRecursive { get; set; }
 
-            [Option('l', "loglevel", DefaultValue = LogLevel.Default, HelpText = "Levels in order of increasing detail: None, Minimal, Default, Verbose, Debug")]
+            [Option('l', "loglevel", Default = LogLevel.Default, HelpText = "Levels in order of increasing detail: None, Minimal, Default, Verbose, Debug")]
             public LogLevel LogLevel { get; set; }
-
-            [ParserState]
-            public IParserState LastParserState { get; set; }
-
-            [HelpOption]
-            public string GetUsage()
-            {
-                return HelpText.AutoBuild(this);
-            }
         }
 
         public enum LogLevel

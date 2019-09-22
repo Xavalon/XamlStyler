@@ -1,0 +1,10 @@
+﻿<Window x:Class="MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:not_win="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:win="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <StackPanel>
+    <win:TextBlock Text="Windows" />
+    <not_win:TextBlock Text="other platform..." />
+  </StackPanel>
+</Window>
