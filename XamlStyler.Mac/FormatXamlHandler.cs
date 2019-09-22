@@ -1,7 +1,12 @@
-﻿using MonoDevelop.Components.Commands;
+﻿using Gdk;
+using Gtk;
+using Microsoft.VisualStudio.Text;
+using Microsoft.VisualStudio.Text.Editor;
+using MonoDevelop.Components.Commands;
 using MonoDevelop.Ide;
 using MonoDevelop.Projects;
 using Xavalon.XamlStyler.Core;
+using Span = Microsoft.VisualStudio.Text.Span;
 
 namespace Xavalon.XamlStyler.Mac
 {
@@ -18,12 +23,23 @@ namespace Xavalon.XamlStyler.Mac
 
             var stylerOptions = StylerOptionsConfiguration.GetOptionsForDocument(document.FileName, document.Owner as Project);
             var styler = new StylerService(stylerOptions);
-            var editor = document.Editor;
-
-            using (editor.OpenUndoGroup())
+            if (document.Editor is null)
             {
-                var styledText = styler.StyleDocument(editor.Text);
-                editor.Text = styledText;
+                var textBuffer = document.TextBuffer;
+                var currentSnapshot = textBuffer.CurrentSnapshot;
+                var rawText = currentSnapshot.GetText();
+                var styledText = styler.StyleDocument(rawText);
+                var replaceSpan = new Span(0, rawText.Length);
+                textBuffer.Replace(replaceSpan, styledText);
+            }
+            else
+            {
+                var editor = document.Editor;
+                using (editor.OpenUndoGroup())
+                {
+                    var styledText = styler.StyleDocument(editor.Text);
+                    editor.Text = styledText;
+                }
             }
 
             document.IsDirty = true;
