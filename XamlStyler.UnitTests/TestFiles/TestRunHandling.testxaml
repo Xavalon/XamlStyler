@@ -59,6 +59,14 @@
   <TextBlock>
     <Span><Bold>Bold</Bold><Hyperlink>Hyperlink</Hyperlink><Italic>Italic</Italic><Run>Run</Run><Underline>Underline</Underline><LineBreak /><LineBreak /></Span>
   </TextBlock>
+  <!-- InlineUIContainer -->
+  <TextBlock>
+    <InlineUIContainer><Bold>Bold</Bold><Hyperlink>Hyperlink</Hyperlink><Italic>Italic</Italic><Run>Run</Run><Underline>Underline</Underline><LineBreak /><LineBreak /></InlineUIContainer>
+  </TextBlock>
+  <!-- AnchoredBlock -->
+  <TextBlock>
+    <AnchoredBlock><Bold>Bold</Bold><Hyperlink>Hyperlink</Hyperlink><Italic>Italic</Italic><Run>Run</Run><Underline>Underline</Underline><LineBreak /><LineBreak /></AnchoredBlock>
+  </TextBlock>
   <!-- RichTextBlock + Paragraph -->
   <RichTextBlock>
     <Paragraph>
