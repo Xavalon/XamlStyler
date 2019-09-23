@@ -19,7 +19,7 @@ namespace Xavalon.XamlStyler.Mac
                 return false;
             }
 
-            var isFormatableDocument = document.FileName.Extension.Equals(".xaml", StringComparison.OrdinalIgnoreCase);
+            var isFormatableDocument = document.FileName.FileName.EndsWith(".xaml", StringComparison.InvariantCultureIgnoreCase);
             return isFormatableDocument;
         }
 

@@ -6,9 +6,9 @@
     	<Import assembly="XamlStyler.Mac.dll"/>
 	</Runtime>
 	<Dependencies>
-		<Addin id="::MonoDevelop.Core" version="8.1.5" />
-		<Addin id="::MonoDevelop.Ide" version="8.1.5" />
-		<Addin id="::MonoDevelop.SourceEditor2" version="8.1.5" />
+		<Addin id="::MonoDevelop.Core" version="8.2.6" />
+		<Addin id="::MonoDevelop.Ide" version="8.2.6" />
+		<Addin id="::MonoDevelop.SourceEditor2" version="8.2.6" />
 	</Dependencies>
     <Extension path="/MonoDevelop/Ide/MainMenu/Edit">
         <CommandItem id="Xavalon.XamlStyler.Mac.FormatXaml" />
