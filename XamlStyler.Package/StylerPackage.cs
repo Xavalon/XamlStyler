@@ -119,10 +119,16 @@ namespace Xavalon.XamlStyler.Package
         private void OnFileSaveAllBeforeExecute(string guid, int id, object customIn, object customOut,
                                                 ref bool cancelDefault)
         {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var globalOptions = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
+            if (!globalOptions.BeautifyOnSave)
+            {
+                return;
+            }
+
             // use parallel processing, but only on the documents that are formatable
             // (to avoid the overhead of Task creating when it's not necessary)
-            ThreadHelper.ThrowIfNotOnUIThread();
-            List<Document> docs = new List<Document>();
+            var jobs = new List<Func<Action>>();
             foreach (Document document in _dte.Documents)
             {
                 // exclude unopened document.
@@ -133,30 +139,29 @@ namespace Xavalon.XamlStyler.Package
 
                 if (IsFormatableDocument(document))
                 {
-                    docs.Add(document);
+                    jobs.Add(SetupExecuteContinuation(document));
                 }
             }
 
-            Parallel.ForEach(docs, document =>
+            // executes job() in parallel, then execute finish() sequentially
+            foreach (var finish in jobs.AsParallel().Select(job => job()))
             {
-                var options = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
-
-                if (options.BeautifyOnSave)
-                {
-                    Execute(document);
-                }
+                finish();
             }
-                );
         }
 
         private void Execute(Document document)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            if (!IsFormatableDocument(document))
+            if (IsFormatableDocument(document))
             {
-                return;
+                SetupExecuteContinuation(document)()();
             }
+        }
 
+        private Func<Action> SetupExecuteContinuation(Document document)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Properties xamlEditorProps = _dte.Properties["TextEditor", "XAML"];
 
             var stylerOptions = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
@@ -185,18 +190,27 @@ namespace Xavalon.XamlStyler.Package
 
             stylerOptions.IndentWithTabs = (bool)xamlEditorProps.Item("InsertTabs").Value;
 
-            StylerService styler = new StylerService(stylerOptions);
-
             var textDocument = (TextDocument)document.Object("TextDocument");
-            
+
             EditPoint startPoint = textDocument.StartPoint.CreateEditPoint();
             EditPoint endPoint = textDocument.EndPoint.CreateEditPoint();
 
             string xamlSource = startPoint.GetText(endPoint);
-            xamlSource = styler.StyleDocument(xamlSource);
 
-            const int vsEPReplaceTextKeepMarkers = 1;
-            startPoint.ReplaceText(endPoint, xamlSource, vsEPReplaceTextKeepMarkers);
+            return () =>
+            {
+                // this part can be executed in parallel.
+                StylerService styler = new StylerService(stylerOptions);
+                xamlSource = styler.StyleDocument(xamlSource);
+
+                return () =>
+                {
+                    // this part should be executed sequentially.
+                    ThreadHelper.ThrowIfNotOnUIThread();
+                    const int vsEPReplaceTextKeepMarkers = 1;
+                    startPoint.ReplaceText(endPoint, xamlSource, vsEPReplaceTextKeepMarkers);
+                };
+            };
         }
 
         private string GetConfigPathForItem(string path, string solutionRoot, Project project)
