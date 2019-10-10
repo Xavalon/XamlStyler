@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<?xaml-comp compile="true" ?>
+<?Mapping compile="true" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="Colors.xaml" />
+    <ResourceDictionary Source="Fonts.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+
+  <Style TargetType="{x:Type ui:PrimaryButton}">
+    <Setter Property="BackgroundColor" Value="{StaticResource Color__Primary_Button}" />
+    <Setter Property="TextColor" Value="{StaticResource Color__Primary_Button_Label}" />
+  </Style>
+
+  <Style TargetType="{x:Type ui:SecondaryButton}">
+    <Setter Property="BackgroundColor" Value="{StaticResource Color__Secondary_Button}" />
+    <Setter Property="TextColor" Value="{StaticResource Color__Secondary_Button_Label}" />
+  </Style>
+
+  <Style TargetType="{x:Type ui:IconToggleButton}">
+    <Setter Property="TextColor" Value="{StaticResource Color__Secondary_Button_Label}" />
+    <Setter Property="HorizontalTextAlignment" Value="Center" />
+    <Setter Property="VerticalTextAlignment" Value="Center" />
+  </Style>
+
+</ResourceDictionary>
