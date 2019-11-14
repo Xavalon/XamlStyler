@@ -1,17 +1,10 @@
-@Set SOLUTION=XamlStyler.sln
-
-@echo Finding msbuild
-for /f "skip=2 tokens=2,*" %%A in ('reg.exe query "HKLM\SOFTWARE\WOW6432Node\Microsoft\MSBuild\ToolsVersions\14.0" /v MSBuildToolsPath') do SET MSBUILDDIR=%%B
-@IF NOT EXIST "%MSBUILDDIR%" goto MissingMSBuildToolsPath
-
-@echo Building solution
-"%MSBUILDDIR%msbuild.exe" /ToolsVersion:14.0 "%SOLUTION%" /p:configuration=Release /t:Clean,Rebuild /m
+@echo Building publishing XamlStyler.Console
+dotnet publish ..\..\XamlStyler.Console\XamlStyler.Console.csproj -r win-x64 -c Release /p:PublishSingleFile=true /p:PublishTrimmed=true
+dotnet publish ..\..\XamlStyler.Console\XamlStyler.Console.csproj -r win-x86 -c Release /p:PublishSingleFile=true /p:PublishTrimmed=true
+dotnet publish ..\..\XamlStyler.Console\XamlStyler.Console.csproj -r linux-x64 -c Release /p:PublishSingleFile=true /p:PublishTrimmed=true
+dotnet publish ..\..\XamlStyler.Console\XamlStyler.Console.csproj -r osx-x64 -c Release /p:PublishSingleFile=true /p:PublishTrimmed=true
 
 @echo Packing nuget package XamlStyler.CommandLine
-packages\NuGet.CommandLine.3.4.3\tools\nuget.exe pack XamlStyler.Console.nuspec
+%USERPROFILE%\.nuget\packages\nuget.commandline\5.0.2\tools\NuGet.exe pack XamlStyler.Console.nuspec -OutputDirectory nupkgs
 
 @echo Succeed
-@goto end
-:MissingMSBuildToolsPath
-@echo The MSBuild tools path from the registry '%MSBUILDDIR%' does not exist
-:end
