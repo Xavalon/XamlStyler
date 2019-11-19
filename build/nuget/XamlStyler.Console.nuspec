@@ -15,8 +15,8 @@
 		<copyright>Copyright © Xavalon 2016</copyright>
 	</metadata>
 	<files>
-		<file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.0\linux-x64\publish\xstyler" target="tools\linux-x64" />
-		<file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.0\osx-x64\publish\xstyler" target="tools\osx-x64" />
+		<file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.0\linux-x64\publish\xstyler" target="tools\linux-x64\xstyler" />
+		<file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.0\osx-x64\publish\xstyler" target="tools\osx-x64\xstyler" />
 		<file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.0\win-x64\publish\xstyler.exe" target="tools\win-x64" />
 		<file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.0\win-x86\publish\xstyler.exe" target="tools\win-x86" />
 	</files>
