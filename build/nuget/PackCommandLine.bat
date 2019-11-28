@@ -5,6 +5,6 @@ dotnet publish ..\..\XamlStyler.Console\XamlStyler.Console.csproj -r linux-x64 -
 dotnet publish ..\..\XamlStyler.Console\XamlStyler.Console.csproj -r osx-x64 -c Release /p:PublishSingleFile=true /p:PublishTrimmed=true
 
 @echo Packing nuget package XamlStyler.CommandLine
-%USERPROFILE%\.nuget\packages\nuget.commandline\5.0.2\tools\NuGet.exe pack XamlStyler.Console.nuspec -OutputDirectory nupkgs
+%USERPROFILE%\.nuget\packages\nuget.commandline\5.3.1\tools\NuGet.exe pack XamlStyler.Console.nuspec -OutputDirectory nupkgs
 
 @echo Succeed
