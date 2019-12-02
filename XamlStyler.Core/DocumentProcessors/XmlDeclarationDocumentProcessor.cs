@@ -9,9 +9,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
     {
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
         {
-            output.Append("<?xml ");
-            output.Append(xmlReader.Value.Trim());
-            output.Append(" ?>");
+            output.Append($"<?xml {xmlReader.Value.Trim()}?>");
         }
     }
 }

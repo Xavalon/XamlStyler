@@ -194,6 +194,12 @@
     <None Include="TestFiles\TestDesignReferenceRemoval.testxaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestFiles\TestXmlDeclarationHandling.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestXmlDeclarationHandling.testxaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\TestWildcard.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -258,6 +258,12 @@ namespace Xavalon.XamlStyler.UnitTests
         }
 
         [Test]
+        public void TestXmlDeclarationHandling()
+        {
+            this.DoTest(this.GetLegacyStylerOptions());
+        }
+
+        [Test]
         public void TestNestedPropertiesAndChildrenHandling()
         {
             var stylerOptions = new StylerOptions(
@@ -459,7 +465,7 @@ namespace Xavalon.XamlStyler.UnitTests
             [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
             FileHandlingIntegrationTests.DoTest(
-                stylerOptions, 
+                stylerOptions,
                 Path.Combine("TestFiles", callerMemberName),
                 testIdentifier.ToString());
         }
