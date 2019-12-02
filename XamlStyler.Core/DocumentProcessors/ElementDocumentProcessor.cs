@@ -23,8 +23,8 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
         private readonly XmlEscapingService xmlEscapingService;
         private readonly IList<string> noNewLineElementsList;
         private readonly IList<string> firstLineAttributes;
-        private readonly string[] inlineCollections = { "TextBlock", "RichTextBlock", "Paragraph", "Span" };
-        private readonly string[] inlineTypes = { "Run", "Hyperlink", "Bold", "Italic", "Underline", "LineBreak", "Paragraph", "Span" };
+        private readonly string[] inlineCollections = { "TextBlock", "RichTextBlock", "Paragraph", "Run", "Span", "InlineUIContainer", "AnchoredBlock" };
+        private readonly string[] inlineTypes = { "Paragraph", "Run", "Span", "InlineUIContainer", "AnchoredBlock", "Hyperlink", "Bold", "Italic", "Underline", "LineBreak" };
 
         public ElementDocumentProcessor(
             IStylerOptions options,
