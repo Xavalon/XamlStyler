@@ -201,43 +201,34 @@ namespace Xavalon.XamlStyler.Package
 
         private string GetConfigPathForItem(string path, string solutionRoot, Project project)
         {
-            try
+            if (String.IsNullOrWhiteSpace(path))
             {
-                if (String.IsNullOrWhiteSpace(path))
-                {
-                    return null;
-                }
-
-                var projectFullName = project?.FullName;
-                var projectDirectory = String.IsNullOrEmpty(projectFullName)
-                    ? String.Empty
-                    : Path.GetDirectoryName(projectFullName);
-
-                IEnumerable<string> configPaths
-                    = (path.StartsWith(solutionRoot, StringComparison.InvariantCultureIgnoreCase))
-                        ? StylerPackage.GetConfigPathBetweenPaths(path, solutionRoot)
-                        : StylerPackage.GetConfigPathBetweenPaths(path, projectDirectory);
-
-                // find the FullPath of "Settings.XamlStyler" ref in project
-                var filePathsInProject = project?.ProjectItems.Cast<ProjectItem>()
-                    .Where(x => string.Equals(x.Name, "Settings.XamlStyler"))
-                    .SelectMany(x => x.Properties.Cast<Property>())
-                    .Where(x => string.Equals(x.Name, "FullPath"))
-                    .Select(x => x.Value as string);
-
-                if (filePathsInProject != null)
-                {
-                    configPaths = configPaths.Concat(filePathsInProject);
-                }
-
-                return configPaths.FirstOrDefault(File.Exists);
-            }
-            catch
-            {
-                // Fail gracefully.
+                return null;
             }
 
-            return null;
+            var projectFullName = project?.FullName;
+            var projectDirectory = String.IsNullOrEmpty(projectFullName)
+                ? String.Empty
+                : Path.GetDirectoryName(projectFullName);
+
+            IEnumerable<string> configPaths
+                = (path.StartsWith(solutionRoot, StringComparison.InvariantCultureIgnoreCase))
+                    ? StylerPackage.GetConfigPathBetweenPaths(path, solutionRoot)
+                    : StylerPackage.GetConfigPathBetweenPaths(path, projectDirectory);
+
+            // find the FullPath of "Settings.XamlStyler" ref in project
+            var filePathsInProject = project?.ProjectItems.Cast<ProjectItem>()
+                .Where(x => { ThreadHelper.ThrowIfNotOnUIThread(); return string.Equals(x.Name, "Settings.XamlStyler"); })
+                .SelectMany(x => { ThreadHelper.ThrowIfNotOnUIThread(); return x.Properties.Cast<Property>(); })
+                .Where(x => { ThreadHelper.ThrowIfNotOnUIThread(); return string.Equals(x.Name, "FullPath"); })
+                .Select(x => { ThreadHelper.ThrowIfNotOnUIThread(); return x.Value as string; });
+
+            if (filePathsInProject != null)
+            {
+                configPaths = configPaths.Concat(filePathsInProject);
+            }
+
+            return configPaths.FirstOrDefault(File.Exists);
         }
 
         // Searches for configuration file up through solution root directory.
