@@ -29,7 +29,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 output.Append(Environment.NewLine);
             }
 
-            output.Append(currentIndentString).Append("<?Mapping ").Append(xmlReader.Value).Append(" ?>");
+            output.Append($"{currentIndentString}<?{xmlReader.Name} {xmlReader.Value}?>");
         }
     }
 }

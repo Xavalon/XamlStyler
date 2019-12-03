@@ -92,6 +92,12 @@
     <None Include="TestFiles\TestAttributeIndentationHandling_0.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="TestFiles\TestProcessingInstructionHandling.expected">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="TestFiles\TestProcessingInstructionHandling.testxaml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="TestFiles\TestSingleLineNestedMarkupExtensions.expected">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
