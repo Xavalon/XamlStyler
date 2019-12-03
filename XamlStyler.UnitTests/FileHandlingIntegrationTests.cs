@@ -295,6 +295,12 @@ namespace Xavalon.XamlStyler.UnitTests
         }
 
         [Test]
+        public void TestProcessingInstructionHandling()
+        {
+            this.DoTest(this.GetLegacyStylerOptions());
+        }
+
+        [Test]
         public void TestXmlnsAliasesHandling()
         {
             this.DoTest(this.GetLegacyStylerOptions());
@@ -459,7 +465,7 @@ namespace Xavalon.XamlStyler.UnitTests
             [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
             FileHandlingIntegrationTests.DoTest(
-                stylerOptions, 
+                stylerOptions,
                 Path.Combine("TestFiles", callerMemberName),
                 testIdentifier.ToString());
         }
