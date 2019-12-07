@@ -18,7 +18,7 @@ jobs:
     displayName: 'NuGet restore XamlStyler.sln'
     inputs:
       command: custom
-      arguments: restore XamlStyler.sl -Verbosity Detailed -NonInteractive
+      arguments: restore XamlStyler.sln -Verbosity Detailed -NonInteractive
 
   - task: VSBuild@1
     displayName: 'Build solution XamlStyler.sln'
