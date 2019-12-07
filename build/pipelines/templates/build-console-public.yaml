@@ -6,24 +6,27 @@ jobs:
     vmImage: 'ubuntu-latest'
 
   steps:
+  # The first task is the dotnet command build, pointing to our csproj file
   - task: DotNetCoreCLI@2
-    displayName: 'Build XamlStyler.Console'
+    displayName: 'dotnet build'
     inputs:
       command: 'build'
       arguments: '--configuration $(buildConfiguration)'
-      projects: '**/XamlStyler.Console.csproj'
+      projects: 'XamlStyler.Console/XamlStyler.Console.csproj'
 
+# The second task is dotnet pack command again pointing to the csproj file
+# The nobuild means the project will not be compiled before running pack, because its already built in above step
   - task: DotNetCoreCLI@2
-    displayName: 'Create XamlStyler.Console nuget package'
+    displayName: "dotnet pack"
     inputs:
       command: 'pack'
       arguments: '--configuration $(buildConfiguration)'
-      packagesToPack: '**/XamlStyler.Console.csproj'
-      versioningScheme: 'byPrereleaseNumber'
+      packagesToPack: 'XamlStyler.Console/XamlStyler.Console.csproj'
       nobuild: true
-      majorVersion: '3'
-      minorVersion: '3'
-      patchVersion: '0'
+      versioningScheme: 'off'
+      # majorVersion: '3'
+      # minorVersion: '3'
+      # patchVersion: '0'
 
   - task: PublishPipelineArtifact@1
     displayName: 'Publish XamlStyler.Console artifact'
