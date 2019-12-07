@@ -30,12 +30,12 @@ jobs:
       clean: true
       maximumCpuCount: true
 
-- task: DotNetCoreCLI@2
-  inputs:
-    displayName: 'Run unit tests'
-    command: test
-    projects: '**/*UnitTests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+  - task: DotNetCoreCLI@2
+    inputs:
+      displayName: 'Run unit tests'
+      command: test
+      projects: '**/*UnitTests/*.csproj'
+      arguments: '--configuration $(buildConfiguration)'
 
   - task: PublishPipelineArtifact@1
     displayName: 'Publish XamlStylerExtension artifact'
