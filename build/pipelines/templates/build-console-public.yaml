@@ -23,7 +23,7 @@ jobs:
     displayName: "dotnet pack"
     inputs:
       command: 'pack'
-      arguments: '--configuration $(buildConfiguration)'
+      arguments: '--configuration $(buildConfiguration) --outputDir $(Build.ArtifactStagingDirectory)/nuget'
       packagesToPack: 'XamlStyler.Console/XamlStyler.Console.csproj'
       nobuild: true
       versioningScheme: 'off'
@@ -35,4 +35,4 @@ jobs:
     displayName: 'Publish XamlStyler.Console artifact'
     inputs:
       artifact: XamlStyler.Console
-      path: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+      path: '$(Build.ArtifactStagingDirectory)/nuget/*.nupkg'
