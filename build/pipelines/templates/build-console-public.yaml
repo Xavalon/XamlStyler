@@ -35,4 +35,4 @@ jobs:
     displayName: 'Publish XamlStyler.Console artifact'
     inputs:
       artifact: XamlStyler.Console
-      path: '$(System.DefaultWorkingDirectory)/XamlStyler.Console/bin/$(buildConfiguration)/*.nupkg'
+      path: '$(System.DefaultWorkingDirectory)/*.nupkg'
