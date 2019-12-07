@@ -7,12 +7,18 @@ jobs:
 
   steps:
   - task: DotNetCoreCLI@2
+    inputs:
+      command: 'build'
+      arguments: '--configuration $(buildConfiguration)'
+      projects: '**/XamlStyler.Console.csproj'
+
+  - task: DotNetCoreCLI@2
     displayName: 'Create XamlStyler.Console nuget package'
     inputs:
       command: 'pack'
       packagesToPack: '**/XamlStyler.Console.csproj'
       versioningScheme: 'byPrereleaseNumber'
-      packDirectory: '$(Build.ArtifactStagingDirectory)'
+      nobuild: true
       majorVersion: '3'
       minorVersion: '3'
       patchVersion: '0'
@@ -21,4 +27,4 @@ jobs:
     displayName: 'Publish XamlStyler.Console artifact'
     inputs:
       artifact: XamlStyler.Console
-      path: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+      path: '$(Build.ArtifactStagingDirectory)/**/*.nupkg'
