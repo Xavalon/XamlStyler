@@ -1,4 +1,7 @@
 # build xamlStyler.Console nuget package
+variables:
+  buildConfiguration: 'Release'
+
 jobs:
 - job: BuildConsoleNuget
   displayName: 'Build XamlStyler.Console Nuget Package'
