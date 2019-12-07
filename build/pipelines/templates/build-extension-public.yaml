@@ -18,7 +18,7 @@ jobs:
     displayName: 'NuGet restore XamlStyler.sln'
     inputs:
       command: custom
-      arguments: restore XamlStyler.sln -Verbosity Detailed -NonInteractive
+      arguments: restore XamlStyler.sl -Verbosity Detailed -NonInteractive
 
   - task: VSBuild@1
     displayName: 'Build solution XamlStyler.sln'
@@ -30,17 +30,15 @@ jobs:
       clean: true
       maximumCpuCount: true
 
+- task: DotNetCoreCLI@2
+  inputs:
+    displayName: 'Run unit tests'
+    command: test
+    projects: '**/*UnitTests/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
   - task: PublishPipelineArtifact@1
     displayName: 'Publish XamlStylerExtension artifact'
     inputs:
       artifact: XamlStylerExtension
       path: $(System.DefaultWorkingDirectory)/bin/Release
-
-  - task: VSTest@2
-    displayName: 'Run unit tests'
-    inputs:
-      testAssemblyVer2: |
-        **\**\*UnitTests*.dll
-        **\**\**\*UnitTests*.dll
-        !**\*TestAdapter.dll
-        !**\obj\**'
