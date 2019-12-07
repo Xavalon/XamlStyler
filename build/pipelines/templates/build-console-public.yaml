@@ -7,6 +7,7 @@ jobs:
 
   steps:
   - task: DotNetCoreCLI@2
+    displayName: 'Build XamlStyler.Console'
     inputs:
       command: 'build'
       arguments: '--configuration $(buildConfiguration)'
@@ -16,6 +17,7 @@ jobs:
     displayName: 'Create XamlStyler.Console nuget package'
     inputs:
       command: 'pack'
+      arguments: '--configuration $(buildConfiguration)'
       packagesToPack: '**/XamlStyler.Console.csproj'
       versioningScheme: 'byPrereleaseNumber'
       nobuild: true
