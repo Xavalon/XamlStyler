@@ -1,0 +1,23 @@
+# build xamlStyler.Console nuget package
+jobs:
+- job: BuildConsoleNuget
+  displayName: 'Build XamlStyler.Console Nuget Package'
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+  - task: DotNetCoreCLI@2
+    displayName: 'Create XamlStyler.Console nuget package'
+    inputs:
+      command: 'pack'
+      packagesToPack: '**/XamlStyler.Console.csproj'
+      versioningScheme: 'byPrereleaseNumber'
+      majorVersion: '3'
+      minorVersion: '3'
+      patchVersion: '0'
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish XamlStyler.Console artifact'
+    inputs:
+      artifact: XamlStyler.Console
+      path: '**/*.nupkg'
