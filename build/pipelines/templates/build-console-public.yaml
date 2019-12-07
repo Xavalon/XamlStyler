@@ -12,6 +12,7 @@ jobs:
       command: 'pack'
       packagesToPack: '**/XamlStyler.Console.csproj'
       versioningScheme: 'byPrereleaseNumber'
+      packDirectory: '$(Build.ArtifactStagingDirectory)'
       majorVersion: '3'
       minorVersion: '3'
       patchVersion: '0'
@@ -20,4 +21,4 @@ jobs:
     displayName: 'Publish XamlStyler.Console artifact'
     inputs:
       artifact: XamlStyler.Console
-      path: '*.nupkg'
+      path: '$(Build.ArtifactStagingDirectory)/*.nupkg'
