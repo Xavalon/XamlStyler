@@ -2,7 +2,7 @@
 # Only the contents of the public repository are built; internal resources are not used.
 
 jobs:
-- job: BuildAnyCPU
+- job: BuildExtension
   displayName: 'Build XamlStyler vsix Extension'
   pool:
     vmImage: 'windows-latest'
@@ -26,16 +26,9 @@ jobs:
       solution: XamlStyler.sln
       vsVersion: 16.0
       platform: 'Any CPU'
-      configuration: Release
+      configuration: $(buildConfiguration)
       clean: true
       maximumCpuCount: true
-
-  - task: DotNetCoreCLI@2
-    inputs:
-      displayName: 'Run unit tests'
-      command: test
-      projects: '**/*UnitTests/*.csproj'
-      arguments: '--configuration $(buildConfiguration)'
 
   - task: PublishPipelineArtifact@1
     displayName: 'Publish XamlStylerExtension artifact'
