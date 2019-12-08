@@ -9,7 +9,14 @@ trigger:
 pr:
 - master
 
+variables:
+  buildConfiguration: 'Release'
+  major: 3
+  minor: 3
+  patch: $[counter(variables['patch'], 0)]
+
 name: 0.$(Date:yyMM).$(DayOfMonth)$(Rev:rr).0
 
 jobs:
 - template: ./templates/build-extension-public.yaml
+- template: ./templates/build-console-public.yaml

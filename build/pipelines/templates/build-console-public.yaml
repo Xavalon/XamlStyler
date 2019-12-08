@@ -20,17 +20,20 @@ jobs:
 # The second task is dotnet pack command again pointing to the csproj file
 # The nobuild means the project will not be compiled before running pack, because its already built in above step
   - task: DotNetCoreCLI@2
-    displayName: "dotnet pack"
+    displayName: 'dotnet pack'
     inputs:
       command: 'pack'
-      arguments: 'XamlStyler.Console/XamlStyler.Console.csproj -c $(buildConfiguration) --no-build -o $(Build.ArtifactStagingDirectory)'
+      packagesToPack: '**/XamlStyler.Console.csproj'
+      arguments: '--configuration $(buildConfiguration)'
       versioningScheme: 'off'
-      # majorVersion: '3'
-      # minorVersion: '3'
-      # patchVersion: '0'
+      nobuild: true
+      majorVersion: '$(major)'
+      minorVersion: '$(minor)'
+      patchVersion: '$(patch)'
 
   - task: PublishPipelineArtifact@1
     displayName: 'Publish XamlStyler.Console artifact'
     inputs:
-      artifact: XamlStyler.Console
-      path: '$(Build.ArtifactStagingDirectory)/XamlStyler.Console.3.3.0.nupkg'
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'XamlStyler.Console'
+      publishLocation: 'Container'
