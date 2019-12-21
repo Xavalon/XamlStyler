@@ -41,7 +41,7 @@ jobs:
     displayName: 'Copy vsix to: $(Build.ArtifactStagingDirectory)'
     inputs:
       #sourceFolder: # Optional
-      contents: '$(System.DefaultWorkingDirectory)/bin/Release/*.vsix' 
+      contents: '**/*.vsix' 
       targetFolder: $(Build.ArtifactStagingDirectory)
       cleanTargetFolder: true # Optional
       overWrite: true # Optional
