@@ -35,6 +35,8 @@ jobs:
       minorVersion: '$(minor)'
       patchVersion: '$(patch)'
 
+  - script: echo ls $(Build.ArtifactStagingDirectory)
+
   - task: PublishPipelineArtifact@1
     displayName: 'Publish XamlStyler.Console artifact'
     inputs:
