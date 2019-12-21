@@ -28,9 +28,9 @@ jobs:
       arguments: restore XamlStyler.sln -Verbosity Detailed -NonInteractive
 
   - task: VSBuild@1
-    displayName: 'Build solution XamlStyler.sln'
+    displayName: 'Build solution XamlStyler.Package.csproj'
     inputs:
-      solution: XamlStyler.sln
+      solution: '**\XamlStyler.Package.csproj'
       vsVersion: 16.0
       platform: 'Any CPU'
       configuration: $(buildConfiguration)
@@ -41,4 +41,4 @@ jobs:
     displayName: 'Publish XamlStylerExtension artifact'
     inputs:
       artifact: XamlStylerExtension
-      targetPath: $(System.DefaultWorkingDirectory)/bin/Release/*.vsix
+      targetPath: $(System.DefaultWorkingDirectory)/bin/Release/XamlStyler.Package.$(version).vsix
