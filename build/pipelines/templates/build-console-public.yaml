@@ -40,4 +40,3 @@ jobs:
     inputs:
       PathtoPublish: '$(Build.ArtifactStagingDirectory)'
       ArtifactName: 'XamlStyler.Console'
-      publishLocation: 'Container'
