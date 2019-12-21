@@ -19,6 +19,6 @@ variables:
 name: 0.$(Date:yyMM).$(DayOfMonth)$(Rev:rr).0
 
 jobs:
-- template: ./templates/run-tests-public.yaml
-- template: ./templates/build-extension-public.yaml
+#- template: ./templates/run-tests-public.yaml
+#- template: ./templates/build-extension-public.yaml
 - template: ./templates/build-console-public.yaml
