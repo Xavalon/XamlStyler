@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
 	<metadata>
 		<id>XamlStyler.Console</id>
-		<version>3.0.0.0</version>
+		<version>3.3.0.0</version>
 		<authors>Xavalon</authors>
 		<owners>Xavalon</owners>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -15,6 +15,9 @@
 		<copyright>Copyright © Xavalon 2016</copyright>
 	</metadata>
 	<files>
-		<file src="XamlStyler.Console\bin\Release\**" target="tools" />
+		<file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.0\linux-x64\publish\xstyler" target="tools\linux-x64\xstyler" />
+		<file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.0\osx-x64\publish\xstyler" target="tools\osx-x64\xstyler" />
+		<file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.0\win-x64\publish\xstyler.exe" target="tools\win-x64" />
+		<file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.0\win-x86\publish\xstyler.exe" target="tools\win-x86" />
 	</files>
 </package>

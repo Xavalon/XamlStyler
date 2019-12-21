@@ -1,0 +1,22 @@
+# run xamlStyler.Core unit tests
+jobs:
+- job: RunUnitTests
+  displayName: 'Run Tests'
+  pool:
+    vmImage: 'windows-latest'
+
+  steps:
+  # The first task is the dotnet command build, pointing to our csproj file
+  - task: DotNetCoreCLI@2
+    displayName: 'dotnet build'
+    inputs:
+      command: 'build'
+      projects: '**/*UnitTests/*.csproj'
+      arguments: '--configuration $(buildConfiguration)'
+  # then run all of the tests
+  - task: DotNetCoreCLI@2
+    displayName: 'Run unit tests'
+    inputs:
+      command: test
+      projects: '**/*UnitTests/*.csproj'
+      arguments: '--configuration $(buildConfiguration)'

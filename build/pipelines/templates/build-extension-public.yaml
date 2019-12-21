@@ -2,8 +2,8 @@
 # Only the contents of the public repository are built; internal resources are not used.
 
 jobs:
-- job: BuildAnyCPU
-  displayName: 'Build AnyCPU'
+- job: BuildExtension
+  displayName: 'Build XamlStyler vsix Extension'
   pool:
     vmImage: 'windows-latest'
   workspace:
@@ -11,7 +11,14 @@ jobs:
   steps:
   - checkout: self
     clean: true
-  
+
+  - task: PowerShell@2
+    displayName: Update version in the vsix manifest
+    inputs:
+      filePath: 'build\update-version.ps1'
+      arguments: $(version)
+      pwsh: true
+      
   - task: NuGetToolInstaller@1
 
   - task: NuGetCommand@2
@@ -21,26 +28,28 @@ jobs:
       arguments: restore XamlStyler.sln -Verbosity Detailed -NonInteractive
 
   - task: VSBuild@1
-    displayName: 'Build solution XamlStyler.sln'
+    displayName: 'Build solution XamlStyler.Package.sln'
     inputs:
       solution: XamlStyler.sln
       vsVersion: 16.0
       platform: 'Any CPU'
-      configuration: Release
+      configuration: $(buildConfiguration)
       clean: true
       maximumCpuCount: true
+
+  - task: CopyFiles@2
+    displayName: 'Copy vsix to: $(Build.ArtifactStagingDirectory)'
+    inputs:
+      #sourceFolder: # Optional
+      contents: '**/*.vsix' 
+      targetFolder: $(Build.ArtifactStagingDirectory)
+      cleanTargetFolder: true # Optional
+      overWrite: true # Optional
+      flattenFolders: true # Optional
+      #preserveTimestamp: false # Optional
 
   - task: PublishPipelineArtifact@1
     displayName: 'Publish XamlStylerExtension artifact'
     inputs:
       artifact: XamlStylerExtension
-      path: $(System.DefaultWorkingDirectory)/bin/Release
-
-  - task: VSTest@2
-    displayName: 'Run unit tests'
-    inputs:
-      testAssemblyVer2: |
-        **\**\*UnitTests*.dll
-        **\**\**\*UnitTests*.dll
-        !**\*TestAdapter.dll
-        !**\obj\**'
+      targetPath: $(Build.ArtifactStagingDirectory)
