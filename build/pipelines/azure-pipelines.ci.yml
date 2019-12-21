@@ -14,6 +14,7 @@ variables:
   major: 3
   minor: 3
   patch: $[counter(variables['patch'], 0)]
+  version: $(major).$(minor).$(patch)
 
 name: 0.$(Date:yyMM).$(DayOfMonth)$(Rev:rr).0
 

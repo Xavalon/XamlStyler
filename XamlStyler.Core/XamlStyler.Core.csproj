@@ -6,7 +6,7 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
-    <Copyright>Copyright ©  2012</Copyright>
+    <Copyright>Copyright © Xavalon 2019</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

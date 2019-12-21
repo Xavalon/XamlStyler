@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Xavalon.XamlStyler.Xmagic</RootNamespace>
     <AssemblyName>xstyler</AssemblyName>
     <PackageId>XamlStyler.Console</PackageId>
@@ -10,7 +10,7 @@
     <Authors>Xavalon</Authors>
     <Company>Xavalon</Company>
     <Description>XAML Styler is a visual studio extension, which formats XAML source code by sorting the attributes based on their importance. This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.</Description>
-    <Copyright>Copyright © Xavalon 2016</Copyright>
+    <Copyright>Copyright © Xavalon 2019</Copyright>
     <PackageProjectUrl>https://github.com/Xavalon/XamlStyler</PackageProjectUrl>
     <RepositoryUrl>https://github.com/Xavalon/XamlStyler</RepositoryUrl>
     <PackageIconUrl>http://i.imgur.com/WEXCraF.png</PackageIconUrl>

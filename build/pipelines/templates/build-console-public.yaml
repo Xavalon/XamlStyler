@@ -6,6 +6,13 @@ jobs:
     vmImage: 'ubuntu-latest'
 
   steps:
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core 3.1 sdk'
+    inputs:
+      packageType: sdk
+      version: 3.1.x
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
   # The first task is the dotnet command build, pointing to our csproj file
   - task: DotNetCoreCLI@2
     displayName: 'dotnet build'
