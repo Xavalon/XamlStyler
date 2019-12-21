@@ -37,8 +37,19 @@ jobs:
       clean: true
       maximumCpuCount: true
 
+  - task: CopyFiles@2
+    displayName: 'Copy vsix to: $(Build.ArtifactStagingDirectory)'
+    inputs:
+      #sourceFolder: # Optional
+      contents: '$(System.DefaultWorkingDirectory)/bin/Release/*.vsix' 
+      targetFolder: 
+      cleanTargetFolder: true # Optional
+      overWrite: true # Optional
+      #flattenFolders: false # Optional
+      #preserveTimestamp: false # Optional
+
   - task: PublishPipelineArtifact@1
     displayName: 'Publish XamlStylerExtension artifact'
     inputs:
       artifact: XamlStylerExtension
-      targetPath: $(System.DefaultWorkingDirectory)/bin/Release/XamlStyler.Package.$(version).vsix
+      targetPath: $(Build.ArtifactStagingDirectory)
