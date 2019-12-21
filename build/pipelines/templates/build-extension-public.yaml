@@ -41,4 +41,4 @@ jobs:
     displayName: 'Publish XamlStylerExtension artifact'
     inputs:
       artifact: XamlStylerExtension
-      path: $(System.DefaultWorkingDirectory)/bin/Release
+      targetPath: $(System.DefaultWorkingDirectory)/bin/Release/*.vsix

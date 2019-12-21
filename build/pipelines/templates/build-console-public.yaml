@@ -40,5 +40,5 @@ jobs:
   - task: PublishPipelineArtifact@1
     displayName: 'Publish XamlStyler.Console artifact'
     inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      targetPath: '$(Build.ArtifactStagingDirectory)'
       artifactName: 'XamlStyler.Console'
