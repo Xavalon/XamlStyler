@@ -45,7 +45,7 @@ jobs:
       targetFolder: $(Build.ArtifactStagingDirectory)
       cleanTargetFolder: true # Optional
       overWrite: true # Optional
-      #flattenFolders: false # Optional
+      flattenFolders: true # Optional
       #preserveTimestamp: false # Optional
 
   - task: PublishPipelineArtifact@1
