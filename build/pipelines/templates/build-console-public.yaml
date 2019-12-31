@@ -8,7 +8,7 @@ jobs:
 
   steps:
   - task: PowerShell@2
-    displayName: Update Version
+    displayName: 'Update Version Number'
     inputs:
       filePath: './build/update-version.ps1'
       arguments: $(major).$(Get-Date -Format "yyMM").$(patch)
@@ -23,7 +23,7 @@ jobs:
 
   # The first task is the dotnet command build, pointing to our csproj file
   - task: DotNetCoreCLI@2
-    displayName: 'dotnet build'
+    displayName: 'Build'
     inputs:
       command: 'build'
       arguments: '--configuration $(buildConfiguration)'
@@ -32,7 +32,7 @@ jobs:
 # The second task is dotnet pack command again pointing to the csproj file
 # The nobuild means the project will not be compiled before running pack, because its already built in above step
   - task: DotNetCoreCLI@2
-    displayName: 'dotnet pack'
+    displayName: 'Pack'
     inputs:
       command: 'pack'
       packagesToPack: '**/XamlStyler.Console.csproj'
@@ -43,8 +43,8 @@ jobs:
       minorVersion: '$(Date:yyMM)'
       patchVersion: '$(patch)'
 
-  - bash: ls $(Build.ArtifactStagingDirectory)
-    displayName: 'Copy NuGet Package to Staging'
+#  - bash: ls $(Build.ArtifactStagingDirectory)
+#    displayName: 'Copy NuGet Package to Staging'
 
   - task: PublishPipelineArtifact@1
     displayName: 'Publish NuGet Package Artifact'

@@ -14,7 +14,7 @@ jobs:
     clean: true
 
   - task: PowerShell@2
-    displayName: Update Version
+    displayName: 'Update Version Number'
     inputs:
       filePath: 'build\update-version.ps1'
       arguments: $(major).$(Get-Date -Format "yyMM").$(patch)
@@ -30,7 +30,7 @@ jobs:
       arguments: restore XamlStyler.sln -Verbosity Detailed -NonInteractive
 
   - task: VSBuild@1
-    displayName: 'Build Solution'
+    displayName: 'Build'
     inputs:
       solution: XamlStyler.sln
       vsVersion: 16.0

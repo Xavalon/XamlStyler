@@ -8,7 +8,7 @@ jobs:
 
   steps:
   - task: DotNetCoreCLI@2
-    displayName: 'dotnet build'
+    displayName: 'Build'
     inputs:
       command: 'build'
       projects: '**/*UnitTests/*.csproj'
