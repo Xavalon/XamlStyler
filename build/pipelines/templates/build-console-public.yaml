@@ -1,20 +1,21 @@
-# build xamlStyler.Console nuget package
 jobs:
 - job: BuildConsoleNuget
-  displayName: 'Build XamlStyler.Console Nuget Package'
+
+  displayName: 'Build NuGet Package'
+
   pool:
     vmImage: 'ubuntu-latest'
 
   steps:
   - task: PowerShell@2
-    displayName: Update version in the vsix manifest
+    displayName: Update Version
     inputs:
       filePath: './build/update-version.ps1'
       arguments: $(major).$(Get-Date -Format "yyMM").$(patch)
       pwsh: true
 
   - task: UseDotNet@2
-    displayName: 'Use .NET Core 3.1 sdk'
+    displayName: 'Use .NET Core 3.1 SDK'
     inputs:
       packageType: sdk
       version: 3.1.x
@@ -43,9 +44,10 @@ jobs:
       patchVersion: '$(patch)'
 
   - bash: ls $(Build.ArtifactStagingDirectory)
+    displayName: 'Copy NuGet Package to Staging'
 
   - task: PublishPipelineArtifact@1
-    displayName: 'Publish XamlStyler.Console artifact'
+    displayName: 'Publish NuGet Package Artifact'
     inputs:
       targetPath: '$(Build.ArtifactStagingDirectory)'
       artifactName: 'XamlStyler.Console'
