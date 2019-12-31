@@ -96,15 +96,12 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LICENSE.txt">
+    <Resource Include="Resources\icon.jpg" />
+    <Content Include="Resources\icon200.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Content Include="Resources\Package.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Resources\Preview.png">
+    <Content Include="Resources\icon32.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
