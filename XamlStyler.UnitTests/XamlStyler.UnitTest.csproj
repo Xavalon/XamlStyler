@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Xavalon.XamlStyler.UnitTests</RootNamespace>
+    <Copyright>Copyright © Xavalon 2019</Copyright>
+    <Company>Xavalon</Company>
   </PropertyGroup>
 <ItemGroup>
     <PackageReference Include="CompareNETObjects">
