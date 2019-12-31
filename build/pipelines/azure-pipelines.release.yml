@@ -12,11 +12,8 @@ pr:
 variables:
   buildConfiguration: 'Release'
   major: 3
-  minor: $[counter(format('{0:yyMM}', pipeline.startTime), 100)]
-  patch: $[counter(variables['patch'], 0)]
-  version: $(major).$(minor).$(patch).0
 
-name: $(major).$(minor).$(patch).0
+name: $(major).$(Date:yyMM).$(Rev:r).0
 
 jobs:
 - template: ./templates/run-tests-public.yaml
