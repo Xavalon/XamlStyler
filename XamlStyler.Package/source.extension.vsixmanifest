@@ -5,7 +5,7 @@
         <DisplayName>XAML Styler</DisplayName>
         <Description xml:space="preserve">XAML Styler is a visual studio extension that formats XAML source code based on a set of styling rules. This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.</Description>
         <MoreInfo>https://github.com/Xavalon/XamlStyler/</MoreInfo>
-        <License>..\LICENSE.txt</License>
+        <License>LICENSE.txt</License>
         <GettingStartedGuide>https://github.com/Xavalon/XamlStyler/wiki/Getting-Started</GettingStartedGuide>
         <Icon>Resources\icon32.jpg</Icon>
         <PreviewImage>Resources\icon200.jpg</PreviewImage>
