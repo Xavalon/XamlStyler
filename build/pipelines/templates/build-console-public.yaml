@@ -32,7 +32,7 @@ jobs:
       versioningScheme: 'off'
       nobuild: true
       majorVersion: '$(major)'
-      minorVersion: $(Date:yyMM)
+      minorVersion: '$(Date:yyMM)'
       patchVersion: '$(Rev:r)'
 
   - bash: ls $(Build.ArtifactStagingDirectory)
