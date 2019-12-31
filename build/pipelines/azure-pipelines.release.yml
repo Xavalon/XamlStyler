@@ -14,9 +14,9 @@ variables:
   major: 3
   minor: $(Date:yyMM)
   patch: $(Rev:rr)
-  version: $(major).$(minor).$(patch).0
+  version: $(major).$(minor).$(patch)
 
-name: $(version)
+name: $(version).0
 
 jobs:
 - template: ./templates/run-tests-public.yaml
