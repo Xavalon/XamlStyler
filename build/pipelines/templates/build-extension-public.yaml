@@ -3,11 +3,15 @@
 
 jobs:
 - job: BuildExtension
+
   displayName: 'Build XamlStyler vsix Extension'
+
   pool:
     vmImage: 'windows-latest'
+
   workspace:
     clean: outputs
+
   steps:
   - checkout: self
     clean: true
@@ -15,7 +19,7 @@ jobs:
   - task: PowerShell@2
     displayName: Update version in the vsix manifest
     inputs:
-      filePath: '$(Build.SourcesDirectory)\build\update-version.ps1'
+      filePath: 'build\update-version.ps1'
       arguments: $(major).$(Get-Date -Format "yyMM").$(patch)
       pwsh: true
       

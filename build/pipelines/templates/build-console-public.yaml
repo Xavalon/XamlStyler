@@ -6,9 +6,6 @@ jobs:
     vmImage: 'ubuntu-latest'
 
   steps:
-  - checkout: self
-    clean: true
-
   - task: PowerShell@2
     displayName: Update version in the vsix manifest
     inputs:
