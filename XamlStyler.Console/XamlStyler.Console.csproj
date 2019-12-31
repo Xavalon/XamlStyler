@@ -9,7 +9,7 @@
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Xavalon/XamlStyler</PackageProjectUrl>
     <PackageIcon>icon.jpg</PackageIcon>
-    <PackageTags>beautifier, beautify, cleaning, cleanup, code, extension, format, formatter, formatting, pretty, style, tool, uwp, vsix, wpf, xamarin</PackageTags>
+    <PackageTags>beautifier, beautify, cleaning, cleanup, code, extension, format, formatter, formatting, pretty, style, styler, tool, uwp, vsix, wpf, xamarin, xaml</PackageTags>
     <RepositoryUrl>https://github.com/Xavalon/XamlStyler</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <OutputType>Exe</OutputType>
@@ -19,6 +19,7 @@
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>xstyler</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CommandLineParser">
