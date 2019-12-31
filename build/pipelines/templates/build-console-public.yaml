@@ -6,6 +6,13 @@ jobs:
     vmImage: 'ubuntu-latest'
 
   steps:
+  - task: PowerShell@2
+    displayName: Update version in the vsix manifest
+    inputs:
+      filePath: 'build\update-version.ps1'
+      arguments: $(major).$(Get-Date -Format "yyMM").$(patch)
+      pwsh: true
+
   - task: UseDotNet@2
     displayName: 'Use .NET Core 3.1 sdk'
     inputs:
