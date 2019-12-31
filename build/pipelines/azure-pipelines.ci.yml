@@ -13,7 +13,7 @@ variables:
   buildConfiguration: 'Release'
   major: 0
   minor: $(Date:yyMM)
-  patch: $(Rev:rr)
+  patch: $[counter(variables['patch'], 0)]
   version: $(major).$(minor).$(patch)
 
 name: 0.$(Date:yyMM).$(Rev:rr).0
