@@ -12,7 +12,7 @@ pr:
 variables:
   buildConfiguration: 'Release'
   major: 0
-  patch: $[counter(variables['patch'], 0)]
+  patch: $[counter(format('{0:yyyyMMdd}', pipeline.startTime), 0)]
 
 name: $(major).$(Date:yyMM).$(patch).0
 
