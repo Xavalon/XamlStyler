@@ -7,17 +7,17 @@
     <owners>Xavalon</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <developmentDependency>true</developmentDependency>
-    <description>XAML Styler is a visual studio extension, which formats XAML source code by sorting the attributes based on their importance. This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.</description>
-    <tags>XAML, add-in, WPF, Visual Studio, Silverlight, Extension, formatter, winrt, xamarin, WP8, uwp, Win10</tags>
+    <description>The power of XAML Styler wrapped up in a small executable that can be integrated into build scripts, git commit templates, and more. This package is built on top of the same styling engine that powers the Visual Studio plugin, and can be configured by specifying an external configuration.</description>
+    <tags>beautifier, beautify, cleaning, cleanup, code, extension, format, formatter, formatting, pretty, style, tool, uwp, vsix, wpf, xamarin</tags>
     <projectUrl>https://github.com/Xavalon/XamlStyler</projectUrl>
     <licenseUrl>https://github.com/Xavalon/XamlStyler/blob/master/LICENSE.txt</licenseUrl>
     <iconUrl>http://i.imgur.com/WEXCraF.png</iconUrl>
     <copyright>Copyright © Xavalon 2019</copyright>
   </metadata>
   <files>
-    <file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.0\linux-x64\publish\xstyler" target="tools\linux-x64\xstyler" />
-    <file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.0\osx-x64\publish\xstyler" target="tools\osx-x64\xstyler" />
-    <file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.0\win-x64\publish\xstyler.exe" target="tools\win-x64" />
-    <file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.0\win-x86\publish\xstyler.exe" target="tools\win-x86" />
+    <file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.1\linux-x64\publish\xstyler" target="tools\linux-x64\xstyler" />
+    <file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.1\osx-x64\publish\xstyler" target="tools\osx-x64\xstyler" />
+    <file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.1\win-x64\publish\xstyler.exe" target="tools\win-x64" />
+    <file src="..\..\XamlStyler.Console\bin\Release\netcoreapp3.1\win-x86\publish\xstyler.exe" target="tools\win-x86" />
   </files>
 </package>
