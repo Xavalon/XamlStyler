@@ -16,7 +16,7 @@ jobs:
     displayName: Update version in the vsix manifest
     inputs:
       filePath: 'build\update-version.ps1'
-      arguments: $(major).(Get-Date -format "yyMM").$(patch).0
+      arguments: $(major).(Get-Date -Format "yyMM").$(patch).0
       pwsh: true
       
   - task: NuGetToolInstaller@1
