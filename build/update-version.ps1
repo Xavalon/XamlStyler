@@ -12,12 +12,5 @@ $content.Save($vsixPath)
 $consolePath = Resolve-Path $PSScriptRoot\..\XamlStyler.Console\XamlStyler.Console.csproj
 Write-Host $consolePath
 $content = [xml] (Get-Content $consolePath)
-$content.Project.PropertyGroup.Version = $version
+$content.Project.PropertyGroup.PackageVersion = $version
 $content.Save($consolePath)
-
-# Update Nuspec Version
-$nuspecPath = Resolve-Path $PSScriptRoot\..\build\nuget\XamlStyler.Console.nuspec
-Write-Host $nuspecPath
-$content = [xml] (Get-Content $nuspecPath)
-$content.Package.Metadata.Version = $version
-$content.Save($nuspecPath)
