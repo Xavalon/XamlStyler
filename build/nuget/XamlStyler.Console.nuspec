@@ -7,8 +7,8 @@
     <owners>Xavalon</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <developmentDependency>true</developmentDependency>
-    <description>XAML Styler is a visual studio extension, which formats XAML source code by sorting the attributes based on their importance. This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.</description>
-    <tags>XAML, add-in, WPF, Visual Studio, Silverlight, Extension, formatter, winrt, xamarin, WP8, uwp, Win10</tags>
+    <description>The power of XAML Styler wrapped up in a small executable that can be integrated into build scripts, git commit templates, and more. This package is built on top of the same styling engine that powers the Visual Studio plugin, and can be configured by specifying an external configuration.</description>
+    <tags>beautifier, beautify, cleaning, cleanup, code, extension, format, formatter, formatting, pretty, style, tool, uwp, vsix, wpf, xamarin</tags>
     <projectUrl>https://github.com/Xavalon/XamlStyler</projectUrl>
     <licenseUrl>https://github.com/Xavalon/XamlStyler/blob/master/LICENSE.txt</licenseUrl>
     <iconUrl>http://i.imgur.com/WEXCraF.png</iconUrl>
