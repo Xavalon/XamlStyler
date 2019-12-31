@@ -1,5 +1,5 @@
 #
-# Continuous Integration (CI)
+# Release
 # This pipeline builds and validate the extension in all supported configurations.
 #
 
