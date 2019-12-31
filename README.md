@@ -16,6 +16,11 @@ XAML Styler is a visual studio extension that formats XAML source code based on 
 [![NuGet](https://img.shields.io/nuget/v/XamlStyler.Console.svg?label=XAML%20Styler%20Console)](https://www.nuget.org/packages/XamlStyler.Console)  
 <sub>View [other downloads](https://github.com/Xavalon/XamlStyler/wiki)</sub>
 
+#### Getting Started
+Right-click with any file and select "Format XAML" to format your XAML source code.
+
+![Context Menu](http://i.imgur.com/gCcNuIS.png)
+
 #### Thanks to our Contributors
 [![](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/images/0)](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/links/0)[![](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/images/1)](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/links/1)[![](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/images/2)](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/links/2)[![](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/images/3)](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/links/3)[![](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/images/4)](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/links/4)[![](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/images/5)](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/links/5)[![](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/images/6)](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/links/6)[![](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/images/7)](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/links/7)
 
