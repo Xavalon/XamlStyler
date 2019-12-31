@@ -12,7 +12,7 @@ jobs:
   - task: PowerShell@2
     displayName: Update version in the vsix manifest
     inputs:
-      filePath: '$(Build.SourcesDirectory)\build\update-version.ps1'
+      filePath: '/build/update-version.ps1'
       arguments: $(major).$(Get-Date -Format "yyMM").$(patch)
       pwsh: true
 
