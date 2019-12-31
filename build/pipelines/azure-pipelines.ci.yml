@@ -16,7 +16,7 @@ variables:
   patch: $[counter(variables['patch'], 0)]
   version: $(major).$(minor).$(patch).0
 
-name: "$(version)"
+name: $[variables.version]
 
 jobs:
 - template: ./templates/run-tests-public.yaml
