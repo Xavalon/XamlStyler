@@ -6,9 +6,6 @@
 trigger:
 - master
 
-pr:
-- master
-
 variables:
   buildConfiguration: 'Release'
   major: 3
