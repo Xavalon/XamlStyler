@@ -7,6 +7,9 @@
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
     <DelaySign>false</DelaySign>
     <Copyright>Copyright © Xavalon 2019</Copyright>
+    <ApplicationIcon />
+    <OutputType>Library</OutputType>
+    <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +24,7 @@
       <Version>1.1.0</Version>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
+      <Version>9.0.1</Version>
     </PackageReference>
   </ItemGroup>
 <ItemGroup>
