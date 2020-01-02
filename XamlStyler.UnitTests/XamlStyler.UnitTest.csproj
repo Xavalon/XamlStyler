@@ -1,363 +1,21 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>
-    </ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E5245034-9CD0-4FC6-B141-BAE17BC251A5}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Xavalon.XamlStyler.UnitTests</RootNamespace>
-    <AssemblyName>XamlStyler.UnitTests</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile />
+    <Copyright>Copyright © Xavalon 2019</Copyright>
+    <Company>Xavalon</Company>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\bin\Debug\UnitTest\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\bin\Release\UnitTest\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.XML" />
-    <Reference Include="System.Xml.Linq" />
-  </ItemGroup>
-  <ItemGroup>
-    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
-      <Visible>False</Visible>
-    </CodeAnalysisDependentAssemblyPaths>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="IndentServiceUnitTests.cs" />
-    <Compile Include="MarkupExtensions\MarkupExtensionParserObjectGraphUnitTests.cs" />
-    <Compile Include="TestConfigurations.cs" />
-    <Compile Include="ThicknessFormatterTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FileHandlingIntegrationTests.cs" />
-    <Compile Include="MarkupExtensions\MarkupExtensionFormatterUnitTests.cs" />
-    <Compile Include="MarkupExtensions\XamlMarkupExtensionGrammarUnitTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\XamlStyler.Core\XamlStyler.Core.csproj">
-      <Project>{bd2a5b6f-0b1c-4b1d-90af-707f62bb12c0}</Project>
-      <Name>XamlStyler.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TestConfigurations\AllDifferent.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestConfigurations\BadSetting.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestConfigurations\Default.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestConfigurations\Empty.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestConfigurations\SerializedDefault.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestConfigurations\Single.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="TestConfigurations\LegacyTestSettings.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <None Include="TestFiles\TestAttributeIndentationHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestAttributeIndentationHandling_4.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestAttributeIndentationHandling_0.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestSingleLineNestedMarkupExtensions.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestSingleLineNestedMarkupExtensions.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestSuppressedDefaultHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestSuppressedDefaultHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestNestedCustomMarkupExtensionsWithBindings.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestNestedCustomMarkupExtensionsWithBindings.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestCommentHandling_1.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestCommentHandling_0.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestCommentHandling_3.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestKeepSelectAttributesOnFirstLine.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestKeepSelectAttributesOnFirstLine.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestDesignReferenceRemoval.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestMarkupExtensionHandling_2_spaces.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestMarkupExtensionHandling_2_tabs.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestMarkupExtensionHandling_4_tabs.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestValueXmlEntityHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestValueXmlEntityHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestRunHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestRunHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestRootHandling_3.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestRootHandling_2.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestRootHandling_1.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestRootHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestThicknessHandling_Space.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestThicknessHandling_Comma.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestThicknessHandling_None.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestThicknessHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestVisualStateManagerFirst.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestVisualStateManagerFirst.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestVisualStateManagerLast.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestVisualStateManagerLast.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestVisualStateManagerNone.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestVisualStateManagerNone.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestDesignReferenceRemoval.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestWildcard.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestWildcard.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestXmlnsAliasesHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestXmlnsAliasesHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestXmlSpaceHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestXmlSpaceHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestAttributeOrderRuleGroupsOnSeparateLinesHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestAttributeOrderRuleGroupsOnSeparateLinesHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestAttributeSortingOptionHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestAttributeSortingOptionHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestAttributeThresholdHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestAttributeThresholdHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestAttributeToleranceHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestAttributeToleranceHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestCanvasChildrenHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestCanvasChildrenHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestCDATAHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestCDATAHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestClosingElementHandling_2.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestClosingElementHandling_1.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestCommentHandling_2.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestCommentHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestDefaultHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestDefaultHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestGridChildrenHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestGridChildrenHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestMarkupExtensionHandling_4_spaces.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestMarkupExtensionHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestMarkupWithAttributeNotOnFirstLine.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestMarkupWithAttributeNotOnFirstLine.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestNestedCanvasChildrenHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestNestedCanvasChildrenHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestNestedGridChildrenHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestNestedGridChildrenHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestNestedPropertiesAndChildrenHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="TestFiles\TestNestedPropertiesAndChildrenHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestNoContentElementHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestNoContentElementHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestClosingElementHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestReorderSetterHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestReorderSetterHandling_Property.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestReorderSetterHandling_TargetName.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestReorderSetterHandling_TargetNameThenProperty.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestTextOnlyContentElementHandling.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestTextOnlyContentElementHandling.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestBindingSplitting.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestBindingSplitting.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestxBindSplitting.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestxBindSplitting.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestCommentAtFirstLine.expected">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="TestFiles\TestCommentAtFirstLine.testxaml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
+<ItemGroup>
     <PackageReference Include="CompareNETObjects">
-      <Version>3.5.0</Version>
+      <Version>4.63.0</Version>
     </PackageReference>
     <PackageReference Include="Irony">
-      <Version>0.9.1</Version>
+      <Version>1.1.0</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
     <PackageReference Include="Newtonsoft.Json">
-      <Version>8.0.3</Version>
+      <Version>12.0.3</Version>
     </PackageReference>
     <PackageReference Include="NUnit">
       <Version>3.12.0</Version>
@@ -366,15 +24,306 @@
       <Version>3.10.0</Version>
     </PackageReference>
     <PackageReference Include="NUnit3TestAdapter">
-      <Version>3.13.0</Version>
+      <Version>3.15.1</Version>
     </PackageReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+<ItemGroup>
+  <ProjectReference Include="..\XamlStyler.Core\XamlStyler.Core.csproj" />
+</ItemGroup>
+<ItemGroup>
+  <Folder Include="Properties\" />
+</ItemGroup>
+<ItemGroup>
+  <None Update="TestConfigurations\AllDifferent.json">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestConfigurations\BadSetting.json">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestConfigurations\Default.json">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestConfigurations\Empty.json">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestConfigurations\LegacyTestSettings.json">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestConfigurations\SerializedDefault.json">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestConfigurations\Single.json">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestAttributeIndentationHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestAttributeIndentationHandling_0.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestAttributeIndentationHandling_4.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestAttributeOrderRuleGroupsOnSeparateLinesHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestAttributeOrderRuleGroupsOnSeparateLinesHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestAttributeSortingOptionHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestAttributeSortingOptionHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestAttributeThresholdHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestAttributeThresholdHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestAttributeToleranceHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestAttributeToleranceHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestBindingSplitting.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestBindingSplitting.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestCanvasChildrenHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestCanvasChildrenHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestCDATAHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestCDATAHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestClosingElementHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestClosingElementHandling_1.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestClosingElementHandling_2.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestCommentAtFirstLine.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestCommentAtFirstLine.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestCommentHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestCommentHandling_0.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestCommentHandling_1.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestCommentHandling_2.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestCommentHandling_3.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestDefaultHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestDefaultHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestDesignReferenceRemoval.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestDesignReferenceRemoval.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestGridChildrenHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestGridChildrenHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestKeepSelectAttributesOnFirstLine.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestKeepSelectAttributesOnFirstLine.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestMarkupExtensionHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestMarkupExtensionHandling_2_spaces.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestMarkupExtensionHandling_2_tabs.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestMarkupExtensionHandling_4_spaces.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestMarkupExtensionHandling_4_tabs.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestMarkupWithAttributeNotOnFirstLine.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestMarkupWithAttributeNotOnFirstLine.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestNestedCanvasChildrenHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestNestedCanvasChildrenHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestNestedCustomMarkupExtensionsWithBindings.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestNestedCustomMarkupExtensionsWithBindings.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestNestedGridChildrenHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestNestedGridChildrenHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestNestedPropertiesAndChildrenHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestNestedPropertiesAndChildrenHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestNoContentElementHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestNoContentElementHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestProcessingInstructionHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestProcessingInstructionHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestReorderSetterHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestReorderSetterHandling_Property.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestReorderSetterHandling_TargetName.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestReorderSetterHandling_TargetNameThenProperty.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestRootHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestRootHandling_1.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestRootHandling_2.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestRootHandling_3.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestRunHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestRunHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestSingleLineNestedMarkupExtensions.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestSingleLineNestedMarkupExtensions.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestSuppressedDefaultHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestSuppressedDefaultHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestTextOnlyContentElementHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestTextOnlyContentElementHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestThicknessHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestThicknessHandling_Comma.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestThicknessHandling_None.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestThicknessHandling_Space.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestValueXmlEntityHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestValueXmlEntityHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestVisualStateManagerFirst.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestVisualStateManagerFirst.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestVisualStateManagerLast.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestVisualStateManagerLast.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestVisualStateManagerNone.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestVisualStateManagerNone.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestWildcard.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestWildcard.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestxBindSplitting.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestxBindSplitting.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestXmlnsAliasesHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestXmlnsAliasesHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestXmlSpaceHandling.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestXmlSpaceHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+</ItemGroup>
 </Project>

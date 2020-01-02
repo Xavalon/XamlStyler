@@ -103,15 +103,21 @@ namespace Xavalon.XamlStyler.Package
                                                           ref bool cancelDefault)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+            var globalOptions = GetGlobalStylerOptions();
+            if (!globalOptions.BeautifyOnSave)
+            {
+                return;
+            }
+
             Document document = _dte.ActiveDocument;
 
             if (IsFormatableDocument(document))
             {
-                var options = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
+                var options = GetDocumentStylerOptions(document);
 
                 if (options.BeautifyOnSave)
                 {
-                    Execute(document);
+                    Execute(document, options);
                 }
             }
         }
@@ -119,46 +125,97 @@ namespace Xavalon.XamlStyler.Package
         private void OnFileSaveAllBeforeExecute(string guid, int id, object customIn, object customOut,
                                                 ref bool cancelDefault)
         {
-            // use parallel processing, but only on the documents that are formatable
-            // (to avoid the overhead of Task creating when it's not necessary)
             ThreadHelper.ThrowIfNotOnUIThread();
-            List<Document> docs = new List<Document>();
-            foreach (Document document in _dte.Documents)
-            {
-                if (IsFormatableDocument(document))
-                {
-                    docs.Add(document);
-                }
-            }
-
-            Parallel.ForEach(docs, document =>
-            {
-                var options = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
-
-                if (options.BeautifyOnSave)
-                {
-                    Execute(document);
-                }
-            }
-                );
-        }
-
-        private void Execute(Document document)
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            if (!IsFormatableDocument(document))
+            var globalOptions = GetGlobalStylerOptions();
+            if (!globalOptions.BeautifyOnSave)
             {
                 return;
             }
 
+            // use parallel processing, but only on the documents that are formatable
+            // (to avoid the overhead of Task creating when it's not necessary)
+            var jobs = new List<Func<Action>>();
+            foreach (Document document in _dte.Documents)
+            {
+                // exclude unopened document.
+                if (document.ActiveWindow == null)
+                {
+                    continue;
+                }
+
+                if (!IsFormatableDocument(document))
+                {
+                    continue;
+                }
+
+                var options = GetDocumentStylerOptions(document);
+                if (!options.BeautifyOnSave)
+                {
+                    continue;
+                }
+
+                jobs.Add(SetupExecuteContinuation(document, options));
+            }
+
+            // executes job() in parallel, then execute finish() sequentially
+            foreach (var finish in jobs.AsParallel().Select(job => job()))
+            {
+                finish();
+            }
+        }
+
+        private void Execute(Document document, IStylerOptions stylerOptions)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            if (IsFormatableDocument(document))
+            {
+                SetupExecuteContinuation(document, stylerOptions)()();
+            }
+        }
+
+        private Func<Action> SetupExecuteContinuation(Document document, IStylerOptions stylerOptions)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            var textDocument = (TextDocument)document.Object("TextDocument");
+
+            EditPoint startPoint = textDocument.StartPoint.CreateEditPoint();
+            EditPoint endPoint = textDocument.EndPoint.CreateEditPoint();
+
+            string xamlSource = startPoint.GetText(endPoint);
+
+            return () =>
+            {
+                // this part can be executed in parallel.
+                StylerService styler = new StylerService(stylerOptions);
+                xamlSource = styler.StyleDocument(xamlSource);
+
+                return () =>
+                {
+                    // this part should be executed sequentially.
+                    ThreadHelper.ThrowIfNotOnUIThread();
+                    const int vsEPReplaceTextKeepMarkers = 1;
+                    startPoint.ReplaceText(endPoint, xamlSource, vsEPReplaceTextKeepMarkers);
+                };
+            };
+        }
+
+        private IStylerOptions GetGlobalStylerOptions()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            return GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
+        }
+
+        private IStylerOptions GetDocumentStylerOptions(Document document)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
             Properties xamlEditorProps = _dte.Properties["TextEditor", "XAML"];
 
-            var stylerOptions = GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
+            var stylerOptions = GetGlobalStylerOptions();
 
             var solutionPath = String.IsNullOrEmpty(_dte.Solution?.FullName)
                 ? String.Empty
                 : (stylerOptions.SearchToDriveRoot ? Path.GetPathRoot(_dte.Solution.FullName) : Path.GetDirectoryName(_dte.Solution.FullName));
-            var project = _dte.ActiveDocument?.ProjectItem?.ContainingProject;
+            var project = document.ProjectItem?.ContainingProject;
 
             var configPath = GetConfigPathForItem(document.Path, solutionPath, project);
 
@@ -179,59 +236,39 @@ namespace Xavalon.XamlStyler.Package
 
             stylerOptions.IndentWithTabs = (bool)xamlEditorProps.Item("InsertTabs").Value;
 
-            StylerService styler = new StylerService(stylerOptions);
-
-            var textDocument = (TextDocument)document.Object("TextDocument");
-            
-            EditPoint startPoint = textDocument.StartPoint.CreateEditPoint();
-            EditPoint endPoint = textDocument.EndPoint.CreateEditPoint();
-
-            string xamlSource = startPoint.GetText(endPoint);
-            xamlSource = styler.StyleDocument(xamlSource);
-
-            const int vsEPReplaceTextKeepMarkers = 1;
-            startPoint.ReplaceText(endPoint, xamlSource, vsEPReplaceTextKeepMarkers);
+            return stylerOptions;
         }
 
         private string GetConfigPathForItem(string path, string solutionRoot, Project project)
         {
-            try
+            if (String.IsNullOrWhiteSpace(path))
             {
-                if (String.IsNullOrWhiteSpace(path))
-                {
-                    return null;
-                }
-
-                var projectFullName = project?.FullName;
-                var projectDirectory = String.IsNullOrEmpty(projectFullName)
-                    ? String.Empty
-                    : Path.GetDirectoryName(projectFullName);
-
-                IEnumerable<string> configPaths
-                    = (path.StartsWith(solutionRoot, StringComparison.InvariantCultureIgnoreCase))
-                        ? StylerPackage.GetConfigPathBetweenPaths(path, solutionRoot)
-                        : StylerPackage.GetConfigPathBetweenPaths(path, projectDirectory);
-
-                // find the FullPath of "Settings.XamlStyler" ref in project
-                var filePathsInProject = project?.ProjectItems.Cast<ProjectItem>()
-                    .Where(x => string.Equals(x.Name, "Settings.XamlStyler"))
-                    .SelectMany(x => x.Properties.Cast<Property>())
-                    .Where(x => string.Equals(x.Name, "FullPath"))
-                    .Select(x => x.Value as string);
-
-                if (filePathsInProject != null)
-                {
-                    configPaths = configPaths.Concat(filePathsInProject);
-                }
-
-                return configPaths.FirstOrDefault(File.Exists);
-            }
-            catch
-            {
-                // Fail gracefully.
+                return null;
             }
 
-            return null;
+            var projectFullName = project?.FullName;
+            var projectDirectory = String.IsNullOrEmpty(projectFullName)
+                ? String.Empty
+                : Path.GetDirectoryName(projectFullName);
+
+            IEnumerable<string> configPaths
+                = (path.StartsWith(solutionRoot, StringComparison.InvariantCultureIgnoreCase))
+                    ? StylerPackage.GetConfigPathBetweenPaths(path, solutionRoot)
+                    : StylerPackage.GetConfigPathBetweenPaths(path, projectDirectory);
+
+            // find the FullPath of "Settings.XamlStyler" ref in project
+            var filePathsInProject = project?.ProjectItems.Cast<ProjectItem>()
+                .Where(x => { ThreadHelper.ThrowIfNotOnUIThread(); return string.Equals(x.Name, "Settings.XamlStyler"); })
+                .SelectMany(x => { ThreadHelper.ThrowIfNotOnUIThread(); return x.Properties.Cast<Property>(); })
+                .Where(x => { ThreadHelper.ThrowIfNotOnUIThread(); return string.Equals(x.Name, "FullPath"); })
+                .Select(x => { ThreadHelper.ThrowIfNotOnUIThread(); return x.Value as string; });
+
+            if (filePathsInProject != null)
+            {
+                configPaths = configPaths.Concat(filePathsInProject);
+            }
+
+            return configPaths.FirstOrDefault(File.Exists);
         }
 
         // Searches for configuration file up through solution root directory.
@@ -264,7 +301,7 @@ namespace Xavalon.XamlStyler.Package
 
                 if (IsFormatableDocument(document))
                 {
-                    Execute(document);
+                    Execute(document, GetDocumentStylerOptions(document));
                 }
             }
             catch (Exception ex)

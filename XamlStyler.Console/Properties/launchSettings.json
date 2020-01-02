@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "XamlStyler.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "--help"
+    }
+  }
+}

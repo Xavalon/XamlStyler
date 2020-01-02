@@ -1,16 +1,16 @@
 #
-# Continuous Integration (CI)
+# Release
 # This pipeline builds and validate the extension in all supported configurations.
 #
 
-trigger: none
-
-pr:
+trigger:
 - master
+
+pr: none
 
 variables:
   buildConfiguration: 'Release'
-  major: 0
+  major: 3
   patch: $[counter(format('{0:yyyyMMdd}', pipeline.startTime), 0)]
 
 name: $(major).$(Date:yyMM).$(patch).0
