@@ -11,4 +11,4 @@ using Mono.Addins.Description;
 
 [assembly: AddinDependency("::MonoDevelop.Core", MonoDevelop.BuildInfo.Version)]
 [assembly: AddinDependency("::MonoDevelop.Ide", MonoDevelop.BuildInfo.Version)]
-[assembly: AddinDependency("::MonoDevelop.SourceEditor2", MonoDevelop.BuildInfo.Version)]
+[assembly: AddinDependency("::MonoDevelop.TextEditor", MonoDevelop.BuildInfo.Version)]

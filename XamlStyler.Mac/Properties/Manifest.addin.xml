@@ -6,14 +6,16 @@
     <Extension path="/MonoDevelop/Ide/ContextMenu/DocumentTab">
         <CommandItem id="Xavalon.XamlStyler.Mac.FormatXaml" />
     </Extension>
-    <Extension path="/MonoDevelop/TextEditor/ContextMenu">
+    <Extension path="/MonoDevelop/TextEditor/ContextMenu/Editor">
         <CommandItem id="Xavalon.XamlStyler.Mac.FormatXaml"/>
     </Extension>
+    
     <Extension path="/MonoDevelop/Ide/ContextMenu/ProjectPad">
         <Condition id="ItemType" value="Project|Solution">
             <CommandItem id="Xavalon.XamlStyler.Mac.BatchFormatXaml" />
         </Condition>
     </Extension>
+    
     <Extension path="/MonoDevelop/Ide/Commands/Edit">
         <Command 
             id="Xavalon.XamlStyler.Mac.FormatXaml" 

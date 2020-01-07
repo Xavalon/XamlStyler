@@ -30,14 +30,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="Mono.Cairo" />
-    <Reference Include="atk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="gtk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="glib-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="gdk-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
-    <Reference Include="pango-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <Reference Include="Mono.Posix" />
   </ItemGroup>
   <ItemGroup>
@@ -47,7 +42,7 @@
     <Compile Include="gtk-gui\generated.cs" />
     <Compile Include="Gui\XamlStylerOptionsPanel.cs" />
     <Compile Include="StylerOptionsConfiguration.cs" />
-    <Compile Include="Gui\Option.cs" />
+    <Compile Include="Gui\OptionViewModel.cs" />
     <Compile Include="Gui\OptionsViewModel.cs" />
     <Compile Include="Gui\OptionsWidget.cs" />
     <Compile Include="BatchFormatXamlHandler.cs" />

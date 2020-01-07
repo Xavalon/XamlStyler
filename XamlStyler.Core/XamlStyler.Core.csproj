@@ -5,7 +5,6 @@
     <RootNamespace>Xavalon.XamlStyler.Core</RootNamespace>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
-    <DelaySign>false</DelaySign>
     <Copyright>Copyright © Xavalon 2019</Copyright>
   </PropertyGroup>
 
@@ -17,11 +16,9 @@
     <EmbeddedResource Include="Options\DefaultSettings.json" />
   </ItemGroup>
 <ItemGroup>
-    <PackageReference Include="Irony">
-      <Version>1.1.0</Version>
+    <PackageReference Include="Irony" Version="1.1.0">
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3">
     </PackageReference>
   </ItemGroup>
 <ItemGroup>

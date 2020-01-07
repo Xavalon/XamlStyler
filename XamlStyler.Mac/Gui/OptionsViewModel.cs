@@ -8,23 +8,25 @@ namespace Xavalon.XamlStyler.Mac.Gui
 {
 	public class OptionsViewModel
 	{
-		public IList<IGrouping<string, Option>> GroupedOptions { get; private set; }
+        private readonly string[] _disabledCategories = { "XAML Styler Configuration" };
+
+		public IList<IGrouping<string, OptionViewModel>> GroupedOptions { get; private set; }
 
 		public StylerOptions Options { get; private set; }
 
 		public bool IsDirty { get; set; }
 
-		public void Init()
+		public void Initialize()
 		{
 			Options = ReadOptions();
 
-			var optionsList = new List<Option>();
-			foreach (PropertyDescriptor property in TypeDescriptor.GetProperties(Options))
-			{
-				optionsList.Add(new Option(property));
-			}
+            var properties = TypeDescriptor.GetProperties(Options);
 
-			GroupedOptions = optionsList.Where(o => o.IsConfigurable).GroupBy(o => o.Category).ToList();
+            GroupedOptions = properties.Cast<PropertyDescriptor>()
+                                       .Select(property => new OptionViewModel(property))
+                                       .Where(option => option.IsConfigurable && !_disabledCategories.Contains(option.Category))
+                                       .GroupBy(option => option.Category)
+                                       .ToList();
 		}
 
 		public StylerOptions ReadOptions()
@@ -47,4 +49,3 @@ namespace Xavalon.XamlStyler.Mac.Gui
 		}
 	}
 }
-

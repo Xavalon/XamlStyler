@@ -18,19 +18,18 @@ namespace Xavalon.XamlStyler.Mac.Gui
 		{
 			_viewModel = viewModel;
 
-			if (MonoDevelop.Ide.IdeApp.Preferences.UserInterfaceTheme == MonoDevelop.Ide.Theme.Dark)
-			{
+            if (MonoDevelop.Ide.IdeApp.Preferences.UserInterfaceTheme == MonoDevelop.Ide.Theme.Dark)
+            {
                 _groupHeaderColor = ColorUtils.Parse("#222222");
                 _altRowColor = ColorUtils.Parse("#444444");
-			}
-			else
-			{
+            }
+            else
+            {
                 _groupHeaderColor = ColorUtils.Parse("#AAAAAA");
                 _altRowColor = ColorUtils.Parse("#EEEEEE");
-			}
+            }
 
-			Build();
-            InitializeSettingsTable();
+            InitializeUI();
 		}
 
         protected void OnResetButtonClicked(object sender, EventArgs e)
@@ -45,9 +44,15 @@ namespace Xavalon.XamlStyler.Mac.Gui
             InitializeSettingsTable();
         }
 
+        private void InitializeUI()
+        {
+            Build();
+            InitializeSettingsTable();
+        }
+
         private void InitializeSettingsTable()
 		{
-			_viewModel.Init();
+			_viewModel.Initialize();
 
             var rowsCount = _viewModel.GroupedOptions.Sum(group => group.Count() + 1);
             SettingsTable.NRows = (uint)rowsCount;
