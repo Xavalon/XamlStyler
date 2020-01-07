@@ -4,11 +4,13 @@ namespace Xavalon.XamlStyler.Mac.Gui
 {
 	public partial class OptionsWidget
 	{
-		private global::Gtk.Alignment alContainer;
+		private global::Gtk.VBox VBoxContainer;
 
-		private global::Gtk.ScrolledWindow GtkScrolledWindow;
+		private global::Gtk.Button ResetButton;
 
-		private global::Gtk.Table tblContainer;
+		private global::Gtk.ScrolledWindow ScrollContainer;
+
+		private global::Gtk.Table SettingsTable;
 
 		protected virtual void Build()
 		{
@@ -17,28 +19,42 @@ namespace Xavalon.XamlStyler.Mac.Gui
 			global::Stetic.BinContainer.Attach(this);
 			this.Name = "Xavalon.XamlStyler.Mac.Gui.OptionsWidget";
 			// Container child Xavalon.XamlStyler.Mac.Gui.OptionsWidget.Gtk.Container+ContainerChild
-			this.alContainer = new global::Gtk.Alignment(0F, 0F, 1F, 1F);
-			this.alContainer.Name = "alContainer";
-			// Container child alContainer.Gtk.Container+ContainerChild
-			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow();
-			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
-			// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
-			global::Gtk.Viewport w1 = new global::Gtk.Viewport();
-			w1.ShadowType = ((global::Gtk.ShadowType)(0));
+			this.VBoxContainer = new global::Gtk.VBox();
+			this.VBoxContainer.Name = "VBoxContainer";
+			this.VBoxContainer.Spacing = 6;
+			// Container child VBoxContainer.Gtk.Box+BoxChild
+			this.ResetButton = new global::Gtk.Button();
+			this.ResetButton.CanFocus = true;
+			this.ResetButton.Name = "ResetButton";
+			this.ResetButton.UseUnderline = true;
+			this.ResetButton.FocusOnClick = false;
+			this.ResetButton.Label = global::Mono.Unix.Catalog.GetString("Reset to defaults");
+			this.VBoxContainer.Add(this.ResetButton);
+			global::Gtk.Box.BoxChild w1 = ((global::Gtk.Box.BoxChild)(this.VBoxContainer[this.ResetButton]));
+			w1.Position = 0;
+			w1.Expand = false;
+			w1.Fill = false;
+			// Container child VBoxContainer.Gtk.Box+BoxChild
+			this.ScrollContainer = new global::Gtk.ScrolledWindow();
+			this.ScrollContainer.Name = "ScrollContainer";
+			// Container child ScrollContainer.Gtk.Container+ContainerChild
+			global::Gtk.Viewport w2 = new global::Gtk.Viewport();
+			w2.ShadowType = ((global::Gtk.ShadowType)(0));
 			// Container child GtkViewport.Gtk.Container+ContainerChild
-			this.tblContainer = new global::Gtk.Table(((uint)(3)), ((uint)(3)), false);
-			this.tblContainer.Name = "tblContainer";
-			this.tblContainer.RowSpacing = ((uint)(6));
-			this.tblContainer.ColumnSpacing = ((uint)(6));
-			w1.Add(this.tblContainer);
-			this.GtkScrolledWindow.Add(w1);
-			this.alContainer.Add(this.GtkScrolledWindow);
-			this.Add(this.alContainer);
+			this.SettingsTable = new global::Gtk.Table(((uint)(1)), ((uint)(2)), false);
+			this.SettingsTable.Name = "SettingsTable";
+			w2.Add(this.SettingsTable);
+			this.ScrollContainer.Add(w2);
+			this.VBoxContainer.Add(this.ScrollContainer);
+			global::Gtk.Box.BoxChild w5 = ((global::Gtk.Box.BoxChild)(this.VBoxContainer[this.ScrollContainer]));
+			w5.Position = 1;
+			this.Add(this.VBoxContainer);
 			if ((this.Child != null))
 			{
 				this.Child.ShowAll();
 			}
 			this.Hide();
+			this.ResetButton.Clicked += new global::System.EventHandler(this.OnResetButtonClicked);
 		}
 	}
 }

@@ -42,11 +42,11 @@ namespace Xavalon.XamlStyler.Mac.Gui
 				IsConfigurable = false;
 			}
 
-			if (property.Name == "BeautifyOnSave")
-			{
-				// option not yet supported in Xamarin Studio
-				IsConfigurable = false;
-			}
+			//if (property.Name == "BeautifyOnSave")
+			//{
+			//	// option not yet supported in Xamarin Studio
+			//	IsConfigurable = false;
+			//}
 
 			Description = descAttr.Description;
 			Category = categoryAttr.Category;

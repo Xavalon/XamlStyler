@@ -1,14 +1,18 @@
-﻿using System;
+﻿using Gdk;
+using System;
+using System.ComponentModel;
 using System.Linq;
+using Xavalon.XamlStyler.Mac.Utils;
+using Gtk;
 
 namespace Xavalon.XamlStyler.Mac.Gui
 {
-	[System.ComponentModel.ToolboxItem(true)]
-	public partial class OptionsWidget : Gtk.Bin
+	[ToolboxItem(true)]
+	public partial class OptionsWidget : Bin
 	{
-		private OptionsViewModel _viewModel;
-		private Gdk.Color _groupHeaderColor;
-		private Gdk.Color _altRowColor;
+		private readonly OptionsViewModel _viewModel;
+		private readonly Color _groupHeaderColor;
+		private readonly Color _altRowColor;
 
 		public OptionsWidget(OptionsViewModel viewModel)
 		{
@@ -16,126 +20,121 @@ namespace Xavalon.XamlStyler.Mac.Gui
 
 			if (MonoDevelop.Ide.IdeApp.Preferences.UserInterfaceTheme == MonoDevelop.Ide.Theme.Dark)
 			{
-				_groupHeaderColor = new Gdk.Color(0x22, 0x22, 0x22);
-				_altRowColor = new Gdk.Color(0x44, 0x44, 0x44);
+                _groupHeaderColor = ColorUtils.Parse("#222222");
+                _altRowColor = ColorUtils.Parse("#444444");
 			}
 			else
 			{
-				_groupHeaderColor = new Gdk.Color(0xaa, 0xaa, 0xaa);
-				_altRowColor = new Gdk.Color(0xee, 0xee, 0xee);
+                _groupHeaderColor = ColorUtils.Parse("#AAAAAA");
+                _altRowColor = ColorUtils.Parse("#EEEEEE");
 			}
 
-			this.Build();
-			this.InitializeWidget();
+			Build();
+            InitializeSettingsTable();
 		}
 
-		void InitializeWidget()
+        protected void OnResetButtonClicked(object sender, EventArgs e)
+        {
+            _viewModel.ResetToDefaults();
+
+            foreach (var item in SettingsTable.Children)
+            {
+                item.Destroy();
+            }
+
+            InitializeSettingsTable();
+        }
+
+        private void InitializeSettingsTable()
 		{
 			_viewModel.Init();
 
-			// one row per option and one per group
-			tblContainer.NRows = (uint)(_viewModel.GroupedOptions.Sum(x => x.Count()) + _viewModel.GroupedOptions.Count()) + 1;
-			tblContainer.NColumns = 2;
-			tblContainer.RowSpacing = 0;
-			tblContainer.ColumnSpacing = 0;
-			tblContainer.BorderWidth = 0;
+            var rowsCount = _viewModel.GroupedOptions.Sum(group => group.Count() + 1);
+            SettingsTable.NRows = (uint)rowsCount;
 
-			uint r = 0;
-
-			var btn = new Gtk.Button();
-			btn.Label = "Reset to defaults";
-			btn.WidthRequest = 150;
-			btn.Clicked += (sender, e) =>
-			{
-				_viewModel.ResetToDefaults();
-
-				foreach (var item in tblContainer.Children)
-				{
-					item.Destroy();
-				}
-
-				InitializeWidget();
-			};
-			tblContainer.Attach(btn, 0, 2, r, r + 1, Gtk.AttachOptions.Fill, Gtk.AttachOptions.Fill, 0, 0);
-			r++;
+			var currentRow = (uint)0;
 
 			foreach (var optionGroup in _viewModel.GroupedOptions)
 			{
-				// group label
-				var grouplbl = new Gtk.Label();
-				grouplbl.SetAlignment(0f, 0.5f);
-				grouplbl.HeightRequest = 40;
-				grouplbl.Markup = $"<b> {optionGroup.Key}</b>";
+                var groupLabel = new Label
+                {
+                    HeightRequest = 40,
+                    Markup = $"<b>{optionGroup.Key}</b>"
+                };
+                groupLabel.SetPadding(5, 0);
+                groupLabel.SetAlignment(0f, 0.5f);
 
-				var box = new Gtk.EventBox();
-				box.ModifyBg(Gtk.StateType.Normal, _groupHeaderColor);
-				box.Add(grouplbl);
-				tblContainer.Attach(box, 0, 2, r, r + 1, Gtk.AttachOptions.Fill, Gtk.AttachOptions.Fill, 0, 0);
-				r++;
+                var box = new EventBox { groupLabel };
+				box.ModifyBg(StateType.Normal, _groupHeaderColor);
+
+				SettingsTable.Attach(box, 0, 2, currentRow, currentRow + 1, AttachOptions.Fill, AttachOptions.Fill, 0, 0);
+				currentRow++;
 
 				foreach (var option in optionGroup)
 				{
 					// name label
-					var lbl = new Gtk.Label(option.Name) { TooltipText = option.Description };
+					var lbl = new Label(option.Name) { TooltipText = option.Description };
 					lbl.SetAlignment(0f, 0.5f);
 					lbl.HeightRequest = 30;
-					AddToTable(r, 0, lbl);
+					AddToTable(currentRow, 0, lbl);
 
 					var type = option.PropertyType;
 					if (type == typeof(bool))
 					{
-						var chk = new Gtk.CheckButton { Active = (bool)option.Property.GetValue(_viewModel.Options) };
+						var chk = new CheckButton { Active = (bool)option.Property.GetValue(_viewModel.Options) };
 						chk.Clicked += (sender, e) =>
 						{
 							option.Property.SetValue(_viewModel.Options, chk.Active);
 							_viewModel.IsDirty = true;
 						};
-						AddToTable(r, 1, chk);
+						AddToTable(currentRow, 1, chk);
 					}
 					else if (type == typeof(int))
 					{
 						var val = (int)option.Property.GetValue(_viewModel.Options);
-						var spin = new Gtk.SpinButton(0, 10, 1) { Value = val, WidthChars = 3 };
+						var spin = new SpinButton(0, 10, 1) { Value = val, WidthChars = 3 };
 						spin.ValueChanged += (sender, e) =>
 						{
 							option.Property.SetValue(_viewModel.Options, (int)spin.Value);
 							_viewModel.IsDirty = true;
 						};
-						AddToTable(r, 1, spin);
+						AddToTable(currentRow, 1, spin);
 					}
 					else if (type == typeof(byte))
 					{
 						var val = (byte)option.Property.GetValue(_viewModel.Options);
-						var spin = new Gtk.SpinButton(0, 10, 1) { Value = val, WidthChars = 3 };
+						var spin = new SpinButton(0, 10, 1) { Value = val, WidthChars = 3 };
 						spin.ValueChanged += (sender, e) =>
 						{
 							option.Property.SetValue(_viewModel.Options, (byte)spin.Value);
 							_viewModel.IsDirty = true;
 						};
-						AddToTable(r, 1, spin);
+						AddToTable(currentRow, 1, spin);
 					}
 					else if (type == typeof(string))
 					{
 						var val = (string)option.Property.GetValue(_viewModel.Options);
-						var txt = new Gtk.Entry(val);
+						var txt = new Entry(val);
 						txt.Alignment = 0;
 						txt.Changed += (sender, e) =>
 						{
 							option.Property.SetValue(_viewModel.Options, txt.Text);
 							_viewModel.IsDirty = true;
 						};
-						AddToTable(r, 1, txt);
+						AddToTable(currentRow, 1, txt);
 					}
 					else if (type == typeof(string[])) 
 					{
 						var vals = (string[])option.Property.GetValue(_viewModel.Options);
 						var val = string.Join(Environment.NewLine, vals);
-						var txt = new Gtk.TextView(new Gtk.TextBuffer(new Gtk.TextTagTable()));
-						txt.LeftMargin = 5;
-						txt.RightMargin = 5;
-						txt.BorderWidth = 1;
-						txt.SetSizeRequest(320, 150);
-						txt.Buffer.Text = val;
+                        var txt = new TextView(new TextBuffer(new TextTagTable()))
+                        {
+                            LeftMargin = 5,
+                            RightMargin = 5,
+                            BorderWidth = 1
+                        };
+                        txt.SetSizeRequest(320, 200);
+                        txt.Buffer.Text = val;
 						txt.Buffer.Changed += (sender, e) =>
 						{
 							var newVals = txt.Buffer.Text.Split(Environment.NewLine.ToCharArray());
@@ -143,48 +142,53 @@ namespace Xavalon.XamlStyler.Mac.Gui
 							_viewModel.IsDirty = true;
 						};
 
-						var frame = new Gtk.Frame();
-						frame.Shadow = Gtk.ShadowType.In;
-						frame.BorderWidth = 5;
-						frame.Child = txt;
+                        var frame = new Frame
+                        {
+                            Shadow = ShadowType.In,
+                            BorderWidth = 5,
+                            Child = txt
+                        };
 
-						AddToTable(r, 1, frame);
+                        AddToTable(currentRow, 1, frame);
 					}
 					else if (type.IsEnum)
 					{
 						var val = option.Property.GetValue(_viewModel.Options);
 						var values = Enum.GetNames(type);
-						var cmb = new Gtk.ComboBox(values);
-						cmb.Active = Array.IndexOf(values, val.ToString());
-						cmb.Changed += (sender, e) =>
+                        var cmb = new ComboBox(values)
+                        {
+                            Active = Array.IndexOf(values, val.ToString())
+                        };
+
+                        cmb.Changed += (sender, e) =>
 						{
 							option.Property.SetValue(_viewModel.Options, Enum.Parse(type, cmb.ActiveText));
 							_viewModel.IsDirty = true;
 						};
-						AddToTable(r, 1, cmb);
+
+						AddToTable(currentRow, 1, cmb);
 					}
 
-					r++;
+					++currentRow;
 				}
 			}
 
-			alContainer.ShowAll();
+            ShowAll();
 		}
 
-		private void AddToTable(uint row, uint col, Gtk.Widget control, uint colSpan = 1)
-		{
-			var box = new Gtk.EventBox();
-			var al = new Gtk.Alignment(0, 0, control.GetType() == typeof(Gtk.Entry) ? 1 : 0, 1);
-			al.SetPadding(0, 0, 5, 5);
-			al.Add(control);
-			box.Add(al);
+        private void AddToTable(uint row, uint column, Widget control, uint columnSpan = 1)
+        {
+            var alignmentXScale = control is Entry ? 1 : 0;
+            var alignment = new Alignment(0, 0, alignmentXScale, 1) { control };
+            alignment.SetPadding(0, 0, 5, 5);
 
-			if (row % 2 == 1)
+            var box = new EventBox { alignment };
+			if (row % 2 is 1)
 			{
-				box.ModifyBg(Gtk.StateType.Normal, _altRowColor);
+				box.ModifyBg(StateType.Normal, _altRowColor);
 			}
 
-			tblContainer.Attach(box, col, col + colSpan, row, row + 1, Gtk.AttachOptions.Fill, Gtk.AttachOptions.Fill, 0, 0);
+			SettingsTable.Attach(box, column, column + columnSpan, row, row + 1, AttachOptions.Fill, AttachOptions.Fill, 0, 0);
 		}
-	}
+    }
 }

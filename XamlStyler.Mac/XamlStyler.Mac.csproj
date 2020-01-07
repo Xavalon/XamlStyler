@@ -50,8 +50,9 @@
     <Compile Include="Gui\Option.cs" />
     <Compile Include="Gui\OptionsViewModel.cs" />
     <Compile Include="Gui\OptionsWidget.cs" />
+    <Compile Include="BatchFormatXamlHandler.cs" />
+    <Compile Include="Utils\ColorUtils.cs" />
     <Compile Include="gtk-gui\Xavalon.XamlStyler.Mac.Gui.OptionsWidget.cs" />
-    <Compile Include="FormatXamlHandlerBatch.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />

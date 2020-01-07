@@ -1,8 +1,4 @@
-﻿using Gdk;
-using Gtk;
-using Microsoft.VisualStudio.Text;
-using Microsoft.VisualStudio.Text.Editor;
-using MonoDevelop.Components.Commands;
+﻿using MonoDevelop.Components.Commands;
 using MonoDevelop.Ide;
 using MonoDevelop.Projects;
 using Xavalon.XamlStyler.Core;

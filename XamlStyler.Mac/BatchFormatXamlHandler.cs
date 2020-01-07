@@ -1,16 +1,18 @@
 ﻿using MonoDevelop.Components.Commands;
 using MonoDevelop.Core;
 using MonoDevelop.Ide;
+using MonoDevelop.Ide.Editor.Extension;
 using MonoDevelop.Projects;
 using System.Linq;
 using Xavalon.XamlStyler.Core;
 
 namespace Xavalon.XamlStyler.Mac
 {
-    public class FormatXamlBatchHandler : CommandHandler
+    public class BatchFormatXamlHandler : CommandHandler
     {
         protected override void Run()
         {
+            
             var item = IdeApp.ProjectOperations.CurrentSelectedItem;
             if (item is Solution sln)
             {

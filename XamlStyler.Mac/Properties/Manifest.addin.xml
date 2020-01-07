@@ -1,29 +1,31 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ExtensionModel>
-	<Runtime>
-    	<Import assembly="Newtonsoft.Json.dll"/>
-    	<Import assembly="XamlStyler.Core.dll"/>
-    	<Import assembly="XamlStyler.Mac.dll"/>
-	</Runtime>
-	<Dependencies>
-		<Addin id="::MonoDevelop.Core" version="8.2.6" />
-		<Addin id="::MonoDevelop.Ide" version="8.2.6" />
-		<Addin id="::MonoDevelop.SourceEditor2" version="8.2.6" />
-	</Dependencies>
     <Extension path="/MonoDevelop/Ide/MainMenu/Edit">
         <CommandItem id="Xavalon.XamlStyler.Mac.FormatXaml" />
     </Extension>
-    <Extension path="/MonoDevelop/SourceEditor2/ContextMenu/Editor">
+    <Extension path="/MonoDevelop/Ide/ContextMenu/DocumentTab">
         <CommandItem id="Xavalon.XamlStyler.Mac.FormatXaml" />
-	</Extension>
+    </Extension>
+    <Extension path="/MonoDevelop/TextEditor/ContextMenu">
+        <CommandItem id="Xavalon.XamlStyler.Mac.FormatXaml"/>
+    </Extension>
     <Extension path="/MonoDevelop/Ide/ContextMenu/ProjectPad">
         <Condition id="ItemType" value="Project|Solution">
-            <CommandItem id="Xavalon.XamlStyler.Mac.FormatXamlBatch" />
+            <CommandItem id="Xavalon.XamlStyler.Mac.BatchFormatXaml" />
         </Condition>
     </Extension>
     <Extension path="/MonoDevelop/Ide/Commands/Edit">
-        <Command id="Xavalon.XamlStyler.Mac.FormatXaml" _label="Format Xaml" _description="Reformats the XAML document to be much more readable" defaultHandler="Xavalon.XamlStyler.Mac.FormatXamlHandler" macShortcut="Meta|Shift|I" />
-        <Command id="Xavalon.XamlStyler.Mac.FormatXamlBatch" _label="Batch Format Xaml" _description="Reformats all XAML documents to be much more readable" defaultHandler="Xavalon.XamlStyler.Mac.FormatXamlBatchHandler" />
+        <Command 
+            id="Xavalon.XamlStyler.Mac.FormatXaml" 
+            _label="Format Xaml" 
+            _description="Reformats the XAML document to be much more readable" 
+            defaultHandler="Xavalon.XamlStyler.Mac.FormatXamlHandler" 
+            macShortcut="Meta|Shift|I" />
+        <Command 
+            id="Xavalon.XamlStyler.Mac.BatchFormatXaml" 
+            _label="Batch Format Xaml" 
+            _description="Reformats all XAML documents to be much more readable"
+            defaultHandler="Xavalon.XamlStyler.Mac.BatchFormatXamlHandler" />
     </Extension>
 	
 	<Extension path="/MonoDevelop/Ide/GlobalOptionsDialog/Other">
