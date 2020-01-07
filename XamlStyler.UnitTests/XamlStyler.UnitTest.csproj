@@ -12,7 +12,7 @@
     <PackageReference Include="Irony" Version="1.1.0">
     </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3">
+    <PackageReference Include="Newtonsoft.Json" Version="9.0.1">
     </PackageReference>
     <PackageReference Include="NUnit" Version="3.12.0">
     </PackageReference>
