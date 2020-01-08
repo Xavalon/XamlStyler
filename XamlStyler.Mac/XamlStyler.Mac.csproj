@@ -61,6 +61,7 @@
     <Compile Include="Services\DocumentSavedEvent\IDocumentSavedEventService.cs" />
     <Compile Include="Plugins\XamlFormattingOnSave\XamlFormattingOnSavePlugin.cs" />
     <Compile Include="Plugins\XamlFormattingOnSave\IXamlFormattingOnSavePlugin.cs" />
+    <Compile Include="Gui\Colors.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />

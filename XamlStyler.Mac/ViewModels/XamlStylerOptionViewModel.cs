@@ -5,9 +5,9 @@ using Xavalon.XamlStyler.Core.Options;
 namespace Xavalon.XamlStyler.Mac.ViewModels
 {
     public class XamlStylerOptionViewModel
-	{
-		public XamlStylerOptionViewModel(PropertyDescriptor property)
-		{
+    {
+        public XamlStylerOptionViewModel(PropertyDescriptor property)
+        {
             var browsableAttribute = (BrowsableAttribute)property.Attributes[typeof(BrowsableAttribute)];
             var displayNameAttribute = (DisplayNameAttribute)property.Attributes[typeof(DisplayNameAttribute)];
             var descriptionAttribute = (DescriptionAttribute)property.Attributes[typeof(DescriptionAttribute)];
@@ -19,11 +19,11 @@ namespace Xavalon.XamlStyler.Mac.ViewModels
             IsConfigurable &= property.Name != nameof(IStylerOptions.ResetToDefault);
 
             Name = displayNameAttribute?.DisplayName ?? property.Name;
-			Description = descriptionAttribute.Description;
-			Category = categoryAttribute.Category;
-			PropertyType = property.PropertyType;
-			Property = property;
-		}
+            Description = descriptionAttribute.Description;
+            Category = categoryAttribute.Category;
+            PropertyType = property.PropertyType;
+            Property = property;
+        }
 
         public string Name { get; }
 

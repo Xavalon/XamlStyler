@@ -33,12 +33,12 @@
             _description="Reformats all XAML documents to be much more readable"
             defaultHandler="Xavalon.XamlStyler.Mac.CommandHandlers.BatchFormatXamlCommandHandler" />
     </Extension>
-	
-	<Extension path="/MonoDevelop/Ide/GlobalOptionsDialog/Other">
-		<Section
-			id="XamlStylerOptions"
-			_label="XamlStyler Options"
-			fill="true"
-			class="Xavalon.XamlStyler.Mac.Gui.XamlStylerOptionsPanel" />
-	</Extension>
+    
+    <Extension path="/MonoDevelop/Ide/GlobalOptionsDialog/Other">
+        <Section
+            id="XamlStylerOptions"
+            _label="XamlStyler Options"
+            fill="true"
+            class="Xavalon.XamlStyler.Mac.Gui.XamlStylerOptionsPanel" />
+    </Extension>
 </ExtensionModel>
