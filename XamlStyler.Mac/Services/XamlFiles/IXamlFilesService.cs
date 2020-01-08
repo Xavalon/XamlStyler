@@ -1,4 +1,6 @@
-﻿using MonoDevelop.Projects;
+﻿// © Xavalon. All rights reserved.
+
+using MonoDevelop.Projects;
 using System.Collections.Generic;
 
 namespace Xavalon.XamlStyler.Mac.Services.XamlFiles

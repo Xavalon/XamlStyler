@@ -1,4 +1,6 @@
-﻿using MonoDevelop.Core;
+﻿// © Xavalon. All rights reserved.
+
+using MonoDevelop.Core;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui;
 using System;
@@ -56,7 +58,7 @@ namespace Xavalon.XamlStyler.Mac.Services.DocumentSavedEvent
                 return;
             }
 
-            foreach(var currentDocument in currentDocuments)
+            foreach (var currentDocument in currentDocuments)
             {
                 currentDocument.Saved += OnCurrentDocumentSaved;
             }

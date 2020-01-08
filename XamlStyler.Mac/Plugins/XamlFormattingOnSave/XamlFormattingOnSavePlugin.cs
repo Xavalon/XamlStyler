@@ -1,4 +1,6 @@
-﻿using MonoDevelop.Ide.Gui;
+﻿// © Xavalon. All rights reserved.
+
+using MonoDevelop.Ide.Gui;
 using System;
 using System.Collections.Generic;
 using Xavalon.XamlStyler.Mac.Services.DocumentSavedEvent;

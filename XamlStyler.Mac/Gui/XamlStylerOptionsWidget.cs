@@ -1,4 +1,6 @@
-﻿using Gdk;
+﻿// © Xavalon. All rights reserved.
+
+using Gdk;
 using Gtk;
 using System;
 using System.ComponentModel;

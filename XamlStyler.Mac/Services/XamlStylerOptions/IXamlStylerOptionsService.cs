@@ -1,6 +1,8 @@
-﻿using MonoDevelop.Ide.Gui;
-using Xavalon.XamlStyler.Core.Options;
+﻿// © Xavalon. All rights reserved.
+
+using MonoDevelop.Ide.Gui;
 using MonoDevelop.Projects;
+using Xavalon.XamlStyler.Core.Options;
 
 namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
 {

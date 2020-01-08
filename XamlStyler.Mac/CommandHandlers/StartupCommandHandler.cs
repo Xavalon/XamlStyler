@@ -1,4 +1,6 @@
-﻿using MonoDevelop.Components.Commands;
+﻿// © Xavalon. All rights reserved.
+
+using MonoDevelop.Components.Commands;
 
 namespace Xavalon.XamlStyler.Mac.CommandHandlers
 {

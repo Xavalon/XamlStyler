@@ -1,4 +1,6 @@
-﻿using MonoDevelop.Components.Commands;
+﻿// © Xavalon. All rights reserved.
+
+using MonoDevelop.Components.Commands;
 using MonoDevelop.Ide;
 using Xavalon.XamlStyler.Mac.Services.XamlFormatting;
 using Xavalon.XamlStyler.Mac.Services.XamlStylerOptions;

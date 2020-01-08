@@ -1,4 +1,6 @@
-﻿using MonoDevelop.Components;
+﻿// © Xavalon. All rights reserved.
+
+using MonoDevelop.Components;
 using MonoDevelop.Ide.Gui.Dialogs;
 using Xavalon.XamlStyler.Mac.ViewModels;
 

@@ -1,4 +1,6 @@
-﻿using MonoDevelop.Core;
+﻿// © Xavalon. All rights reserved.
+
+using MonoDevelop.Core;
 using MonoDevelop.Ide.Gui;
 using MonoDevelop.Projects;
 using Newtonsoft.Json;

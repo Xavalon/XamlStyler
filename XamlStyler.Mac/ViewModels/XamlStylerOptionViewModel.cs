@@ -1,4 +1,6 @@
-﻿using System;
+﻿// © Xavalon. All rights reserved.
+
+using System;
 using System.ComponentModel;
 using Xavalon.XamlStyler.Core.Options;
 

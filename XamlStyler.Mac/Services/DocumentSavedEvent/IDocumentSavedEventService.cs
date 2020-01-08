@@ -1,4 +1,6 @@
-﻿using System;
+﻿// © Xavalon. All rights reserved.
+
+using System;
 
 namespace Xavalon.XamlStyler.Mac.Services.DocumentSavedEvent
 {

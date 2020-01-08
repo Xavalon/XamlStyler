@@ -1,4 +1,6 @@
-﻿using Gdk;
+﻿// © Xavalon. All rights reserved.
+
+using Gdk;
 using Xavalon.XamlStyler.Mac.Utils;
 
 namespace Xavalon.XamlStyler.Mac.Gui

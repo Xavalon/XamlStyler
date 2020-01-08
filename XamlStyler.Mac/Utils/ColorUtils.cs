@@ -1,4 +1,6 @@
-﻿using Gdk;
+﻿// © Xavalon. All rights reserved.
+
+using Gdk;
 using System;
 using System.Globalization;
 using System.Collections.Generic;

@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿// © Xavalon. All rights reserved.
+
 using MonoDevelop.Projects;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Xavalon.XamlStyler.Mac.Services.XamlFiles

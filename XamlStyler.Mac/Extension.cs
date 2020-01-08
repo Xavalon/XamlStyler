@@ -1,4 +1,6 @@
-﻿using Xavalon.XamlStyler.Mac.Plugins.XamlFormattingOnSave;
+﻿// © Xavalon. All rights reserved.
+
+using Xavalon.XamlStyler.Mac.Plugins.XamlFormattingOnSave;
 using Xavalon.XamlStyler.Mac.Services.DocumentSavedEvent;
 using Xavalon.XamlStyler.Mac.Services.XamlFiles;
 using Xavalon.XamlStyler.Mac.Services.XamlFormatting;

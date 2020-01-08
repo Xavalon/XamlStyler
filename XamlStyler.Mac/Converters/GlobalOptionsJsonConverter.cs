@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿// © Xavalon. All rights reserved.
+
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using Xavalon.XamlStyler.Core.Options;
