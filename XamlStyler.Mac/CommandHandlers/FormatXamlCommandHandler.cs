@@ -14,7 +14,7 @@ namespace Xavalon.XamlStyler.Mac.CommandHandlers
         {
             var document = IdeApp.Workbench.ActiveDocument;
             var stylerOptions = XamlStylerOptionsService.GetDocumentOptions(document);
-            XamlFormattingService.FormatXamlDocument(document, stylerOptions);
+            XamlFormattingService.TryFormatXamlDocument(document, stylerOptions);
         }
 
         protected override void Update(CommandInfo info)

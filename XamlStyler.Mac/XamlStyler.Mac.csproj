@@ -57,6 +57,10 @@
     <Compile Include="Services\XamlFiles\XamlFilesService.cs" />
     <Compile Include="Converter\GlobalOptionsJsonConverter.cs" />
     <Compile Include="Utils\PathUtils.cs" />
+    <Compile Include="Services\DocumentSavedEvent\DocumentSavedEventService.cs" />
+    <Compile Include="Services\DocumentSavedEvent\IDocumentSavedEventService.cs" />
+    <Compile Include="Plugins\XamlFormattingOnSave\XamlFormattingOnSavePlugin.cs" />
+    <Compile Include="Plugins\XamlFormattingOnSave\IXamlFormattingOnSavePlugin.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />
@@ -84,5 +88,8 @@
     <Folder Include="Services\XamlStylerOptions\" />
     <Folder Include="Services\XamlFiles\" />
     <Folder Include="Converter\" />
+    <Folder Include="Services\DocumentSavedEvent\" />
+    <Folder Include="Plugins\" />
+    <Folder Include="Plugins\XamlFormattingOnSave\" />
   </ItemGroup>
 </Project>

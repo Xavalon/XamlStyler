@@ -8,20 +8,21 @@ namespace Xavalon.XamlStyler.Mac.Services.XamlFormatting
 {
     public class XamlFormattingService : IXamlFormattingService
     {
-        public void FormatXamlDocument(Document document, IStylerOptions stylerOptions)
+        public bool TryFormatXamlDocument(Document document, IStylerOptions stylerOptions)
         {
             var textBuffer = document.TextBuffer;
             var currentTextSnapshot = textBuffer.CurrentSnapshot;
             var xamlText = currentTextSnapshot.GetText();
             if (!TryFormatXaml(ref xamlText, stylerOptions))
             {
-                return;
+                return false;
             }
 
             var replaceSpan = new Span(0, currentTextSnapshot.Length);
             textBuffer.Replace(replaceSpan, xamlText);
 
             document.IsDirty = true;
+            return true;
         }
 
         public bool TryFormatXaml(ref string xamlText, IStylerOptions stylerOptions)

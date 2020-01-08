@@ -28,7 +28,7 @@ namespace Xavalon.XamlStyler.Mac
                 var constructorInfo = typeof(TInstance).GetConstructors(BindingFlags.Instance | BindingFlags.Public).Single();
                 var constructorParameterInfos = constructorInfo.GetParameters();
                 var constructorParameters = constructorParameterInfos.Select(parameter => parameter.ParameterType)
-                                                                     .Select(type => _storage[type])
+                                                                     .Select(type => _storage[type].Value)
                                                                      .ToArray();
 
                 var instance = Activator.CreateInstance(typeof(TInstance), constructorParameters);

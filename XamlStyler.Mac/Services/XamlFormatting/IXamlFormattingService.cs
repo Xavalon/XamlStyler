@@ -5,7 +5,7 @@ namespace Xavalon.XamlStyler.Mac.Services.XamlFormatting
 {
     public interface IXamlFormattingService
     {
-        void FormatXamlDocument(Document document, IStylerOptions stylerOptions);
+        bool TryFormatXamlDocument(Document document, IStylerOptions stylerOptions);
 
         bool TryFormatXaml(ref string xamlText, IStylerOptions stylerOptions);
 

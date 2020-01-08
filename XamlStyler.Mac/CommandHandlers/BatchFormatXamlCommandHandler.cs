@@ -50,7 +50,7 @@ namespace Xavalon.XamlStyler.Mac.CommandHandlers
             var stylerOptions = XamlStylerOptionsService.GetDocumentOptions(xamlFilePath, solution);
             if (IsFileCurrentlyOpened(xamlFilePath, out var openedDocument))
             {
-                XamlFormattingService.FormatXamlDocument(openedDocument, stylerOptions);
+                XamlFormattingService.TryFormatXamlDocument(openedDocument, stylerOptions);
                 return;
             }
 
