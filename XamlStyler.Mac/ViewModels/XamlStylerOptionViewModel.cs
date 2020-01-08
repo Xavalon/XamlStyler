@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using Xavalon.XamlStyler.Core.Options;
 
 namespace Xavalon.XamlStyler.Mac.ViewModels
 {
@@ -13,6 +14,10 @@ namespace Xavalon.XamlStyler.Mac.ViewModels
             var categoryAttribute = (CategoryAttribute)property.Attributes[typeof(CategoryAttribute)];
 
             IsConfigurable = browsableAttribute is null || browsableAttribute.Browsable;
+
+            // TODO Discuss if ResetToDefault should be configurable by default, it looks strange
+            IsConfigurable &= property.Name != nameof(IStylerOptions.ResetToDefault);
+
             Name = displayNameAttribute?.DisplayName ?? property.Name;
 			Description = descriptionAttribute.Description;
 			Category = categoryAttribute.Category;
