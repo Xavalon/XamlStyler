@@ -1,25 +1,26 @@
 ﻿using MonoDevelop.Components;
 using MonoDevelop.Ide.Gui.Dialogs;
+using Xavalon.XamlStyler.Mac.ViewModels;
 
 namespace Xavalon.XamlStyler.Mac.Gui
 {
 	public class XamlStylerOptionsPanel : OptionsPanel
 	{
-        private readonly OptionsViewModel _optionsViewModel;
-
         public XamlStylerOptionsPanel()
         {
-            _optionsViewModel = new OptionsViewModel();
+            ViewModel = new XamlStylerOptionsViewModel();
         }
+
+        private XamlStylerOptionsViewModel ViewModel { get; }
 
 		public override Control CreatePanelWidget()
 		{
-			return new OptionsWidget(_optionsViewModel);
+			return new XamlStylerOptionsWidget(ViewModel);
 		}
 
 		public override void ApplyChanges()
 		{
-			_optionsViewModel.SaveOptions();
+			ViewModel.SaveOptions();
 		}
 	}
 }

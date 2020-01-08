@@ -7,7 +7,7 @@
   <import>
     <widget-library name="../bin/Debug/XamlStyler.Mac.dll" internal="true" />
   </import>
-  <widget class="Gtk.Bin" id="Xavalon.XamlStyler.Mac.Gui.OptionsWidget" design-size="847 319">
+  <widget class="Gtk.Bin" id="Xavalon.XamlStyler.Mac.Gui.XamlStylerOptionsWidget" design-size="847 319">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <child>

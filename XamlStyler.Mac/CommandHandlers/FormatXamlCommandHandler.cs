@@ -3,10 +3,11 @@ using MonoDevelop.Ide;
 using MonoDevelop.Projects;
 using Xavalon.XamlStyler.Core;
 using Span = Microsoft.VisualStudio.Text.Span;
+using Microsoft.VisualStudio.Text.Editor;
 
-namespace Xavalon.XamlStyler.Mac
+namespace Xavalon.XamlStyler.Mac.CommandHandlers
 {
-    public class FormatXamlHandler : CommandHandler
+    public class FormatXamlCommandHandler : CommandHandler
     {
         protected override void Run()
         {

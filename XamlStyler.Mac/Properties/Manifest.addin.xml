@@ -1,5 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ExtensionModel>
+    <Extension path="/MonoDevelop/Ide/StartupHandlers">
+        <Class class="Xavalon.XamlStyler.Mac.CommandHandlers.StartupCommandHandler" />
+    </Extension>
+    
     <Extension path="/MonoDevelop/Ide/MainMenu/Edit">
         <CommandItem id="Xavalon.XamlStyler.Mac.FormatXaml" />
     </Extension>
@@ -21,13 +25,13 @@
             id="Xavalon.XamlStyler.Mac.FormatXaml" 
             _label="Format Xaml" 
             _description="Reformats the XAML document to be much more readable" 
-            defaultHandler="Xavalon.XamlStyler.Mac.FormatXamlHandler" 
+            defaultHandler="Xavalon.XamlStyler.Mac.CommandHandlers.FormatXamlCommandHandler" 
             macShortcut="Meta|Shift|I" />
         <Command 
             id="Xavalon.XamlStyler.Mac.BatchFormatXaml" 
             _label="Batch Format Xaml" 
             _description="Reformats all XAML documents to be much more readable"
-            defaultHandler="Xavalon.XamlStyler.Mac.BatchFormatXamlHandler" />
+            defaultHandler="Xavalon.XamlStyler.Mac.CommandHandlers.BatchFormatXamlCommandHandler" />
     </Extension>
 	
 	<Extension path="/MonoDevelop/Ide/GlobalOptionsDialog/Other">

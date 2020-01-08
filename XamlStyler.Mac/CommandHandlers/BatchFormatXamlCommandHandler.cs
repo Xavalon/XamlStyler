@@ -6,13 +6,12 @@ using MonoDevelop.Projects;
 using System.Linq;
 using Xavalon.XamlStyler.Core;
 
-namespace Xavalon.XamlStyler.Mac
+namespace Xavalon.XamlStyler.Mac.CommandHandlers
 {
-    public class BatchFormatXamlHandler : CommandHandler
+    public class BatchFormatXamlCommandHandler : CommandHandler
     {
         protected override void Run()
         {
-            
             var item = IdeApp.ProjectOperations.CurrentSelectedItem;
             if (item is Solution sln)
             {

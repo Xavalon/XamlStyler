@@ -1,11 +1,11 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace Xavalon.XamlStyler.Mac.Gui
+namespace Xavalon.XamlStyler.Mac.ViewModels
 {
-	public class OptionViewModel
+    public class XamlStylerOptionViewModel
 	{
-		public OptionViewModel(PropertyDescriptor property)
+		public XamlStylerOptionViewModel(PropertyDescriptor property)
 		{
             var browsableAttribute = (BrowsableAttribute)property.Attributes[typeof(BrowsableAttribute)];
             var displayNameAttribute = (DisplayNameAttribute)property.Attributes[typeof(DisplayNameAttribute)];
@@ -33,4 +33,3 @@ namespace Xavalon.XamlStyler.Mac.Gui
         public PropertyDescriptor Property { get; }
     }
 }
-

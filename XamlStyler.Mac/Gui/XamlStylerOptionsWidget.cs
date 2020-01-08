@@ -4,17 +4,18 @@ using System.ComponentModel;
 using System.Linq;
 using Xavalon.XamlStyler.Mac.Utils;
 using Gtk;
+using Xavalon.XamlStyler.Mac.ViewModels;
 
 namespace Xavalon.XamlStyler.Mac.Gui
 {
 	[ToolboxItem(true)]
-	public partial class OptionsWidget : Bin
+	public partial class XamlStylerOptionsWidget : Bin
 	{
-		private readonly OptionsViewModel _viewModel;
+		private readonly XamlStylerOptionsViewModel _viewModel;
 		private readonly Color _groupHeaderColor;
 		private readonly Color _altRowColor;
 
-		public OptionsWidget(OptionsViewModel viewModel)
+		public XamlStylerOptionsWidget(XamlStylerOptionsViewModel viewModel)
 		{
 			_viewModel = viewModel;
 
@@ -52,7 +53,7 @@ namespace Xavalon.XamlStyler.Mac.Gui
 
         private void InitializeSettingsTable()
 		{
-			_viewModel.Initialize();
+			_viewModel.RefreshData();
 
             var rowsCount = _viewModel.GroupedOptions.Sum(group => group.Count() + 1);
             SettingsTable.NRows = (uint)rowsCount;
