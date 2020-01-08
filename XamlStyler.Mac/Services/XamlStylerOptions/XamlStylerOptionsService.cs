@@ -18,7 +18,6 @@ namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
         {
             var defaultGlobalOptions = new StylerOptions
             {
-
                 // TODO Check info about IndentSize, is it necessary
                 IndentSize = 4
             };
@@ -42,10 +41,17 @@ namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
 
         public IStylerOptions GetDocumentOptions(Document document)
         {
-            var globalOptions = GetGlobalOptions();
+            var documentFilePath = document?.FilePath.FileName;
             var project = document?.Owner as Project;
             var solution = project?.ParentSolution;
-            if (solution is null)
+
+            return GetDocumentOptions(documentFilePath, solution);
+        }
+
+        public IStylerOptions GetDocumentOptions(string documentFilePath, Solution solution)
+        {
+            var globalOptions = GetGlobalOptions();
+            if (string.IsNullOrEmpty(documentFilePath) || solution is null)
             {
                 return globalOptions;
             }
@@ -56,7 +62,7 @@ namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
                 optionsRootFolder = solution.RootFolder.ParentFolder.Name;
             }
 
-            var firstOptionsFilePath = GetFirstOptionsFilePathOrDefault(document.FileName, optionsRootFolder);
+            var firstOptionsFilePath = GetFirstOptionsFilePathOrDefault(documentFilePath, optionsRootFolder);
             if (!string.IsNullOrEmpty(firstOptionsFilePath))
             {
                 var firstOptions = ParseOptionsOrDefault(firstOptionsFilePath, globalOptions);

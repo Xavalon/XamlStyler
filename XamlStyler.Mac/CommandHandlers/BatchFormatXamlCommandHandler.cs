@@ -1,65 +1,80 @@
 ﻿using MonoDevelop.Components.Commands;
 using MonoDevelop.Core;
 using MonoDevelop.Ide;
-using MonoDevelop.Ide.Editor.Extension;
+using MonoDevelop.Ide.Gui;
 using MonoDevelop.Projects;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using Xavalon.XamlStyler.Core;
+using Xavalon.XamlStyler.Mac.Services.XamlFiles;
+using Xavalon.XamlStyler.Mac.Services.XamlFormatting;
+using Xavalon.XamlStyler.Mac.Services.XamlStylerOptions;
 
 namespace Xavalon.XamlStyler.Mac.CommandHandlers
 {
     public class BatchFormatXamlCommandHandler : CommandHandler
     {
+        private readonly IXamlFilesService _xamlFilesService;
+        private readonly IXamlStylerOptionsService _xamlStylerOptionsService;
+        private readonly IXamlFormattingService _xamlFormattingService;
+
+        public BatchFormatXamlCommandHandler()
+        {
+            _xamlFilesService = Container.Instance.Resolve<IXamlFilesService>();
+            _xamlStylerOptionsService = Container.Instance.Resolve<IXamlStylerOptionsService>();
+            _xamlFormattingService = Container.Instance.Resolve<IXamlFormattingService>();
+        }
+
         protected override void Run()
         {
-            var item = IdeApp.ProjectOperations.CurrentSelectedItem;
-            if (item is Solution sln)
+            var selectedItem = IdeApp.ProjectOperations.CurrentSelectedItem;
+            var selectedSolution = IdeApp.ProjectOperations.CurrentSelectedSolution;
+            var xamlFilePaths = GetXamlFilePaths(selectedItem);
+            foreach (var xamlFilePath in xamlFilePaths)
             {
-                BatchProcessSolution(sln);
+                ProcessXamlFile(xamlFilePath, selectedSolution);
+            }
+        }
+
+        private List<string> GetXamlFilePaths(object selectedItem)
+        {
+            switch (selectedItem)
+            {
+                case Solution solution:
+                    var solutionFiles = _xamlFilesService.FindAllXamlFilePaths(solution);
+                    return solutionFiles;
+                case Project project:
+                    var projectFiles = _xamlFilesService.FindAllXamlFilePaths(project);
+                    return projectFiles;
+                default:
+                    LoggingService.LogDebug($"Unknown selected item: {selectedItem.GetType().FullName}");
+                    return new List<string>();
+            }
+        }
+
+        private void ProcessXamlFile(string xamlFilePath, Solution solution)
+        {
+            var stylerOptions = _xamlStylerOptionsService.GetDocumentOptions(xamlFilePath, solution);
+            var xamlFileText = File.ReadAllText(xamlFilePath); ;
+            if (!_xamlFormattingService.TryFormatXaml(ref xamlFileText, stylerOptions))
+            {
                 return;
             }
 
-            if (item is Project prj)
+            File.WriteAllText(xamlFilePath, xamlFileText);
+            if (IsFileCurrentlyOpened(xamlFilePath, out var openedDocument))
             {
-                BatchProcessProject(prj);
+                openedDocument.Reload();
             }
         }
 
-        private void BatchProcessSolution(Solution sln)
+        private bool IsFileCurrentlyOpened(string filePath, out Document openedDocument)
         {
-            foreach (var prj in sln.GetAllProjects())
-            {
-                BatchProcessProject(prj);
-            }
-        }
+            openedDocument = IdeApp.Workbench
+                                   .Documents
+                                   .FirstOrDefault(document => document.FilePath.FileName == filePath);
 
-        private void BatchProcessProject(Project prj)
-        {
-            LoggingService.LogDebug($"Processing {prj.Name} project...");
-            foreach (var file in prj.Files.Where(f => f.Name.EndsWith(".xaml", System.StringComparison.OrdinalIgnoreCase)).ToArray())
-            {
-                ProcessFileInPlace(file);
-            }
-        }
-
-        private void ProcessFileInPlace(ProjectFile file)
-        {
-            var options = StylerOptionsConfiguration.GetOptionsForDocument(file.Name, file.Project);
-            var styler = new StylerService(options);
-
-            LoggingService.LogDebug($"Processing {file.FilePath} in-place");
-            var content = System.IO.File.ReadAllText(file.FilePath);
-
-            var styledXaml = styler.StyleDocument(content);
-
-            System.IO.File.WriteAllText(file.FilePath, styledXaml);
-
-            var openedFile = IdeApp.Workbench.Documents.FirstOrDefault(f => f.FileName.FullPath == file.FilePath);
-            if (openedFile != null)
-            {
-                LoggingService.LogDebug($"Reloading {file.FilePath} in editor window");
-                openedFile.Reload();
-            }
+            return openedDocument != null;
         }
     }
 }

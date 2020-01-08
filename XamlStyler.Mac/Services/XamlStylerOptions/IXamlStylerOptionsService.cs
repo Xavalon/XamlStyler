@@ -1,5 +1,6 @@
 ﻿using MonoDevelop.Ide.Gui;
 using Xavalon.XamlStyler.Core.Options;
+using MonoDevelop.Projects;
 
 namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
 {
@@ -7,8 +8,10 @@ namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
     {
         IStylerOptions GetGlobalOptions();
 
-        void SaveGlobalOptions(IStylerOptions options)
+        void SaveGlobalOptions(IStylerOptions options);
 
         IStylerOptions GetDocumentOptions(Document document);
+
+        IStylerOptions GetDocumentOptions(string documentFilePath, Solution solution);
     }
 }

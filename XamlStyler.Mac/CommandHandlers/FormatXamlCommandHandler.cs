@@ -1,52 +1,32 @@
 ﻿using MonoDevelop.Components.Commands;
 using MonoDevelop.Ide;
-using MonoDevelop.Projects;
-using Xavalon.XamlStyler.Core;
-using Span = Microsoft.VisualStudio.Text.Span;
-using Microsoft.VisualStudio.Text.Editor;
+using Xavalon.XamlStyler.Mac.Services.XamlFormatting;
+using Xavalon.XamlStyler.Mac.Services.XamlStylerOptions;
 
 namespace Xavalon.XamlStyler.Mac.CommandHandlers
 {
     public class FormatXamlCommandHandler : CommandHandler
     {
+        private readonly IXamlFormattingService _xamlFormattingService;
+        private readonly IXamlStylerOptionsService _xamlStylerOptionsService;
+
+        public FormatXamlCommandHandler()
+        {
+            _xamlFormattingService = Container.Instance.Resolve<IXamlFormattingService>();
+            _xamlStylerOptionsService = Container.Instance.Resolve<IXamlStylerOptionsService>();
+        }
+
         protected override void Run()
         {
             var document = IdeApp.Workbench.ActiveDocument;
-
-            if (!StylerOptionsConfiguration.IsFormatableDocument(document))
-            {
-                return;
-            }
-
-            var stylerOptions = StylerOptionsConfiguration.GetOptionsForDocument(document.FileName, document.Owner as Project);
-            var styler = new StylerService(stylerOptions);
-            if (document.Editor is null)
-            {
-                var textBuffer = document.TextBuffer;
-                var currentSnapshot = textBuffer.CurrentSnapshot;
-                var rawText = currentSnapshot.GetText();
-                var styledText = styler.StyleDocument(rawText);
-                var replaceSpan = new Span(0, rawText.Length);
-                textBuffer.Replace(replaceSpan, styledText);
-            }
-            else
-            {
-                var editor = document.Editor;
-                using (editor.OpenUndoGroup())
-                {
-                    var styledText = styler.StyleDocument(editor.Text);
-                    editor.Text = styledText;
-                }
-            }
-
-            document.IsDirty = true;
+            var stylerOptions = _xamlStylerOptionsService.GetDocumentOptions(document);
+            _xamlFormattingService.FormatXamlDocument(document, stylerOptions);
         }
 
         protected override void Update(CommandInfo info)
         {
             var document = IdeApp.Workbench.ActiveDocument;
-
-            var isDocumentFormattable = StylerOptionsConfiguration.IsFormatableDocument(document);
+            var isDocumentFormattable = _xamlFormattingService.IsDocumentFormattable(document);
             info.Enabled = isDocumentFormattable;
             info.Visible = isDocumentFormattable;
         }

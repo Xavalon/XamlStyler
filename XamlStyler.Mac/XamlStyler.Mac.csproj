@@ -47,11 +47,15 @@
     <Compile Include="ViewModels\XamlStylerOptionsViewModel.cs" />
     <Compile Include="ViewModels\XamlStylerOptionViewModel.cs" />
     <Compile Include="gtk-gui\Xavalon.XamlStyler.Mac.Gui.XamlStylerOptionsWidget.cs" />
-    <Compile Include="Services\XamlStyler\XamlStylerService.cs" />
-    <Compile Include="Services\XamlStyler\IXamlStylerService.cs" />
+    <Compile Include="Services\XamlFormatting\XamlFormattingService.cs" />
+    <Compile Include="Services\XamlFormatting\IXamlFormattingService.cs" />
     <Compile Include="Services\XamlStylerOptions\IXamlStylerOptionsService.cs" />
     <Compile Include="Services\XamlStylerOptions\XamlStylerOptionsService.cs" />
     <Compile Include="Container.cs" />
+    <Compile Include="Extension.cs" />
+    <Compile Include="Services\XamlFiles\IXamlFilesService.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Services\XamlFiles\XamlFilesService.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />
@@ -75,7 +79,8 @@
     <Folder Include="CommandHandlers\" />
     <Folder Include="ViewModels\" />
     <Folder Include="Services\" />
-    <Folder Include="Services\XamlStyler\" />
+    <Folder Include="Services\XamlFormatting\" />
     <Folder Include="Services\XamlStylerOptions\" />
+    <Folder Include="Services\XamlFiles\" />
   </ItemGroup>
 </Project>
