@@ -55,7 +55,7 @@
     <Compile Include="Services\XamlFiles\IXamlFilesService.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Services\XamlFiles\XamlFilesService.cs" />
-    <Compile Include="Converter\GlobalOptionsJsonConverter.cs" />
+    <Compile Include="Converters\GlobalOptionsJsonConverter.cs" />
     <Compile Include="Utils\PathUtils.cs" />
     <Compile Include="Services\DocumentSavedEvent\DocumentSavedEventService.cs" />
     <Compile Include="Services\DocumentSavedEvent\IDocumentSavedEventService.cs" />
@@ -87,7 +87,7 @@
     <Folder Include="Services\XamlFormatting\" />
     <Folder Include="Services\XamlStylerOptions\" />
     <Folder Include="Services\XamlFiles\" />
-    <Folder Include="Converter\" />
+    <Folder Include="Converters\" />
     <Folder Include="Services\DocumentSavedEvent\" />
     <Folder Include="Plugins\" />
     <Folder Include="Plugins\XamlFormattingOnSave\" />

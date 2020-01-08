@@ -1,7 +1,7 @@
 ﻿using Mono.Addins;
 using Mono.Addins.Description;
 
-[assembly: Addin("XamlStyler", Namespace = "Xavalon", Version = "1.1.5")]
+[assembly: Addin("XamlStyler", Namespace = "Xavalon", Version = "3.2001.0")]
 
 [assembly: AddinName("XAML Styler")]
 [assembly: AddinCategory("IDE extensions")]

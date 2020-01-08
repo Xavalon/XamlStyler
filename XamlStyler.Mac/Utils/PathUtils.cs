@@ -1,4 +1,5 @@
 ﻿using System;
+
 namespace Xavalon.XamlStyler.Mac.Utils
 {
     public static class PathUtils
