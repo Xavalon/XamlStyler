@@ -14,16 +14,9 @@ namespace Xavalon.XamlStyler.Mac.CommandHandlers
 {
     public class BatchFormatXamlCommandHandler : CommandHandler
     {
-        private readonly IXamlFilesService _xamlFilesService;
-        private readonly IXamlStylerOptionsService _xamlStylerOptionsService;
-        private readonly IXamlFormattingService _xamlFormattingService;
-
-        public BatchFormatXamlCommandHandler()
-        {
-            _xamlFilesService = Container.Instance.Resolve<IXamlFilesService>();
-            _xamlStylerOptionsService = Container.Instance.Resolve<IXamlStylerOptionsService>();
-            _xamlFormattingService = Container.Instance.Resolve<IXamlFormattingService>();
-        }
+        private IXamlFilesService XamlFilesService => Container.Instance.Resolve<IXamlFilesService>();
+        private IXamlStylerOptionsService XamlStylerOptionsService => Container.Instance.Resolve<IXamlStylerOptionsService>();
+        private IXamlFormattingService XamlFormattingService => Container.Instance.Resolve<IXamlFormattingService>();
 
         protected override void Run()
         {
@@ -41,10 +34,10 @@ namespace Xavalon.XamlStyler.Mac.CommandHandlers
             switch (selectedItem)
             {
                 case Solution solution:
-                    var solutionFiles = _xamlFilesService.FindAllXamlFilePaths(solution);
+                    var solutionFiles = XamlFilesService.FindAllXamlFilePaths(solution);
                     return solutionFiles;
                 case Project project:
-                    var projectFiles = _xamlFilesService.FindAllXamlFilePaths(project);
+                    var projectFiles = XamlFilesService.FindAllXamlFilePaths(project);
                     return projectFiles;
                 default:
                     LoggingService.LogDebug($"Unknown selected item: {selectedItem.GetType().FullName}");
@@ -54,27 +47,29 @@ namespace Xavalon.XamlStyler.Mac.CommandHandlers
 
         private void ProcessXamlFile(string xamlFilePath, Solution solution)
         {
-            var stylerOptions = _xamlStylerOptionsService.GetDocumentOptions(xamlFilePath, solution);
-            var xamlFileText = File.ReadAllText(xamlFilePath); ;
-            if (!_xamlFormattingService.TryFormatXaml(ref xamlFileText, stylerOptions))
+            var stylerOptions = XamlStylerOptionsService.GetDocumentOptions(xamlFilePath, solution);
+            if (IsFileCurrentlyOpened(xamlFilePath, out var openedDocument))
+            {
+                XamlFormattingService.FormatXamlDocument(openedDocument, stylerOptions);
+                return;
+            }
+
+            var xamlFileText = File.ReadAllText(xamlFilePath);
+            if (!XamlFormattingService.TryFormatXaml(ref xamlFileText, stylerOptions))
             {
                 return;
             }
 
             File.WriteAllText(xamlFilePath, xamlFileText);
-            if (IsFileCurrentlyOpened(xamlFilePath, out var openedDocument))
-            {
-                openedDocument.Reload();
-            }
         }
 
         private bool IsFileCurrentlyOpened(string filePath, out Document openedDocument)
         {
             openedDocument = IdeApp.Workbench
                                    .Documents
-                                   .FirstOrDefault(document => document.FilePath.FileName == filePath);
+                                   .FirstOrDefault(document => document.FilePath.ToString() == filePath);
 
-            return openedDocument != null;
+            return openedDocument != null && openedDocument.TextBuffer != null;
         }
     }
 }

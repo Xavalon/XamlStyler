@@ -10,6 +10,8 @@ namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
 
         void SaveGlobalOptions(IStylerOptions options);
 
+        void ResetGlobalOptions();
+
         IStylerOptions GetDocumentOptions(Document document);
 
         IStylerOptions GetDocumentOptions(string documentFilePath, Solution solution);

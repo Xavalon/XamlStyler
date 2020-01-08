@@ -5,6 +5,8 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.Mac.Converter;
+using Xavalon.XamlStyler.Mac.Utils;
 
 namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
 {
@@ -22,7 +24,7 @@ namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
                 IndentSize = 4
             };
 
-            var globalOptions = ParseOptionsOrDefault(GlobalOptionsFilePath, defaultGlobalOptions);
+            var globalOptions = ParseOptionsOrDefault(GlobalOptionsFilePath, defaultGlobalOptions, new GlobalOptionsJsonConverter());
             return globalOptions;
         }
 
@@ -30,7 +32,7 @@ namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
         {
             try
             {
-                var fileData = JsonConvert.SerializeObject(options);
+                var fileData = JsonConvert.SerializeObject(options, new GlobalOptionsJsonConverter());
                 File.WriteAllText(GlobalOptionsFilePath, fileData);
             }
             catch (Exception ex)
@@ -39,9 +41,14 @@ namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
             }
         }
 
+        public void ResetGlobalOptions()
+        {
+            File.Delete(GlobalOptionsFilePath);
+        }
+
         public IStylerOptions GetDocumentOptions(Document document)
         {
-            var documentFilePath = document?.FilePath.FileName;
+            var documentFilePath = document?.FilePath.ToString();
             var project = document?.Owner as Project;
             var solution = project?.ParentSolution;
 
@@ -56,13 +63,15 @@ namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
                 return globalOptions;
             }
 
-            var optionsRootFolder = solution.RootFolder.Name;
+            var optionsRootFolder = solution.FileName.ParentDirectory;
             if (globalOptions.SearchToDriveRoot)
             {
-                optionsRootFolder = solution.RootFolder.ParentFolder.Name;
+                optionsRootFolder = optionsRootFolder.ParentDirectory;
             }
 
-            var firstOptionsFilePath = GetFirstOptionsFilePathOrDefault(documentFilePath, optionsRootFolder);
+            var optionsRootFolderPath = optionsRootFolder.ToString();
+
+            var firstOptionsFilePath = GetFirstOptionsFilePathOrDefault(documentFilePath, optionsRootFolderPath);
             if (!string.IsNullOrEmpty(firstOptionsFilePath))
             {
                 var firstOptions = ParseOptionsOrDefault(firstOptionsFilePath, globalOptions);
@@ -79,17 +88,25 @@ namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
             return globalOptions;
         }
 
-        private IStylerOptions ParseOptionsOrDefault(string optionsFilePath, IStylerOptions defaultOptions = null)
+        private IStylerOptions ParseOptionsOrDefault(string optionsFilePath, IStylerOptions defaultOptions = null, JsonConverter deserializeConverter = null)
         {
             try
             {
+                optionsFilePath = PathUtils.ToAbsolutePath(optionsFilePath);
                 if (string.IsNullOrEmpty(optionsFilePath) || !File.Exists(optionsFilePath))
                 {
                     return defaultOptions;
                 }
 
                 var optionsString = File.ReadAllText(optionsFilePath);
-                var options = JsonConvert.DeserializeObject<StylerOptions>(optionsString);
+                var converters = deserializeConverter is null ? new JsonConverter[0] : new[] { deserializeConverter };
+                var options = JsonConvert.DeserializeObject<StylerOptions>(optionsString, converters);
+                if (options.IndentSize == -1)
+                {
+                    // TODO Check info about IndentSize, is it necessary
+                    options.IndentSize = 4;
+                }
+
                 return options;
             }
             catch (Exception ex)
@@ -103,10 +120,12 @@ namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
         private string GetFirstOptionsFilePathOrDefault(string documentFilePath, string rootPath)
         {
             var currentDirectory = Path.GetDirectoryName(documentFilePath);
+            var currentParentDirectory = Path.GetDirectoryName(currentDirectory);
             var currentConfigPath = Path.Combine(currentDirectory, OptionsFileName);
-            while (!File.Exists(currentConfigPath) && currentConfigPath.StartsWith(rootPath, StringComparison.InvariantCultureIgnoreCase))
+            while (!File.Exists(currentConfigPath) && currentParentDirectory.StartsWith(rootPath, StringComparison.InvariantCultureIgnoreCase))
             {
                 currentDirectory = Path.GetDirectoryName(currentDirectory);
+                currentParentDirectory = Path.GetDirectoryName(currentDirectory);
                 currentConfigPath = Path.Combine(currentDirectory, OptionsFileName);
             }
 

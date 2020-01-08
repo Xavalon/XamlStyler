@@ -7,26 +7,20 @@ namespace Xavalon.XamlStyler.Mac.CommandHandlers
 {
     public class FormatXamlCommandHandler : CommandHandler
     {
-        private readonly IXamlFormattingService _xamlFormattingService;
-        private readonly IXamlStylerOptionsService _xamlStylerOptionsService;
-
-        public FormatXamlCommandHandler()
-        {
-            _xamlFormattingService = Container.Instance.Resolve<IXamlFormattingService>();
-            _xamlStylerOptionsService = Container.Instance.Resolve<IXamlStylerOptionsService>();
-        }
+        private IXamlFormattingService XamlFormattingService => Container.Instance.Resolve<IXamlFormattingService>();
+        private IXamlStylerOptionsService XamlStylerOptionsService => Container.Instance.Resolve<IXamlStylerOptionsService>();
 
         protected override void Run()
         {
             var document = IdeApp.Workbench.ActiveDocument;
-            var stylerOptions = _xamlStylerOptionsService.GetDocumentOptions(document);
-            _xamlFormattingService.FormatXamlDocument(document, stylerOptions);
+            var stylerOptions = XamlStylerOptionsService.GetDocumentOptions(document);
+            XamlFormattingService.FormatXamlDocument(document, stylerOptions);
         }
 
         protected override void Update(CommandInfo info)
         {
             var document = IdeApp.Workbench.ActiveDocument;
-            var isDocumentFormattable = _xamlFormattingService.IsDocumentFormattable(document);
+            var isDocumentFormattable = XamlFormattingService.IsDocumentFormattable(document);
             info.Enabled = isDocumentFormattable;
             info.Visible = isDocumentFormattable;
         }

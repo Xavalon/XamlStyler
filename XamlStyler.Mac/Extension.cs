@@ -1,6 +1,9 @@
-﻿using Xavalon.XamlStyler.Mac.Services.XamlFiles;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using Xavalon.XamlStyler.Mac.Services.XamlFiles;
 using Xavalon.XamlStyler.Mac.Services.XamlFormatting;
 using Xavalon.XamlStyler.Mac.Services.XamlStylerOptions;
+using Xavalon.XamlStyler.Mac.Converter;
 
 namespace Xavalon.XamlStyler.Mac
 {
@@ -9,7 +12,6 @@ namespace Xavalon.XamlStyler.Mac
         public void Initialize()
         {
             var container = Container.Instance;
-
             RegisterServices(container);
         }
 

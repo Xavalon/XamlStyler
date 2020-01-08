@@ -38,7 +38,6 @@
     <Compile Include="Properties\AddinInfo.cs" />
     <Compile Include="gtk-gui\generated.cs" />
     <Compile Include="Gui\XamlStylerOptionsPanel.cs" />
-    <Compile Include="StylerOptionsConfiguration.cs" />
     <Compile Include="Gui\XamlStylerOptionsWidget.cs" />
     <Compile Include="Utils\ColorUtils.cs" />
     <Compile Include="CommandHandlers\BatchFormatXamlCommandHandler.cs" />
@@ -56,6 +55,8 @@
     <Compile Include="Services\XamlFiles\IXamlFilesService.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Services\XamlFiles\XamlFilesService.cs" />
+    <Compile Include="Converter\GlobalOptionsJsonConverter.cs" />
+    <Compile Include="Utils\PathUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />
@@ -82,5 +83,6 @@
     <Folder Include="Services\XamlFormatting\" />
     <Folder Include="Services\XamlStylerOptions\" />
     <Folder Include="Services\XamlFiles\" />
+    <Folder Include="Converter\" />
   </ItemGroup>
 </Project>

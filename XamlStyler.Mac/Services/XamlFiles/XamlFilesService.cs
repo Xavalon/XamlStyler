@@ -19,7 +19,7 @@ namespace Xavalon.XamlStyler.Mac.Services.XamlFiles
         {
             return project.Files
                           .Where(IsXamlFile)
-                          .Select(file => file.FilePath.FileName)
+                          .Select(file => file.FilePath.ToString())
                           .ToList();
         }
 
