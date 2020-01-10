@@ -278,9 +278,10 @@ namespace Xavalon.XamlStyler.Package
                 ? path
                 : Path.GetDirectoryName(path);
 
-            while (configDirectory.StartsWith(root, StringComparison.InvariantCultureIgnoreCase))
+            while (configDirectory != null && configDirectory.StartsWith(root, StringComparison.InvariantCultureIgnoreCase))
             {
                 yield return Path.Combine(configDirectory, "Settings.XamlStyler");
+                // if the root directory is given as an argument, the result will be null.
                 configDirectory = Path.GetDirectoryName(configDirectory);
             }
         }
