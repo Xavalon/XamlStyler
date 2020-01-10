@@ -12,7 +12,7 @@ namespace Xavalon.XamlStyler.Core.Options
     public class StylerOptions : IStylerOptions
     {
         private const string DefaultOptionsPath = "Xavalon.XamlStyler.Core.Options.DefaultSettings.json";
-        private const int FallbackIndentSize = 2;
+        private const int FallbackIndentSize = 4;
 
         public StylerOptions()
         {
@@ -397,7 +397,7 @@ namespace Xavalon.XamlStyler.Core.Options
                             {
                                 indentSize = -1;
                             }
-                            
+
 
                             // Cannot specify MissingMemberHandling for a single property, so relying on JSON default
                             // value to detect missing member, and setting default on detection.
