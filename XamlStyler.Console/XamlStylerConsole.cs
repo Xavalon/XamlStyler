@@ -35,82 +35,134 @@ namespace Xavalon.XamlStyler.Xmagic
         private void ApplyOptionOverrides(Options options, IStylerOptions stylerOptions)
         {
             if (options.IndentSize != null)
+            {
                 stylerOptions.IndentSize = options.IndentSize.Value;
+            }
 
             if (options.IndentWithTabs != null)
+            {
                 stylerOptions.IndentWithTabs = options.IndentWithTabs.Value;
+            }
 
             if (options.AttributesTolerance != null)
+            {
                 stylerOptions.AttributesTolerance = options.AttributesTolerance.Value;
+            }
 
             if (options.KeepFirstAttributeOnSameLine != null)
+            {
                 stylerOptions.KeepFirstAttributeOnSameLine = options.KeepFirstAttributeOnSameLine.Value;
+            }
 
             if (options.MaxAttributeCharactersPerLine != null)
+            {
                 stylerOptions.MaxAttributeCharactersPerLine = options.MaxAttributeCharactersPerLine.Value;
+            }
 
             if (options.MaxAttributesPerLine != null)
+            {
                 stylerOptions.MaxAttributesPerLine = options.MaxAttributesPerLine.Value;
+            }
 
             if (options.NoNewLineElements != null)
+            {
                 stylerOptions.NoNewLineElements = options.NoNewLineElements;
+            }
 
             if (options.PutAttributeOrderRuleGroupsOnSeparateLines != null)
+            {
                 stylerOptions.PutAttributeOrderRuleGroupsOnSeparateLines = options.PutAttributeOrderRuleGroupsOnSeparateLines.Value;
+            }
 
             if (options.AttributeIndentation != null)
+            {
                 stylerOptions.AttributeIndentation = options.AttributeIndentation.Value;
+            }
 
             if (options.AttributeIndentationStyle != null)
+            {
                 stylerOptions.AttributeIndentationStyle = options.AttributeIndentationStyle.Value;
+            }
 
             if (options.RemoveDesignTimeReferences != null)
+            {
                 stylerOptions.RemoveDesignTimeReferences = options.RemoveDesignTimeReferences.Value;
+            }
 
             if (options.EnableAttributeReordering != null)
+            {
                 stylerOptions.EnableAttributeReordering = options.EnableAttributeReordering.Value;
+            }
 
             if (options.FirstLineAttributes != null)
+            {
                 stylerOptions.FirstLineAttributes = options.FirstLineAttributes;
+            }
 
             if (options.OrderAttributesByName != null)
+            {
                 stylerOptions.OrderAttributesByName = options.OrderAttributesByName.Value;
+            }
 
             if (options.PutEndingBracketOnNewLine != null)
+            {
                 stylerOptions.PutEndingBracketOnNewLine = options.PutEndingBracketOnNewLine.Value;
+            }
 
             if (options.RemoveEndingTagOfEmptyElement != null)
+            {
                 stylerOptions.RemoveEndingTagOfEmptyElement = options.RemoveEndingTagOfEmptyElement.Value;
+            }
 
             if (options.RootElementLineBreakRule != null)
+            {
                 stylerOptions.RootElementLineBreakRule = options.RootElementLineBreakRule.Value;
+            }
 
             if (options.ReorderVSM != null)
+            {
                 stylerOptions.ReorderVSM = options.ReorderVSM.Value;
+            }
 
             if (options.ReorderGridChildren != null)
+            {
                 stylerOptions.ReorderGridChildren = options.ReorderGridChildren.Value;
+            }
 
             if (options.ReorderCanvasChildren != null)
+            {
                 stylerOptions.ReorderCanvasChildren = options.ReorderCanvasChildren.Value;
+            }
 
             if (options.ReorderSetters != null)
+            {
                 stylerOptions.ReorderSetters = options.ReorderSetters.Value;
+            }
 
             if (options.FormatMarkupExtension != null)
+            {
                 stylerOptions.FormatMarkupExtension = options.FormatMarkupExtension.Value;
+            }
 
             if (options.NoNewLineMarkupExtensions != null)
+            {
                 stylerOptions.NoNewLineMarkupExtensions = options.NoNewLineMarkupExtensions;
+            }
 
             if (options.ThicknessStyle != null)
+            {
                 stylerOptions.ThicknessStyle = options.ThicknessStyle.Value;
+            }
 
             if (options.ThicknessAttributes != null)
+            {
                 stylerOptions.ThicknessAttributes = options.ThicknessAttributes;
+            }
 
             if (options.CommentSpaces != null)
+            {
                 stylerOptions.CommentSpaces = options.CommentSpaces.Value;
+            }
         }
 
         public void Process(ProcessType processType)
