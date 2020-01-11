@@ -1,4 +1,6 @@
-﻿namespace Xavalon.XamlStyler.Xmagic
+﻿// © Xavalon. All rights reserved.
+
+namespace Xavalon.XamlStyler.Xmagic
 {
     public enum LogLevel
     {

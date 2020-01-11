@@ -1,4 +1,6 @@
-﻿using System;
+﻿// © Xavalon. All rights reserved.
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -114,7 +116,6 @@ namespace Xavalon.XamlStyler.Xmagic
         public void Process(ProcessType processType)
         {
             int successCount = 0;
-
             IList<string> files;
 
             switch (processType)

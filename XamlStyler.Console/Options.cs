@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿// © Xavalon. All rights reserved.
+
+using System.Collections.Generic;
 using CommandLine;
-using Newtonsoft.Json;
 using Xavalon.XamlStyler.Core.DocumentManipulation;
 using Xavalon.XamlStyler.Core.Options;
 
