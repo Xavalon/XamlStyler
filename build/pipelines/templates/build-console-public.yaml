@@ -1,0 +1,53 @@
+jobs:
+- job: BuildConsoleNuget
+
+  displayName: 'Build NuGet Package'
+
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  steps:
+  - task: PowerShell@2
+    displayName: 'Update Version Number'
+    inputs:
+      filePath: './build/update-version.ps1'
+      arguments: $(major).$(Get-Date -Format "yyMM").$(patch)
+      pwsh: true
+
+  - task: UseDotNet@2
+    displayName: 'Use .NET Core 3.1 SDK'
+    inputs:
+      packageType: sdk
+      version: 3.1.x
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
+  # The first task is the dotnet command build, pointing to our csproj file
+  - task: DotNetCoreCLI@2
+    displayName: 'Build'
+    inputs:
+      command: 'build'
+      arguments: '--configuration $(buildConfiguration)'
+      projects: 'XamlStyler.Console/XamlStyler.Console.csproj'
+
+# The second task is dotnet pack command again pointing to the csproj file
+# The nobuild means the project will not be compiled before running pack, because its already built in above step
+  - task: DotNetCoreCLI@2
+    displayName: 'Pack'
+    inputs:
+      command: 'pack'
+      packagesToPack: '**/XamlStyler.Console.csproj'
+      arguments: '--configuration $(buildConfiguration)'
+      versioningScheme: 'off'
+      nobuild: true
+      majorVersion: '$(major)'
+      minorVersion: '$(Date:yyMM)'
+      patchVersion: '$(patch)'
+
+#  - bash: ls $(Build.ArtifactStagingDirectory)
+#    displayName: 'Copy NuGet Package to Staging'
+
+  - task: PublishPipelineArtifact@1
+    displayName: 'Publish NuGet Package Artifact'
+    inputs:
+      targetPath: '$(Build.ArtifactStagingDirectory)'
+      artifactName: 'XamlStyler.Console'

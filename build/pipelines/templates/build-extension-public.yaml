@@ -1,46 +1,55 @@
-# This template contains a job to build the app for a single architecture.
-# Only the contents of the public repository are built; internal resources are not used.
-
 jobs:
-- job: BuildAnyCPU
-  displayName: 'Build AnyCPU'
+- job: BuildExtension
+
+  displayName: 'Build VSIX'
+
   pool:
     vmImage: 'windows-latest'
+
   workspace:
     clean: outputs
+
   steps:
   - checkout: self
     clean: true
-  
+
+  - task: PowerShell@2
+    displayName: 'Update Version Number'
+    inputs:
+      filePath: 'build\update-version.ps1'
+      arguments: $(major).$(Get-Date -Format "yyMM").$(patch)
+      pwsh: true
+      
   - task: NuGetToolInstaller@1
+    displayName: 'Install NuGet Tools'
 
   - task: NuGetCommand@2
-    displayName: 'NuGet restore XamlStyler.sln'
+    displayName: 'NuGet Restore'
     inputs:
       command: custom
       arguments: restore XamlStyler.sln -Verbosity Detailed -NonInteractive
 
   - task: VSBuild@1
-    displayName: 'Build solution XamlStyler.sln'
+    displayName: 'Build'
     inputs:
       solution: XamlStyler.sln
       vsVersion: 16.0
       platform: 'Any CPU'
-      configuration: Release
+      configuration: $(buildConfiguration)
       clean: true
       maximumCpuCount: true
 
+  - task: CopyFiles@2
+    displayName: 'Copy VSIX to Staging'
+    inputs:
+      contents: '**/*.vsix' 
+      targetFolder: $(Build.ArtifactStagingDirectory)
+      cleanTargetFolder: true
+      overWrite: true
+      flattenFolders: true
+
   - task: PublishPipelineArtifact@1
-    displayName: 'Publish XamlStylerExtension artifact'
+    displayName: 'Publish VSIX Artifact'
     inputs:
       artifact: XamlStylerExtension
-      path: $(System.DefaultWorkingDirectory)/bin/Release
-
-  - task: VSTest@2
-    displayName: 'Run unit tests'
-    inputs:
-      testAssemblyVer2: |
-        **\**\*UnitTests*.dll
-        **\**\**\*UnitTests*.dll
-        !**\*TestAdapter.dll
-        !**\obj\**'
+      targetPath: $(Build.ArtifactStagingDirectory)

@@ -1,0 +1,22 @@
+jobs:
+- job: RunUnitTests
+
+  displayName: 'Run Unit Tests'
+
+  pool:
+    vmImage: 'windows-latest'
+
+  steps:
+  - task: DotNetCoreCLI@2
+    displayName: 'Build'
+    inputs:
+      command: 'build'
+      projects: '**/*UnitTests/*.csproj'
+      arguments: '--configuration $(buildConfiguration)'
+
+  - task: DotNetCoreCLI@2
+    displayName: 'Run Tests'
+    inputs:
+      command: test
+      projects: '**/*UnitTests/*.csproj'
+      arguments: '--configuration $(buildConfiguration)'

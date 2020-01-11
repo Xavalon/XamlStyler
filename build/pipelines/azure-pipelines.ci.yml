@@ -3,13 +3,19 @@
 # This pipeline builds and validate the extension in all supported configurations.
 #
 
-trigger:
-- master
+trigger: none
 
 pr:
 - master
 
-name: 0.$(Date:yyMM).$(DayOfMonth)$(Rev:rr).0
+variables:
+  buildConfiguration: 'Release'
+  major: 0
+  patch: $[counter(format('{0:yyyyMMdd}', pipeline.startTime), 0)]
+
+name: $(major).$(Date:yyMM).$(patch).0
 
 jobs:
+- template: ./templates/run-tests-public.yaml
 - template: ./templates/build-extension-public.yaml
+- template: ./templates/build-console-public.yaml

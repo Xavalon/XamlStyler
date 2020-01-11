@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
     <Metadata>
-        <Identity Id="0c572937-0d4a-48cc-aa3f-875ffa9805ba" Version="3.2.4" Language="en-US" Publisher="Xavalon" />
+        <Identity Id="0c572937-0d4a-48cc-aa3f-875ffa9805ba" Version="3.0.0" Language="en-US" Publisher="Xavalon" />
         <DisplayName>XAML Styler</DisplayName>
-        <Description xml:space="preserve">XAML Styler is a visual studio extension, which formats XAML source code by sorting the attributes based on their importance. This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.</Description>
+        <Description xml:space="preserve">XAML Styler is a visual studio extension that formats XAML source code based on a set of styling rules. This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.</Description>
         <MoreInfo>https://github.com/Xavalon/XamlStyler/</MoreInfo>
         <License>LICENSE.txt</License>
         <GettingStartedGuide>https://github.com/Xavalon/XamlStyler/wiki/Getting-Started</GettingStartedGuide>
-        <ReleaseNotes>ReleaseNotes.txt</ReleaseNotes>
-        <Icon>Resources\Package.ico</Icon>
-        <PreviewImage>Resources\Preview.png</PreviewImage>
-        <Tags>XAML, add-in, WPF, Visual Studio, Extension, formatter, Silverlight, WP8, WinRT, Xamarin, UWP, Win10</Tags>
+        <Icon>Resources\icon128.jpg</Icon>
+        <PreviewImage>Resources\icon200.jpg</PreviewImage>
+        <Tags>beautifier, beautify, cleaning, cleanup, code, code formatting, code quality, format, formatter, formatting, pretty, reorganizing, style, styler, uwp, WPF, xamarin, XAML, xaml styler, xaml-styler</Tags>
     </Metadata>
     <!-- Visual Studio extensions and version ranges demystified: https://devblogs.microsoft.com/visualstudio/visual-studio-extensions-and-version-ranges-demystified/ -->
     <Installation AllUsers="true">
