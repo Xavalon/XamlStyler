@@ -80,6 +80,7 @@ namespace Xavalon.XamlStyler.UnitTests
         {
             var stylerOptions = new StylerOptions
             {
+                IndentSize = 2,
                 CommentSpaces = testNumber,
             };
 
@@ -205,7 +206,10 @@ namespace Xavalon.XamlStyler.UnitTests
         [Test]
         public void TestSingleLineNestedMarkupExtensions()
         {
-            this.DoTest(new StylerOptions());
+            this.DoTest(new StylerOptions
+            {
+                IndentSize = 2
+            });
         }
 
         [Test]
