@@ -434,10 +434,7 @@ namespace Xavalon.XamlStyler.Core.Options
             foreach (PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(this))
             {
                 // Set default value if DefaultValueAttribute is present
-                DefaultValueAttribute attribute
-                    = propertyDescriptor.Attributes[typeof(DefaultValueAttribute)] as DefaultValueAttribute;
-
-                if (attribute != null)
+                if (propertyDescriptor.Attributes[typeof(DefaultValueAttribute)] is DefaultValueAttribute attribute)
                 {
                     propertyDescriptor.SetValue(this, attribute.Value);
                 }
