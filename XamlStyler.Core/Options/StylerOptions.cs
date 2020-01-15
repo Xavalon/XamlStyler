@@ -3,6 +3,7 @@
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -39,6 +40,8 @@ namespace Xavalon.XamlStyler.Core.Options
         /// </summary>
         /// <param name="isJsonConstructor">Dummy parameter to differentiate from default constructor.</param>
         [JsonConstructor]
+        [SuppressMessage("Usage", "CA1801:Review unused parameters", Justification = "Required for deserialization", MessageId = "isJsonConstructor")]
+        [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Required for deserialization")]
         public StylerOptions(bool isJsonConstructor = true) { }
 
         // Indentation
