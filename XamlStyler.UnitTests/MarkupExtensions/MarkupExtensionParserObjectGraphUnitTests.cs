@@ -60,7 +60,7 @@ namespace Xavalon.XamlStyler.UnitTests.MarkupExtensions
         }
 
         [Test]
-        public void TestHelloworldFoo1Bar42_spaced()
+        public void TestHelloworldFoo1Bar42Spaced()
         {
             var sourceText = "  {  Hello   world ,  foo  =  1  ,  bar = 42  }  ";
             var expected = new MarkupExtension(

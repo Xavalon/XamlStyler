@@ -16,35 +16,35 @@ namespace Xavalon.XamlStyler.UnitTests
     public sealed partial class UnitTests
     {
         [Test]
-        public void TestConfiguration_Default()
+        public void TestConfigurationDefault()
         {
             var stylerOptions = new StylerOptions(config: this.GetConfiguration(@"TestConfigurations\Default.json"));
             this.TestConfig(stylerOptions, @"TestConfigurations\SerializedDefault.json");
         }
 
         [Test]
-        public void TestConfiguration_Empty()
+        public void TestConfigurationEmpty()
         {
             var stylerOptions = new StylerOptions(config: this.GetConfiguration(@"TestConfigurations\Empty.json"));
             this.TestConfig(stylerOptions, @"TestConfigurations\SerializedDefault.json");
         }
 
         [Test]
-        public void TestConfiguration_Single()
+        public void TestConfigurationSingle()
         {
             var stylerOptions = new StylerOptions(config: this.GetConfiguration(@"TestConfigurations\Single.json"));
             this.TestConfig(stylerOptions, @"TestConfigurations\Single.json");
         }
 
         [Test]
-        public void TestConfiguration_BadSetting()
+        public void TestConfigurationBadSetting()
         {
             var stylerOptions = new StylerOptions(config: this.GetConfiguration(@"TestConfigurations\BadSetting.json"));
             this.TestConfig(stylerOptions, @"TestConfigurations\SerializedDefault.json");
         }
 
         [Test]
-        public void TestConfiguration_AllDifferent()
+        public void TestConfigurationAllDifferent()
         {
             var stylerOptions = new StylerOptions(config: this.GetConfiguration(@"TestConfigurations\AllDifferent.json"));
             this.TestConfig(stylerOptions, @"TestConfigurations\AllDifferent.json");
