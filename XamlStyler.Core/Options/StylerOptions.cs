@@ -3,6 +3,7 @@
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using Xavalon.XamlStyler.Core.DocumentManipulation;
@@ -391,7 +392,7 @@ namespace Xavalon.XamlStyler.Core.Options
                             int indentSize;
                             try
                             {
-                                indentSize = Convert.ToInt32(propertyDescriptor.GetValue(configOptions));
+                                indentSize = Convert.ToInt32(propertyDescriptor.GetValue(configOptions), CultureInfo.InvariantCulture);
                             }
                             catch (Exception)
                             {

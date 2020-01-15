@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Xml.Linq;
 
 namespace Xavalon.XamlStyler.Core.DocumentManipulation
@@ -59,6 +60,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
         public override string ToString()
         {
             return String.Format(
+                CultureInfo.InvariantCulture,
                 "B{0} A{1} N{2}",
                 this.BlockIndex,
                 String.Join("|", (IEnumerable<ISortableAttribute>)this.SortAttributeValues),

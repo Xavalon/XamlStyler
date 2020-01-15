@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -275,7 +276,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                             xmlnsAliasesBypassLengthInCurrentLine = 0;
                         }
 
-                        currentLineBuffer.AppendFormat("{0} ", pendingAppend);
+                        currentLineBuffer.AppendFormat(CultureInfo.InvariantCulture, "{0} ", pendingAppend);
                         attributeCountInCurrentLineBuffer++;
                         xmlnsAliasesBypassLengthInCurrentLine += pendingAppend.Length - actualPendingAppend.Length;
                     }
