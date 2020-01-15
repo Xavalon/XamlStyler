@@ -43,7 +43,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 {
                     output.Append(String.Join(Environment.NewLine, content.GetLines().Select(_ => _.TrimEnd(' '))));
 
-                    if (content.TrimEnd(' ').EndsWith("\n"))
+                    if (content.TrimEnd(' ').EndsWith("\n", StringComparison.Ordinal))
                     {
                         output.Append(currentIndentString);
                     }

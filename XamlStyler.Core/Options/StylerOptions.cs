@@ -381,13 +381,13 @@ namespace Xavalon.XamlStyler.Core.Options
                     foreach (PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(this))
                     {
                         // Cannot set Config Path from External Configuration.
-                        if (propertyDescriptor.Name.Equals(nameof(this.ConfigPath)))
+                        if (propertyDescriptor.Name.Equals(nameof(this.ConfigPath), StringComparison.Ordinal))
                         {
                             continue;
                         }
 
                         // If a valid IndentSize is specified in configuration, do not load VS settings.
-                        if (propertyDescriptor.Name.Equals(nameof(this.IndentSize)))
+                        if (propertyDescriptor.Name.Equals(nameof(this.IndentSize), StringComparison.Ordinal))
                         {
                             int indentSize;
                             try

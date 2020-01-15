@@ -1,5 +1,6 @@
 ﻿// © Xavalon. All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
@@ -77,7 +78,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                         vsmNodeCollection = currentNodeCollection;
                         hasCollectionBeenAdded = true;
                     }
-                    else if(childName.LocalName.StartsWith($"{parentName.LocalName}."))
+                    else if(childName.LocalName.StartsWith($"{parentName.LocalName}.", StringComparison.Ordinal))
                     {
                         // Extract property-element syntax nodes.
                         propertyElementCollection.Add(currentNodeCollection);
