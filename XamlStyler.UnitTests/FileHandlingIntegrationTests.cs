@@ -450,12 +450,6 @@ namespace Xavalon.XamlStyler.UnitTests
             FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
-        private void DoTest([System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
-        {
-            // ReSharper disable once ExplicitCallerInfoArgument
-            FileHandlingIntegrationTests.DoTest(new StylerOptions(), callerMemberName);
-        }
-
         private static void DoTest(
             StylerOptions stylerOptions,
             [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
