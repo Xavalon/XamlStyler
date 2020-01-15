@@ -18,7 +18,7 @@ namespace Xavalon.XamlStyler.Xmagic
         {
             var writer = new StringWriter();
             var parser = new Parser(_ => _.HelpWriter = writer);
-            var result = parser.ParseArguments<Options>(args);
+            var result = parser.ParseArguments<CommandLineOptions>(args);
 
             result.WithNotParsed(_ =>
             {
@@ -56,10 +56,10 @@ namespace Xavalon.XamlStyler.Xmagic
 
     public sealed class XamlStylerConsole
     {
-        private readonly Options options;
+        private readonly CommandLineOptions options;
         private readonly StylerService stylerService;
 
-        public XamlStylerConsole(Options options)
+        public XamlStylerConsole(CommandLineOptions options)
         {
             this.options = options;
 
@@ -211,7 +211,7 @@ namespace Xavalon.XamlStyler.Xmagic
         }
     }
 
-    public sealed class Options
+    public sealed class CommandLineOptions
     {
         [Option('f', "file", Separator = ',', HelpText = "XAML file to process (supports comma-separated list).")]
         public IList<string> File { get; set; }

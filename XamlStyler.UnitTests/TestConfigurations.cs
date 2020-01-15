@@ -13,7 +13,7 @@ namespace Xavalon.XamlStyler.UnitTests
     //test runner (probably ReSharper, it searches for the config files in the wrong directory)
 
     [TestFixture]
-    public sealed partial class UnitTests
+    public sealed partial class Tests
     {
         [Test]
         public void TestConfigurationDefault()
