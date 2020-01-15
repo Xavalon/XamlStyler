@@ -214,7 +214,7 @@ namespace Xavalon.XamlStyler.Xmagic
     public sealed class CommandLineOptions
     {
         [Option('f', "file", Separator = ',', HelpText = "XAML file to process (supports comma-separated list).")]
-        public IList<string> File { get; set; }
+        public IList<string> File { get; private set; }
 
         [Option('d', "directory", HelpText = "Directory to process XAML files in.")]
         public string Directory { get; set; }
