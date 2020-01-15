@@ -1,6 +1,7 @@
 ﻿// © Xavalon. All rights reserved.
 
 using Irony.Parsing;
+using System;
 
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
 {
@@ -14,6 +15,11 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
         public static implicit operator Value(string value)
         {
             return new LiteralValue(value);
+        }
+
+        public Value ToValue()
+        {
+            throw new NotImplementedException();
         }
     }
 }
