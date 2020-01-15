@@ -45,7 +45,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
         {
-            elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.Mixed);
+            elementProcessContext.UpdateParentElementProcessStatus(ContentTypes.Mixed);
 
             var elementName = xmlReader.Name;
             elementProcessContext.Push(
@@ -53,7 +53,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 {
                     Parent = elementProcessContext.Current,
                     Name = elementName,
-                    ContentType = ContentTypeEnum.None,
+                    ContentType = ContentTypes.None,
                     IsMultlineStartTag = false,
                     IsPreservingSpace = elementProcessContext.Current.IsPreservingSpace
                 });

@@ -22,7 +22,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
         {
-            elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.SingleLineTextOnly);
+            elementProcessContext.UpdateParentElementProcessStatus(ContentTypes.SingleLineTextOnly);
 
             var xmlEncodedContent = xmlReader.Value.ToXmlEncodedString(ignoreCarrier: true);
             if (elementProcessContext.Current.IsPreservingSpace)
@@ -49,7 +49,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 
             if (xmlEncodedContent.Any(_ => (_ == '\n')))
             {
-                elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.MultiLineTextOnly);
+                elementProcessContext.UpdateParentElementProcessStatus(ContentTypes.MultiLineTextOnly);
             }
         }
     }
