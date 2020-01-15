@@ -125,6 +125,11 @@
     <PackageReference Include="EnvDTE">
       <Version>8.0.2</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
+      <Version>2.6.3</Version>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Imaging">
       <Version>15.0.26201</Version>
     </PackageReference>
