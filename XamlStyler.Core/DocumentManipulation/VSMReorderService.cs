@@ -10,7 +10,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 {
     public class VSMReorderService : IProcessElementService
     {
-        public readonly NameSelector VSMNode = new NameSelector("VisualStateManager.VisualStateGroups", null);
+        private readonly NameSelector VSMNode = new NameSelector("VisualStateManager.VisualStateGroups", null);
 
         public VisualStateManagerRule Mode { get; set; } = VisualStateManagerRule.None;
 
