@@ -17,8 +17,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
         {
             this.Value = value;
 
-            double numericValue;
-            this.NumericValue = Double.TryParse(value, out numericValue)
+            this.NumericValue = Double.TryParse(value, out double numericValue)
                 ? numericValue
                 : defaultNumericValue;
         }
