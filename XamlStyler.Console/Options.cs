@@ -8,10 +8,10 @@ using Xavalon.XamlStyler.Core.Options;
 namespace Xavalon.XamlStyler.Xmagic
 {
     // CLI-intrinsic options
-    public sealed partial class Options
+    public sealed partial class CommandLineOptions
     {
         [Option('f', "file", Separator = ',', HelpText = "XAML file to process (supports comma-separated list).")]
-        public IList<string> File { get; set; }
+        public IList<string> File { get; private set; }
 
         [Option('d', "directory", HelpText = "Directory to process XAML files in.")]
         public string Directory { get; set; }
@@ -31,7 +31,7 @@ namespace Xavalon.XamlStyler.Xmagic
     }
 
     // Styler overrides
-    public sealed partial class Options
+    public sealed partial class CommandLineOptions
     {
         [Option("indent-size", HelpText = "Override: indent size.")]
         public int? IndentSize { get; set; }

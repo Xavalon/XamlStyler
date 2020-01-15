@@ -13,10 +13,10 @@ namespace Xavalon.XamlStyler.Xmagic
 {
     public sealed class XamlStylerConsole
     {
-        private readonly Options options;
+        private readonly CommandLineOptions options;
         private readonly StylerService stylerService;
 
-        public XamlStylerConsole(Options options)
+        public XamlStylerConsole(CommandLineOptions options)
         {
             this.options = options;
 
@@ -32,7 +32,7 @@ namespace Xavalon.XamlStyler.Xmagic
             this.stylerService = new StylerService(stylerOptions);
         }
 
-        private void ApplyOptionOverrides(Options options, IStylerOptions stylerOptions)
+        private void ApplyOptionOverrides(CommandLineOptions options, IStylerOptions stylerOptions)
         {
             if (options.IndentSize != null)
             {
