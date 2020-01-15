@@ -2,11 +2,14 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Xml.Linq;
 
 namespace Xavalon.XamlStyler.Core.DocumentManipulation
 {
+    // TODO: Investiagate why we need to supress this warning.
+    [SuppressMessage("Design", "CA1036:Override methods on comparable types", Justification = "Introduces breaking change")]
     public class NodeCollection : IComparable<NodeCollection>
     {
         /// <summary>
