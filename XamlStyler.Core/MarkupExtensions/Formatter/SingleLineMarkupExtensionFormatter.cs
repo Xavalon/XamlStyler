@@ -1,6 +1,7 @@
 // © Xavalon. All rights reserved.
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using Xavalon.XamlStyler.Core.MarkupExtensions.Parser;
 
@@ -13,7 +14,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
         {
         }
 
-        protected override IEnumerable<string> FormatArguments(Argument[] arguments, bool isNested = false)
+        protected override IEnumerable<string> FormatArguments(Collection<Argument> arguments, bool isNested = false)
         {
             StringBuilder stringBuilder = new StringBuilder();
             foreach (var argument in arguments)

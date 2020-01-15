@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Xavalon.XamlStyler.Core.MarkupExtensions.Parser;
 
@@ -23,7 +24,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
                 : new string[] { $"{{{markupExtension.TypeName}}}" };
         }
 
-        protected abstract IEnumerable<string> FormatArguments(Argument[] arguments, bool isNested = false);
+        protected abstract IEnumerable<string> FormatArguments(Collection<Argument> arguments, bool isNested = false);
 
         protected IEnumerable<string> FormatArgument(Argument argument, bool isNested = false)
         {

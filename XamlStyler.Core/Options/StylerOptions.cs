@@ -155,6 +155,7 @@ namespace Xavalon.XamlStyler.Core.Options
             "Storyboard.*, From, To, Duration",
         })]
         [TypeConverter(typeof(StringArrayConverter))]
+        [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "Required for serialization/deserialization")]
         public string[] AttributeOrderingRuleGroups { get; set; }
 
         [Category("Attribute Reordering")]

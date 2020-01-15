@@ -1,5 +1,6 @@
 // © Xavalon. All rights reserved.
 
+using System.Diagnostics.CodeAnalysis;
 using Xavalon.XamlStyler.Core.DocumentManipulation;
 
 namespace Xavalon.XamlStyler.Core.Options
@@ -47,6 +48,7 @@ namespace Xavalon.XamlStyler.Core.Options
 
         bool EnableAttributeReordering { get; set; }
 
+        [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "Required for serialization/deserialization")]
         string[] AttributeOrderingRuleGroups { get; set; }
 
         bool OrderAttributesByName { get; set; }
