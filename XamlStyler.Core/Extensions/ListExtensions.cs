@@ -11,12 +11,12 @@ namespace Xavalon.XamlStyler.Core.Extensions
         {
             if (list == null)
             {
-                throw new ArgumentNullException("list");
+                throw new ArgumentNullException(nameof(list));
             }
 
             if (comparison == null)
             {
-                throw new ArgumentNullException("comparison");
+                throw new ArgumentNullException(nameof(comparison));
             }
 
             int count = list.Count;
