@@ -193,7 +193,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                         break;
 
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        throw new NotImplementedException();
                 }
             }
 

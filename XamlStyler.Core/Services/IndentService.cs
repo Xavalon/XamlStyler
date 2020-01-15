@@ -54,7 +54,7 @@ namespace Xavalon.XamlStyler.Core.Services
                     case AttributeIndentationStyle.Spaces:
                         return new String('\t', depth) + new String(' ', additionalSpaces);
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        throw new NotImplementedException();
                 }
 
             }

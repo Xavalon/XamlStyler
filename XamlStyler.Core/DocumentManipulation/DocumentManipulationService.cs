@@ -106,7 +106,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                     break;
 
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new NotImplementedException();
             }
 
             return reorderService;
