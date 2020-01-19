@@ -15,12 +15,12 @@ namespace Xavalon.XamlStyler.Mac.ViewModels
             var descriptionAttribute = (DescriptionAttribute)property.Attributes[typeof(DescriptionAttribute)];
             var categoryAttribute = (CategoryAttribute)property.Attributes[typeof(CategoryAttribute)];
 
-            IsConfigurable = browsableAttribute is null || browsableAttribute.Browsable;
+            var name = displayNameAttribute?.DisplayName ?? property.Name;
+            var isConfigurable = browsableAttribute is null || browsableAttribute.Browsable;
+            AdjustItems(property, ref isConfigurable, ref name);
 
-            // TODO Discuss if ResetToDefault should be configurable by default, it looks strange
-            IsConfigurable &= property.Name != nameof(IStylerOptions.ResetToDefault);
-
-            Name = displayNameAttribute?.DisplayName ?? property.Name;
+            Name = name;
+            IsConfigurable = isConfigurable;
             Description = descriptionAttribute.Description;
             Category = categoryAttribute.Category;
             PropertyType = property.PropertyType;
@@ -38,5 +38,22 @@ namespace Xavalon.XamlStyler.Mac.ViewModels
         public Type PropertyType { get; }
 
         public PropertyDescriptor Property { get; }
+
+        // TODO Unify Mac Extension approach with one that we have in Windows Extension
+        // Currently we not handling correctly Options changes as well as we not loading options from Visual Studio.
+        // This method is workaround for now. Remove this workaround when options loading will be implemented
+        private void AdjustItems(PropertyDescriptor property, ref bool isConfigurable, ref string name)
+        {
+            switch (property.Name)
+            {
+                case nameof(IStylerOptions.ResetToDefault):
+                    isConfigurable = false;
+                    break;
+                case nameof(IStylerOptions.IndentWithTabs):
+                    isConfigurable = true;
+                    name = "Indent with tabs";
+                    break;
+            }
+        }
     }
 }

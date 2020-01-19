@@ -20,8 +20,9 @@ namespace Xavalon.XamlStyler.Mac.Converters
             var stylerOptions = (IStylerOptions)jStylerOptions.ToObject(objectType);
 
             // TODO Discuss about these properties, why they're with JsonIgnore and how to handle it correct
-            stylerOptions.SearchToDriveRoot = (bool)jStylerOptions[nameof(IStylerOptions.SearchToDriveRoot)];
+            stylerOptions.SearchToDriveRoot = (bool?)jStylerOptions[nameof(IStylerOptions.SearchToDriveRoot)] ?? false;
             stylerOptions.ConfigPath = (string)jStylerOptions[nameof(IStylerOptions.ConfigPath)];
+            stylerOptions.IndentWithTabs = (bool?)jStylerOptions[nameof(IStylerOptions.IndentWithTabs)] ?? false;
 
             return stylerOptions;
         }
@@ -34,6 +35,7 @@ namespace Xavalon.XamlStyler.Mac.Converters
             // TODO Discuss about these properties, why they're with JsonIgnore and how to handle it correct
             jStylerOptions[nameof(IStylerOptions.SearchToDriveRoot)] = stylerOptions.SearchToDriveRoot;
             jStylerOptions[nameof(IStylerOptions.ConfigPath)] = stylerOptions.ConfigPath;
+            jStylerOptions[nameof(IStylerOptions.IndentWithTabs)] = stylerOptions.IndentWithTabs;
 
             serializer.Serialize(writer, jStylerOptions);
         }
