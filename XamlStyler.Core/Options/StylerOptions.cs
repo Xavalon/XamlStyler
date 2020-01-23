@@ -275,7 +275,7 @@ namespace Xavalon.XamlStyler.Core.Options
         [Category("XAML Styler Configuration")]
         [RefreshProperties(RefreshProperties.All)]
         [DisplayName("Search to drives root")]
-        [Description("When set to true, XAML Styler will look for an external XAML Styler configuration file not only up through your solution directory, but up through the drives root of the current solution so you can share one configuration file through multiple solutions.\r\n\r\nDefault Value: true")]
+        [Description("When set to true, XAML Styler will look for an external XAML Styler configuration file not only up through your solution directory, but up through the drives root of the current solution so you can share one configuration file through multiple solutions.\r\n\r\nDefault Value: false")]
         [DefaultValue(false)]
         [JsonIgnore]
         public bool SearchToDriveRoot { get; set; }
@@ -318,7 +318,7 @@ namespace Xavalon.XamlStyler.Core.Options
             {
                 this.configPath = value;
 
-                if(!String.IsNullOrEmpty(value))
+                if (!String.IsNullOrEmpty(value))
                 {
                     this.TryLoadExternalConfiguration();
                 }
