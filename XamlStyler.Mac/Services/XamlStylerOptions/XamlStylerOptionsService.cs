@@ -90,7 +90,7 @@ namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
             return globalOptions;
         }
 
-        private IStylerOptions ParseOptionsOrDefault(string optionsFilePath, IStylerOptions defaultOptions = null, JsonConverter deserializeConverter = null)
+        private IStylerOptions ParseOptionsOrDefault(string optionsFilePath, IStylerOptions defaultOptions, JsonConverter deserializeConverter = null)
         {
             try
             {
@@ -108,6 +108,9 @@ namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
                     // TODO Check info about IndentSize, is it necessary
                     options.IndentSize = 4;
                 }
+
+                // TODO Remove it when we will handle Indent from Visual Studio preferences
+                options.IndentWithTabs |= defaultOptions.IndentWithTabs;
 
                 return options;
             }
