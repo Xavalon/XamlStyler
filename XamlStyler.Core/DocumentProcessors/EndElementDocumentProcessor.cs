@@ -34,7 +34,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             {
                 output.Append("</").Append(xmlReader.Name).Append(">");
             }
-            else if ((elementProcessContext.Current.ContentType == ContentTypeEnum.None)
+            else if ((elementProcessContext.Current.ContentType == ContentTypes.None)
                 && this.options.RemoveEndingTagOfEmptyElement)
             {
                 // Shrink the current element, if it has no content.
@@ -51,7 +51,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                     output.Insert(bracketIndex, ' ');
                 }
             }
-            else if ((elementProcessContext.Current.ContentType == ContentTypeEnum.SingleLineTextOnly)
+            else if ((elementProcessContext.Current.ContentType == ContentTypes.SingleLineTextOnly)
                 && !elementProcessContext.Current.IsMultlineStartTag)
             {
                 int bracketIndex = output.LastIndexOf('>');

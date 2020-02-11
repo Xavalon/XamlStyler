@@ -12,7 +12,7 @@ namespace Xavalon.XamlStyler.Xmagic
         {
             var writer = new StringWriter();
             var parser = new Parser(_ => _.HelpWriter = writer);
-            var result = parser.ParseArguments<Options>(args);
+            var result = parser.ParseArguments<CommandLineOptions>(args);
 
             result.WithNotParsed(_ =>
             {

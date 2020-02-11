@@ -1,4 +1,5 @@
 ﻿using EnvDTE;
+using Microsoft;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
 using System;
@@ -11,11 +12,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
-using System.Threading.Tasks;
-using Microsoft;
 using Xavalon.XamlStyler.Core;
 using Xavalon.XamlStyler.Core.Options;
-using Xavalon.XamlStyler.Package;
+
 using Task = System.Threading.Tasks.Task;
 
 namespace Xavalon.XamlStyler.Package
@@ -44,6 +43,8 @@ namespace Xavalon.XamlStyler.Package
             Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", ToString()));
         }
 
+        [SuppressMessage("Reliability", "CA2007:Do not directly await a Task", Justification = "Not recommended in VS-specific code")]
+        // https://github.com/Microsoft/vs-threading/blob/master/doc/cookbook_vs.md#should-i-await-a-task-with-configureawaitfalse
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
@@ -85,7 +86,7 @@ namespace Xavalon.XamlStyler.Package
             }
         }
 
-        private bool IsFormatableDocument(Document document)
+        private static bool IsFormatableDocument(Document document)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             var isFormatableDocument = !document.ReadOnly && document.Language == "XAML";
@@ -164,7 +165,7 @@ namespace Xavalon.XamlStyler.Package
             }
         }
 
-        private void Execute(Document document, IStylerOptions stylerOptions)
+        private static void Execute(Document document, IStylerOptions stylerOptions)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             if (IsFormatableDocument(document))
@@ -173,7 +174,7 @@ namespace Xavalon.XamlStyler.Package
             }
         }
 
-        private Func<Action> SetupExecuteContinuation(Document document, IStylerOptions stylerOptions)
+        private static Func<Action> SetupExecuteContinuation(Document document, IStylerOptions stylerOptions)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             var textDocument = (TextDocument)document.Object("TextDocument");
@@ -239,7 +240,7 @@ namespace Xavalon.XamlStyler.Package
             return stylerOptions;
         }
 
-        private string GetConfigPathForItem(string path, string solutionRoot, Project project)
+        private static string GetConfigPathForItem(string path, string solutionRoot, Project project)
         {
             if (String.IsNullOrWhiteSpace(path))
             {
@@ -258,9 +259,9 @@ namespace Xavalon.XamlStyler.Package
 
             // find the FullPath of "Settings.XamlStyler" ref in project
             var filePathsInProject = project?.ProjectItems.Cast<ProjectItem>()
-                .Where(x => { ThreadHelper.ThrowIfNotOnUIThread(); return string.Equals(x.Name, "Settings.XamlStyler"); })
+                .Where(x => { ThreadHelper.ThrowIfNotOnUIThread(); return string.Equals(x.Name, "Settings.XamlStyler", StringComparison.Ordinal); })
                 .SelectMany(x => { ThreadHelper.ThrowIfNotOnUIThread(); return x.Properties.Cast<Property>(); })
-                .Where(x => { ThreadHelper.ThrowIfNotOnUIThread(); return string.Equals(x.Name, "FullPath"); })
+                .Where(x => { ThreadHelper.ThrowIfNotOnUIThread(); return string.Equals(x.Name, "FullPath", StringComparison.Ordinal); })
                 .Select(x => { ThreadHelper.ThrowIfNotOnUIThread(); return x.Value as string; });
 
             if (filePathsInProject != null)
@@ -321,8 +322,7 @@ namespace Xavalon.XamlStyler.Package
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             Guid clsid = Guid.Empty;
-            int result;
-
+            
             _uiShell.ShowMessageBox(
                 0,
                 ref clsid,
@@ -334,7 +334,7 @@ namespace Xavalon.XamlStyler.Package
                 OLEMSGDEFBUTTON.OLEMSGDEFBUTTON_FIRST,
                 OLEMSGICON.OLEMSGICON_INFO,
                 0, // false
-                out result);
+                out _);
         }
     }
 }

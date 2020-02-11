@@ -13,52 +13,52 @@ namespace Xavalon.XamlStyler.UnitTests
     //test runner (probably ReSharper, it searches for the config files in the wrong directory)
 
     [TestFixture]
-    public sealed partial class UnitTests
+    public sealed partial class Tests
     {
         [Test]
-        public void TestConfiguration_Default()
+        public void TestConfigurationDefault()
         {
-            var stylerOptions = new StylerOptions(config: this.GetConfiguration(@"TestConfigurations\Default.json"));
+            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations\Default.json"));
             this.TestConfig(stylerOptions, @"TestConfigurations\SerializedDefault.json");
         }
 
         [Test]
-        public void TestConfiguration_Empty()
+        public void TestConfigurationEmpty()
         {
-            var stylerOptions = new StylerOptions(config: this.GetConfiguration(@"TestConfigurations\Empty.json"));
+            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations\Empty.json"));
             this.TestConfig(stylerOptions, @"TestConfigurations\SerializedDefault.json");
         }
 
         [Test]
-        public void TestConfiguration_Single()
+        public void TestConfigurationSingle()
         {
-            var stylerOptions = new StylerOptions(config: this.GetConfiguration(@"TestConfigurations\Single.json"));
+            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations\Single.json"));
             this.TestConfig(stylerOptions, @"TestConfigurations\Single.json");
         }
 
         [Test]
-        public void TestConfiguration_BadSetting()
+        public void TestConfigurationBadSetting()
         {
-            var stylerOptions = new StylerOptions(config: this.GetConfiguration(@"TestConfigurations\BadSetting.json"));
+            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations\BadSetting.json"));
             this.TestConfig(stylerOptions, @"TestConfigurations\SerializedDefault.json");
         }
 
         [Test]
-        public void TestConfiguration_AllDifferent()
+        public void TestConfigurationAllDifferent()
         {
-            var stylerOptions = new StylerOptions(config: this.GetConfiguration(@"TestConfigurations\AllDifferent.json"));
+            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations\AllDifferent.json"));
             this.TestConfig(stylerOptions, @"TestConfigurations\AllDifferent.json");
         }
 
         private void TestConfig(StylerOptions stylerOptions, string expectedConfiguration)
         {
             var actualOptions = JsonConvert.SerializeObject(stylerOptions);
-            var expectedOptions = File.ReadAllText(this.GetConfiguration(expectedConfiguration));
+            var expectedOptions = File.ReadAllText(Tests.GetConfiguration(expectedConfiguration));
 
             Assert.That(Regex.Replace(actualOptions, @"\s+", ""), Is.EqualTo(Regex.Replace(expectedOptions, @"\s+", "")));
         }
 
-        private string GetConfiguration(string path)
+        private static string GetConfiguration(string path)
         {
             return Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), path);
         }

@@ -19,7 +19,7 @@ namespace Xavalon.XamlStyler.UnitTests
         public void TestAttributeIndentationHandling(byte attributeIndentation)
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 AttributeIndentation = attributeIndentation,
                 AttributesTolerance = 0,
@@ -35,19 +35,19 @@ namespace Xavalon.XamlStyler.UnitTests
         public void TestDesignReferenceRemoval()
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 RemoveDesignTimeReferences = true
             };
 
-            this.DoTest(stylerOptions);
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
         [Test]
         public void TestAttributeThresholdHandling()
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 AttributesTolerance = 0,
                 MaxAttributeCharactersPerLine = 80,
@@ -55,20 +55,20 @@ namespace Xavalon.XamlStyler.UnitTests
                 PutEndingBracketOnNewLine = true
             };
 
-            this.DoTest(stylerOptions);
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
         [Test]
         public void TestAttributeToleranceHandling()
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 AttributesTolerance = 3,
                 RootElementLineBreakRule = LineBreakRule.Always,
             };
 
-            this.DoTest(stylerOptions);
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
         [TestCase(0)]
@@ -90,32 +90,32 @@ namespace Xavalon.XamlStyler.UnitTests
         [Test]
         public void TestCommentAtFirstLine()
         {
-            this.DoTest(this.GetLegacyStylerOptions());
+            FileHandlingIntegrationTests.DoTest(this.GetLegacyStylerOptions());
         }
 
         [Test]
         public void TestDefaultHandling()
         {
-            this.DoTest(this.GetLegacyStylerOptions());
+            FileHandlingIntegrationTests.DoTest(this.GetLegacyStylerOptions());
         }
 
         [Test]
         public void TestSuppressedDefaultHandling()
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 SuppressProcessing = true
             };
 
-            this.DoTest(stylerOptions);
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
         [Test]
         public void TestAttributeSortingOptionHandling()
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 AttributeOrderingRuleGroups = new[]
                 {
@@ -144,31 +144,31 @@ namespace Xavalon.XamlStyler.UnitTests
                 }
             };
 
-            this.DoTest(stylerOptions);
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
         [Test]
         public void TestxBindSplitting()
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 NoNewLineMarkupExtensions = "x:Bind"
             };
 
-            this.DoTest(stylerOptions);
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
         [Test]
         public void TestBindingSplitting()
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 NoNewLineMarkupExtensions = "x:Bind, Binding"
             };
 
-            this.DoTest(stylerOptions);
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
         [TestCase(false, 2)]
@@ -178,7 +178,7 @@ namespace Xavalon.XamlStyler.UnitTests
         public void TestMarkupExtensionHandling(bool indentWithTabs, int tabSize)
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 FormatMarkupExtension = true,
                 IndentWithTabs = indentWithTabs,
@@ -193,20 +193,20 @@ namespace Xavalon.XamlStyler.UnitTests
         public void TestNestedCustomMarkupExtensionsWithBindings()
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 KeepFirstAttributeOnSameLine = false,
                 AttributesTolerance = 1,
                 NoNewLineMarkupExtensions = "x:Bind, Binding"
             };
 
-            this.DoTest(stylerOptions);
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
         [Test]
         public void TestSingleLineNestedMarkupExtensions()
         {
-            this.DoTest(new StylerOptions
+            FileHandlingIntegrationTests.DoTest(new StylerOptions
             {
                 IndentSize = 2
             });
@@ -216,98 +216,98 @@ namespace Xavalon.XamlStyler.UnitTests
         public void TestMarkupWithAttributeNotOnFirstLine()
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 KeepFirstAttributeOnSameLine = false,
                 AttributesTolerance = 1
             };
 
-            this.DoTest(stylerOptions);
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
         [Test]
         public void TestNoContentElementHandling()
         {
-            this.DoTest(this.GetLegacyStylerOptions());
+            FileHandlingIntegrationTests.DoTest(this.GetLegacyStylerOptions());
         }
 
         [Test]
         public void TestTextOnlyContentElementHandling()
         {
-            this.DoTest(this.GetLegacyStylerOptions());
+            FileHandlingIntegrationTests.DoTest(this.GetLegacyStylerOptions());
         }
 
         [Test]
         public void TestGridChildrenHandling()
         {
-            this.DoTest(this.GetLegacyStylerOptions());
+            FileHandlingIntegrationTests.DoTest(this.GetLegacyStylerOptions());
         }
 
         [Test]
         public void TestNestedGridChildrenHandling()
         {
-            this.DoTest(this.GetLegacyStylerOptions());
+            FileHandlingIntegrationTests.DoTest(this.GetLegacyStylerOptions());
         }
 
         [Test]
         public void TestCanvasChildrenHandling()
         {
-            this.DoTest(this.GetLegacyStylerOptions());
+            FileHandlingIntegrationTests.DoTest(this.GetLegacyStylerOptions());
         }
 
         [Test]
         public void TestNestedCanvasChildrenHandling()
         {
-            this.DoTest(this.GetLegacyStylerOptions());
+            FileHandlingIntegrationTests.DoTest(this.GetLegacyStylerOptions());
         }
 
         [Test]
         public void TestNestedPropertiesAndChildrenHandling()
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 ReorderVSM = VisualStateManagerRule.First
             };
 
-            this.DoTest(stylerOptions);
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
         [Test]
         public void TestKeepSelectAttributesOnFirstLine()
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 FirstLineAttributes = "x:Name, x:Key"
             };
 
-            this.DoTest(stylerOptions);
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
         [Test]
         public void TestAttributeOrderRuleGroupsOnSeparateLinesHandling()
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 PutAttributeOrderRuleGroupsOnSeparateLines = true,
                 MaxAttributesPerLine = 3,
             };
 
-            this.DoTest(stylerOptions);
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
         [Test]
         public void TestProcessingInstructionHandling()
         {
-            this.DoTest(this.GetLegacyStylerOptions());
+            FileHandlingIntegrationTests.DoTest(this.GetLegacyStylerOptions());
         }
 
         [Test]
         public void TestXmlnsAliasesHandling()
         {
-            this.DoTest(this.GetLegacyStylerOptions());
+            FileHandlingIntegrationTests.DoTest(this.GetLegacyStylerOptions());
         }
 
         [TestCase(ReorderSettersBy.Property)]
@@ -316,7 +316,7 @@ namespace Xavalon.XamlStyler.UnitTests
         public void TestReorderSetterHandling(ReorderSettersBy reorderSettersBy)
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 ReorderSetters = reorderSettersBy,
             };
@@ -329,7 +329,7 @@ namespace Xavalon.XamlStyler.UnitTests
         public void TestClosingElementHandling(int testNumber, bool spaceBeforeClosingSlash)
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 SpaceBeforeClosingSlash = spaceBeforeClosingSlash
             };
@@ -340,13 +340,13 @@ namespace Xavalon.XamlStyler.UnitTests
         [Test]
         public void TestCDATAHandling()
         {
-            this.DoTest(this.GetLegacyStylerOptions());
+            FileHandlingIntegrationTests.DoTest(this.GetLegacyStylerOptions());
         }
 
         [Test]
         public void TestXmlSpaceHandling()
         {
-            this.DoTest(this.GetLegacyStylerOptions());
+            FileHandlingIntegrationTests.DoTest(this.GetLegacyStylerOptions());
         }
 
         [TestCase(ThicknessStyle.None)]
@@ -355,7 +355,7 @@ namespace Xavalon.XamlStyler.UnitTests
         public void TestThicknessHandling(ThicknessStyle thicknessStyle)
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 ThicknessStyle = thicknessStyle
             };
@@ -369,7 +369,7 @@ namespace Xavalon.XamlStyler.UnitTests
         public void TestRootHandling(int testNumber, LineBreakRule lineBreakRule)
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 AttributesTolerance = 3,
                 MaxAttributesPerLine = 4,
@@ -383,14 +383,14 @@ namespace Xavalon.XamlStyler.UnitTests
         [Test]
         public void TestRunHandling()
         {
-            this.DoTest(this.GetLegacyStylerOptions());
+            FileHandlingIntegrationTests.DoTest(this.GetLegacyStylerOptions());
         }
 
         [Test]
         public void TestWildCard()
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 AttributeOrderingRuleGroups = new[]
                 {
@@ -405,58 +405,52 @@ namespace Xavalon.XamlStyler.UnitTests
                 }
             };
 
-            this.DoTest(stylerOptions);
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
         [Test]
         public void TestValueXmlEntityHandling()
         {
-            this.DoTest(this.GetLegacyStylerOptions());
+            FileHandlingIntegrationTests.DoTest(this.GetLegacyStylerOptions());
         }
 
         [Test]
         public void TestVisualStateManagerNone()
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 ReorderVSM = VisualStateManagerRule.None
             };
 
-            this.DoTest(stylerOptions);
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
         [Test]
         public void TestVisualStateManagerFirst()
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 ReorderVSM = VisualStateManagerRule.First
             };
 
-            this.DoTest(stylerOptions);
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
         [Test]
         public void TestVisualStateManagerLast()
         {
             var stylerOptions = new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"))
             {
                 ReorderVSM = VisualStateManagerRule.Last
             };
 
-            this.DoTest(stylerOptions);
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
-        private void DoTest([System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
-        {
-            // ReSharper disable once ExplicitCallerInfoArgument
-            this.DoTest(new StylerOptions(), callerMemberName);
-        }
-
-        private void DoTest(
+        private static void DoTest(
             StylerOptions stylerOptions,
             [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
         {
@@ -501,7 +495,7 @@ namespace Xavalon.XamlStyler.UnitTests
             Assert.That(actualOutput, Is.EqualTo(File.ReadAllText($"{testFileResultBaseName}.expected")));
         }
 
-        private string GetConfiguration(string path)
+        private static string GetConfiguration(string path)
         {
             return Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), path);
         }
@@ -509,7 +503,7 @@ namespace Xavalon.XamlStyler.UnitTests
         private StylerOptions GetLegacyStylerOptions()
         {
             return new StylerOptions(
-                config: this.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"));
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\LegacyTestSettings.json"));
         }
     }
 }

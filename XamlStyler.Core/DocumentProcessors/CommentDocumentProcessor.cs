@@ -24,7 +24,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
         {
-            elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.Mixed);
+            elementProcessContext.UpdateParentElementProcessStatus(ContentTypes.Mixed);
 
             string currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
             string content = xmlReader.Value;
@@ -43,7 +43,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 {
                     output.Append(String.Join(Environment.NewLine, content.GetLines().Select(_ => _.TrimEnd(' '))));
 
-                    if (content.TrimEnd(' ').EndsWith("\n"))
+                    if (content.TrimEnd(' ').EndsWith("\n", StringComparison.Ordinal))
                     {
                         output.Append(currentIndentString);
                     }

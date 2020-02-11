@@ -24,7 +24,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             // indent accordingly, otherwise treat as single line text.
             if (output.IsNewLine())
             {
-                elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.MultiLineTextOnly);
+                elementProcessContext.UpdateParentElementProcessStatus(ContentTypes.MultiLineTextOnly);
                 if (!elementProcessContext.Current.IsPreservingSpace)
                 {
                     string currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
@@ -33,7 +33,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             }
             else
             {
-                elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.SingleLineTextOnly);
+                elementProcessContext.UpdateParentElementProcessStatus(ContentTypes.SingleLineTextOnly);
             }
 
             // All newlines are returned by XmlReader as '\n' due to requirements in the XML Specification.

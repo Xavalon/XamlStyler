@@ -5,7 +5,7 @@ using System;
 namespace Xavalon.XamlStyler.Core.Parser
 {
     [Flags]
-    public enum ContentTypeEnum
+    public enum ContentTypes
     {
         None = 0,
         SingleLineTextOnly = 1,
