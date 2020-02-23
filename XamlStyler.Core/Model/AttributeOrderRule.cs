@@ -1,5 +1,6 @@
 ﻿// © Xavalon. All rights reserved.
 
+using System;
 using System.Linq;
 using Xavalon.XamlStyler.Core.DocumentManipulation;
 
@@ -26,7 +27,7 @@ namespace Xavalon.XamlStyler.Core.Model
             // -1 = Contains '*'  
             //  0 = Contains '?'  
             //  1 = No Wildcards  
-            this.MatchScore = (name.Equals("*") || name.Equals("*:*"))
+            this.MatchScore = (name.Equals("*", StringComparison.Ordinal) || name.Equals("*:*", StringComparison.Ordinal))
                 ? -2
                 : name.Any(_ => (_ == '*'))
                     ? -1

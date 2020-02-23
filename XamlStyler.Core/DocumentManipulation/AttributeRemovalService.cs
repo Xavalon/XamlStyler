@@ -67,7 +67,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
                         foreach (AttributeSelector attribute in this.initializedAttributes)
                         {
                             if (attribute.IsMatch(elementAttribute)
-                                && (String.IsNullOrEmpty(attribute.Value) || attribute.Value.Equals(elementAttribute.Value)))
+                                && (String.IsNullOrEmpty(attribute.Value) || attribute.Value.Equals(elementAttribute.Value, StringComparison.Ordinal)))
                             {
                                 removedAttributeList.Add(elementAttribute);
                                 continue;

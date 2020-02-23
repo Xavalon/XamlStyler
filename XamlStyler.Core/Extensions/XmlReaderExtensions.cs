@@ -13,7 +13,7 @@ namespace Xavalon.XamlStyler.Core.Extensions
         /// <returns>true if xml:space</returns>
         public static bool IsXmlSpaceAttribute(this XmlReader xmlReader)
         {
-            return (xmlReader.Name.ToLowerInvariant() == "xml:space");
+            return (xmlReader.Name.ToUpperInvariant() == "XML:SPACE");
         }
     }
 }

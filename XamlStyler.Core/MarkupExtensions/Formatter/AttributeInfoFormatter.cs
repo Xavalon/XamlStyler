@@ -1,6 +1,7 @@
 // © Xavalon. All rights reserved.
 
 using System;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -46,7 +47,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
                 var lines = this.formatter.Format(attrInfo.MarkupExtension);
 
                 var buffer = new StringBuilder();
-                buffer.AppendFormat("{0}=\"{1}", attrInfo.Name, lines.First());
+                buffer.AppendFormat(CultureInfo.InvariantCulture, "{0}=\"{1}", attrInfo.Name, lines.First());
                 foreach (var line in lines.Skip(1))
                 {
                     buffer.AppendLine();

@@ -3,6 +3,7 @@
 using Irony.Parsing;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
@@ -11,7 +12,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
     {
         public string TypeName { get; }
 
-        public Argument[] Arguments { get; }
+        public Collection<Argument> Arguments { get; }
 
         public MarkupExtension(string typeName, params Argument[] arguments)
         {
@@ -26,7 +27,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Parser
             }
 
             this.TypeName = typeName;
-            this.Arguments = arguments;
+            this.Arguments = new Collection<Argument>(arguments);
         }
 
         public static new MarkupExtension Create(ParseTreeNode node)

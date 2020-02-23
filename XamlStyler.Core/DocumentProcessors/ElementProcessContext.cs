@@ -29,7 +29,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
             return this.elementProcessStatusStack.Pop();
         }
 
-        public void UpdateParentElementProcessStatus(ContentTypeEnum contentType)
+        public void UpdateParentElementProcessStatus(ContentTypes contentType)
         {
             ElementProcessStatus parentElementProcessStatus = this.elementProcessStatusStack.Peek();
             parentElementProcessStatus.ContentType |= contentType;

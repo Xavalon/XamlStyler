@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Xml;
@@ -44,7 +45,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
         {
-            elementProcessContext.UpdateParentElementProcessStatus(ContentTypeEnum.Mixed);
+            elementProcessContext.UpdateParentElementProcessStatus(ContentTypes.Mixed);
 
             var elementName = xmlReader.Name;
             elementProcessContext.Push(
@@ -52,7 +53,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                 {
                     Parent = elementProcessContext.Current,
                     Name = elementName,
-                    ContentType = ContentTypeEnum.None,
+                    ContentType = ContentTypes.None,
                     IsMultlineStartTag = false,
                     IsPreservingSpace = elementProcessContext.Current.IsPreservingSpace
                 });
@@ -192,7 +193,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                         break;
 
                     default:
-                        throw new ArgumentOutOfRangeException();
+                        throw new NotImplementedException();
                 }
             }
 
@@ -275,7 +276,7 @@ namespace Xavalon.XamlStyler.Core.DocumentProcessors
                             xmlnsAliasesBypassLengthInCurrentLine = 0;
                         }
 
-                        currentLineBuffer.AppendFormat("{0} ", pendingAppend);
+                        currentLineBuffer.AppendFormat(CultureInfo.InvariantCulture, "{0} ", pendingAppend);
                         attributeCountInCurrentLineBuffer++;
                         xmlnsAliasesBypassLengthInCurrentLine += pendingAppend.Length - actualPendingAppend.Length;
                     }

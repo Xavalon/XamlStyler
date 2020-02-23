@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -48,7 +49,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
             }
 
             return this.IsNumeric
-                ? (ISortableAttribute)new SortableNumericAttribute(value, Double.Parse(this.defaultValue(element)))
+                ? (ISortableAttribute)new SortableNumericAttribute(value, Double.Parse(this.defaultValue(element), CultureInfo.InvariantCulture))
                 : (ISortableAttribute)new SortableStringAttribute(value ?? this.defaultValue(element));
         }
     }

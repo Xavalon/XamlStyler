@@ -1,6 +1,7 @@
 // © Xavalon. All rights reserved.
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Xavalon.XamlStyler.Core.MarkupExtensions.Parser;
 
 namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
@@ -12,7 +13,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
         {
         }
 
-        protected override IEnumerable<string> FormatArguments(Argument[] arguments, bool isNested = false)
+        protected override IEnumerable<string> FormatArguments(Collection<Argument> arguments, bool isNested = false)
         {
             var list = new List<string>();
             string deferred = null;

@@ -1,9 +1,12 @@
 // © Xavalon. All rights reserved.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Xavalon.XamlStyler.Core.DocumentManipulation
 {
+    // TODO: Fully implement IComparable interface.
+    [SuppressMessage("Design", "CA1036:Override methods on comparable types", Justification = "No clear ROI and introduces more warnings")]
     public class SortableNumericAttribute : ISortableAttribute
     {
         public string Value { get; private set; }
@@ -14,8 +17,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
         {
             this.Value = value;
 
-            double numericValue;
-            this.NumericValue = Double.TryParse(value, out numericValue)
+            this.NumericValue = Double.TryParse(value, out double numericValue)
                 ? numericValue
                 : defaultNumericValue;
         }

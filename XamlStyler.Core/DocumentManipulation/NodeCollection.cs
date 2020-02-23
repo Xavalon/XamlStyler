@@ -2,10 +2,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Xml.Linq;
 
 namespace Xavalon.XamlStyler.Core.DocumentManipulation
 {
+    // TODO: Fully implement IComparable interface.
+    [SuppressMessage("Design", "CA1036:Override methods on comparable types", Justification = "Introduces breaking change")]
     public class NodeCollection : IComparable<NodeCollection>
     {
         /// <summary>
@@ -21,7 +26,12 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
         /// <summary>
         /// This is the collection of attributes for this node
         /// </summary>
-        public ISortableAttribute[] SortAttributeValues { get; set; }
+        public Collection<ISortableAttribute> SortAttributeValues { get; private set; }
+
+        public void SetSortAttributeValues(Collection<ISortableAttribute> collection)
+        {
+            this.SortAttributeValues = collection;
+        }
 
         public NodeCollection()
         {
@@ -38,10 +48,10 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
             var result = this.BlockIndex.CompareTo(other.BlockIndex);
             if (result == 0)
             {
-                result = this.SortAttributeValues.Length.CompareTo(other.SortAttributeValues.Length);
+                result = this.SortAttributeValues.Count.CompareTo(other.SortAttributeValues.Count);
                 if (result == 0)
                 {
-                    for (int i = 0; i < this.SortAttributeValues.Length; i++)
+                    for (int i = 0; i < this.SortAttributeValues.Count; i++)
                     {
                         result = this.SortAttributeValues[i].CompareTo(other.SortAttributeValues[i]);
                         if (result != 0)
@@ -59,6 +69,7 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
         public override string ToString()
         {
             return String.Format(
+                CultureInfo.InvariantCulture,
                 "B{0} A{1} N{2}",
                 this.BlockIndex,
                 String.Join("|", (IEnumerable<ISortableAttribute>)this.SortAttributeValues),

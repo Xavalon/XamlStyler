@@ -11,7 +11,7 @@ namespace Xavalon.XamlStyler.Core.Parser
         ///     <Element>asdf<OtherElements/></Element> ContentTypeEnum.TEXT_ONLY
         ///     <Element>asdf<OtherElements/></Element> ContentTypeEnum.MIXED
         /// </summary>
-        public ContentTypeEnum ContentType { get; set; }
+        public ContentTypes ContentType { get; set; }
 
         /// <summary>
         /// Gets or sets whether the start tag of this element has been broken into multi-lines.

@@ -1,6 +1,7 @@
 ﻿// © Xavalon. All rights reserved.
 
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
@@ -92,8 +93,8 @@ namespace Xavalon.XamlStyler.Core.DocumentManipulation
 
                     if (isMatchingChild)
                     {
-                        currentNodeCollection.SortAttributeValues =
-                            this.SortByAttributes.Select(_ => _.GetValue(childElement)).ToArray();
+                        currentNodeCollection.SetSortAttributeValues(
+                            new Collection<ISortableAttribute>(this.SortByAttributes.Select(_ => _.GetValue(childElement)).ToArray()));
                     }
 
                     currentNodeCollection.BlockIndex = childBlockIndex;

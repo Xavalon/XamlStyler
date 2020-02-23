@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Xavalon.XamlStyler.Core.MarkupExtensions.Parser;
 
@@ -19,11 +20,11 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
         public IEnumerable<string> FormatArguments(MarkupExtension markupExtension, bool isNested = false)
         {
             return markupExtension.Arguments.Any()
-                ? this.Format($"{{{markupExtension.TypeName} ", this.FormatArguments(markupExtension.Arguments, isNested: isNested), "}")
+                ? MarkupExtensionFormatterBase.Format($"{{{markupExtension.TypeName} ", this.FormatArguments(markupExtension.Arguments, isNested: isNested), "}")
                 : new string[] { $"{{{markupExtension.TypeName}}}" };
         }
 
-        protected abstract IEnumerable<string> FormatArguments(Argument[] arguments, bool isNested = false);
+        protected abstract IEnumerable<string> FormatArguments(Collection<Argument> arguments, bool isNested = false);
 
         protected IEnumerable<string> FormatArgument(Argument argument, bool isNested = false)
         {
@@ -51,7 +52,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
             throw new ArgumentException($"Unhandled type {type.FullName}", nameof(argument));
         }
 
-        private IEnumerable<string> Format(string prefix, IEnumerable<string> lines, string suffix = null)
+        private static IEnumerable<string> Format(string prefix, IEnumerable<string> lines, string suffix = null)
         {
             var list = new List<string>();
 
@@ -69,7 +70,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
 
         private IEnumerable<string> FormatNamedArgument(NamedArgument namedArgument)
         {
-            return this.Format($"{namedArgument.Name}=", this.FormatValue(namedArgument.Value));
+            return MarkupExtensionFormatterBase.Format($"{namedArgument.Name}=", this.FormatValue(namedArgument.Value));
         }
 
         private IEnumerable<string> FormatPositionalArgument(PositionalArgument positionalArgument)
@@ -77,7 +78,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
             return this.FormatValue(positionalArgument.Value);
         }
 
-        private IEnumerable<string> FormatLiteralValue(LiteralValue literalValue)
+        private static IEnumerable<string> FormatLiteralValue(LiteralValue literalValue)
         {
             return new[]
             {
@@ -91,7 +92,7 @@ namespace Xavalon.XamlStyler.Core.MarkupExtensions.Formatter
 
             if (type == typeof(LiteralValue))
             {
-                return this.FormatLiteralValue((LiteralValue)value);
+                return MarkupExtensionFormatterBase.FormatLiteralValue((LiteralValue)value);
             }
 
             if (type == typeof(MarkupExtension))

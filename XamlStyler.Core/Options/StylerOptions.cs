@@ -3,6 +3,8 @@
 using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using Xavalon.XamlStyler.Core.DocumentManipulation;
@@ -38,6 +40,8 @@ namespace Xavalon.XamlStyler.Core.Options
         /// </summary>
         /// <param name="isJsonConstructor">Dummy parameter to differentiate from default constructor.</param>
         [JsonConstructor]
+        [SuppressMessage("Usage", "CA1801:Review unused parameters", Justification = "Required for deserialization", MessageId = "isJsonConstructor")]
+        [SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "Required for deserialization")]
         public StylerOptions(bool isJsonConstructor = true) { }
 
         // Indentation
@@ -151,6 +155,7 @@ namespace Xavalon.XamlStyler.Core.Options
             "Storyboard.*, From, To, Duration",
         })]
         [TypeConverter(typeof(StringArrayConverter))]
+        [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "Required for serialization/deserialization")]
         public string[] AttributeOrderingRuleGroups { get; set; }
 
         [Category("Attribute Reordering")]
@@ -380,18 +385,18 @@ namespace Xavalon.XamlStyler.Core.Options
                     foreach (PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(this))
                     {
                         // Cannot set Config Path from External Configuration.
-                        if (propertyDescriptor.Name.Equals(nameof(this.ConfigPath)))
+                        if (propertyDescriptor.Name.Equals(nameof(this.ConfigPath), StringComparison.Ordinal))
                         {
                             continue;
                         }
 
                         // If a valid IndentSize is specified in configuration, do not load VS settings.
-                        if (propertyDescriptor.Name.Equals(nameof(this.IndentSize)))
+                        if (propertyDescriptor.Name.Equals(nameof(this.IndentSize), StringComparison.Ordinal))
                         {
                             int indentSize;
                             try
                             {
-                                indentSize = Convert.ToInt32(propertyDescriptor.GetValue(configOptions));
+                                indentSize = Convert.ToInt32(propertyDescriptor.GetValue(configOptions), CultureInfo.InvariantCulture);
                             }
                             catch (Exception)
                             {
@@ -433,10 +438,7 @@ namespace Xavalon.XamlStyler.Core.Options
             foreach (PropertyDescriptor propertyDescriptor in TypeDescriptor.GetProperties(this))
             {
                 // Set default value if DefaultValueAttribute is present
-                DefaultValueAttribute attribute
-                    = propertyDescriptor.Attributes[typeof(DefaultValueAttribute)] as DefaultValueAttribute;
-
-                if (attribute != null)
+                if (propertyDescriptor.Attributes[typeof(DefaultValueAttribute)] is DefaultValueAttribute attribute)
                 {
                     propertyDescriptor.SetValue(this, attribute.Value);
                 }
