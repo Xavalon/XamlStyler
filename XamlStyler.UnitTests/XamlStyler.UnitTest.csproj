@@ -50,6 +50,9 @@
   <None Update="TestConfigurations\SerializedDefault.json">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </None>
+  <None Update="TestConfigurations\IndentWithTabsOverride.json">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
   <None Update="TestConfigurations\Single.json">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </None>
