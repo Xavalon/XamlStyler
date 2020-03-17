@@ -13,7 +13,7 @@ namespace Xavalon.XamlStyler.Core.Services
 
         public IndentService(IStylerOptions options)
         {
-            this.indentWithTabs = options.IndentWithTabs;
+            this.indentWithTabs = options.IndentWithTabs ?? false;
             this.indentSize = options.IndentSize;
             this.attributeIndentationStyle = options.AttributeIndentationStyle;
         }

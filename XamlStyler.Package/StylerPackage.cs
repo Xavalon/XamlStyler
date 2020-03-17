@@ -235,7 +235,10 @@ namespace Xavalon.XamlStyler.Package
                 }
             }
 
-            stylerOptions.IndentWithTabs = (bool)xamlEditorProps.Item("InsertTabs").Value;
+            if (stylerOptions.UseVisualStudioIndentWithTabs)
+            {
+                stylerOptions.IndentWithTabs = (bool)xamlEditorProps.Item("InsertTabs").Value;
+            }
 
             return stylerOptions;
         }

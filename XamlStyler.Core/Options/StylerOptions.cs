@@ -58,10 +58,16 @@ namespace Xavalon.XamlStyler.Core.Options
         public bool UseVisualStudioIndentSize { get; private set; } = true;
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-        [DefaultValue(false)]
+        [DefaultValue(null)]
+        [JsonProperty("IndentWithTabs", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Browsable(false)]
+        public bool? IndentWithTabs { get; set; }
+
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [DefaultValue(true)]
         [Browsable(false)]
         [JsonIgnore]
-        public bool IndentWithTabs { get; set; }
+        public bool UseVisualStudioIndentWithTabs { get; private set; } = true;
 
         // Attribute formatting
         [Category("Attribute Formatting")]
@@ -414,6 +420,31 @@ namespace Xavalon.XamlStyler.Core.Options
                             else
                             {
                                 this.IndentSize = StylerOptions.FallbackIndentSize;
+                            }
+                        }
+                        // If a valid IndentWithTabs is specified in configuration, do not load VS settings.
+                        // If it is unspecified, it will be null.
+                        else if (propertyDescriptor.Name.Equals(nameof(this.IndentWithTabs), StringComparison.Ordinal) &&
+                            propertyDescriptor.GetValue(configOptions) != null)
+                        {
+                            bool? indentWithTabs;
+                            try
+                            {
+                                indentWithTabs = Convert.ToBoolean(propertyDescriptor.GetValue(configOptions), CultureInfo.InvariantCulture);
+                            }
+                            catch (Exception)
+                            {
+                                indentWithTabs = null;
+                            }
+
+                            if (indentWithTabs == true)
+                            {
+                                this.IndentWithTabs = true;
+                                this.UseVisualStudioIndentWithTabs = false;
+                            }
+                            else
+                            {
+                                this.IndentWithTabs = indentWithTabs;
                             }
                         }
                         else
