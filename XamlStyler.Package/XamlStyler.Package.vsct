@@ -1,89 +1,132 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <!-- Headers define the ids for all commands exposed by Visual Studio and menus exposed by the shell. -->
+  <!-- 
+    This is the file that defines the actual layout and type of the commands. It is divided in different
+    sections (e.g. command definition, command placement, ...), with each defining a specific set of properties.
+    See the comment before each section for more details about how to use it.
+  -->
+
+  <!-- This is the file that defines the IDs for all the commands exposed by VisualStudio. -->
   <Extern href="stdidcmd.h"/>
+
+  <!-- This header contains the command ids for the menus provided by the shell. -->
   <Extern href="vsshlids.h"/>
 
-  <!--Commands: Define own command set to avoid collisions with command ids defined by other packages. -->
-  <Commands package="XamlStylerPackageGuid">
-    <!-- Menu Groups: Container used for other menus or buttons (menu contained between two lines). -->
-    <!-- Note: MenuGroups can point to multiple parents. -->
+  <!--
+    The Commands section is where the commands, menus and menu groups are defined.
+    This section uses a Guid to identify the package that provides the command defined inside it.
+  -->
+  <Commands package="GuidXamlStylerPackage">
+    <!--
+      Inside this section we have different sub-sections: one for the menus, another for the menu groups,
+      one for the buttons (the actual commands), one for the combos and the last one for the bitmaps used.
+      Each element is identified by a command id that is a unique pair of guid and numeric identifier;
+      the guid part of the identifier is usually called "command set" and is used to group different commands
+      inside a logically related group; your package should define its own command set in order to avoid collisions
+      with command ids defined by other packages.
+    -->
+
+    <!--
+      In this section you can define new menu groups. A menu group is a container for other menus or
+      buttons (commands); from a visual point of view you can see the group as the part of a menu contained 
+      between two lines. The parent of a group must be a menu. Note: MenuGroups can point to multiple parents.
+    -->
     <Groups>
-      <Group guid="CommandSetGuid" id="MenuGroup" priority="0x0001">
-        <Parent guid="XamlEditorCommandSetGuid" id="XamlEditorContextMenuCommandId"/>
+      <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerMenu" priority="0x0001">
+        <Parent guid="GuidVisualStudioXAMLWindowContextMenu" id="IDVisualStudioXAMLWindowContextMenu"/>
       </Group>
-      <Group guid="CommandSetGuid" id="MenuGroup" priority="0x0001">
-        <Parent guid="XamarinEditorCommandSetGuid" id="XamarinEditorContextMenuCommandId"/>
+      <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerMenu" priority="0x0001">
+        <Parent guid="GuidVisualStudioXamarWindowContextMenu" id="IDVisualStudioXamarinWindowContextMenu"/>
       </Group>
     </Groups>
 
-    <!-- Buttons: Defines elements user can interact with. -->
+    <!--The buttons section defines the elements the user can interact with, like a menu command or a button or combo box in a toolbar. -->
     <Buttons>
-      <Button guid="CommandSetGuid" id="FormatXamlCommandId" priority="0x0100" type="Button">
-        <Parent guid="CommandSetGuid" id="MenuGroup" />
-        <Icon guid="CommandIconGuid" id="CommandIcon1" />
+      <!--
+        To define a menu group you have to specify its ID, the parent menu and its display priority. The command is visible and
+        enabled by default. If you need to change the visibility, status, etc, you can use the CommandFlag node.
+        You can add more than one CommandFlag node e.g.:
+            <CommandFlag>DefaultInvisible</CommandFlag>
+            <CommandFlag>DynamicVisibility</CommandFlag>
+        If you do not want an image next to your command, remove the Icon node or set it to:
+            <Icon guid="guidOfficeIcon" id="msotcidNoIcon" />
+      -->
+      <Button guid="GuidXamlStylerMenuSet" id="CommandIDFormatXaml" priority="0x0100" type="Button">
+        <Icon guid="GuidImageFormat" id="IconFormat" />
+        <CommandFlag>DefaultInvisible</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
         <Strings>
-          <CommandName>FormatXamlCommandId</CommandName>
+          <CommandName>CommandIDFormatXaml</CommandName>
           <ButtonText>Format XAML</ButtonText>
         </Strings>
       </Button>
     </Buttons>
 
-    <!-- Bitmaps: Defines bitmaps used for commands. -->
-    <!-- Note: Element id must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
+    <!-- The bitmaps section is used to define the bitmaps that are used for the commands. -->
     <Bitmaps>
-      <Bitmap guid="CommandIconGuid" href="Resources\CommandIcon.bmp" usedList="CommandIcon1"/>
+      <Bitmap guid="GuidImageFormat" href="Resources\format.png" usedList="IconFormat"/>
     </Bitmaps>
   </Commands>
- 
+
+  <!-- Command Placements -->
+  <CommandPlacements>
+    <CommandPlacement guid="GuidXamlStylerMenuSet" id="CommandIDFormatXaml" priority="0x0100">
+      <Parent guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerMenu" />
+    </CommandPlacement>
+  </CommandPlacements>
+  
+  <!-- Visibility Constraints -->
   <VisibilityConstraints>
-    <VisibilityItem context="XamlEditorCommandSetGuid" guid="CommandSetGuid" id="FormatXamlCommandId"/>
-    <VisibilityItem context="XamarinEditorCommandSetGuid" guid="CommandSetGuid" id="FormatXamlCommandId"/>
+    <VisibilityItem context="GuidVisualStudioXAMLWindowContextMenu" guid="GuidXamlStylerMenuSet" id="CommandIDFormatXaml"/>
+    <VisibilityItem context="GuidVisualStudioXamarWindowContextMenu" guid="GuidXamlStylerMenuSet" id="CommandIDFormatXaml"/>
   </VisibilityConstraints>
+  
   <!-- Keyboard Shortcuts -->
   <KeyBindings>
-    <KeyBinding guid="CommandSetGuid" id="FormatXamlCommandId" editor="guidVSStd97" key1="K" mod1="Control" key2="2" mod2="Control" />
+    <KeyBinding guid="GuidXamlStylerMenuSet" id="CommandIDFormatXaml" editor="guidVSStd97" key1="K" mod1="Control" key2="2" mod2="Control" />
   </KeyBindings>
 
-  <!--
-    Capturing GUID + Command ID Instructions
-      1) Add EnableVSIPLogging DWORD with value 1 to: HKEY_CURRENT_USER\SOFTWARE\Microsoft\VisualStudio\14.0\General
-      2) Hold Ctrl + Shift and interact with IDE
-      3) A message dialog will pop up. For example, the XAML Editor will show:
-          Guid = {4C87B692-1202-46AA-B64C-EF01FAEC53DA}
-          GuidID = 225
-          CmdID = 259
-          Type = 0x00000400
-          Flags = 0x00000000
-          NameLoc = XAML Editor
-      4) The GUID and the CmdID are necessary to create a symbol. The CmdID needs to be mapped to a hex value.
-      
-    Alternatively, install the Extensibility Tools from the Visual Studio Marketplace:
-    https://github.com/madskristensen/ExtensibilityTools
-  -->
   <Symbols>
-    <GuidSymbol name="XamlStylerPackageGuid" value="{a224be3c-88d1-4a57-9804-181dbef68021}" />
-    
-    <!-- Package Command Set Group -->
-    <GuidSymbol name="CommandSetGuid" value="{83fc41d5-eacb-4fa8-aaa3-9a9bdd5f6407}">
-      <IDSymbol name="MenuGroup" value="0x1020" />
-      <IDSymbol name="FormatXamlCommandId" value="0x0100" />
+    <!--
+      These are Visual Studio constants not found in SDK header files (found via VSIPLogging)
+      
+      Capturing GUID + Command ID Instructions
+        1) Add EnableVSIPLogging DWORD with value 1 to: HKEY_CURRENT_USER\SOFTWARE\Microsoft\VisualStudio\14.0\General
+        2) Hold Ctrl + Shift and interact with IDE
+        3) A message dialog will pop up. For example, the XAML Editor will show:
+            Guid = {4C87B692-1202-46AA-B64C-EF01FAEC53DA}
+            GuidID = 225
+            CmdID = 259
+            Type = 0x00000400
+            Flags = 0x00000000
+            NameLoc = XAML Editor
+        4) The GUID and the CmdID are necessary to create a symbol. The CmdID needs to be mapped to a hex value.
+      
+      Alternatively, install the Extensibility Tools from the Visual Studio Marketplace:
+      https://github.com/madskristensen/ExtensibilityTools
+    -->
+    <GuidSymbol name="GuidVisualStudioXAMLWindowContextMenu" value="{4C87B692-1202-46AA-B64C-EF01FAEC53DA}">
+      <IDSymbol name="IDVisualStudioXAMLWindowContextMenu" value="0x0103" />
+    </GuidSymbol>
+    <GuidSymbol name="GuidVisualStudioXamarWindowContextMenu" value="{D309F791-903F-11D0-9EFC-00A0C911004F}">
+      <IDSymbol name="IDVisualStudioXamarinWindowContextMenu" value="0x040D" />
     </GuidSymbol>
 
-    <!-- XAML Editor Context Menu -->
-    <GuidSymbol name="XamlEditorCommandSetGuid" value="{4C87B692-1202-46AA-B64C-EF01FAEC53DA}">
-      <IDSymbol name="XamlEditorContextMenuCommandId" value="0x0103" />
+    <!-- This is the package guid. -->
+    <GuidSymbol name="GuidXamlStylerPackage" value="{a224be3c-88d1-4a57-9804-181dbef68021}" />
+
+    <!-- These are the symbols for all menu items provided by XAML Styler -->
+    <GuidSymbol name="GuidXamlStylerMenuSet" value="{83fc41d5-eacb-4fa8-aaa3-9a9bdd5f6407}">
+      <!-- These are the command sets for the document context menus -->
+      <IDSymbol name="GroupIDXamlStylerMenu" value="0x1020" />
+
+      <!-- These are the symbols for the individual commands -->
+      <IDSymbol name="CommandIDFormatXaml" value="0x0100" />
     </GuidSymbol>
 
-    <!-- Xamarin Editor Context Menu -->
-    <GuidSymbol name="XamarinEditorCommandSetGuid" value="{D309F791-903F-11D0-9EFC-00A0C911004F}">
-      <IDSymbol name="XamarinEditorContextMenuCommandId" value="0x040D" />
-    </GuidSymbol>
-
-    <!-- Command Icon GUID -->
-    <GuidSymbol name="CommandIconGuid" value="{c2b97881-5cae-4577-b91b-07bdfefcb2fd}" >
-      <IDSymbol name="CommandIcon1" value="1" />
+    <!-- These are the guids for images -->
+    <GuidSymbol name="GuidImageFormat" value="{c2b97881-5cae-4577-b91b-07bdfefcb2fd}" >
+      <IDSymbol name="IconFormat" value="1" />
     </GuidSymbol>
   </Symbols>
 </CommandTable>
