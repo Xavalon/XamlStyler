@@ -23,7 +23,7 @@ namespace Xavalon.XamlStyler.Package
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [InstalledProductRegistration("#1110", "#1112", "1.0", IconResourceID = 1400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
-    [Guid(Guids.XamlStylerPackageGuidString)]
+    [Guid(Guids.GuidXamlStylerPackageString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     [ProvideService(typeof(StylerService), IsAsyncQueryable = true)]
     [ProvideOptionPage(typeof(PackageOptions), "XAML Styler", "General", 101, 106, true)]
@@ -80,7 +80,7 @@ namespace Xavalon.XamlStyler.Package
             if (await GetServiceAsync(typeof(IMenuCommandService)) is OleMenuCommandService menuCommandService)
             {
                 // Create the command for the menu item.
-                var menuCommandId = new CommandID(Guids.CommandSetGuid, (int)PackageCommandIds.FormatXamlCommandId);
+                var menuCommandId = new CommandID(Guids.GuidXamlStylerMenuSet, (int)PackageCommandIds.CommandIDFormatXaml);
                 var menuItem = new MenuCommand(MenuItemCallback, menuCommandId);
                 menuCommandService.AddCommand(menuItem);
             }

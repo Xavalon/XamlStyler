@@ -98,6 +98,7 @@
     </VSCTCompile>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\format.png" />
     <Content Include="Resources\icon128.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -110,9 +111,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
-    <Resource Include="Resources\StylerCommand.png" />
     <Resource Include="Resources\StylerPackage.ico" />
-    <Resource Include="Resources\CommandIcon.bmp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XamlStyler.Core\XamlStyler.Core.csproj">
