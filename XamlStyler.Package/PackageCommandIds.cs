@@ -2,6 +2,6 @@
 {
     internal static class PackageCommandIds
     {
-        public const uint FormatXamlCommandId = 0x100;
+        public const uint CommandIDFormatXaml = 0x100;
     };
 }
