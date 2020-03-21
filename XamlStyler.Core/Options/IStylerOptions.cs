@@ -99,7 +99,7 @@ namespace Xavalon.XamlStyler.Core.Options
 
         #region Misc
 
-        bool BeautifyOnSave { get; set; }
+        bool FormatOnSave { get; set; }
 
         int CommentSpaces { get; set; }
 

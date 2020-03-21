@@ -1,20 +1,19 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿// © Xavalon. All rights reserved.
+
+using Microsoft.VisualStudio.Shell;
 using Xavalon.XamlStyler.Core.Options;
 
 namespace Xavalon.XamlStyler.Package
 {
     public class PackageOptions : DialogPage
     {
-        private readonly IStylerOptions _options;
+        private readonly IStylerOptions options;
 
         public PackageOptions()
         {
-            _options = new StylerOptions();
+            this.options = new StylerOptions();
         }
 
-        public override object AutomationObject
-        {
-            get { return _options; }
-        }
+        public override object AutomationObject => this.options;
     }
 }

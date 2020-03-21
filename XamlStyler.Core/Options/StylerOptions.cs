@@ -272,7 +272,7 @@ namespace Xavalon.XamlStyler.Core.Options
         [JsonProperty("FormatOnSave", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [Description("Defines whether to automatically format the active XAML document while saving.\r\n\r\nDefault Value: true")]
         [DefaultValue(true)]
-        public bool BeautifyOnSave { get; set; }
+        public bool FormatOnSave { get; set; }
 
         [Category("Misc")]
         [DisplayName("Comment padding")]

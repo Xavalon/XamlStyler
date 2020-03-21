@@ -1,4 +1,7 @@
-﻿using EnvDTE;
+﻿// © Xavalon. All rights reserved.
+
+using EnvDTE;
+using EnvDTE80;
 using Microsoft;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -7,13 +10,13 @@ using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Xavalon.XamlStyler.Core;
 using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.Package.Extensions;
+using Xavalon.XamlStyler.Package.Helpers;
 
 using Task = System.Threading.Tasks.Task;
 
@@ -24,313 +27,190 @@ namespace Xavalon.XamlStyler.Package
     [InstalledProductRegistration("#1110", "#1112", "1.0", IconResourceID = 1400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
     [Guid(Guids.GuidXamlStylerPackageString)]
-    [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     [ProvideService(typeof(StylerService), IsAsyncQueryable = true)]
     [ProvideOptionPage(typeof(PackageOptions), "XAML Styler", "General", 101, 106, true)]
     [ProvideProfile(typeof(PackageOptions), "XAML Styler", "XAML Styler Settings", 106, 107, true, DescriptionResourceID = 108)]
     [ProvideAutoLoad(Guids.UIContextGuidString, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideUIContextRule(Guids.UIContextGuidString, name: "XAML load", expression: "Dotxaml", termNames: new[] { "Dotxaml" }, termValues: new[] { "HierSingleSelectionName:.xaml$" })]
-    public sealed class StylerPackage : AsyncPackage
+    public sealed partial class StylerPackage : AsyncPackage
     {
-        private DTE _dte;
-        private Events _events;
-        private CommandEvents _fileSaveAll;
-        private CommandEvents _fileSaveSelectedItems;
-        private IVsUIShell _uiShell;
-        
+        private IVsUIShell uiShell;
+        private OleMenuCommandService menuCommandService;
+        private CommandEvents saveCommandEvents;
+        private CommandEvents saveAllCommandEvents;
+        private OptionsHelper optionsHelper;
+
+        public DTE IDE { get; private set; }
+        public DTE2 IDE2 => (DTE2)this.IDE;
+
         public StylerPackage()
         {
-            Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", ToString()));
+            Trace.WriteLine($"Entering constructor for: {this.ToString()}");
         }
 
-        [SuppressMessage("Reliability", "CA2007:Do not directly await a Task", Justification = "Not recommended in VS-specific code")]
         // https://github.com/Microsoft/vs-threading/blob/master/doc/cookbook_vs.md#should-i-await-a-task-with-configureawaitfalse
+        [SuppressMessage("Reliability", "CA2007:Do not directly await a Task", Justification = "Not recommended in VS-specific code")]
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
-            await JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
-            Trace.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", ToString()));
+            await this.JoinableTaskFactory.SwitchToMainThreadAsync(cancellationToken);
+            Trace.WriteLine($"Entering Initialize() of: {this.ToString()}");
             base.Initialize();
 
-            _dte = await GetServiceAsync(typeof(DTE)) as DTE;
-            Assumes.Present(_dte);
+            this.IDE = await this.GetServiceAsync(typeof(DTE)) as DTE;
+            Assumes.Present(this.IDE);
 
-            if (_dte == null)
-            {
-                throw new NullReferenceException("DTE is null");
-            }
+            this.uiShell = await this.GetServiceAsync(typeof(IVsUIShell)) as IVsUIShell;
+            Assumes.Present(this.uiShell);
 
-            _uiShell = await GetServiceAsync(typeof(IVsUIShell)) as IVsUIShell;
-            Assumes.Present(_uiShell);
+            this.menuCommandService = await this.GetServiceAsync(typeof(IMenuCommandService)) as OleMenuCommandService;
+            Assumes.Present(this.menuCommandService);
 
-            // Initialize command events listeners
-            _events = _dte.Events;
+            this.optionsHelper = new OptionsHelper(this);
 
-            // File.SaveSelectedItems command
-            _fileSaveSelectedItems = _events.CommandEvents["{5EFC7975-14BC-11CF-9B2B-00AA00573819}", 331];
-            _fileSaveSelectedItems.BeforeExecute +=
-                OnFileSaveSelectedItemsBeforeExecute;
-
-            // File.SaveAll command
-            _fileSaveAll = _events.CommandEvents["{5EFC7975-14BC-11CF-9B2B-00AA00573819}", 224];
-            _fileSaveAll.BeforeExecute +=
-                OnFileSaveAllBeforeExecute;
-
-            //Initialize menu command
-            // Add our command handlers for menu (commands must exist in the .vsct file)
-            if (await GetServiceAsync(typeof(IMenuCommandService)) is OleMenuCommandService menuCommandService)
-            {
-                // Create the command for the menu item.
-                var menuCommandId = new CommandID(Guids.GuidXamlStylerMenuSet, (int)PackageCommandIds.CommandIDFormatXaml);
-                var menuItem = new MenuCommand(MenuItemCallback, menuCommandId);
-                menuCommandService.AddCommand(menuItem);
-            }
+            this.AddCommandHandlers();
         }
 
-        private static bool IsFormatableDocument(Document document)
+        private void AddCommandHandlers()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            var isFormatableDocument = !document.ReadOnly && document.Language == "XAML";
 
-            if (!isFormatableDocument)
-            {
-                //xamarin
-                isFormatableDocument = document.Language == "XML" && document.FullName.EndsWith(".xaml", StringComparison.OrdinalIgnoreCase);
-            }
+            // Format XAML File Command
+            this.menuCommandService.AddCommand(new MenuCommand(
+                (s,e) => this.FormatFileEventHandler(),
+                new CommandID(Guids.GuidXamlStylerMenuSet, (int)Constants.CommandIDFormatXamlFile)));
 
-            return isFormatableDocument;
+            // Format All XAML Command
+            this.menuCommandService.AddCommand(new MenuCommand(
+                (s, e) => this.FormatSolutionEventHandler(),
+                new CommandID(Guids.GuidXamlStylerMenuSet, (int)Constants.CommandIDFormatAllXaml)));
+
+            // Format Selected XAML Command
+            this.menuCommandService.AddCommand(new MenuCommand(
+                (s, e) => this.FormatSelectedFilesEventHandler(),
+                new CommandID(Guids.GuidXamlStylerMenuSet, (int)Constants.CommandIDFormatSelectedXaml)));
+
+            // File.Save Command
+            this.saveCommandEvents = this.IDE.Events.CommandEvents[$"{{{Guids.GuidVsStd97CmdIDString}}}", 331];
+            this.saveCommandEvents.BeforeExecute += this.OnFileSave;
+
+            // File.SaveAll Command
+            this.saveAllCommandEvents = this.IDE.Events.CommandEvents[$"{{{Guids.GuidVsStd97CmdIDString}}}", 224];
+            this.saveAllCommandEvents.BeforeExecute += this.OnFileSaveAll;
         }
 
-        private void OnFileSaveSelectedItemsBeforeExecute(string guid, int id, object customIn, object customOut,
-                                                          ref bool cancelDefault)
+        private void FormatFileEventHandler()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            var globalOptions = GetGlobalStylerOptions();
-            if (!globalOptions.BeautifyOnSave)
+            this.uiShell.SetWaitCursor();
+            this.FormatDocument(this.IDE.ActiveDocument);
+        }
+
+        private void FormatSolutionEventHandler()
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            try
             {
-                return;
-            }
+                this.uiShell.SetWaitCursor();
 
-            Document document = _dte.ActiveDocument;
+                IEnumerable<ProjectItem> projectItems = ProjectItemHelper.GetAllProjectItems(this.IDE.Solution)
+                    .Where(_ => _.IsXaml() && _.IsFormatable());
 
-            if (IsFormatableDocument(document))
-            {
-                var options = GetDocumentStylerOptions(document);
-
-                if (options.BeautifyOnSave)
+                foreach (ProjectItem projectItem in projectItems)
                 {
-                    Execute(document, options);
+                    Debug.WriteLine($"Processing: {projectItem.GetFileName()}");
+                    this.FormatDocument(projectItem);
                 }
             }
+            catch (Exception ex)
+            {
+                this.ShowMessageBox(ex);
+            }
         }
 
-        private void OnFileSaveAllBeforeExecute(string guid, int id, object customIn, object customOut,
-                                                ref bool cancelDefault)
+        private void FormatSelectedFilesEventHandler()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            var globalOptions = GetGlobalStylerOptions();
-            if (!globalOptions.BeautifyOnSave)
+            try
+            {
+                this.uiShell.SetWaitCursor();
+
+                IEnumerable<ProjectItem> projectItems = ProjectItemHelper.GetSelectedProjectItemsRecursively(this)
+                    .Where(_ => _.IsXaml() && _.IsFormatable());
+
+                foreach (ProjectItem projectItem in projectItems)
+                {
+                    Debug.WriteLine($"Processing: {projectItem.GetFileName()}");
+                    this.FormatDocument(projectItem);
+                }
+            }
+            catch (Exception ex)
+            {
+                this.ShowMessageBox(ex);
+            }
+        }
+
+        private void OnFileSave(string guid, int id, object customIn, object customOut, ref bool cancelDefault)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            IStylerOptions globalOptions = this.optionsHelper.GetGlobalStylerOptions();
+            if (!globalOptions.FormatOnSave)
             {
                 return;
             }
 
-            // use parallel processing, but only on the documents that are formatable
-            // (to avoid the overhead of Task creating when it's not necessary)
-            var jobs = new List<Func<Action>>();
-            foreach (Document document in _dte.Documents)
+            Document document = this.IDE.ActiveDocument;
+            IStylerOptions options = this.optionsHelper.GetDocumentStylerOptions(document);
+            if (options.FormatOnSave)
             {
-                // exclude unopened document.
+                this.FormatDocument(document, options);
+            }
+        }
+
+        private void OnFileSaveAll(string guid, int id, object customIn, object customOut, ref bool cancelDefault)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            IStylerOptions globalOptions = this.optionsHelper.GetGlobalStylerOptions();
+            if (!globalOptions.FormatOnSave)
+            {
+                return;
+            }
+
+            // Use parallel processing, but only on the documents that are formatable (to avoid the overhead of Task creating when it's not necessary).
+            var jobs = new List<Func<Action>>();
+            foreach (Document document in this.IDE.Documents)
+            {
+                // Skip unopened documents.
                 if (document.ActiveWindow == null)
                 {
                     continue;
                 }
 
-                if (!IsFormatableDocument(document))
+                if (document.IsFormatable())
                 {
-                    continue;
+                    IStylerOptions options = this.optionsHelper.GetDocumentStylerOptions(document);
+                    if (options.FormatOnSave)
+                    {
+                        jobs.Add(SetupFormatDocumentContinuation(document, options));
+                    }
                 }
-
-                var options = GetDocumentStylerOptions(document);
-                if (!options.BeautifyOnSave)
-                {
-                    continue;
-                }
-
-                jobs.Add(SetupExecuteContinuation(document, options));
             }
 
-            // executes job() in parallel, then execute finish() sequentially
-            foreach (var finish in jobs.AsParallel().Select(job => job()))
+            // Executes job() in parallel, then execute finish() sequentially.
+            foreach (Action finish in jobs.AsParallel().Select(job => job()))
             {
                 finish();
             }
         }
 
-        private static void Execute(Document document, IStylerOptions stylerOptions)
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            if (IsFormatableDocument(document))
-            {
-                SetupExecuteContinuation(document, stylerOptions)()();
-            }
-        }
-
-        private static Func<Action> SetupExecuteContinuation(Document document, IStylerOptions stylerOptions)
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            var textDocument = (TextDocument)document.Object("TextDocument");
-
-            EditPoint startPoint = textDocument.StartPoint.CreateEditPoint();
-            EditPoint endPoint = textDocument.EndPoint.CreateEditPoint();
-
-            string xamlSource = startPoint.GetText(endPoint);
-
-            return () =>
-            {
-                // this part can be executed in parallel.
-                StylerService styler = new StylerService(stylerOptions);
-                xamlSource = styler.StyleDocument(xamlSource);
-
-                return () =>
-                {
-                    // this part should be executed sequentially.
-                    ThreadHelper.ThrowIfNotOnUIThread();
-                    const int vsEPReplaceTextKeepMarkers = 1;
-                    startPoint.ReplaceText(endPoint, xamlSource, vsEPReplaceTextKeepMarkers);
-                };
-            };
-        }
-
-        private IStylerOptions GetGlobalStylerOptions()
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            return GetDialogPage(typeof(PackageOptions)).AutomationObject as IStylerOptions;
-        }
-
-        private IStylerOptions GetDocumentStylerOptions(Document document)
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            Properties xamlEditorProps = _dte.Properties["TextEditor", "XAML"];
-
-            var stylerOptions = GetGlobalStylerOptions();
-
-            var solutionPath = String.IsNullOrEmpty(_dte.Solution?.FullName)
-                ? String.Empty
-                : (stylerOptions.SearchToDriveRoot ? Path.GetPathRoot(_dte.Solution.FullName) : Path.GetDirectoryName(_dte.Solution.FullName));
-            var project = document.ProjectItem?.ContainingProject;
-
-            var configPath = GetConfigPathForItem(document.Path, solutionPath, project);
-
-            if (configPath != null)
-            {
-                stylerOptions = ((StylerOptions)stylerOptions).Clone();
-                stylerOptions.ConfigPath = configPath;
-            }
-
-            if (stylerOptions.UseVisualStudioIndentSize)
-            {
-                if (Int32.TryParse(xamlEditorProps.Item("IndentSize").Value.ToString(), out int outIndentSize)
-                    && (outIndentSize > 0))
-                {
-                    stylerOptions.IndentSize = outIndentSize;
-                }
-            }
-
-            if (stylerOptions.UseVisualStudioIndentWithTabs)
-            {
-                stylerOptions.IndentWithTabs = (bool)xamlEditorProps.Item("InsertTabs").Value;
-            }
-
-            return stylerOptions;
-        }
-
-        private static string GetConfigPathForItem(string path, string solutionRoot, Project project)
-        {
-            if (String.IsNullOrWhiteSpace(path))
-            {
-                return null;
-            }
-
-            var projectFullName = project?.FullName;
-            var projectDirectory = String.IsNullOrEmpty(projectFullName)
-                ? String.Empty
-                : Path.GetDirectoryName(projectFullName);
-
-            IEnumerable<string> configPaths
-                = (path.StartsWith(solutionRoot, StringComparison.InvariantCultureIgnoreCase))
-                    ? StylerPackage.GetConfigPathBetweenPaths(path, solutionRoot)
-                    : StylerPackage.GetConfigPathBetweenPaths(path, projectDirectory);
-
-            // find the FullPath of "Settings.XamlStyler" ref in project
-            var filePathsInProject = project?.ProjectItems.Cast<ProjectItem>()
-                .Where(x => { ThreadHelper.ThrowIfNotOnUIThread(); return string.Equals(x.Name, "Settings.XamlStyler", StringComparison.Ordinal); })
-                .SelectMany(x => { ThreadHelper.ThrowIfNotOnUIThread(); return x.Properties.Cast<Property>(); })
-                .Where(x => { ThreadHelper.ThrowIfNotOnUIThread(); return string.Equals(x.Name, "FullPath", StringComparison.Ordinal); })
-                .Select(x => { ThreadHelper.ThrowIfNotOnUIThread(); return x.Value as string; });
-
-            if (filePathsInProject != null)
-            {
-                configPaths = configPaths.Concat(filePathsInProject);
-            }
-
-            return configPaths.FirstOrDefault(File.Exists);
-        }
-
-        // Searches for configuration file up through solution root directory.
-        private static IEnumerable<string> GetConfigPathBetweenPaths(string path, string root)
-        {
-            string configDirectory = File.GetAttributes(path).HasFlag(FileAttributes.Directory)
-                ? path
-                : Path.GetDirectoryName(path);
-
-            while (configDirectory?.StartsWith(root, StringComparison.InvariantCultureIgnoreCase) ?? false)
-            {
-                yield return Path.Combine(configDirectory, "Settings.XamlStyler");
-                // if the root directory is given as an argument, the result will be null.
-                configDirectory = Path.GetDirectoryName(configDirectory);
-            }
-        }
-
-        /// <summary>
-        /// This function is the callback used to execute a command when the a menu item is clicked.
-        /// See the Initialize method to see how the menu item is associated to this function using
-        /// the OleMenuCommandService service and the MenuCommand class.
-        /// </summary>
-        private void MenuItemCallback(object sender, EventArgs e)
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-            try
-            {
-                _uiShell.SetWaitCursor();
-
-                Document document = _dte.ActiveDocument;
-
-                if (IsFormatableDocument(document))
-                {
-                    Execute(document, GetDocumentStylerOptions(document));
-                }
-            }
-            catch (Exception ex)
-            {
-                string title = $"Error in {GetType().Name}:";
-                string message = string.Format(
-                    CultureInfo.CurrentCulture,
-                    "{0}\r\n\r\nIf this deems a malfunctioning of styler, please kindly submit an issue at https://github.com/Xavalon/XamlStyler.",
-                    ex.Message);
-
-                ShowMessageBox(title, message);
-            }
-        }
-
-        private void ShowMessageBox(string title, string message)
+        private void ShowMessageBox(Exception ex)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             Guid clsid = Guid.Empty;
-            
-            _uiShell.ShowMessageBox(
+            this.uiShell.ShowMessageBox(
                 0,
                 ref clsid,
-                title,
-                message,
+                $"Error in {this.GetType().Name}:",
+                $"{ex.Message}\r\n\r\nIf this deems a malfunctioning of styler, please kindly submit an issue at https://github.com/Xavalon/XamlStyler.",
                 String.Empty,
                 0,
                 OLEMSGBUTTON.OLEMSGBUTTON_OK,
