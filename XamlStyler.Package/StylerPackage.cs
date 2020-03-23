@@ -108,45 +108,23 @@ namespace Xavalon.XamlStyler.Package
         private void FormatSolutionEventHandler()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            try
-            {
-                this.uiShell.SetWaitCursor();
+            this.uiShell.SetWaitCursor();
 
-                IEnumerable<ProjectItem> projectItems = ProjectItemHelper.GetAllProjectItems(this.IDE.Solution)
-                    .Where(_ => _.IsXaml() && _.IsFormatable());
+            IEnumerable<ProjectItem> projectItems = ProjectItemHelper.GetAllProjectItems(this.IDE.Solution)
+                .Where(_ => _.IsXaml() && _.IsFormatable());
 
-                foreach (ProjectItem projectItem in projectItems)
-                {
-                    Debug.WriteLine($"Processing: {projectItem.GetFileName()}");
-                    this.FormatDocument(projectItem);
-                }
-            }
-            catch (Exception ex)
-            {
-                this.ShowMessageBox(ex);
-            }
+            this.FormatDocuments(projectItems);
         }
 
         private void FormatSelectedFilesEventHandler()
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            try
-            {
-                this.uiShell.SetWaitCursor();
+            this.uiShell.SetWaitCursor();
 
-                IEnumerable<ProjectItem> projectItems = ProjectItemHelper.GetSelectedProjectItemsRecursively(this)
-                    .Where(_ => _.IsXaml() && _.IsFormatable());
+            IEnumerable<ProjectItem> projectItems = ProjectItemHelper.GetSelectedProjectItemsRecursively(this)
+                .Where(_ => _.IsXaml() && _.IsFormatable());
 
-                foreach (ProjectItem projectItem in projectItems)
-                {
-                    Debug.WriteLine($"Processing: {projectItem.GetFileName()}");
-                    this.FormatDocument(projectItem);
-                }
-            }
-            catch (Exception ex)
-            {
-                this.ShowMessageBox(ex);
-            }
+            this.FormatDocuments(projectItems);
         }
 
         private void OnFileSave(string guid, int id, object customIn, object customOut, ref bool cancelDefault)
@@ -180,7 +158,7 @@ namespace Xavalon.XamlStyler.Package
             foreach (Document document in this.IDE.Documents)
             {
                 // Skip unopened documents.
-                if (document.ActiveWindow == null)
+                if (document.ActiveWindow != null)
                 {
                     continue;
                 }

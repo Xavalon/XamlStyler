@@ -3,6 +3,8 @@
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using Xavalon.XamlStyler.Core;
 using Xavalon.XamlStyler.Core.Options;
 using Xavalon.XamlStyler.Package.Extensions;
@@ -11,6 +13,22 @@ namespace Xavalon.XamlStyler.Package
 {
     public sealed partial class StylerPackage : AsyncPackage
     {
+        private void FormatDocument(Document document, IStylerOptions stylerOptions = null)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            try
+            {
+                if (document.IsFormatable())
+                {
+                    SetupFormatDocumentContinuation(document, stylerOptions ?? this.optionsHelper.GetDocumentStylerOptions(document))()();
+                }
+            }
+            catch (Exception ex)
+            {
+                this.ShowMessageBox(ex);
+            }
+        }
+
         private void FormatDocument(ProjectItem projectItem)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
@@ -52,19 +70,13 @@ namespace Xavalon.XamlStyler.Package
             }
         }
 
-        private void FormatDocument(Document document, IStylerOptions stylerOptions = null)
+        private void FormatDocuments(IEnumerable<ProjectItem> projectItems)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            try
+            foreach (ProjectItem projectItem in projectItems)
             {
-                if (document.IsFormatable())
-                {
-                    SetupFormatDocumentContinuation(document, stylerOptions ?? this.optionsHelper.GetDocumentStylerOptions(document))()();
-                }
-            }
-            catch (Exception ex)
-            {
-                this.ShowMessageBox(ex);
+                Debug.WriteLine($"Processing: {projectItem.GetFileName()}");
+                this.FormatDocument(projectItem);
             }
         }
 
