@@ -45,13 +45,13 @@
       <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextSolutionNodeGroup" priority="0x0100">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE" />
       </Group>
-      <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextSolutionFolderGroup" priority="0x0100">
+      <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextSolutionFolderGroup" priority="0x0200">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNFOLDER" />
       </Group>
       <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextProjectNodeGroup" priority="0x0100">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_PROJNODE" />
       </Group>
-      <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextFolderNodeGroup" priority="0x0100">
+      <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextFolderNodeGroup" priority="0x0200">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_FOLDERNODE" />
       </Group>
       <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextItemNodeGroup" priority="0x0100">
@@ -72,10 +72,10 @@
       <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextCrossProjectMultiItemGroup" priority="0x0100">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIITEM" />
       </Group>
-      <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextCrossProjectMultiSolutionFolderGroup" priority="0x0100">
+      <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextCrossProjectMultiSolutionFolderGroup" priority="0x0200">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIFOLDER" />
       </Group>
-      <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextCrossProjectMultiProjectFolderGroup" priority="0x0100">
+      <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextCrossProjectMultiProjectFolderGroup" priority="0x0200">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_XPROJ_MULTIPROJFLDR" />
       </Group>
     </Groups>
