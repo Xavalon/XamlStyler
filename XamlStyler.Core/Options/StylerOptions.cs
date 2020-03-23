@@ -277,7 +277,7 @@ namespace Xavalon.XamlStyler.Core.Options
         [Category("Misc")]
         [DisplayName("Automatically save and close documents opened by XAML Styler")]
         [JsonProperty("SaveAndCloseOnFormat", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("When set to true, XAML Styler will automatically save and close files it opened when styling files in Solution Explorer.\r\n\r\nDefault Value: true")]
+        [Description("When set to true, XAML Styler will automatically save and close any files it opened when formatting.\r\n\r\nDefault Value: true")]
         [DefaultValue(true)]
         public bool SaveAndCloseOnFormat { get; set; }
 
