@@ -101,6 +101,8 @@ namespace Xavalon.XamlStyler.Core.Options
 
         bool FormatOnSave { get; set; }
 
+        bool SaveAndCloseOnFormat { get; set; }
+
         int CommentSpaces { get; set; }
 
         #endregion Misc

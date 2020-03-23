@@ -275,6 +275,13 @@ namespace Xavalon.XamlStyler.Core.Options
         public bool FormatOnSave { get; set; }
 
         [Category("Misc")]
+        [DisplayName("Automatically save and close documents opened by XAML Styler")]
+        [JsonProperty("SaveAndCloseOnFormat", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("When set to true, XAML Styler will automatically save and close files it opened when styling files in Solution Explorer.\r\n\r\nDefault Value: true")]
+        [DefaultValue(true)]
+        public bool SaveAndCloseOnFormat { get; set; }
+
+        [Category("Misc")]
         [DisplayName("Comment padding")]
         [JsonProperty("CommentPadding", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [Description("Determines the number of spaces a XAML comment should be padded with.\r\n\r\nDefault Value: 2")]
@@ -301,7 +308,7 @@ namespace Xavalon.XamlStyler.Core.Options
         [JsonIgnore]
         public bool ResetToDefault
         {
-            get { return this.resetToDefault; }
+            get => this.resetToDefault;
             set
             {
                 this.resetToDefault = value;
@@ -324,7 +331,7 @@ namespace Xavalon.XamlStyler.Core.Options
         [JsonIgnore]
         public string ConfigPath
         {
-            get { return this.configPath; }
+            get => this.configPath;
             set
             {
                 this.configPath = value;
@@ -348,7 +355,7 @@ namespace Xavalon.XamlStyler.Core.Options
         /// <returns>A clone from the current instance.</returns>
         public IStylerOptions Clone()
         {
-            var jsonStylerOptions = JsonConvert.SerializeObject(this);
+            string jsonStylerOptions = JsonConvert.SerializeObject(this);
 
             return JsonConvert.DeserializeObject<StylerOptions>(jsonStylerOptions);
         }
@@ -359,7 +366,7 @@ namespace Xavalon.XamlStyler.Core.Options
             {
                 var assembly = Assembly.GetExecutingAssembly();
                 using (Stream stream = assembly.GetManifestResourceStream(StylerOptions.DefaultOptionsPath))
-                using (StreamReader reader = new StreamReader(stream))
+                using (var reader = new StreamReader(stream))
                 {
                     this.LoadConfiguration(reader.ReadToEnd());
                 }
@@ -368,12 +375,9 @@ namespace Xavalon.XamlStyler.Core.Options
 
         private bool TryLoadExternalConfiguration()
         {
-            if (String.IsNullOrWhiteSpace(this.ConfigPath) || !File.Exists(this.ConfigPath))
-            {
-                return false;
-            }
-
-            return this.LoadConfiguration(File.ReadAllText(this.ConfigPath));
+            return String.IsNullOrWhiteSpace(this.ConfigPath) || !File.Exists(this.ConfigPath)
+                ? false
+                : this.LoadConfiguration(File.ReadAllText(this.ConfigPath));
         }
 
         private bool LoadConfiguration(string config)

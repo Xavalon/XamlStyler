@@ -57,7 +57,9 @@ namespace Xavalon.XamlStyler.Package
                         document.Activate();
                         this.FormatDocument(document);
 
-                        if (!wasOpen)
+                        IStylerOptions globalOptions = this.optionsHelper.GetGlobalStylerOptions();
+                        IStylerOptions options = this.optionsHelper.GetDocumentStylerOptions(document);
+                        if (!wasOpen && globalOptions.SaveAndCloseOnFormat && options.SaveAndCloseOnFormat)
                         {
                             document.Close(vsSaveChanges.vsSaveChangesYes);
                         }
