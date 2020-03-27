@@ -2,7 +2,7 @@
 
 namespace Xavalon.XamlStyler.Package
 {
-    public sealed class Constants
+    public static class Constants
     {
         public const string XamlFileExtension = ".xaml";
         public const string XamlLanguageType = "XAML";
