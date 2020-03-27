@@ -12,7 +12,7 @@ namespace Xavalon.XamlStyler.Xmagic
         {
             var writer = new StringWriter();
             var parser = new Parser(_ => _.HelpWriter = writer);
-            var result = parser.ParseArguments<CommandLineOptions>(args);
+            ParserResult<CommandLineOptions> result = parser.ParseArguments<CommandLineOptions>(args);
 
             result.WithNotParsed(_ =>
             {
@@ -28,7 +28,7 @@ namespace Xavalon.XamlStyler.Xmagic
                     Console.WriteLine($"File Directory: '{options.Directory}'");
                 }
 
-                bool isFileOptionSpecified = ((options.File?.Count ?? 0) != 0);
+                bool isFileOptionSpecified = (options.File?.Count ?? 0) != 0;
                 bool isDirectoryOptionSpecified = !String.IsNullOrEmpty(options.Directory);
 
                 if (isFileOptionSpecified ^ isDirectoryOptionSpecified)
@@ -38,7 +38,7 @@ namespace Xavalon.XamlStyler.Xmagic
                 }
                 else
                 {
-                    var errorString = (isFileOptionSpecified && isDirectoryOptionSpecified)
+                    string errorString = (isFileOptionSpecified && isDirectoryOptionSpecified)
                         ? "Cannot specify both file(s) and directory"
                         : "Must specify file(s) or directory";
 

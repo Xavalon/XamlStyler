@@ -25,6 +25,9 @@ namespace Xavalon.XamlStyler.Xmagic
         [Option('r', "recursive", Default = false, HelpText = "Recursively process specified directory.")]
         public bool IsRecursive { get; set; }
 
+        [Option('p', "passive", Default = false, HelpText = "Check files follow proper formatting without making any modifications.")]
+        public bool IsPassive { get; set; }
+
         [Option('l', "loglevel", Default = LogLevel.Default,
             HelpText = "Levels in order of increasing detail: None, Minimal, Default, Verbose, Debug")]
         public LogLevel LogLevel { get; set; }

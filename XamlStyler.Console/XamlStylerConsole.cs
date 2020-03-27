@@ -27,7 +27,7 @@ namespace Xavalon.XamlStyler.Xmagic
                 stylerOptions = this.LoadConfiguration(this.options.Configuration);
             }
 
-            ApplyOptionOverrides(options, stylerOptions);
+            this.ApplyOptionOverrides(options, stylerOptions);
 
             this.stylerService = new StylerService(stylerOptions);
         }
@@ -176,10 +176,10 @@ namespace Xavalon.XamlStyler.Xmagic
                     files = this.options.File;
                     break;
                 case ProcessType.Directory:
-                    var searchOption = this.options.IsRecursive
+                    SearchOption searchOption = this.options.IsRecursive
                         ? SearchOption.AllDirectories
                         : SearchOption.TopDirectoryOnly;
-                    files = (File.GetAttributes(this.options.Directory).HasFlag(FileAttributes.Directory))
+                    files = File.GetAttributes(this.options.Directory).HasFlag(FileAttributes.Directory)
                         ? Directory.GetFiles(this.options.Directory, "*.xaml", searchOption).ToList()
                         : new List<string>();
                     break;
@@ -195,30 +195,42 @@ namespace Xavalon.XamlStyler.Xmagic
                 }
             }
 
-            this.Log($"Processed {successCount} of {files.Count} files.", LogLevel.Minimal);
+            if (this.options.IsPassive)
+            {
+                this.Log($"\n{successCount} of {files.Count} files pass format check.", LogLevel.Minimal);
+
+                if (successCount != files.Count)
+                {
+                    Environment.Exit(1);
+                }
+            }
+            else
+            {
+                this.Log($"\nProcessed {successCount} of {files.Count} files.", LogLevel.Minimal);
+            }
         }
 
         private bool TryProcessFile(string file)
         {
-            this.Log($"Processing: {file}");
+            this.Log($"{(this.options.IsPassive ? "Checking" : "Processing")}: {file}");
 
-            if (!options.Ignore)
+            if (!this.options.Ignore)
             {
-                var extension = Path.GetExtension(file);
+                string extension = Path.GetExtension(file);
                 this.Log($"Extension: {extension}", LogLevel.Debug);
 
                 if (!extension.Equals(".xaml", StringComparison.OrdinalIgnoreCase))
                 {
-                    this.Log("Skipping... Can only process XAML files. Use the --ignore parameter to override.");
+                    this.Log($"Skipping... Can only process XAML files. Use the --ignore parameter to override.");
                     return false;
                 }
             }
 
-            var path = Path.GetFullPath(file);
+            string path = Path.GetFullPath(file);
             this.Log($"Full Path: {file}", LogLevel.Debug);
 
             // If the options already has a configuration file set, we don't need to go hunting for one
-            string configurationPath = string.IsNullOrEmpty(this.options.Configuration) ? this.GetConfigurationFromPath(path) : null;
+            string configurationPath = String.IsNullOrEmpty(this.options.Configuration) ? this.GetConfigurationFromPath(path) : null;
 
             string originalContent = null;
             Encoding encoding = Encoding.UTF8; // Visual Studio by default uses UTF8
@@ -229,14 +241,28 @@ namespace Xavalon.XamlStyler.Xmagic
                 this.Log($"\nOriginal Content:\n\n{originalContent}\n", LogLevel.Insanity);
             }
 
-            var formattedOutput = String.IsNullOrWhiteSpace(configurationPath)
-                ? stylerService.StyleDocument(originalContent)
+            string formattedOutput = String.IsNullOrWhiteSpace(configurationPath)
+                ? this.stylerService.StyleDocument(originalContent)
                 : new StylerService(this.LoadConfiguration(configurationPath)).StyleDocument(originalContent);
 
-            this.Log($"\nFormatted Output:\n\n{formattedOutput}\n", LogLevel.Insanity);
-
-            using (var writer = new StreamWriter(path, false, encoding))
+            if (this.options.IsPassive)
             {
+                if (formattedOutput.Equals(originalContent, StringComparison.Ordinal))
+                {
+                    this.Log($"  PASS");
+                }
+                else
+                {
+                    // Fail fast in passive mode when detecting a file where formatting rules were not followed.
+                    this.Log($"  FAIL");
+                    return false;
+                }
+            }
+            else
+            {
+                this.Log($"\nFormatted Output:\n\n{formattedOutput}\n", LogLevel.Insanity);
+
+                using var writer = new StreamWriter(path, false, encoding);
                 try
                 {
                     writer.Write(formattedOutput);
@@ -255,7 +281,7 @@ namespace Xavalon.XamlStyler.Xmagic
 
         private IStylerOptions LoadConfiguration(string path)
         {
-            StylerOptions stylerOptions = new StylerOptions(path);
+            var stylerOptions = new StylerOptions(path);
             this.Log(JsonConvert.SerializeObject(stylerOptions), LogLevel.Insanity);
             this.Log(JsonConvert.SerializeObject(stylerOptions.AttributeOrderingRuleGroups), LogLevel.Debug);
             return stylerOptions;
@@ -276,7 +302,7 @@ namespace Xavalon.XamlStyler.Xmagic
                 {
                     isSolutionRoot = Directory.Exists(Path.Combine(path, ".vs"));
                     this.Log($"In solution root: {isSolutionRoot}", LogLevel.Debug);
-                    var configFile = Path.Combine(path, "Settings.XamlStyler");
+                    string configFile = Path.Combine(path, "Settings.XamlStyler");
                     this.Log($"Looking in: {path}", LogLevel.Debug);
 
                     if (File.Exists(configFile))
