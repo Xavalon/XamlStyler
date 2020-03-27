@@ -1,0 +1,39 @@
+{
+    "$schema": "http://json.schemastore.org/vsix-publish",
+    "categories": [
+        "coding",
+        "other",
+        "programming languages"
+    ],
+    "identity": {
+        "internalName": "XAMLStyler",
+        "tags": [
+            "beautifier",
+            "beautify",
+            "cleaning",
+            "cleanup",
+            "code",
+            "code formatting",
+            "code quality",
+            "format",
+            "formatter",
+            "formatting",
+            "pretty",
+            "reorganizing",
+            "style",
+            "styler",
+            "uwp",
+            "wpf",
+            "xamarin",
+            "xaml",
+            "xaml styler",
+            "xaml-styler",
+        ]
+    },
+    "overview": "./extension-overview.md",
+    "priceCategory": "free",
+    "publisher": "TeamXavalon",
+    "private": false,
+    "qna": false,
+    "repo": "https://github.com/Xavalon/XamlStyler"
+}
