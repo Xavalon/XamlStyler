@@ -57,7 +57,12 @@
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Extensions\ProjectItemExtensions.cs" />
+    <Compile Include="Extensions\DocumentExtensions.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Guids.cs" />
+    <Compile Include="Helpers\OptionsHelper.cs" />
     <Compile Include="PackageOptions.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -68,8 +73,11 @@
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PackageCommandIds.cs" />
+    <Compile Include="Helpers\ProjectItemHelper.cs" />
     <Compile Include="StylerPackage.cs" />
+    <Compile Include="StylerPackage.Formatting.cs">
+      <DependentUpon>StylerPackage.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources.resx">
@@ -126,6 +134,9 @@
     <PackageReference Include="EnvDTE">
       <Version>8.0.2</Version>
     </PackageReference>
+    <PackageReference Include="EnvDTE80">
+      <Version>8.0.3</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers">
       <Version>2.6.3</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -141,7 +152,7 @@
       <Version>15.0.25901-RC</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Shell.Interop.12.0">
-      <Version>12.0.30110</Version>
+      <Version>12.0.30111</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Threading">
       <Version>15.0.240</Version>
@@ -159,6 +170,7 @@
     <Reference Include="System" />
     <Reference Include="System.Design" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>
   </PropertyGroup>
