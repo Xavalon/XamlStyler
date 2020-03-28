@@ -132,9 +132,9 @@ namespace Xavalon.XamlStyler.UnitTests
                     // Attached layout group
                     "Grid.Column, Grid.ColumnSpan, Grid.Row, Grid.RowSpan, Canvas.Right, Canvas.Bottom, Canvas.Left, Canvas.Top",
                     // Core layout group
-                    "MinWidth, MinHeight, Width, Height, MaxWidth, MaxHeight, Margin",
+                    "MinWidth, MinHeight, Width, Height, WidthRequest, HeightRequest, MaxWidth, MaxHeight, Margin",
                     // Alignment layout group
-                    "Panel.ZIndex, HorizontalAlignment, VerticalAlignment, HorizontalContentAlignment, VerticalContentAlignment",
+                    "Panel.ZIndex, HorizontalAlignment, VerticalAlignment, HorizontalContentAlignment, VerticalContentAlignment, HorizontalOptions, VerticalOptions",
                     // Unmatched
                     "*:*, *",
                     // Miscellaneous/Other attributes group
@@ -398,7 +398,7 @@ namespace Xavalon.XamlStyler.UnitTests
                     "xmlns, xmlns:x",
                     "xmlns:*",
                     "Grid.*, Canvas.Left, Canvas.Top, Canvas.Right, Canvas.Bottom",
-                    "Width, Height, MinWidth, MinHeight, MaxWidth, MaxHeight",
+                    "Width, Height, MinWidth, MinHeight, MaxWidth, MaxHeight, WidthRequest, HeightRequest",
                     "*:*, *",
                     "ToolTipService.*, AutomationProperties.*",
                     "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText"
