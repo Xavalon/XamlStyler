@@ -6,7 +6,7 @@
         "programming languages"
     ],
     "identity": {
-        "internalName": "XAMLStyler"
+        "internalName": "XAMLStyler",
         "tags": [
             "beautifier",
             "beautify",
