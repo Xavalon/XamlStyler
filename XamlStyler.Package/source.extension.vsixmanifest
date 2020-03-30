@@ -9,7 +9,7 @@
         <GettingStartedGuide>https://github.com/Xavalon/XamlStyler/wiki/Getting-Started</GettingStartedGuide>
         <Icon>Resources\icon128.jpg</Icon>
         <PreviewImage>Resources\icon200.jpg</PreviewImage>
-        <Tags>beautifier, beautify, cleaning, cleanup, code, code formatting, code quality, format, formatter, formatting, pretty, reorganizing, style, styler, uwp, WPF, xamarin, XAML, xaml styler, xaml-styler</Tags>
+        <Tags>formatting, format, formatter, style, uwp, wpf, xaml</Tags>
     </Metadata>
     <!-- Visual Studio extensions and version ranges demystified: https://devblogs.microsoft.com/visualstudio/visual-studio-extensions-and-version-ranges-demystified/ -->
     <Installation AllUsers="true">
