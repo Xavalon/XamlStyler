@@ -42,7 +42,10 @@ jobs:
   - task: CopyFiles@2
     displayName: 'Copy VSIX to Staging'
     inputs:
-      contents: '**/*.vsix' 
+      contents: |
+        build/extension-overview.md
+        build/extension-manifest.json
+        **/*.vsix
       targetFolder: $(Build.ArtifactStagingDirectory)
       cleanTargetFolder: true
       overWrite: true
