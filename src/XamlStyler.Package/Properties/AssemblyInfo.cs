@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Xavalon")]
 [assembly: AssemblyProduct("XamlStyler.Package")]
-[assembly: AssemblyCopyright("Copyright © Xavalon 2019")]
+[assembly: AssemblyCopyright("Copyright © Xavalon 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
