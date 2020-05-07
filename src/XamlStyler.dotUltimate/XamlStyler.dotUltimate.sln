@@ -12,7 +12,6 @@ ProjectSection(SolutionItems) = preProject
 	src\dotnet\Plugin.props = src\dotnet\Plugin.props
 	src\rider\main\resources\META-INF\plugin.xml = src\rider\main\resources\META-INF\plugin.xml
 	CHANGELOG.md = CHANGELOG.md
-	README.md = README.md
 	gradle.properties = gradle.properties
 EndProjectSection
 EndProject
