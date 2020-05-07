@@ -1,7 +1,7 @@
 ﻿// © Xavalon. All rights reserved.
 
 using Microsoft.VisualStudio.Shell;
-using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.Package
 {

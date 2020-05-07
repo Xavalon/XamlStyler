@@ -1,9 +1,9 @@
 ﻿// © Xavalon. All rights reserved.
 
 using NUnit.Framework;
-using Xavalon.XamlStyler.Core.Extensions;
-using Xavalon.XamlStyler.Core.MarkupExtensions.Formatter;
-using Xavalon.XamlStyler.Core.MarkupExtensions.Parser;
+using Xavalon.XamlStyler.Extensions;
+using Xavalon.XamlStyler.MarkupExtensions.Formatter;
+using Xavalon.XamlStyler.MarkupExtensions.Parser;
 
 namespace Xavalon.XamlStyler.UnitTests.MarkupExtensions
 {

@@ -1,8 +1,8 @@
 ﻿// © Xavalon. All rights reserved.
 
 using NUnit.Framework;
-using Xavalon.XamlStyler.Core.Options;
-using Xavalon.XamlStyler.Core.Services;
+using Xavalon.XamlStyler.Options;
+using Xavalon.XamlStyler.Services;
 
 namespace Xavalon.XamlStyler.UnitTests
 {

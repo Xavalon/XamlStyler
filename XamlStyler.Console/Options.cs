@@ -2,8 +2,8 @@
 
 using System.Collections.Generic;
 using CommandLine;
-using Xavalon.XamlStyler.Core.DocumentManipulation;
-using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.DocumentManipulation;
+using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.Xmagic
 {

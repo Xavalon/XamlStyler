@@ -2,14 +2,14 @@
 
 using Irony.Parsing;
 using NUnit.Framework;
-using Xavalon.XamlStyler.Core.MarkupExtensions.Parser;
+using Xavalon.XamlStyler.MarkupExtensions.Parser;
 
 namespace Xavalon.XamlStyler.UnitTests.MarkupExtensions
 {
     [TestFixture]
     public class XamlMarkupExtensionGrammarUnitTests
     {
-        private Parser parser;
+        private Irony.Parsing.Parser parser;
 
         [SetUp]
         public void Setup()
@@ -17,7 +17,7 @@ namespace Xavalon.XamlStyler.UnitTests.MarkupExtensions
             var grammar = new XamlMarkupExtensionGrammar();
             var language = new LanguageData(grammar);
 
-            this.parser = new Parser(language)
+            this.parser = new Irony.Parsing.Parser(language)
             {
                 Context = { TracingEnabled = true }
             };

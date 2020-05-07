@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.Options;
 using Xavalon.XamlStyler.Package.Extensions;
 
 namespace Xavalon.XamlStyler.Package.Helpers

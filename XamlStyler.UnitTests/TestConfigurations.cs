@@ -5,7 +5,7 @@ using NUnit.Framework;
 using System.IO;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.UnitTests
 {

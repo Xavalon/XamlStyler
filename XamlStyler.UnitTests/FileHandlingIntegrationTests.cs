@@ -5,9 +5,9 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using Xavalon.XamlStyler.Core;
-using Xavalon.XamlStyler.Core.DocumentManipulation;
-using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler;
+using Xavalon.XamlStyler.DocumentManipulation;
+using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.UnitTests
 {

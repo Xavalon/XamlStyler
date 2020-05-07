@@ -26,10 +26,10 @@
     </PackageReference>
   </ItemGroup>
 <ItemGroup>
-  <ProjectReference Include="..\XamlStyler.Core\XamlStyler.Core.csproj" />
+  <Folder Include="Properties\" />
 </ItemGroup>
 <ItemGroup>
-  <Folder Include="Properties\" />
+  <ProjectReference Include="..\XamlStyler\XamlStyler.csproj" />
 </ItemGroup>
 <ItemGroup>
   <None Update="TestConfigurations\AllDifferent.json">

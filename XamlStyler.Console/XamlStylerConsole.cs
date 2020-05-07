@@ -6,8 +6,8 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
-using Xavalon.XamlStyler.Core;
-using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler;
+using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.Xmagic
 {

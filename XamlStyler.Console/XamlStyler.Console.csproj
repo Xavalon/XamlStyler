@@ -40,6 +40,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon.jpg" Pack="true" PackagePath="\" />
-    <ProjectReference Include="..\XamlStyler.Core\XamlStyler.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XamlStyler\XamlStyler.csproj" />
   </ItemGroup>
 </Project>
