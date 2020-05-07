@@ -2,7 +2,7 @@ $version = $args[0]
 Write-Host "Set version: $version"
 
 # Update VSIX Version
-$vsixPath = Resolve-Path $PSScriptRoot\..\src\XamlStyler.Package\source.extension.vsixmanifest
+$vsixPath = Resolve-Path $PSScriptRoot\..\src\XamlStyler.Extension.Windows\source.extension.vsixmanifest
 Write-Host $vsixPath
 $content = [xml] (Get-Content $vsixPath)
 $content.PackageManifest.Metadata.Identity.Version = $version
