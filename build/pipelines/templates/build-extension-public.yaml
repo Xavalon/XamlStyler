@@ -54,5 +54,5 @@ jobs:
   - task: PublishPipelineArtifact@1
     displayName: 'Publish VSIX Artifact'
     inputs:
-      artifact: XamlStylerExtension
+      artifact: XamlStyler.Extension.Windows
       targetPath: $(Build.ArtifactStagingDirectory)

@@ -5,10 +5,6 @@
 
 trigger: none
 
-pr:
-- master
-- projectStructure
-
 variables:
   buildConfiguration: 'Release'
   major: 0
