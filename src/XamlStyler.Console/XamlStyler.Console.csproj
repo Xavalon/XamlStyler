@@ -18,7 +18,8 @@
     <AssemblyName>xstyler</AssemblyName>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>xstyler</ToolCommandName>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageOutputPath>./nupkg</PackageOutputPath>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\bin\Debug\Console\</OutputPath>
