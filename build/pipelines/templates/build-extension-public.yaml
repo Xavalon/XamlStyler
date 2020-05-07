@@ -32,7 +32,7 @@ jobs:
   - task: VSBuild@1
     displayName: 'Build'
     inputs:
-      solution: XamlStyler.sln
+      solution: src/XamlStyler.sln
       vsVersion: 16.0
       platform: 'Any CPU'
       configuration: $(buildConfiguration)
