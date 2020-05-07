@@ -7,6 +7,7 @@ trigger: none
 
 pr:
 - master
+- projectStructure
 
 variables:
   buildConfiguration: 'Release'
