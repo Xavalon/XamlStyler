@@ -14,7 +14,7 @@
     <RepositoryType>git</RepositoryType>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>Xavalon.XamlStyler.Xmagic</RootNamespace>
+    <RootNamespace>Xavalon.XamlStyler.Console</RootNamespace>
     <AssemblyName>xstyler</AssemblyName>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>xstyler</ToolCommandName>

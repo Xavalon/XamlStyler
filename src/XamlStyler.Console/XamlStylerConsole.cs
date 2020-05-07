@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 using Xavalon.XamlStyler;
 using Xavalon.XamlStyler.Options;
 
-namespace Xavalon.XamlStyler.Xmagic
+namespace Xavalon.XamlStyler.Console
 {
     public sealed class XamlStylerConsole
     {

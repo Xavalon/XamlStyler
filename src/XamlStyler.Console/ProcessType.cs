@@ -1,6 +1,6 @@
 ﻿// © Xavalon. All rights reserved.
 
-namespace Xavalon.XamlStyler.Xmagic
+namespace Xavalon.XamlStyler.Console
 {
     public enum ProcessType
     {

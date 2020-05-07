@@ -5,7 +5,7 @@ using CommandLine;
 using Xavalon.XamlStyler.DocumentManipulation;
 using Xavalon.XamlStyler.Options;
 
-namespace Xavalon.XamlStyler.Xmagic
+namespace Xavalon.XamlStyler.Console
 {
     // CLI-intrinsic options
     public sealed partial class CommandLineOptions

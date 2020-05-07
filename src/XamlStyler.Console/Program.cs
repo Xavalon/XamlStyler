@@ -4,7 +4,7 @@ using CommandLine;
 using System;
 using System.IO;
 
-namespace Xavalon.XamlStyler.Xmagic
+namespace Xavalon.XamlStyler.Console
 {
     public sealed partial class Program
     {
