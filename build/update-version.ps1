@@ -12,6 +12,5 @@ $content.Save($vsixPath)
 $consolePath = Resolve-Path $PSScriptRoot\..\src\XamlStyler.Console\XamlStyler.Console.csproj
 Write-Host $consolePath
 $content = [xml] (Get-Content $consolePath)
-Write-Host $content
-$content.Project.PropertyGroup.PackageVersion = $version
+$content.Project.PropertyGroup[0].PackageVersion = $version
 $content.Save($consolePath)
