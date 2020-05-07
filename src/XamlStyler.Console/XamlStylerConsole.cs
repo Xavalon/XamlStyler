@@ -323,7 +323,7 @@ namespace Xavalon.XamlStyler.Console
         {
             if (logLevel <= this.options.LogLevel)
             {
-                Console.WriteLine(value);
+                System.Console.WriteLine(value);
             }
         }
     }

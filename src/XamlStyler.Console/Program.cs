@@ -16,16 +16,16 @@ namespace Xavalon.XamlStyler.Console
 
             result.WithNotParsed(_ =>
             {
-                Console.WriteLine(writer.ToString());
+                System.Console.WriteLine(writer.ToString());
                 Environment.Exit(1);
             })
             .WithParsed(options =>
             {
                 if (options.LogLevel >= LogLevel.Debug)
                 {
-                    Console.WriteLine($"File Parameter: '{options.File}'");
-                    Console.WriteLine($"File Count: {options.File?.Count ?? -1}");
-                    Console.WriteLine($"File Directory: '{options.Directory}'");
+                    System.Console.WriteLine($"File Parameter: '{options.File}'");
+                    System.Console.WriteLine($"File Count: {options.File?.Count ?? -1}");
+                    System.Console.WriteLine($"File Directory: '{options.Directory}'");
                 }
 
                 bool isFileOptionSpecified = (options.File?.Count ?? 0) != 0;
@@ -42,7 +42,7 @@ namespace Xavalon.XamlStyler.Console
                         ? "Cannot specify both file(s) and directory"
                         : "Must specify file(s) or directory";
 
-                    Console.WriteLine($"\nError: {errorString}\n");
+                    System.Console.WriteLine($"\nError: {errorString}\n");
                 }
             });
         }
