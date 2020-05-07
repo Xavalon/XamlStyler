@@ -1,9 +1,10 @@
-// © Xavalon. All rights reserved.
+// ï¿½ Xavalon. All rights reserved.
 
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Xml.Linq;
 
 namespace Xavalon.XamlStyler.DocumentManipulation

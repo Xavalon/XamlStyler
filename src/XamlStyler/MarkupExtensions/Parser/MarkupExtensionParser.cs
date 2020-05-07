@@ -1,5 +1,6 @@
-// © Xavalon. All rights reserved.
+// ï¿½ Xavalon. All rights reserved.
 
+using System;
 using Irony.Parsing;
 
 namespace Xavalon.XamlStyler.MarkupExtensions.Parser
