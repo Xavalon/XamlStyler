@@ -6,9 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using Xavalon.XamlStyler.Options;
-using Xavalon.XamlStyler.Package.Extensions;
+using Xavalon.XamlStyler.Extension.Windows.Extensions;
 
-namespace Xavalon.XamlStyler.Package
+namespace Xavalon.XamlStyler.Extension.Windows
 {
     public sealed partial class StylerPackage : AsyncPackage
     {

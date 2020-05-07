@@ -14,12 +14,12 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using Xavalon.XamlStyler.Options;
-using Xavalon.XamlStyler.Package.Extensions;
-using Xavalon.XamlStyler.Package.Helpers;
+using Xavalon.XamlStyler.Extension.Windows.Extensions;
+using Xavalon.XamlStyler.Extension.Windows.Helpers;
 
 using Task = System.Threading.Tasks.Task;
 
-namespace Xavalon.XamlStyler.Package
+namespace Xavalon.XamlStyler.Extension.Windows
 {
     [ProvideLoadKey("Standard", "2.1", "XAML Styler", "Xavalon", 104)]
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]

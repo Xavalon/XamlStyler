@@ -4,7 +4,7 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using System;
 
-namespace Xavalon.XamlStyler.Package.Extensions
+namespace Xavalon.XamlStyler.Extension.Windows.Extensions
 {
     public static class DocumentExtensions
     {

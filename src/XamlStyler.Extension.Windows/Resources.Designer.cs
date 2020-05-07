@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Xavalon.XamlStyler.Package {
+namespace Xavalon.XamlStyler.Extension.Windows {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Xavalon.XamlStyler.Package {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Xavalon.XamlStyler.Package.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Xavalon.XamlStyler.Extension.Windows.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

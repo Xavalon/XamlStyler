@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("XamlStyler.Package")]
+[assembly: AssemblyTitle("XamlStyler.Extension.Windows")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Xavalon")]
-[assembly: AssemblyProduct("XamlStyler.Package")]
+[assembly: AssemblyProduct("XamlStyler.Extension.Windows")]
 [assembly: AssemblyCopyright("Copyright © Xavalon 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

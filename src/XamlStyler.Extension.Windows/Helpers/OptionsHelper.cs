@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Xavalon.XamlStyler.Options;
-using Xavalon.XamlStyler.Package.Extensions;
+using Xavalon.XamlStyler.Extension.Windows.Extensions;
 
-namespace Xavalon.XamlStyler.Package.Helpers
+namespace Xavalon.XamlStyler.Extension.Windows.Helpers
 {
     public sealed class OptionsHelper
     {

@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Xavalon.XamlStyler.Package.Helpers
+namespace Xavalon.XamlStyler.Extension.Windows.Helpers
 {
     public static class ProjectItemHelper
     {
