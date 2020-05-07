@@ -1,0 +1,41 @@
+jobs:
+- job: BuildRiderResharper
+
+  displayName: 'Build Rider and ReSharper plugin'
+
+  pool:
+    vmImage: 'vs2017-win2016'
+
+  variables:
+    minor: $[counter(format('{0:yyMM}', pipeline.startTime), 0)]
+    pluginVersion: $(major).$(minor).$(patch).0
+
+  steps:
+  - task: Gradle@2
+    displayName: Gradle build
+    inputs:
+      workingDirectory: '$(Pipeline.Workspace)\s\src\XamlStyler.dotUltimate'
+      gradleWrapperFile: '$(Pipeline.Workspace)\s\src\XamlStyler.dotUltimate\gradlew.bat'
+      gradleOptions: '-Xmx3072m'
+      options: '-PPluginVersion=$(pluginVersion)'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.8'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: true
+      testResultsFiles: '**/TEST-*.xml'
+      tasks: 'buildPlugin'
+
+  - task: CopyFiles@2
+    displayName: Copy artifacts
+    inputs:
+      contents: '$(Pipeline.Workspace)\s\src\XamlStyler.dotUltimate\output\**\*.zip'
+      targetFolder: $(Build.ArtifactStagingDirectory)
+      cleanTargetFolder: true
+      overWrite: true
+      flattenFolders: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish artifacts
+    inputs:
+      pathToPublish: $(Build.ArtifactStagingDirectory)
+      artifactName: 'XamlStyler.dotUltimate'
