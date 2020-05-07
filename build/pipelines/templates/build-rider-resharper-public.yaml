@@ -1,7 +1,7 @@
 jobs:
 - job: BuildRiderResharper
 
-  displayName: 'Build Rider and ReSharper plugin'
+  displayName: 'Build Rider and ReSharper plugins'
 
   pool:
     vmImage: 'vs2017-win2016'
