@@ -5,7 +5,6 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using Xavalon.XamlStyler;
 using Xavalon.XamlStyler.DocumentManipulation;
 using Xavalon.XamlStyler.Options;
 

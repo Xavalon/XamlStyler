@@ -13,7 +13,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
-using Xavalon.XamlStyler;
 using Xavalon.XamlStyler.Options;
 using Xavalon.XamlStyler.Package.Extensions;
 using Xavalon.XamlStyler.Package.Helpers;

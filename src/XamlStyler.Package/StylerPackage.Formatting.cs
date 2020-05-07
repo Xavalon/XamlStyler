@@ -5,7 +5,6 @@ using Microsoft.VisualStudio.Shell;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Xavalon.XamlStyler;
 using Xavalon.XamlStyler.Options;
 using Xavalon.XamlStyler.Package.Extensions;
 
