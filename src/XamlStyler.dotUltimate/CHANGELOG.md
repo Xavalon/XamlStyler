@@ -9,6 +9,4 @@ This file will automatically be included as the changelog of the published plugi
 
 ## [Unreleased]
 
-
-## 2020.1-3.2003.9
 - Initial version

@@ -1,8 +1,8 @@
 using JetBrains.Application.Settings;
 using JetBrains.ReSharper.Resources.Settings;
 using JetBrains.Util;
-using Xavalon.XamlStyler.Core.DocumentManipulation;
-using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.DocumentManipulation;
+using Xavalon.XamlStyler.Options;
 
 namespace ReSharperPlugin.XamlStyler.dotUltimate
 {

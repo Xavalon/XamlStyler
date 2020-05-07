@@ -16,7 +16,7 @@ using JetBrains.ReSharper.Psi.Files;
 using JetBrains.ReSharper.Psi.Xaml;
 using JetBrains.TextControl;
 using JetBrains.Util;
-using Xavalon.XamlStyler.Core;
+using Xavalon.XamlStyler;
 
 namespace ReSharperPlugin.XamlStyler.dotUltimate
 {

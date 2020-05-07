@@ -9,7 +9,7 @@ using JetBrains.ReSharper.Psi.Impl.CodeStyle;
 using JetBrains.ReSharper.Psi.Xaml;
 using JetBrains.ReSharper.Resources.Shell;
 using JetBrains.Util;
-using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.Options;
 
 namespace ReSharperPlugin.XamlStyler.dotUltimate
 {

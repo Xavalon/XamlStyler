@@ -18,7 +18,7 @@ using JetBrains.Lifetimes;
 using JetBrains.ReSharper.Feature.Services.Resources;
 using JetBrains.Rider.Model.UIAutomation;
 using JetBrains.Util;
-using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.Options;
 
 namespace ReSharperPlugin.XamlStyler.dotUltimate.Options
 {

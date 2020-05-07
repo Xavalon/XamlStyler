@@ -8,7 +8,7 @@ using JetBrains.ProjectModel.DataContext;
 using JetBrains.Rd.Tasks;
 using JetBrains.ReSharper.Host.Features;
 using JetBrains.Rider.Model;
-using Xavalon.XamlStyler.Core;
+using Xavalon.XamlStyler;
 
 namespace ReSharperPlugin.XamlStyler.dotUltimate
 {

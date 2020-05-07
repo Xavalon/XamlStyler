@@ -14,18 +14,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\..\..\XamlStyler\XamlStyler.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
         <PackageReference Include="JetBrains.ReSharper.SDK" Version="$(SdkVersion)">
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <!-- TODO: https://github.com/NuGet/Home/issues/7154 -->
         <PackageReference Include="Wave" Version="$(WaveVersion)" />
-        
-        <!-- 
-            XAML Styler Console package targets netcoreapp3.x - we can't reference it, but we can download it :-)
-            GeneratePathProperty will make the path to the package available in $(PkgXamlStyler_Console), and we can then add an assembly reference...
-            https://docs.microsoft.com/en-us/nuget/consume-packages/package-references-in-project-files#generatepathproperty
-        -->
-        <PackageReference Include="XamlStyler.Console" Version="$(XamlStylerVersion)" IncludeAssets="None" ExcludeAssets="All" PrivateAssets="None" GeneratePathProperty="true" />
     </ItemGroup>
 
     <ItemGroup>
@@ -38,19 +35,13 @@
     <ItemGroup>
         <Content Include="bin\$(AssemblyName)\$(Configuration)\$(AssemblyName).dll" PackagePath="dotFiles" Pack="true" />
         <Content Include="bin\$(AssemblyName)\$(Configuration)\$(AssemblyName).pdb" PackagePath="dotFiles" Pack="true" />
-        <Content Include="bin\$(AssemblyName)\$(Configuration)\XamlStyler.Core.dll" PackagePath="dotFiles" Pack="true" />
-        <Content Include="bin\$(AssemblyName)\$(Configuration)\XamlStyler.Core.pdb" PackagePath="dotFiles" Pack="true" />
+        <Content Include="bin\$(AssemblyName)\$(Configuration)\XamlStyler.dll" PackagePath="dotFiles" Pack="true" />
+        <Content Include="bin\$(AssemblyName)\$(Configuration)\XamlStyler.pdb" PackagePath="dotFiles" Pack="true" />
         <Content Include="bin\$(AssemblyName)\$(Configuration)\Irony.dll" PackagePath="dotFiles" Pack="true" />
     </ItemGroup>
 
     <ItemGroup>
         <Reference Include="PresentationCore" />
-        <Reference Include="Irony, Version=1.1.0.0, Culture=neutral, PublicKeyToken=ca48ace7223ead47">
-            <HintPath>$(PkgXamlStyler_Console)\tools\netcoreapp3.1\any\Irony.dll</HintPath>
-        </Reference>
-        <Reference Include="XamlStyler.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0b11ff60a8153268">
-            <HintPath>$(PkgXamlStyler_Console)\tools\netcoreapp3.1\any\XamlStyler.Core.dll</HintPath>
-        </Reference>
     </ItemGroup>
 
     <!-- TODO: uncomment for xaml icons -->

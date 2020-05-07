@@ -15,6 +15,10 @@ ProjectSection(SolutionItems) = preProject
 	gradle.properties = gradle.properties
 EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler", "..\XamlStyler\XamlStyler.csproj", "{BC461E85-4417-41DA-8A2D-3F220C2AA7FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{82A8F3F3-A456-4587-9061-575FD0E74DB6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,7 +37,12 @@ Global
 		{640FD32F-01A9-4C3E-A75F-7B8BF0342A11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{640FD32F-01A9-4C3E-A75F-7B8BF0342A11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{640FD32F-01A9-4C3E-A75F-7B8BF0342A11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC461E85-4417-41DA-8A2D-3F220C2AA7FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC461E85-4417-41DA-8A2D-3F220C2AA7FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC461E85-4417-41DA-8A2D-3F220C2AA7FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC461E85-4417-41DA-8A2D-3F220C2AA7FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{BC461E85-4417-41DA-8A2D-3F220C2AA7FB} = {82A8F3F3-A456-4587-9061-575FD0E74DB6}
 	EndGlobalSection
 EndGlobal
