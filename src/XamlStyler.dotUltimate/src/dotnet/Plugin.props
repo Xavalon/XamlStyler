@@ -1,5 +1,6 @@
 <Project>
   <PropertyGroup>
+    <!-- RIDER: To be updated with new Rider release -->
     <SdkVersion>2020.1.0</SdkVersion>
     
     <Title>XAML Styler</Title>
