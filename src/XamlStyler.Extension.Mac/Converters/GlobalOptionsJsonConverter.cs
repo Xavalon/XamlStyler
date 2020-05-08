@@ -3,7 +3,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.Mac.Converters
 {

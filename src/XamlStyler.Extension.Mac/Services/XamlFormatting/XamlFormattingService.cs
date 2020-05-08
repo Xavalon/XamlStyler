@@ -3,8 +3,7 @@
 using Microsoft.VisualStudio.Text;
 using MonoDevelop.Ide.Gui;
 using System;
-using Xavalon.XamlStyler.Core;
-using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.Mac.Services.XamlFormatting
 {

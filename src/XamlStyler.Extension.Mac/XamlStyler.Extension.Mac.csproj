@@ -70,9 +70,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XamlStyler.Core\XamlStyler.Core.csproj">
+    <ProjectReference Include="..\XamlStyler\XamlStyler.csproj">
       <Project>{BD2A5B6F-0B1C-4B1D-90AF-707F62BB12C0}</Project>
-      <Name>XamlStyler.Core</Name>
+      <Name>XamlStyler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\XamlStyler.Extension\XamlStyler.Extension.csproj">
+      <Project>{C9EDDF87-4F29-47C7-B129-68EA6EED6A90}</Project>
+      <Name>XamlStyler.Extension</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

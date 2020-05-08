@@ -1,7 +1,7 @@
 ﻿// © Xavalon. All rights reserved.
 
 using MonoDevelop.Ide.Gui;
-using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.Mac.Services.XamlFormatting
 {

@@ -6,7 +6,7 @@ using MonoDevelop.Projects;
 using Newtonsoft.Json;
 using System;
 using System.IO;
-using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.Options;
 using Xavalon.XamlStyler.Mac.Converters;
 using Xavalon.XamlStyler.Mac.Utils;
 

@@ -1,13 +1,15 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2024
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.Core", "XamlStyler.Core\XamlStyler.Core.csproj", "{BD2A5B6F-0B1C-4B1D-90AF-707F62BB12C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlStyler", "XamlStyler\XamlStyler.csproj", "{BD2A5B6F-0B1C-4B1D-90AF-707F62BB12C0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.UnitTest", "XamlStyler.UnitTests\XamlStyler.UnitTest.csproj", "{E5245034-9CD0-4FC6-B141-BAE17BC251A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlStyler.UnitTest", "XamlStyler.UnitTests\XamlStyler.UnitTest.csproj", "{E5245034-9CD0-4FC6-B141-BAE17BC251A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.Mac", "XamlStyler.Mac\XamlStyler.Mac.csproj", "{D15B9402-3251-45C1-9FAB-5496450018C6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.Extension.Mac", "XamlStyler.Extension.Mac\XamlStyler.Extension.Mac.csproj", "{D15B9402-3251-45C1-9FAB-5496450018C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.Extension", "XamlStyler.Extension\XamlStyler.Extension.csproj", "{C9EDDF87-4F29-47C7-B129-68EA6EED6A90}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,8 @@ Global
 		{D15B9402-3251-45C1-9FAB-5496450018C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D15B9402-3251-45C1-9FAB-5496450018C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D15B9402-3251-45C1-9FAB-5496450018C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9EDDF87-4F29-47C7-B129-68EA6EED6A90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9EDDF87-4F29-47C7-B129-68EA6EED6A90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

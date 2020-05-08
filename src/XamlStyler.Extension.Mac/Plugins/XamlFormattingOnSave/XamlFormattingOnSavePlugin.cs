@@ -42,7 +42,7 @@ namespace Xavalon.XamlStyler.Mac.Plugins.XamlFormattingOnSave
             }
 
             var stylerOptions = _xamlStylerOptionsService.GetDocumentOptions(document);
-            if (!stylerOptions.BeautifyOnSave)
+            if (!stylerOptions.FormatOnSave)
             {
                 return;
             }

@@ -3,7 +3,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.Options;
 using Xavalon.XamlStyler.Mac.Services.XamlStylerOptions;
 
 namespace Xavalon.XamlStyler.Mac.ViewModels

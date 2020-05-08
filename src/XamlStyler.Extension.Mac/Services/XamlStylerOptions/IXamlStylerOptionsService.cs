@@ -2,7 +2,7 @@
 
 using MonoDevelop.Ide.Gui;
 using MonoDevelop.Projects;
-using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
 {

@@ -2,7 +2,7 @@
 
 using System;
 using System.ComponentModel;
-using Xavalon.XamlStyler.Core.Options;
+using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.Mac.ViewModels
 {
