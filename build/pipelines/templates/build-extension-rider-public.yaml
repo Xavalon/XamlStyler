@@ -7,8 +7,7 @@ jobs:
     vmImage: 'vs2017-win2016'
 
   variables:
-    minor: $[counter(format('{0:yyMM}', pipeline.startTime), 0)]
-    pluginVersion: $(major).$(minor).$(patch).0
+    pluginVersion: $(major).$(Date:yyMM).$(patch).0
 
   steps:
   - task: Gradle@2
