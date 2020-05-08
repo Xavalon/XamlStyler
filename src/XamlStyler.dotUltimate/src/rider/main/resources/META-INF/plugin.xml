@@ -23,13 +23,5 @@
       <implementation-class>xavalon.plugins.xamlstyler.dotultimate.XamlStylerComponent</implementation-class>
     </component>
   </project-components>
-
-  <actions>
-    <action id="XamlStyler.Reformat"
-            text="Format with XAML Styler"
-            description="Formats the document(s) using XAML Styler."
-            class="xavalon.plugins.xamlstyler.dotultimate.XamlStylerReformatContextAction">
-    </action>
-  </actions>
   
 </idea-plugin>

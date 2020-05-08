@@ -16,6 +16,7 @@ using JetBrains.ReSharper.Psi.Files;
 using JetBrains.ReSharper.Psi.Xaml;
 using JetBrains.TextControl;
 using JetBrains.Util;
+using ReSharperPlugin.XamlStyler.dotUltimate.Resources;
 using Xavalon.XamlStyler;
 
 namespace ReSharperPlugin.XamlStyler.dotUltimate
@@ -25,7 +26,7 @@ namespace ReSharperPlugin.XamlStyler.dotUltimate
         Description = "Formats the document(s) using XAML Styler.",
         Group = CommonContextActions.GroupID,
         Disabled = false,
-        Priority = 100)]
+        Priority = -10)]
     public class XamlStylerReformatContextAction : ContextActionBase
     {
         [NotNull] private readonly XamlContextActionDataProvider _dataProvider;
@@ -54,14 +55,14 @@ namespace ReSharperPlugin.XamlStyler.dotUltimate
         public override IEnumerable<IntentionAction> CreateBulbItems()
         {
             var mainAnchor = new SubmenuAnchor(IntentionsAnchors.ContextActionsAnchor, 
-                new SubmenuBehavior(text: null, icon: null, executable: true, removeFirst: true));
+                new SubmenuBehavior(text: "Format with XAML Styler", icon: null, executable: true, removeFirst: true));
             var subAnchor2 = new InvisibleAnchor(mainAnchor);
             var subAnchor3 = subAnchor2.CreateNext(separate: true);
 
             IntentionAction Create(string text, ActionAppliesTo appliesTo, IAnchor anchor)
             {
                 return new XamlStylerReformatContextAction(_dataProvider, text, appliesTo)
-                    .ToContextActionIntention(anchor, null);
+                    .ToContextActionIntention(anchor, XamlStylerThemedIcons.Logo.Id);
             }
             
             return new[]
