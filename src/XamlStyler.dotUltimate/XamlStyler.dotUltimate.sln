@@ -1,7 +1,5 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReSharperPlugin.XamlStyler.dotUltimate", "src\dotnet\ReSharperPlugin.XamlStyler.dotUltimate\ReSharperPlugin.XamlStyler.dotUltimate.csproj", "{E52C30D8-3B2B-4A5C-90C9-248CEEA2281A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReSharperPlugin.XamlStyler.dotUltimate.Rider", "src\dotnet\ReSharperPlugin.XamlStyler.dotUltimate\ReSharperPlugin.XamlStyler.dotUltimate.Rider.csproj", "{A47AA8AC-614D-409D-B9E5-7963602DCB5A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReSharperPlugin.XamlStyler.dotUltimate.Tests", "src\dotnet\ReSharperPlugin.XamlStyler.dotUltimate.Tests\ReSharperPlugin.XamlStyler.dotUltimate.Tests.csproj", "{640FD32F-01A9-4C3E-A75F-7B8BF0342A11}"
@@ -25,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E52C30D8-3B2B-4A5C-90C9-248CEEA2281A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E52C30D8-3B2B-4A5C-90C9-248CEEA2281A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E52C30D8-3B2B-4A5C-90C9-248CEEA2281A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E52C30D8-3B2B-4A5C-90C9-248CEEA2281A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A47AA8AC-614D-409D-B9E5-7963602DCB5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A47AA8AC-614D-409D-B9E5-7963602DCB5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A47AA8AC-614D-409D-B9E5-7963602DCB5A}.Release|Any CPU.ActiveCfg = Release|Any CPU

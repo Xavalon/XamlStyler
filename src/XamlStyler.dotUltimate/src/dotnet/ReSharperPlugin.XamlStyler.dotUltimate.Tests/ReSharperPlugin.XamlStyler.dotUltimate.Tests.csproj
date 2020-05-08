@@ -10,7 +10,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\ReSharperPlugin.XamlStyler.dotUltimate\ReSharperPlugin.XamlStyler.dotUltimate.csproj" />
+        <ProjectReference Include="..\ReSharperPlugin.XamlStyler.dotUltimate.Rider\ReSharperPlugin.XamlStyler.dotUltimate.Rider.csproj" />
     </ItemGroup>
 
     <ItemGroup>

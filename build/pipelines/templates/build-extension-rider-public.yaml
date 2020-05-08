@@ -1,7 +1,7 @@
 jobs:
-- job: BuildRiderResharper
+- job: BuildRiderExtension
 
-  displayName: 'Build Rider and ReSharper plugins'
+  displayName: 'Build Rider plugin'
 
   pool:
     vmImage: 'vs2017-win2016'
@@ -12,7 +12,7 @@ jobs:
 
   steps:
   - task: Gradle@2
-    displayName: Gradle build
+    displayName: Build
     inputs:
       workingDirectory: '$(Pipeline.Workspace)\s\src\XamlStyler.dotUltimate'
       gradleWrapperFile: '$(Pipeline.Workspace)\s\src\XamlStyler.dotUltimate\gradlew.bat'
@@ -26,7 +26,7 @@ jobs:
       tasks: 'buildPlugin'
 
   - task: CopyFiles@2
-    displayName: Copy artifacts
+    displayName: Copy Artifacts to Staging
     inputs:
       contents: '$(Pipeline.Workspace)\s\src\XamlStyler.dotUltimate\output\**\*.zip'
       targetFolder: $(Build.ArtifactStagingDirectory)
