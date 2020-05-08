@@ -4,7 +4,7 @@ jobs:
   displayName: 'Build Rider plugin'
 
   pool:
-    vmImage: 'vs2017-win2016'
+    vmImage: 'windows-latest'
 
   variables:
     pluginVersion: $(Build.BuildNumber)
