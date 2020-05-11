@@ -5,7 +5,7 @@ using System;
 using System.Globalization;
 using System.Collections.Generic;
 
-namespace Xavalon.XamlStyler.Mac.Utils
+namespace Xavalon.XamlStyler.Extension.Mac.Utils
 {
     public static class ColorUtils
     {

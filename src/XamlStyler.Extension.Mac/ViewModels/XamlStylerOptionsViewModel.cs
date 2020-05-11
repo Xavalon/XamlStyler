@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Xavalon.XamlStyler.Options;
-using Xavalon.XamlStyler.Mac.Services.XamlStylerOptions;
+using Xavalon.XamlStyler.Extension.Mac.Services.XamlStylerOptions;
 
-namespace Xavalon.XamlStyler.Mac.ViewModels
+namespace Xavalon.XamlStyler.Extension.Mac.ViewModels
 {
     public class XamlStylerOptionsViewModel
     {

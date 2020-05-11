@@ -2,7 +2,7 @@
 
 using System;
 
-namespace Xavalon.XamlStyler.Mac.Services.DocumentSavedEvent
+namespace Xavalon.XamlStyler.Extension.Mac.Services.DocumentSavedEvent
 {
     public interface IDocumentSavedEventService
     {

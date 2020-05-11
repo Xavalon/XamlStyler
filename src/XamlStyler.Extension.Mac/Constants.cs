@@ -1,6 +1,6 @@
 ﻿// © Xavalon. All rights reserved.
 
-namespace Xavalon.XamlStyler.Mac
+namespace Xavalon.XamlStyler.Extension.Mac
 {
     public static class Constants
     {

@@ -1,12 +1,12 @@
 ﻿// © Xavalon. All rights reserved.
 
-using Xavalon.XamlStyler.Mac.Plugins.XamlFormattingOnSave;
-using Xavalon.XamlStyler.Mac.Services.DocumentSavedEvent;
-using Xavalon.XamlStyler.Mac.Services.XamlFiles;
-using Xavalon.XamlStyler.Mac.Services.XamlFormatting;
-using Xavalon.XamlStyler.Mac.Services.XamlStylerOptions;
+using Xavalon.XamlStyler.Extension.Mac.Plugins.XamlFormattingOnSave;
+using Xavalon.XamlStyler.Extension.Mac.Services.DocumentSavedEvent;
+using Xavalon.XamlStyler.Extension.Mac.Services.XamlFiles;
+using Xavalon.XamlStyler.Extension.Mac.Services.XamlFormatting;
+using Xavalon.XamlStyler.Extension.Mac.Services.XamlStylerOptions;
 
-namespace Xavalon.XamlStyler.Mac
+namespace Xavalon.XamlStyler.Extension.Mac
 {
     public class Extension
     {

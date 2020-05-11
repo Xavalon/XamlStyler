@@ -2,7 +2,7 @@
 
 using System;
 
-namespace Xavalon.XamlStyler.Mac.Plugins.XamlFormattingOnSave
+namespace Xavalon.XamlStyler.Extension.Mac.Plugins.XamlFormattingOnSave
 {
     public interface IXamlFormattingOnSavePlugin : IDisposable
     {

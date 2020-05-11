@@ -2,7 +2,7 @@
 
 using MonoDevelop.Components.Commands;
 
-namespace Xavalon.XamlStyler.Mac.CommandHandlers
+namespace Xavalon.XamlStyler.Extension.Mac.CommandHandlers
 {
     public class StartupCommandHandler : CommandHandler
     {

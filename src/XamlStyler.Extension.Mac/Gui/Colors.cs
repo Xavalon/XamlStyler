@@ -1,9 +1,9 @@
 ﻿// © Xavalon. All rights reserved.
 
 using Gdk;
-using Xavalon.XamlStyler.Mac.Utils;
+using Xavalon.XamlStyler.Extension.Mac.Utils;
 
-namespace Xavalon.XamlStyler.Mac.Gui
+namespace Xavalon.XamlStyler.Extension.Mac.Gui
 {
     public static class Colors
     {

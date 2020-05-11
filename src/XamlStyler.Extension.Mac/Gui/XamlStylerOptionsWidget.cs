@@ -5,9 +5,9 @@ using Gtk;
 using System;
 using System.ComponentModel;
 using System.Linq;
-using Xavalon.XamlStyler.Mac.ViewModels;
+using Xavalon.XamlStyler.Extension.Mac.ViewModels;
 
-namespace Xavalon.XamlStyler.Mac.Gui
+namespace Xavalon.XamlStyler.Extension.Mac.Gui
 {
     [ToolboxItem(true)]
     public partial class XamlStylerOptionsWidget : Bin

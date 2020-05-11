@@ -4,7 +4,7 @@ using MonoDevelop.Ide.Gui;
 using MonoDevelop.Projects;
 using Xavalon.XamlStyler.Options;
 
-namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
+namespace Xavalon.XamlStyler.Extension.Mac.Services.XamlStylerOptions
 {
     public interface IXamlStylerOptionsService
     {

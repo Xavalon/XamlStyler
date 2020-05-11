@@ -2,10 +2,10 @@
 
 using MonoDevelop.Components.Commands;
 using MonoDevelop.Ide;
-using Xavalon.XamlStyler.Mac.Services.XamlFormatting;
-using Xavalon.XamlStyler.Mac.Services.XamlStylerOptions;
+using Xavalon.XamlStyler.Extension.Mac.Services.XamlFormatting;
+using Xavalon.XamlStyler.Extension.Mac.Services.XamlStylerOptions;
 
-namespace Xavalon.XamlStyler.Mac.CommandHandlers
+namespace Xavalon.XamlStyler.Extension.Mac.CommandHandlers
 {
     public class FormatXamlCommandHandler : CommandHandler
     {

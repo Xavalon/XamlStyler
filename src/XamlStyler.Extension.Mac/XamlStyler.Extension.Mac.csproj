@@ -7,7 +7,7 @@
     <ProjectGuid>{D15B9402-3251-45C1-9FAB-5496450018C6}</ProjectGuid>
     <ProjectTypeGuids>{86F6BF2A-E449-4B3E-813B-9ACC37E5545F};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>Xavalon.XamlStyler.Mac</RootNamespace>
+    <RootNamespace>Xavalon.XamlStyler.Extension.Mac</RootNamespace>
     <AssemblyName>XamlStyler.Mac</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
   </PropertyGroup>
@@ -45,7 +45,6 @@
     <Compile Include="CommandHandlers\StartupCommandHandler.cs" />
     <Compile Include="ViewModels\XamlStylerOptionsViewModel.cs" />
     <Compile Include="ViewModels\XamlStylerOptionViewModel.cs" />
-    <Compile Include="gtk-gui\Xavalon.XamlStyler.Mac.Gui.XamlStylerOptionsWidget.cs" />
     <Compile Include="Services\XamlFormatting\XamlFormattingService.cs" />
     <Compile Include="Services\XamlFormatting\IXamlFormattingService.cs" />
     <Compile Include="Services\XamlStylerOptions\IXamlStylerOptionsService.cs" />
@@ -62,6 +61,7 @@
     <Compile Include="Plugins\XamlFormattingOnSave\XamlFormattingOnSavePlugin.cs" />
     <Compile Include="Plugins\XamlFormattingOnSave\IXamlFormattingOnSavePlugin.cs" />
     <Compile Include="Gui\Colors.cs" />
+    <Compile Include="gtk-gui\Xavalon.XamlStyler.Extension.Mac.Gui.XamlStylerOptionsWidget.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Manifest.addin.xml" />

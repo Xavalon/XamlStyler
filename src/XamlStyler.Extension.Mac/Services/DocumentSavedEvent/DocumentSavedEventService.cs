@@ -6,7 +6,7 @@ using MonoDevelop.Ide.Gui;
 using System;
 using System.Linq;
 
-namespace Xavalon.XamlStyler.Mac.Services.DocumentSavedEvent
+namespace Xavalon.XamlStyler.Extension.Mac.Services.DocumentSavedEvent
 {
     public class DocumentSavedEventService : IDocumentSavedEventService
     {

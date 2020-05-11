@@ -2,7 +2,7 @@
 
 using System;
 
-namespace Xavalon.XamlStyler.Mac.Utils
+namespace Xavalon.XamlStyler.Extension.Mac.Utils
 {
     public static class PathUtils
     {

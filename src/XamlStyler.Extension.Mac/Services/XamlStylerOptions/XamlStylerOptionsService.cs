@@ -7,10 +7,10 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 using Xavalon.XamlStyler.Options;
-using Xavalon.XamlStyler.Mac.Converters;
-using Xavalon.XamlStyler.Mac.Utils;
+using Xavalon.XamlStyler.Extension.Mac.Converters;
+using Xavalon.XamlStyler.Extension.Mac.Utils;
 
-namespace Xavalon.XamlStyler.Mac.Services.XamlStylerOptions
+namespace Xavalon.XamlStyler.Extension.Mac.Services.XamlStylerOptions
 {
     public class XamlStylerOptionsService : IXamlStylerOptionsService
     {

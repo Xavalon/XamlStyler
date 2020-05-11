@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Xavalon.XamlStyler.Mac.Services.XamlFiles
+namespace Xavalon.XamlStyler.Extension.Mac.Services.XamlFiles
 {
     public class XamlFilesService : IXamlFilesService
     {

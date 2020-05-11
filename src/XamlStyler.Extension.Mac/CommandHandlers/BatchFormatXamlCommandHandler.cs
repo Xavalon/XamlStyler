@@ -8,11 +8,11 @@ using MonoDevelop.Projects;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Xavalon.XamlStyler.Mac.Services.XamlFiles;
-using Xavalon.XamlStyler.Mac.Services.XamlFormatting;
-using Xavalon.XamlStyler.Mac.Services.XamlStylerOptions;
+using Xavalon.XamlStyler.Extension.Mac.Services.XamlFiles;
+using Xavalon.XamlStyler.Extension.Mac.Services.XamlFormatting;
+using Xavalon.XamlStyler.Extension.Mac.Services.XamlStylerOptions;
 
-namespace Xavalon.XamlStyler.Mac.CommandHandlers
+namespace Xavalon.XamlStyler.Extension.Mac.CommandHandlers
 {
     public class BatchFormatXamlCommandHandler : CommandHandler
     {

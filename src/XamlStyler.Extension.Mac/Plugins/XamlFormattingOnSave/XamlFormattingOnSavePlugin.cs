@@ -3,11 +3,11 @@
 using MonoDevelop.Ide.Gui;
 using System;
 using System.Collections.Generic;
-using Xavalon.XamlStyler.Mac.Services.DocumentSavedEvent;
-using Xavalon.XamlStyler.Mac.Services.XamlFormatting;
-using Xavalon.XamlStyler.Mac.Services.XamlStylerOptions;
+using Xavalon.XamlStyler.Extension.Mac.Services.DocumentSavedEvent;
+using Xavalon.XamlStyler.Extension.Mac.Services.XamlFormatting;
+using Xavalon.XamlStyler.Extension.Mac.Services.XamlStylerOptions;
 
-namespace Xavalon.XamlStyler.Mac.Plugins.XamlFormattingOnSave
+namespace Xavalon.XamlStyler.Extension.Mac.Plugins.XamlFormattingOnSave
 {
     public class XamlFormattingOnSavePlugin : IXamlFormattingOnSavePlugin
     {

@@ -2,9 +2,9 @@
 
 using MonoDevelop.Components;
 using MonoDevelop.Ide.Gui.Dialogs;
-using Xavalon.XamlStyler.Mac.ViewModels;
+using Xavalon.XamlStyler.Extension.Mac.ViewModels;
 
-namespace Xavalon.XamlStyler.Mac.Gui
+namespace Xavalon.XamlStyler.Extension.Mac.Gui
 {
     public class XamlStylerOptionsPanel : OptionsPanel
     {

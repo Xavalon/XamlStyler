@@ -5,7 +5,7 @@ using MonoDevelop.Ide.Gui;
 using System;
 using Xavalon.XamlStyler.Options;
 
-namespace Xavalon.XamlStyler.Mac.Services.XamlFormatting
+namespace Xavalon.XamlStyler.Extension.Mac.Services.XamlFormatting
 {
     public class XamlFormattingService : IXamlFormattingService
     {
