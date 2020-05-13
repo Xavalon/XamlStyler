@@ -1,11 +1,11 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <stetic-interface>
   <configuration>
     <images-root-path>..</images-root-path>
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="../bin/Debug/XamlStyler.Mac.dll" internal="true" />
+    <widget-library name="../bin/Release/XamlStyler.Mac.dll" internal="true" />
   </import>
   <widget class="Gtk.Bin" id="Xavalon.XamlStyler.Extension.Mac.Gui.XamlStylerOptionsWidget" design-size="847 319">
     <property name="MemberName" />
