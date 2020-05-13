@@ -1,4 +1,4 @@
-// © Xavalon. All rights reserved.
+// ? Xavalon. All rights reserved.
 
 using System.Collections.Generic;
 using System.Linq;
