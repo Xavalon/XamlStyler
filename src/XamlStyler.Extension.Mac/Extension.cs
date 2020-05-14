@@ -1,4 +1,4 @@
-﻿// © Xavalon. All rights reserved.
+﻿// (c) Xavalon. All rights reserved.
 
 using Xavalon.XamlStyler.Extension.Mac.Plugins.XamlFormattingOnSave;
 using Xavalon.XamlStyler.Extension.Mac.Services.DocumentSavedEvent;

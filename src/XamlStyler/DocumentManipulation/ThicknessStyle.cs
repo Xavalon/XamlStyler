@@ -1,4 +1,4 @@
-// © Xavalon. All rights reserved.
+// (c) Xavalon. All rights reserved.
 
 namespace Xavalon.XamlStyler.DocumentManipulation
 {

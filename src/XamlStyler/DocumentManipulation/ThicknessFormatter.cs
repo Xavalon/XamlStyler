@@ -1,4 +1,4 @@
-// © Xavalon. All rights reserved.
+// (c) Xavalon. All rights reserved.
 
 using System.Text;
 using System.Text.RegularExpressions;

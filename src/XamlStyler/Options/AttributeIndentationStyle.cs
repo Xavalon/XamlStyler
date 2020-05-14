@@ -1,4 +1,6 @@
-﻿namespace Xavalon.XamlStyler.Options
+﻿// (c) Xavalon. All rights reserved.
+
+namespace Xavalon.XamlStyler.Options
 {
     public enum AttributeIndentationStyle
     {

@@ -1,4 +1,4 @@
-// ? Xavalon. All rights reserved.
+// (c) Xavalon. All rights reserved.
 
 using System.Diagnostics.CodeAnalysis;
 using Xavalon.XamlStyler.DocumentManipulation;
