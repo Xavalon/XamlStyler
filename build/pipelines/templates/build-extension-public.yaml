@@ -27,12 +27,12 @@ jobs:
     displayName: 'NuGet Restore'
     inputs:
       command: custom
-      arguments: restore XamlStyler.sln -Verbosity Detailed -NonInteractive
+      arguments: restore src/XamlStyler.sln -Verbosity Detailed -NonInteractive
 
   - task: VSBuild@1
     displayName: 'Build'
     inputs:
-      solution: XamlStyler.sln
+      solution: src/XamlStyler.sln
       vsVersion: 16.0
       platform: 'Any CPU'
       configuration: $(buildConfiguration)
@@ -54,5 +54,5 @@ jobs:
   - task: PublishPipelineArtifact@1
     displayName: 'Publish VSIX Artifact'
     inputs:
-      artifact: XamlStylerExtension
+      artifact: XamlStyler.Extension.Windows
       targetPath: $(Build.ArtifactStagingDirectory)
