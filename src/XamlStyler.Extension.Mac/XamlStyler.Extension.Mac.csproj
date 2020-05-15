@@ -52,7 +52,6 @@
     <Compile Include="Container.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="Services\XamlFiles\IXamlFilesService.cs" />
-    <Compile Include="Constants.cs" />
     <Compile Include="Services\XamlFiles\XamlFilesService.cs" />
     <Compile Include="Converters\GlobalOptionsJsonConverter.cs" />
     <Compile Include="Utils\PathUtils.cs" />
