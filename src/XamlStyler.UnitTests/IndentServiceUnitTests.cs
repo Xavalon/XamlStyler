@@ -1,4 +1,4 @@
-﻿// © Xavalon. All rights reserved.
+﻿// (c) Xavalon. All rights reserved.
 
 using NUnit.Framework;
 using Xavalon.XamlStyler.Options;
