@@ -9,4 +9,4 @@ This file will automatically be included as the changelog of the published plugi
 
 ## [Unreleased]
 
-- Initial version
+- See https://github.com/Xavalon/XamlStyler/releases for information about this release.
