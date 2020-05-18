@@ -9,7 +9,16 @@ jobs:
   variables:
     pluginVersion: $(Build.BuildNumber)
 
-  steps:
+  steps:      
+  - task: NuGetToolInstaller@1
+    displayName: 'Install NuGet Tools'
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet Restore'
+    inputs:
+      command: custom
+      arguments: restore src/XamlStyler.dotUltimate/XamlStyler.dotUltimate.sln -Verbosity Detailed -NonInteractive
+
   - task: Gradle@2
     displayName: Build
     inputs:
