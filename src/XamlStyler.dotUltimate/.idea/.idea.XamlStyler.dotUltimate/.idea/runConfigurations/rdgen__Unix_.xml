@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Generate protocol (Unix)" type="BashConfigurationType" factoryName="Bash" singleton="true">
+    <option name="INTERPRETER_OPTIONS" value="" />
+    <option name="INTERPRETER_PATH" value="/bin/bash" />
+    <option name="WORKING_DIRECTORY" value="" />
+    <option name="PARENT_ENVS" value="true" />
+    <option name="SCRIPT_NAME" value="gradlew" />
+    <option name="PARAMETERS" value=":rdgen" />
+    <module name="" />
+    <method v="2" />
+  </configuration>
+</component>
