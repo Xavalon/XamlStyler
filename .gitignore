@@ -122,3 +122,6 @@ XamlStylerVSPackage.sln.DotSettings
 
 # Misc
 *.nupkg
+
+#VS4mac
+**/.DS_Store
