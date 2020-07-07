@@ -5,7 +5,6 @@ using JetBrains.Application.Settings;
 using JetBrains.ProjectModel;
 using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Format;
-using JetBrains.ReSharper.Psi.Impl.CodeStyle;
 using JetBrains.ReSharper.Psi.Xaml;
 using JetBrains.ReSharper.Resources.Shell;
 using JetBrains.Util;
@@ -96,23 +95,26 @@ namespace ReSharperPlugin.XamlStyler.dotUltimate
                     stylerOptions.ConfigPath = configPath;
                 }
             }
-            
+
             // 3. Override with IDE-specifics
-            var xamlFormatter = XamlLanguage.Instance.Formatter<ICodeFormatterImpl>();
-            if (xamlFormatter != null)
+            var xamlFormatterSettings = XamlLanguage.Instance.Formatter()?.GetFormatterSettings(
+                solution: solution,
+                sourceFile: null,
+                settingsStore: null,
+                autodetectIndentSettings: true);
+            if (xamlFormatterSettings != null)
             {
                 // Note: stylerOptions.UseVisualStudioIndentSize is hardcoded to "True", which means we'll always use IDE settings when in IDE context.
                 // To overcome this, we're ignoring the setting from XamlStyler settings files, and using the configuration in the IDE, so we can toggle this on/off.
                 var schema = Shell.Instance.GetComponent<ISettingsSchema>();
                 if (/*stylerOptions.UseVisualStudioIndentSize ||*/ settings.GetValue((XamlStylerSettings s) => s.UseIdeIndentSize))
                 {
-                    stylerOptions.IndentSize = (int)xamlFormatter.GetEntry(schema, key => key.INDENT_SIZE).GetDefaultValueInEntryMemberType();
+                    stylerOptions.IndentSize = xamlFormatterSettings.INDENT_SIZE;
                 }
                 
                 if (/*stylerOptions.UseVisualStudioIndentWithTabs ||*/ settings.GetValue((XamlStylerSettings s) => s.UseIdeIndentWithTabs))
                 {
-                    var ideIndentStyle = (IndentStyle)xamlFormatter.GetEntry(schema, key => key.INDENT_SIZE).GetDefaultValueInEntryMemberType();
-                    stylerOptions.IndentWithTabs = ideIndentStyle == IndentStyle.Tab;
+                    stylerOptions.IndentWithTabs = xamlFormatterSettings.INDENT_STYLE == IndentStyle.Tab;
                 }
             }
 
