@@ -10,7 +10,7 @@ using JetBrains.ReSharper.Resources.Shell;
 using JetBrains.Util;
 using Xavalon.XamlStyler.Options;
 
-namespace ReSharperPlugin.XamlStyler.dotUltimate
+namespace Xavalon.XamlStyler.Extension.dotUltimate
 {
     public static class StylerOptionsFactory
     {

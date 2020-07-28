@@ -20,7 +20,7 @@ using JetBrains.Rider.Model.UIAutomation;
 using JetBrains.Util;
 using Xavalon.XamlStyler.Options;
 
-namespace ReSharperPlugin.XamlStyler.dotUltimate.Options
+namespace Xavalon.XamlStyler.Extension.dotUltimate.Options
 {
     [OptionsPage(PID, PageTitle, typeof(FeaturesEnvironmentOptionsThemedIcons.FormattingStyle), ParentId = ToolsPage.PID)]
     public class XamlStylerOptionsPage : BeSimpleOptionsPage

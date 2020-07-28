@@ -4,7 +4,7 @@ using JetBrains.Util;
 using Xavalon.XamlStyler.DocumentManipulation;
 using Xavalon.XamlStyler.Options;
 
-namespace ReSharperPlugin.XamlStyler.dotUltimate
+namespace Xavalon.XamlStyler.Extension.dotUltimate
 {
     [SettingsKey(typeof(CodeStyleSettings), "Settings for XAML Styler")]
     public class XamlStylerSettings

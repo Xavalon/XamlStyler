@@ -8,8 +8,8 @@
 
     <PropertyGroup>
         <TargetFramework>net461</TargetFramework>
-        <AssemblyName>ReSharperPlugin.XamlStyler.dotUltimate</AssemblyName>
-        <RootNamespace>$(AssemblyName)</RootNamespace>
+        <AssemblyName>Xavalon.XamlStyler.Extension.dotUltimate</AssemblyName>
+        <RootNamespace>Xavalon.XamlStyler.Extension.dotUltimate</RootNamespace>
         <IsPackable>false</IsPackable>
         <DefineConstants>$(DefineConstants);RIDER</DefineConstants>
     </PropertyGroup>

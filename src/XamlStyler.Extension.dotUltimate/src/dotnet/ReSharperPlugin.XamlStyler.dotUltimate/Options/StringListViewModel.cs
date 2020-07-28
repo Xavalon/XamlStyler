@@ -6,7 +6,7 @@ using JetBrains.Lifetimes;
 using JetBrains.Threading;
 using JetBrains.Util;
 
-namespace ReSharperPlugin.XamlStyler.dotUltimate.Options
+namespace Xavalon.XamlStyler.Extension.dotUltimate.Options
 {
     public class StringListViewModel
     {
