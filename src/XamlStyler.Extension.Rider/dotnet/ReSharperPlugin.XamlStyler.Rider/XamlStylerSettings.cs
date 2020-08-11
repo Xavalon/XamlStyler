@@ -4,7 +4,7 @@ using JetBrains.Util;
 using Xavalon.XamlStyler.DocumentManipulation;
 using Xavalon.XamlStyler.Options;
 
-namespace Xavalon.XamlStyler.Extension.dotUltimate
+namespace Xavalon.XamlStyler.Extension.Rider
 {
     [SettingsKey(typeof(CodeStyleSettings), "Settings for XAML Styler")]
     public class XamlStylerSettings

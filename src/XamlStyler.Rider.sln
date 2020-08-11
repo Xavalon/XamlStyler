@@ -1,21 +1,21 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xavalon.XamlStyler.Extension.dotUltimate.Rider", "XamlStyler.Extension.dotUltimate\src\dotnet\ReSharperPlugin.XamlStyler.dotUltimate\Xavalon.XamlStyler.Extension.dotUltimate.Rider.csproj", "{A47AA8AC-614D-409D-B9E5-7963602DCB5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xavalon.XamlStyler.Extension.Rider.Rider", "XamlStyler.Extension.Rider\dotnet\ReSharperPlugin.XamlStyler.Rider\Xavalon.XamlStyler.Extension.Rider.csproj", "{A47AA8AC-614D-409D-B9E5-7963602DCB5A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{C71D5C64-E299-4FB1-8412-5A599A5293C0}"
 ProjectSection(SolutionItems) = preProject
-	XamlStyler.Extension.dotUltimate\src\dotnet\Directory.Build.props = XamlStyler.Extension.dotUltimate\src\dotnet\Directory.Build.props
-	XamlStyler.Extension.dotUltimate\src\dotnet\Plugin.props = XamlStyler.Extension.dotUltimate\src\dotnet\Plugin.props
-	XamlStyler.Extension.dotUltimate\src\rider\main\resources\META-INF\plugin.xml = XamlStyler.Extension.dotUltimate\src\rider\main\resources\META-INF\plugin.xml
-	CHANGELOG.md = CHANGELOG.md
-	gradle.properties = gradle.properties
+	XamlStyler.Extension.Rider\dotnet\Directory.Build.props = XamlStyler.Extension.Rider\dotnet\Directory.Build.props
+	XamlStyler.Extension.Rider\dotnet\Plugin.props = XamlStyler.Extension.Rider\dotnet\Plugin.props
+	XamlStyler.Extension.Rider\rider\main\resources\META-INF\plugin.xml = XamlStyler.Extension.Rider\rider\main\resources\META-INF\plugin.xml
+	XamlStyler.Extension.Rider\CHANGELOG.md = XamlStyler.Extension.Rider\CHANGELOG.md
+	XamlStyler.Extension.Rider\gradle.properties = XamlStyler.Extension.Rider\gradle.properties
 EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler", "XamlStyler\XamlStyler.csproj", "{BC461E85-4417-41DA-8A2D-3F220C2AA7FB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "XamlStyler.Extension.dotUltimate\Core", "{82A8F3F3-A456-4587-9061-575FD0E74DB6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "XamlStyler.Extension.Rider\Core", "{82A8F3F3-A456-4587-9061-575FD0E74DB6}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugin", "XamlStyler.Extension.dotUltimate\Plugin", "{0B6C2375-2D57-44AA-8C5E-97FA300A40EA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugin", "XamlStyler.Extension.Rider\Plugin", "{0B6C2375-2D57-44AA-8C5E-97FA300A40EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

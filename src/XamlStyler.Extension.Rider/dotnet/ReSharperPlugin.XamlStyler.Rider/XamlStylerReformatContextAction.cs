@@ -18,7 +18,7 @@ using JetBrains.TextControl;
 using JetBrains.Util;
 using ReSharperPlugin.XamlStyler.dotUltimate.Resources;
 
-namespace Xavalon.XamlStyler.Extension.dotUltimate
+namespace Xavalon.XamlStyler.Extension.Rider
 {
     [ContextAction(
         Name = "XamlStyler.Reformat",

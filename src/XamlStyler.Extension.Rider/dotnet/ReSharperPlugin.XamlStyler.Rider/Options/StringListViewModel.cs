@@ -6,7 +6,7 @@ using JetBrains.Lifetimes;
 using JetBrains.Threading;
 using JetBrains.Util;
 
-namespace Xavalon.XamlStyler.Extension.dotUltimate.Options
+namespace Xavalon.XamlStyler.Extension.Rider.Options
 {
     public class StringListViewModel
     {

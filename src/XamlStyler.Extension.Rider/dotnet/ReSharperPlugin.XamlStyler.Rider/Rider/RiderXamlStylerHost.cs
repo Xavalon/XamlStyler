@@ -9,7 +9,7 @@ using JetBrains.Rd.Tasks;
 using JetBrains.ReSharper.Host.Features;
 using JetBrains.Rider.Model;
 
-namespace Xavalon.XamlStyler.Extension.dotUltimate.Rider
+namespace Xavalon.XamlStyler.Extension.Rider.Rider
 {
     [SolutionComponent]
     public class RiderXamlStylerHost

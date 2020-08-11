@@ -8,14 +8,12 @@
 
     <PropertyGroup>
         <TargetFramework>net461</TargetFramework>
-        <AssemblyName>Xavalon.XamlStyler.Extension.dotUltimate</AssemblyName>
-        <RootNamespace>Xavalon.XamlStyler.Extension.dotUltimate</RootNamespace>
         <IsPackable>false</IsPackable>
         <DefineConstants>$(DefineConstants);RIDER</DefineConstants>
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\..\..\XamlStyler\XamlStyler.csproj" />
+        <ProjectReference Include="..\..\..\XamlStyler\XamlStyler.csproj" />
     </ItemGroup>
 
     <ItemGroup>

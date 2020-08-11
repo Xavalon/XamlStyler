@@ -96,8 +96,8 @@ apply plugin: 'com.jetbrains.rdgen'
 
 rdgen {
     def modelDir = new File(rootDir, "protocol/src/main/kotlin/model")
-    def csOutput = new File(rootDir, "src/dotnet/${DotnetPluginId}/Rider")
-    def ktOutput = new File(rootDir, "src/rider/main/kotlin/xavalon/plugins/${RiderPluginId.replace('.','/').toLowerCase()}")
+    def csOutput = new File(rootDir, "dotnet/${DotnetPluginId}/Rider")
+    def ktOutput = new File(rootDir, "rider/main/kotlin/xavalon/plugins/${RiderPluginId.replace('.','/').toLowerCase()}")
 
     verbose = true
     classpath "${rdLibDirectory}/rider-model.jar"
@@ -136,7 +136,7 @@ patchPluginXml {
 prepareSandbox {
     dependsOn compileDotNet
 
-    def outputFolder = "${rootDir}/src/dotnet/${DotnetPluginId}/bin/${DotnetPluginId}.Rider/${BuildConfiguration}"
+    def outputFolder = "${rootDir}/dotnet/${DotnetPluginId}/bin/${DotnetPluginId}.Rider/${BuildConfiguration}"
     def dllFiles = [
             "$outputFolder/${DotnetPluginId}.dll",
             "$outputFolder/${DotnetPluginId}.pdb",
