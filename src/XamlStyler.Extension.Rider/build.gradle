@@ -45,8 +45,8 @@ if (ext.has("password")) intellij.publish.password = ext.password
 
 sourceSets {
     main {
-        java.srcDir 'src/rider/main/kotlin'
-        resources.srcDir 'src/rider/main/resources'
+        java.srcDir 'rider/main/kotlin'
+        resources.srcDir 'rider/main/resources'
     }
 }
 
