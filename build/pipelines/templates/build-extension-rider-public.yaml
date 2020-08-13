@@ -22,7 +22,7 @@ jobs:
   - task: Gradle@2
     displayName: Build
     inputs:
-      workingDirectory: '$(Pipeline.Workspace)\s\src\XamlStyler.Extension.Rider'
+      #workingDirectory: '$(Pipeline.Workspace)\s\src\XamlStyler.Extension.Rider'
       gradleWrapperFile: '$(Pipeline.Workspace)\s\src\XamlStyler.Extension.Rider\gradlew.bat'
       gradleOptions: '-Xmx3072m'
       options: '-PPluginVersion=$(pluginVersion)'
