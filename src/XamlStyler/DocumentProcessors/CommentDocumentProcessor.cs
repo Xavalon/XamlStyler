@@ -31,7 +31,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
 
             if ((output.Length > 0) && !output.IsNewLine())
             {
-                output.Append(Environment.NewLine);
+                output.Append(options.NewLine);
             }
 
             if (content.Contains("<") && content.Contains(">"))
@@ -41,7 +41,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
 
                 if (content.Contains("\n"))
                 {
-                    output.Append(String.Join(Environment.NewLine, content.GetLines().Select(_ => _.TrimEnd(' '))));
+                    output.Append(String.Join(options.NewLine, content.GetLines().Select(_ => _.TrimEnd(' '))));
 
                     if (content.TrimEnd(' ').EndsWith("\n", StringComparison.Ordinal))
                     {
@@ -66,10 +66,10 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                 var contentIndentString = this.indentService.GetIndentString(xmlReader.Depth + 1);
                 foreach (var line in content.Trim().GetLines())
                 {
-                    output.Append(Environment.NewLine).Append(contentIndentString).Append(line.Trim());
+                    output.Append(options.NewLine).Append(contentIndentString).Append(line.Trim());
                 }
 
-                output.Append(Environment.NewLine).Append(currentIndentString).Append("-->");
+                output.Append(options.NewLine).Append(currentIndentString).Append("-->");
             }
             else
             {

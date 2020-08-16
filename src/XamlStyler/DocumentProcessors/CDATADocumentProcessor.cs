@@ -4,6 +4,7 @@ using System;
 using System.Text;
 using System.Xml;
 using Xavalon.XamlStyler.Extensions;
+using Xavalon.XamlStyler.Options;
 using Xavalon.XamlStyler.Parser;
 using Xavalon.XamlStyler.Services;
 
@@ -11,10 +12,12 @@ namespace Xavalon.XamlStyler.DocumentProcessors
 {
     internal class CDATADocumentProcessor : IDocumentProcessor
     {
+        private readonly IStylerOptions options;
         private readonly IndentService indentService;
 
-        public CDATADocumentProcessor(IndentService indentService)
+        public CDATADocumentProcessor(IStylerOptions options, IndentService indentService)
         {
+            this.options = options;
             this.indentService = indentService;
         }
 
@@ -40,7 +43,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
             // http://www.w3.org/TR/2008/REC-xml-20081126/#sec-line-ends
             // Change them back into the environment newline characters.
             output.Append("<![CDATA[")
-                .Append(xmlReader.Value.Replace("\n", Environment.NewLine))
+                .Append(xmlReader.Value.Replace("\n", options.NewLine))
                 .Append("]]>");
         }
     }
