@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xavalon.XamlStyler.Extension.Rider.Rider", "XamlStyler.Extension.Rider\dotnet\ReSharperPlugin.XamlStyler.Rider\Xavalon.XamlStyler.Extension.Rider.csproj", "{A47AA8AC-614D-409D-B9E5-7963602DCB5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xavalon.XamlStyler.Extension.Rider.Rider", "XamlStyler.Extension.Rider\dotnet\Xavalon.XamlStyler.Extension.Rider\Xavalon.XamlStyler.Extension.Rider.csproj", "{A47AA8AC-614D-409D-B9E5-7963602DCB5A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{C71D5C64-E299-4FB1-8412-5A599A5293C0}"
 ProjectSection(SolutionItems) = preProject
