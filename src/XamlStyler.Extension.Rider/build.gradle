@@ -1,0 +1,159 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
+buildscript {
+    repositories {
+        maven { url 'https://www.myget.org/F/rd-snapshots/maven/' }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("com.jetbrains.rd:rd-gen:0.202.122")
+    }
+}
+
+plugins {
+    id 'java'
+
+    // RIDER: May need updating with new Rider releases
+    id 'org.jetbrains.kotlin.jvm' version '1.3.41'
+
+    // RIDER: Will probably need updating with new Rider releases, use latest version number from https://github.com/JetBrains/gradle-intellij-plugin/releases
+    id 'org.jetbrains.intellij' version '0.4.21'
+}
+
+ext {
+    isWindows = Os.isFamily(Os.FAMILY_WINDOWS)
+    rdLibDirectory = new File(rootDir, "build/riderRD-${ProductVersion}/lib/rd")
+}
+
+repositories {
+    maven { url 'https://cache-redirector.jetbrains.com/intellij-repository/snapshots' }
+    maven { url 'https://cache-redirector.jetbrains.com/maven-central' }
+    flatDir { dirs rdLibDirectory.absolutePath }
+}
+
+wrapper {
+    gradleVersion = '4.9'
+    distributionType = Wrapper.DistributionType.ALL
+    distributionUrl = "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
+}
+
+version = ext.PluginVersion
+
+if (ext.has("username")) intellij.publish.username = ext.username
+if (ext.has("password")) intellij.publish.password = ext.password
+
+sourceSets {
+    main {
+        java.srcDir 'rider/main/kotlin'
+        resources.srcDir 'rider/main/resources'
+    }
+}
+
+compileKotlin {
+    kotlinOptions { jvmTarget = "1.8" }
+}
+
+task compileDotNet {
+    doLast {
+        exec {
+            executable "dotnet"
+            args "msbuild","/t:Restore;Rebuild","${DotnetSolution}","/p:Configuration=${BuildConfiguration}"
+            workingDir rootDir
+        }
+    }
+}
+
+buildPlugin {
+    outputs.upToDateWhen { false }
+    doLast {
+        copy {
+            from "${buildDir}/distributions/${rootProject.name}-${version}.zip"
+            into "${rootDir}/output"
+        }
+
+        def changelogText = file("${rootDir}/CHANGELOG.md").text
+        def changelogMatches = changelogText =~ /(?s)(-.+?)(?=##|$)/
+        def changeNotes = changelogMatches.collect {
+            it[1].replaceAll(/(?s)- /, "\u2022 ").replaceAll(/`/, "").replaceAll(/,/, "%2C")
+        }.take(1).join("")
+
+        exec {
+            executable "dotnet"
+            args "msbuild","/t:Pack","${DotnetSolution}","/p:Configuration=${BuildConfiguration}","/p:PackageOutputPath=${rootDir}/output","/p:PackageReleaseNotes=${changeNotes}","/p:PackageVersion=${version}"
+        }
+    }
+}
+
+intellij {
+    type = 'RD'
+    version = "${ProductVersion}"
+    downloadSources = false
+    instrumentCode = false
+}
+
+apply plugin: 'com.jetbrains.rdgen'
+
+rdgen {
+    def modelDir = new File(rootDir, "protocol/src/main/kotlin/model")
+    def csOutput = new File(rootDir, "dotnet/${DotnetPluginId}/Rider")
+    def ktOutput = new File(rootDir, "rider/main/kotlin/xavalon/plugins/${RiderPluginId.replace('.','/').toLowerCase()}")
+
+    verbose = true
+    classpath "${rdLibDirectory}/rider-model.jar"
+    sources "${modelDir}/rider"
+    hashFolder = "${buildDir}"
+    packages = "model.rider"
+
+    generator {
+        language = "kotlin"
+        transform = "asis"
+        root = "com.jetbrains.rider.model.nova.ide.IdeRoot"
+        namespace = "com.jetbrains.rider.model"
+        directory = "$ktOutput"
+    }
+
+    generator {
+        language = "csharp"
+        transform = "reversed"
+        root = "com.jetbrains.rider.model.nova.ide.IdeRoot"
+        namespace = "JetBrains.Rider.Model"
+        directory = "$csOutput"
+    }
+}
+
+patchPluginXml {
+    def changelogText = file("${rootDir}/CHANGELOG.md").text
+    def changelogMatches = changelogText =~ /(?s)(-.+?)(?=##|$)/
+
+    changeNotes = changelogMatches.collect {
+        it[1].replaceAll(/(?s)\r?\n/, "<br />\n")
+    }.take(1).join('')
+}
+
+// buildSearchableOptions.onlyIf { false }
+
+prepareSandbox {
+    dependsOn compileDotNet
+
+    def outputFolder = "${rootDir}/dotnet/${DotnetPluginId}/bin/${DotnetPluginId}/${BuildConfiguration}"
+    def dllFiles = [
+            "$outputFolder/${DotnetPluginId}.dll",
+            "$outputFolder/${DotnetPluginId}.pdb",
+            "$outputFolder/XamlStyler.dll",
+            "$outputFolder/XamlStyler.pdb",
+            "$outputFolder/Irony.dll"
+    ]
+
+    dllFiles.forEach({ f ->
+        def file = file(f)
+        from(file, { into "${intellij.pluginName}/dotnet" })
+    })
+
+    doLast {
+        dllFiles.forEach({ f ->
+            def file = file(f)
+            if (!file.exists()) throw new RuntimeException("File ${file} does not exist")
+        })
+    }
+}

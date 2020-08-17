@@ -1,0 +1,27 @@
+<idea-plugin>
+  <id>xamlstyler.rider</id>
+  <name>XAML Styler</name>
+  <version>_PLACEHOLDER_</version>
+  <vendor url="https://github.com/Xavalon/XamlStyler">Xavalon</vendor>
+  <idea-version since-build="_PLACEHOLDER_" until-build="_PLACEHOLDER_" />
+  <depends>com.intellij.modules.rider</depends>
+  <category>Formatting</category>
+
+  <description>
+<![CDATA[
+<p>XAML Styler is an extension that formats XAML source code based on a set of styling rules. This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.</p>
+]]>
+  </description>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <applicationConfigurable groupId="tools"
+                             instance="xavalon.plugins.xamlstyler.rider.XamlStylerOptionsPage" />
+  </extensions>
+
+  <project-components>
+    <component>
+      <implementation-class>xavalon.plugins.xamlstyler.rider.XamlStylerComponent</implementation-class>
+    </component>
+  </project-components>
+  
+</idea-plugin>
