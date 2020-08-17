@@ -1,4 +1,4 @@
-package xavalon.plugins.xamlstyler.dotultimate
+package xavalon.plugins.xamlstyler.rider
 
 import com.intellij.AppTopics
 import com.intellij.openapi.application.ApplicationManager

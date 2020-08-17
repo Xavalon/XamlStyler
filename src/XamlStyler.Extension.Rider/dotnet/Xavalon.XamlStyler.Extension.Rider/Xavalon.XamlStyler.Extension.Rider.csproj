@@ -28,7 +28,7 @@
         <Reference Include="PresentationFramework" />
 
         <!-- RIDER: Uncomment these when icons need to be re-generated into XAML,
-             and then build the current projct from within the IDE. -->        
+             and then build the current projct from within the IDE. -->
         <!--<ThemedIconsXamlV3 Include="**\*.xaml">
             <ThemeColumns>Color</ThemeColumns>
             <RemoveBackgroundElement>True</RemoveBackgroundElement>

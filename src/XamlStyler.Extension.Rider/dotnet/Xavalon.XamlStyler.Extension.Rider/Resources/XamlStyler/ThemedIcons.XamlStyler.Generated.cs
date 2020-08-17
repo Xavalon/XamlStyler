@@ -8,12 +8,12 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::System.Windows.Markup.XmlnsDefinitionAttribute("urn:shemas-jetbrains-com:ui-application-icons-xaml-styler", "ReSharperPlugin.XamlStyler.dotUltimate.Resources")]
-[assembly: global::JetBrains.UI.Icons.CompiledIcons.CompiledIconsPackAttribute(IconPackResourceIdentification="ReSharperPlugin.XamlStyler.dotUltimate;component/Resources/XamlStyler/ThemedIcons" +
-	".XamlStyler.Generated.Xaml", IconNames=new string[] {
+[assembly: global::System.Windows.Markup.XmlnsDefinitionAttribute("urn:shemas-jetbrains-com:ui-application-icons-xaml-styler", "Xavalon.XamlStyler.Extension.Rider.Resources")]
+[assembly: global::JetBrains.UI.Icons.CompiledIcons.CompiledIconsPackAttribute(IconPackResourceIdentification="Xavalon.XamlStyler.Extension.Rider;component/Resources/XamlStyler/ThemedIcons.Xam" +
+	"lStyler.Generated.Xaml", IconNames=new string[] {
 		"Logo"})]
 
-namespace ReSharperPlugin.XamlStyler.dotUltimate.Resources
+namespace Xavalon.XamlStyler.Extension.Rider.Resources
 {
 	
 	
@@ -28,17 +28,17 @@ namespace ReSharperPlugin.XamlStyler.dotUltimate.Resources
 	///  <para>It has two primary goals: load the icons of this assembly to be registered with <see cref="JetBrains.UI.Icons.IThemedIconManager" /> so that they were WPF-accessible and theme-sensitive; and emit early-bound accessors for referencing icons in codebehind in a compile-time-validated manner.</para>
 	///  <h1>XAML</h1>
 	///  <para>For performance reasons, the icons are not individually exposed with application resources. There is a custom markup extension to bind an image source in markup.</para>
-	///  <para>To use an icon from XAML, set an <see cref="System.Windows.Media.ImageSource" /> property to the <see cref="JetBrains.UI.Icons.ThemedIconExtension" /> markup extension, which takes an icon identifier class (nested in <see cref="ReSharperPlugin.XamlStyler.dotUltimate.Resources.XamlStylerThemedIcons" /> class) as a parameter.</para>
+	///  <para>To use an icon from XAML, set an <see cref="System.Windows.Media.ImageSource" /> property to the <see cref="JetBrains.UI.Icons.ThemedIconExtension" /> markup extension, which takes an icon identifier class (nested in <see cref="Xavalon.XamlStyler.Extension.Rider.Resources.XamlStylerThemedIcons" /> class) as a parameter.</para>
 	///  <para>Example:</para>
 	///  <code>&lt;Image Source="{icons:ThemedIcon myres:XamlStylerThemedIcons+Logo}" /&gt;</code>
 	///  <h1>Attributes</h1>
 	///  <para>Sometimes you have to reference an icon from a type attriute when you're defining objects in code. Typical examples are Options pages and Tool Windows.</para>
-	///  <para>To avoid the use of string IDs which are not validated very well, we've emitted identifier classes to be used with <c>typeof()</c> expression, one per each icon. Use the attribute overload which takes a <see cref="System.Type" /> for an image, and choose your icon class from nested classes in the <see cref="ReSharperPlugin.XamlStyler.dotUltimate.Resources.XamlStylerThemedIcons" /> class.</para>
+	///  <para>To avoid the use of string IDs which are not validated very well, we've emitted identifier classes to be used with <c>typeof()</c> expression, one per each icon. Use the attribute overload which takes a <see cref="System.Type" /> for an image, and choose your icon class from nested classes in the <see cref="Xavalon.XamlStyler.Extension.Rider.Resources.XamlStylerThemedIcons" /> class.</para>
 	///  <para>Example:</para>
 	///  <code>[Item(Name="Sample", Icon=typeof(XamlStylerThemedIcons.Logo))]</code>
 	///  <h1>CodeBehind</h1>
 	///  <para>In codebehind, we have two distinct tasks: (a) specify some icon in the APIs and (b) render icon images onscreen.</para>
-	///  <para>On the APIs stage you should only manipulate icon identifier objects (of type <see cref="JetBrains.UI.Icons.IconId" />, statically defined in <see cref="ReSharperPlugin.XamlStyler.dotUltimate.Resources.XamlStylerThemedIcons" /> in <c>Id</c> fields). Icon identifier classes (nested in <see cref="ReSharperPlugin.XamlStyler.dotUltimate.Resources.XamlStylerThemedIcons" />) should be turned into icon identifier objects as early as possible. Rendering is about getting an <see cref="System.Windows.Media.ImageSource" /> to assign to WPF, or <see cref="System.Drawing.Bitmap" /> to use with GDI+ / Windows Forms.</para>
+	///  <para>On the APIs stage you should only manipulate icon identifier objects (of type <see cref="JetBrains.UI.Icons.IconId" />, statically defined in <see cref="Xavalon.XamlStyler.Extension.Rider.Resources.XamlStylerThemedIcons" /> in <c>Id</c> fields). Icon identifier classes (nested in <see cref="Xavalon.XamlStyler.Extension.Rider.Resources.XamlStylerThemedIcons" />) should be turned into icon identifier objects as early as possible. Rendering is about getting an <see cref="System.Windows.Media.ImageSource" /> to assign to WPF, or <see cref="System.Drawing.Bitmap" /> to use with GDI+ / Windows Forms.</para>
 	///  <para>You should turn an identifier object into a rendered image as late as possible. The identifier is static and lightweight and does not depend on the current theme, while the image is themed and has to be loaded or generated/rasterized. You need an <see cref="JetBrains.UI.Icons.IThemedIconManager" /> instance to get the image out of an icon identifier object. Once you got the image, you should take care to change it with theme changes — either by using a live image property, or by listening to the theme change event. See <see cref="JetBrains.UI.Icons.IThemedIconManager" /> and its extensions for the related facilities.</para>
 	///  <para>Example:</para>
 	///  <code>// Getting IconId identifier object to use with APIs
@@ -58,13 +58,13 @@ namespace ReSharperPlugin.XamlStyler.dotUltimate.Resources
 		/// <summary>
 		///  <para>
 		///    <para>Autogenerated identifier class for the Logo Themed Icon.</para>
-		///    <para>Identifier classes should be used in attributes, XAML, or generic parameters. Where an <see cref="JetBrains.UI.Icons.IconId" /> value is expected, use the identifier object in the <see cref="ReSharperPlugin.XamlStyler.dotUltimate.Resources.XamlStylerThemedIcons.Logo.Id" /> field of the identifier class.</para>
+		///    <para>Identifier classes should be used in attributes, XAML, or generic parameters. Where an <see cref="JetBrains.UI.Icons.IconId" /> value is expected, use the identifier object in the <see cref="Xavalon.XamlStyler.Extension.Rider.Resources.XamlStylerThemedIcons.Logo.Id" /> field of the identifier class.</para>
 		///  </para>
 		///</summary>
 		///<remarks>
-		///  <para>For details on Themed Icons and their use, see Remarks on <see cref="ReSharperPlugin.XamlStyler.dotUltimate.Resources.XamlStylerThemedIcons" /> class.</para>
+		///  <para>For details on Themed Icons and their use, see Remarks on <see cref="Xavalon.XamlStyler.Extension.Rider.Resources.XamlStylerThemedIcons" /> class.</para>
 		///</remarks>
-		///<seealso cref="ReSharperPlugin.XamlStyler.dotUltimate.Resources.XamlStylerThemedIcons" />
+		///<seealso cref="Xavalon.XamlStyler.Extension.Rider.Resources.XamlStylerThemedIcons" />
 		///<example>
 		///  <code>&lt;Image Source="{icons:ThemedIcon myres:XamlStylerThemedIcons+Logo}" /&gt;        &lt;!-- XAML --&gt;</code>
 		///</example>
@@ -77,21 +77,21 @@ namespace ReSharperPlugin.XamlStyler.dotUltimate.Resources
 		///<example>
 		///  <code>themediconmanager.GetIcon&lt;XamlStylerThemedIcons.Logo&gt;()        // Icon image for rendering</code>
 		///</example>
-		[global::JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("ReSharperPlugin.XamlStyler.dotUltimate;component/Resources/XamlStyler/ThemedIcons" +
-			".XamlStyler.Generated.Xaml", 0, "Logo")]
+		[global::JetBrains.UI.Icons.CompiledIcons.CompiledIconClassAttribute("Xavalon.XamlStyler.Extension.Rider;component/Resources/XamlStyler/ThemedIcons.Xam" +
+			"lStyler.Generated.Xaml", 0, "Logo")]
 		public sealed class Logo : global::JetBrains.UI.Icons.CompiledIcons.CompiledIconClass
 		{
 			
 			/// <summary>
 			///  <para>
 			///    <para>Autogenerated identifier object for the Logo Themed Icon.</para>
-			///    <para>Identifier objects should be used where an <see cref="JetBrains.UI.Icons.IconId" /> value is expected. In attributes, XAML, or generic parameters use the containing <see cref="ReSharperPlugin.XamlStyler.dotUltimate.Resources.XamlStylerThemedIcons.Logo" /> identifier class.</para>
+			///    <para>Identifier objects should be used where an <see cref="JetBrains.UI.Icons.IconId" /> value is expected. In attributes, XAML, or generic parameters use the containing <see cref="Xavalon.XamlStyler.Extension.Rider.Resources.XamlStylerThemedIcons.Logo" /> identifier class.</para>
 			///  </para>
 			///</summary>
 			///<remarks>
-			///  <para>For details on Themed Icons and their use, see Remarks on <see cref="ReSharperPlugin.XamlStyler.dotUltimate.Resources.XamlStylerThemedIcons" /> class.</para>
+			///  <para>For details on Themed Icons and their use, see Remarks on <see cref="Xavalon.XamlStyler.Extension.Rider.Resources.XamlStylerThemedIcons" /> class.</para>
 			///</remarks>
-			///<seealso cref="ReSharperPlugin.XamlStyler.dotUltimate.Resources.XamlStylerThemedIcons" />
+			///<seealso cref="Xavalon.XamlStyler.Extension.Rider.Resources.XamlStylerThemedIcons" />
 			///<example>
 			///  <code>&lt;Image Source="{icons:ThemedIcon myres:XamlStylerThemedIcons+Logo}" /&gt;        &lt;!-- XAML --&gt;</code>
 			///</example>
@@ -104,14 +104,14 @@ namespace ReSharperPlugin.XamlStyler.dotUltimate.Resources
 			///<example>
 			///  <code>themediconmanager.GetIcon&lt;XamlStylerThemedIcons.Logo&gt;()        // Icon image for rendering</code>
 			///</example>
-			public static global::JetBrains.UI.Icons.IconId Id = new global::JetBrains.UI.Icons.CompiledIcons.CompiledIconId("ReSharperPlugin.XamlStyler.dotUltimate;component/Resources/XamlStyler/ThemedIcons" +
-					".XamlStyler.Generated.Xaml", 0, "Logo");
+			public static global::JetBrains.UI.Icons.IconId Id = new global::JetBrains.UI.Icons.CompiledIcons.CompiledIconId("Xavalon.XamlStyler.Extension.Rider;component/Resources/XamlStyler/ThemedIcons.Xam" +
+					"lStyler.Generated.Xaml", 0, "Logo");
 		}
 	}
 }
 
 
-public sealed class RenderedIcons_ByPackResourceNameHash_6ACA17B50259B76C32DE2320D73B3340
+public sealed class RenderedIcons_ByPackResourceNameHash_AE9A706DCA05BA83CDC1E0F72ED39BC3
 {
 	
 	public static byte[] Logo__Color__png__x1 = new byte[] {

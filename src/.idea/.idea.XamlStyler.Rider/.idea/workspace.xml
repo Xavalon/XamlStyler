@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:upstream" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e2665a23-a917-451d-92ae-d854ea3c4bee" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/XamlStyler.Extension.Rider/.idea/runConfigurations/Generate_Protocol.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/XamlStyler.Extension.Rider/.idea/runConfigurations/Rider.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/XamlStyler.Extension.Rider/rider/main/kotlin/xavalon/plugins/xamlstyler/rider/XamlStylerComponent.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/XamlStyler.Extension.Rider/rider/main/kotlin/xavalon/plugins/xamlstyler/rider/XamlStylerModel.Generated.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/XamlStyler.Extension.Rider/rider/main/kotlin/xavalon/plugins/xamlstyler/rider/XamlStylerOptionsPage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/XamlStyler.Extension.Rider/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/ReSharperPlugin.XamlStyler.Rider/Options/StringListViewModel.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/ReSharperPlugin.XamlStyler.Rider/Options/XamlStylerOptionsPage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/ReSharperPlugin.XamlStyler.Rider/Options/ZoneMarker.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/ReSharperPlugin.XamlStyler.Rider/Resources/XamlStyler/ThemedIcons.XamlStyler.Generated.Xaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/ReSharperPlugin.XamlStyler.Rider/Resources/XamlStyler/ThemedIcons.XamlStyler.Generated.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/ReSharperPlugin.XamlStyler.Rider/Resources/XamlStyler/logo-all.xaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/ReSharperPlugin.XamlStyler.Rider/Rider/RiderXamlStylerHost.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/ReSharperPlugin.XamlStyler.Rider/Rider/XamlStylerModel.Generated.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/ReSharperPlugin.XamlStyler.Rider/StylerOptionsFactory.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/ReSharperPlugin.XamlStyler.Rider/XamlStylerReformatContextAction.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/ReSharperPlugin.XamlStyler.Rider/XamlStylerSettings.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/ReSharperPlugin.XamlStyler.Rider/Xavalon.XamlStyler.Extension.Rider.csproj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/XamlStyler.Extension.Rider/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/rider/main/kotlin/xavalon/plugins/xamlstyler/dotultimate/XamlStylerComponent.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/rider/main/kotlin/xavalon/plugins/xamlstyler/dotultimate/XamlStylerModel.Generated.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/rider/main/kotlin/xavalon/plugins/xamlstyler/dotultimate/XamlStylerOptionsPage.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Extension.Rider/rider/main/resources/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/XamlStyler.Extension.Rider/rider/main/resources/META-INF/plugin.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/XamlStyler.Rider.sln" beforeDir="false" afterPath="$PROJECT_DIR$/XamlStyler.Rider.sln" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/Xavalon.XamlStyler.Extension.Rider/Resources/XamlStyler/ThemedIcons.XamlStyler.Generated.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/Xavalon.XamlStyler.Extension.Rider/Resources/XamlStyler/ThemedIcons.XamlStyler.Generated.cs" />
+        <option value="$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/Xavalon.XamlStyler.Extension.Rider/Resources/XamlStyler/ThemedIcons.XamlStyler.Generated.Xaml" />
+        <option value="$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/Xavalon.XamlStyler.Extension.Rider/Xavalon.XamlStyler.Extension.Rider.csproj" />
+        <option value="$PROJECT_DIR$/XamlStyler.Extension.Rider/dotnet/Xavalon.XamlStyler.Extension.Rider/XamlStylerReformatContextAction.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1gDyXpP5rMpWnQayDr7O04kyAMJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+  </component>
+  <component name="RunManager" selected="Native Executable.Rider (Windows)" />
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e2665a23-a917-451d-92ae-d854ea3c4bee" name="Default Changelist" comment="" />
+      <created>1597663503960</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1597663503960</updated>
+      <workItem from="1597663512707" duration="2238000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="null" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="416" y="175" width="1086" height="737" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1597663671731">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="416" y="175" width="1086" height="737" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/3840.0.1920.1040@0.0.1920.1040" timestamp="1597663671731" />
+    <state width="1878" height="282" key="GridCell.Tab.0.bottom" timestamp="1597665643655">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1878" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/3840.0.1920.1040@0.0.1920.1040" timestamp="1597665643655" />
+    <state width="1878" height="282" key="GridCell.Tab.0.center" timestamp="1597665643655">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1878" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/3840.0.1920.1040@0.0.1920.1040" timestamp="1597665643655" />
+    <state width="1878" height="282" key="GridCell.Tab.0.left" timestamp="1597665643655">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1878" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/3840.0.1920.1040@0.0.1920.1040" timestamp="1597665643655" />
+    <state width="1878" height="282" key="GridCell.Tab.0.right" timestamp="1597665643655">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1878" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/3840.0.1920.1040@0.0.1920.1040" timestamp="1597665643655" />
+    <state x="602" y="252" width="730" height="534" key="find.popup" timestamp="1597664858458">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="602" y="252" width="730" height="534" key="find.popup/0.0.1920.1040/3840.0.1920.1040@0.0.1920.1040" timestamp="1597664858458" />
+  </component>
+</project>

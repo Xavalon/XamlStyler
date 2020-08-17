@@ -1,4 +1,4 @@
-package xavalon.plugins.xamlstyler.dotultimate
+package xavalon.plugins.xamlstyler.rider
 
 import com.jetbrains.rider.settings.simple.SimpleOptionsPage
 

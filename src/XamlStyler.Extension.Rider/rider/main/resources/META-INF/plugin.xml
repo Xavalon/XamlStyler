@@ -15,12 +15,12 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <applicationConfigurable groupId="tools"
-                             instance="xavalon.plugins.xamlstyler.dotultimate.XamlStylerOptionsPage" />
+                             instance="xavalon.plugins.xamlstyler.rider.XamlStylerOptionsPage" />
   </extensions>
 
   <project-components>
     <component>
-      <implementation-class>xavalon.plugins.xamlstyler.dotultimate.XamlStylerComponent</implementation-class>
+      <implementation-class>xavalon.plugins.xamlstyler.rider.XamlStylerComponent</implementation-class>
     </component>
   </project-components>
   
