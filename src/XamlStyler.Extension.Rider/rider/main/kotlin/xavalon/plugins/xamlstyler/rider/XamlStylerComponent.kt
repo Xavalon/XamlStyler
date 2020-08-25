@@ -7,18 +7,19 @@ import com.intellij.openapi.editor.Document
 import com.intellij.openapi.fileEditor.FileDocumentManagerListener
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiDocumentManager
+import com.jetbrains.rd.platform.util.getComponent
+import com.jetbrains.rd.platform.util.idea.ProtocolSubscribedProjectComponent
 import com.jetbrains.rd.util.reactive.adviseOnce
-import com.jetbrains.rdclient.util.idea.ProtocolSubscribedProjectComponent
 import com.jetbrains.rider.ideaInterop.fileTypes.xaml.XamlLanguage
 import com.jetbrains.rider.model.RdXamlStylerFormattingRequest
 import com.jetbrains.rider.model.xamlStylerModel
 import com.jetbrains.rider.projectView.solution
-import com.jetbrains.rider.util.idea.getComponent
 
 class XamlStylerComponent(project: Project)
     : ProtocolSubscribedProjectComponent(project), FileDocumentManagerListener {
 
     companion object {
+        @Suppress("unused")
         fun getInstance(project: Project) = project.getComponent<XamlStylerComponent>()
     }
 
