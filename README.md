@@ -11,7 +11,7 @@ XAML Styler is a visual studio extension that formats XAML source code based on 
 
 [![VSMAC](https://img.shields.io/badge/Visual%20Studio%20for%20Mac%202019-v2.0.1-blue.svg)](http://addins.monodevelop.com/Project/Index/382)
 
-![JetBrains IntelliJ Plugins](https://img.shields.io/jetbrains/plugin/v/14932-xaml-styler?label=JetBrains%20Rider)
+[![JetBrains IntelliJ Plugins](https://img.shields.io/jetbrains/plugin/v/14932-xaml-styler?label=JetBrains%20Rider)](https://plugins.jetbrains.com/plugin/14932-xaml-styler)
 
 [![NuGet](https://img.shields.io/nuget/v/XamlStyler.Console.svg?label=XAML%20Styler%20Console)](https://www.nuget.org/packages/XamlStyler.Console)  
 <sub>View [other downloads](https://github.com/Xavalon/XamlStyler/wiki)</sub>
