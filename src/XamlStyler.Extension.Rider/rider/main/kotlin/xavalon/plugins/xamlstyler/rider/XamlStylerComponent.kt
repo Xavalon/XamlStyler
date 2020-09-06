@@ -43,8 +43,8 @@ class XamlStylerComponent(project: Project)
         val currentDocumentText = document.text
 
         // Perform reformat on back-end, asynchronously
-        model.performReformat.start(componentLifetime, RdXamlStylerFormattingRequest(filePath, currentDocumentText)).result
-                .adviseOnce(componentLifetime) { it ->
+        model.performReformat.start(projectComponentLifetime, RdXamlStylerFormattingRequest(filePath, currentDocumentText)).result
+                .adviseOnce(projectComponentLifetime) {
                     val result = it.unwrap()
 
                     // Only update if backend actually made modifications
