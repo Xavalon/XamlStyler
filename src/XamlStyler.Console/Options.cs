@@ -57,6 +57,9 @@ namespace Xavalon.XamlStyler.Console
         [Option("no-newline-elements", HelpText = "Override: no newline elements.")]
         public string NoNewLineElements { get; set; }
 
+        [Option("ignore-encode-for-attributes", HelpText = "Override: ignore encode for attributes.")]
+        public string IgnoreEncodeForAttributes { get; set; }
+
         [Option("attributes-order-groups-newline", HelpText = "Override: put attribute order rule groups on separate lines.")]
         public bool? PutAttributeOrderRuleGroupsOnSeparateLines { get; set; }
 

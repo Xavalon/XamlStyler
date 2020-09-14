@@ -68,6 +68,11 @@ namespace Xavalon.XamlStyler.Console
                 stylerOptions.NoNewLineElements = options.NoNewLineElements;
             }
 
+            if (options.IgnoreEncodeForAttributes != null)
+            {
+                stylerOptions.IgnoreEncodeForAttributes = options.IgnoreEncodeForAttributes;
+            }
+
             if (options.PutAttributeOrderRuleGroupsOnSeparateLines != null)
             {
                 stylerOptions.PutAttributeOrderRuleGroupsOnSeparateLines = options.PutAttributeOrderRuleGroupsOnSeparateLines.Value;

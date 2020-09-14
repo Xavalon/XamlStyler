@@ -106,9 +106,9 @@ namespace Xavalon.XamlStyler.Options
         public string NoNewLineElements { get; set; }
 
         [Category("Attribute Formatting")]
-        [DisplayName("IgnoreEncodeForAttributes")]
+        [DisplayName("Ignore encode for attributes")]
         [JsonProperty("IgnoreEncodeForAttributes", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("IgnoreEncodeForAttributes.\r\n\r\nDefault Value: None")]
+        [Description("Defines whether properties shouldn't be encoded.\r\n\r\nDefault Value: None")]
         [DefaultValue("")]
         public string IgnoreEncodeForAttributes { get; set; }
 
