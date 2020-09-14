@@ -1,0 +1,5 @@
+﻿<Styles xmlns="https://github.com/avaloniaui">
+    <Style Selector="RadioButton > TextBlock">
+        <Setter Property="Foreground" Value="Green" />
+    </Style>
+</Styles>

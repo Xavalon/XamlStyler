@@ -449,6 +449,18 @@ namespace Xavalon.XamlStyler.UnitTests
             FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
+        [Test]
+        public void TestAttributeIgnoreEncode()
+        {
+            var stylerOptions = new StylerOptions(
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations\TestAttributeIgnoreEncode.json"))
+            {
+                IgnoreEncodeForAttributes = "Selector"
+            };
+
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
+        }
+
         private static void DoTest(
             StylerOptions stylerOptions,
             [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
