@@ -36,6 +36,8 @@ namespace Xavalon.XamlStyler.Options
 
         string NoNewLineElements { get; set; }
 
+        string IgnoreEncodeForAttributes { get; set; }
+
         bool PutAttributeOrderRuleGroupsOnSeparateLines { get; set; }
 
         int AttributeIndentation { get; set; }

@@ -106,6 +106,13 @@ namespace Xavalon.XamlStyler.Options
         public string NoNewLineElements { get; set; }
 
         [Category("Attribute Formatting")]
+        [DisplayName("IgnoreEncodeForAttributes")]
+        [JsonProperty("IgnoreEncodeForAttributes", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("IgnoreEncodeForAttributes.\r\n\r\nDefault Value: None")]
+        [DefaultValue("")]
+        public string IgnoreEncodeForAttributes { get; set; }
+
+        [Category("Attribute Formatting")]
         [DisplayName("Separate by groups")]
         [JsonProperty("SeparateByGroups", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [Description("Defines whether attributes belonging to different rule groups should be put on separate lines, while, if possible, keeping attributes in the same group on the same line.\r\n\r\nDefault Value: false")]

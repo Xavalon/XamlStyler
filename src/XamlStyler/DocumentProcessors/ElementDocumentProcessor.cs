@@ -24,6 +24,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
         private readonly XmlEscapingService xmlEscapingService;
         private readonly IList<string> noNewLineElementsList;
         private readonly IList<string> firstLineAttributes;
+        private readonly IList<string> ignoreEncodeForAttributes;
         private readonly string[] inlineCollections = { "TextBlock", "RichTextBlock", "Paragraph", "Run", "Span", "InlineUIContainer", "AnchoredBlock" };
         private readonly string[] inlineTypes = { "Paragraph", "Run", "Span", "InlineUIContainer", "AnchoredBlock", "Hyperlink", "Bold", "Italic", "Underline", "LineBreak" };
 
@@ -41,6 +42,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
             this.xmlEscapingService = xmlEscapingService;
             this.noNewLineElementsList = options.NoNewLineElements.ToList();
             this.firstLineAttributes = options.FirstLineAttributes.ToList();
+            this.ignoreEncodeForAttributes = options.IgnoreEncodeForAttributes.ToList();
         }
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
@@ -202,7 +204,8 @@ namespace Xavalon.XamlStyler.DocumentProcessors
             {
                 foreach (var attrInfo in list)
                 {
-                    output.Append(' ').Append(this.attributeInfoFormatter.ToSingleLineString(attrInfo));
+                    var ignoreEncode = IsIgnoreEncodeForAttributes(attrInfo.Name);
+                    output.Append(' ').Append(this.attributeInfoFormatter.ToSingleLineString(attrInfo, ignoreEncode));
                 }
 
                 elementProcessContext.Current.IsMultlineStartTag = false;
@@ -221,7 +224,8 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                 string firstLine = String.Empty;
                 foreach (var attrInfo in firstLineList)
                 {
-                    firstLine = $"{firstLine} {this.attributeInfoFormatter.ToSingleLineString(attrInfo)}";
+                    var ignoreEncode = IsIgnoreEncodeForAttributes(attrInfo.Name);
+                    firstLine = $"{firstLine} {this.attributeInfoFormatter.ToSingleLineString(attrInfo, ignoreEncode)}";
                 }
 
                 if (firstLine.Length > 0)
@@ -252,7 +256,8 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                     }
                     else
                     {
-                        string pendingAppend = this.attributeInfoFormatter.ToSingleLineString(attrInfo);
+                        var ignoreEncode = IsIgnoreEncodeForAttributes(attrInfo.Name);
+                        string pendingAppend = this.attributeInfoFormatter.ToSingleLineString(attrInfo, ignoreEncode);
                         var actualPendingAppend = this.xmlEscapingService.RestoreXmlnsAliasesBypass(pendingAppend);
                         xmlnsAliasesBypassLengthInCurrentLine += pendingAppend.Length - actualPendingAppend.Length;
 
@@ -351,6 +356,11 @@ namespace Xavalon.XamlStyler.DocumentProcessors
         private bool IsNoLineBreakElement(string elementName)
         {
             return this.noNewLineElementsList.Contains(elementName);
+        }
+
+        private bool IsIgnoreEncodeForAttributes(string attributeName)
+        {
+            return this.ignoreEncodeForAttributes.Contains(attributeName);
         }
     }
 }
