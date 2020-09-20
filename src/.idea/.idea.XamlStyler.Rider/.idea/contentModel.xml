@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="C:\Users\maart\AppData\Local\JetBrains\Rider2020.2\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\maart\AppData\Local\JetBrains\Rider2020.2\resharper-host\Local\Transient\rider\v202\SolutionCaches\_XamlStyler.Rider.536689390.00" t="ExcludeRecursive" />
+    <e p="C:\Users\maart\AppData\Roaming\JetBrains\Rider2020.2\consoles\db" t="IncludeRecursive" />
+    <e p="C:\Users\maart\AppData\Roaming\JetBrains\Rider2020.2\extensions" t="IncludeRecursive" />
+    <e p="C:\Users\maart\AppData\Roaming\JetBrains\Rider2020.2\scratches" t="IncludeRecursive" />
+    <e p="D:\Projects\Git\XamlStyler\src" t="IncludeFlat">
+      <e p="_" t="Include" />
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="packages" t="ExcludeRecursive" />
+      <e p="XamlStyler" t="IncludeRecursive">
+        <e p="DocumentManipulation" t="Include">
+          <e p="AttributeRemovalService.cs" t="Include" />
+          <e p="AttributeSelector.cs" t="Include" />
+          <e p="DocumentManipulationService.cs" t="Include" />
+          <e p="FormatThicknessService.cs" t="Include" />
+          <e p="IProcessElementService.cs" t="Include" />
+          <e p="ISortableAttribute.cs" t="Include" />
+          <e p="NameSelector.cs" t="Include" />
+          <e p="NodeCollection.cs" t="Include" />
+          <e p="NodeReorderService.cs" t="Include" />
+          <e p="SortableNumericAttribute.cs" t="Include" />
+          <e p="SortableStringAttribute.cs" t="Include" />
+          <e p="SortBy.cs" t="Include" />
+          <e p="ThicknessFormatter.cs" t="Include" />
+          <e p="ThicknessStyle.cs" t="Include" />
+          <e p="VSMReorderService.cs" t="Include" />
+          <e p="Wildcard.cs" t="Include" />
+        </e>
+        <e p="DocumentProcessors" t="Include">
+          <e p="CDATADocumentProcessor.cs" t="Include" />
+          <e p="CommentDocumentProcessor.cs" t="Include" />
+          <e p="ElementDocumentProcessor.cs" t="Include" />
+          <e p="ElementProcessContext.cs" t="Include" />
+          <e p="EndElementDocumentProcessor.cs" t="Include" />
+          <e p="IDocumentProcessor.cs" t="Include" />
+          <e p="ProcessInstructionDocumentProcessor.cs" t="Include" />
+          <e p="SignificantWhitespaceDocumentProcessor.cs" t="Include" />
+          <e p="TextDocumentProcessor.cs" t="Include" />
+          <e p="WhitespaceDocumentProcessor.cs" t="Include" />
+          <e p="XmlDeclarationDocumentProcessor.cs" t="Include" />
+        </e>
+        <e p="extensions" t="Include">
+          <e p="ListExtensions.cs" t="Include" />
+          <e p="StringBuilderExtensions.cs" t="Include" />
+          <e p="StringExtension.cs" t="Include" />
+          <e p="XmlReaderExtensions.cs" t="Include" />
+        </e>
+        <e p="Key.snk" t="Include" />
+        <e p="MarkupExtensions" t="Include">
+          <e p="Formatter" t="Include">
+            <e p="AttributeInfoFactory.cs" t="Include" />
+            <e p="AttributeInfoFormatter.cs" t="Include" />
+            <e p="MarkupExtensionFormatter.cs" t="Include" />
+            <e p="MarkupExtensionFormatterBase.cs" t="Include" />
+            <e p="MultiLineMarkupExtensionFormatter.cs" t="Include" />
+            <e p="SingleLineMarkupExtensionFormatter.cs" t="Include" />
+          </e>
+          <e p="Parser" t="Include">
+            <e p="Argument.cs" t="Include" />
+            <e p="IMarkupExtensionParser.cs" t="Include" />
+            <e p="LiteralValue.cs" t="Include" />
+            <e p="MarkupExtension.cs" t="Include" />
+            <e p="MarkupExtensionParser.cs" t="Include" />
+            <e p="MemberNameOrStringTerminal.cs" t="Include" />
+            <e p="MemberNameTerminal.cs" t="Include" />
+            <e p="NamedArgument.cs" t="Include" />
+            <e p="PositionalArgument.cs" t="Include" />
+            <e p="StringTerminal.cs" t="Include" />
+            <e p="TypeNameTerminal.cs" t="Include" />
+            <e p="Value.cs" t="Include" />
+            <e p="XamlMarkupExtensionGrammar.cs" t="Include" />
+          </e>
+        </e>
+        <e p="Model" t="Include">
+          <e p="AttributeInfo.cs" t="Include" />
+          <e p="AttributeOrderRule.cs" t="Include" />
+          <e p="AttributeOrderRules.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="XamlStyler.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Options" t="Include">
+          <e p="AttributeIndentationStyle.cs" t="Include" />
+          <e p="DefaultSettings.json" t="Include" />
+          <e p="IStylerOptions.cs" t="Include" />
+          <e p="LineBreakRule.cs" t="Include" />
+          <e p="ReorderSettersBy.cs" t="Include" />
+          <e p="StringArrayConverter.cs" t="Include" />
+          <e p="StylerOptions.cs" t="Include" />
+          <e p="VisualStateManagerRule.cs" t="Include" />
+        </e>
+        <e p="Parser" t="Include">
+          <e p="ContentTypeEnum.cs" t="Include" />
+          <e p="ElementProcessStatus.cs" t="Include" />
+        </e>
+        <e p="Properties" t="Include" />
+        <e p="Services" t="Include">
+          <e p="IndentService.cs" t="Include" />
+          <e p="XmlEscapingService.cs" t="Include" />
+        </e>
+        <e p="Settings.StyleCop" t="Include" />
+        <e p="StylerService.cs" t="Include" />
+        <e p="XamlStyler.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="XamlStyler.Extension.Rider\CHANGELOG.md" t="Include" />
+      <e p="XamlStyler.Extension.Rider\Core" t="Include" />
+      <e p="XamlStyler.Extension.Rider\dotnet\Directory.Build.props" t="Include" />
+      <e p="XamlStyler.Extension.Rider\dotnet\Plugin.props" t="Include" />
+      <e p="XamlStyler.Extension.Rider\dotnet\Xavalon.XamlStyler.Extension.Rider" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Xavalon.XamlStyler.Extension.Rider" t="Include">
+            <e p="Debug" t="Include">
+              <e p="Xavalon.XamlStyler.Extension.Rider.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Options" t="Include">
+          <e p="StringListViewModel.cs" t="Include" />
+          <e p="XamlStylerOptionsPage.cs" t="Include" />
+          <e p="ZoneMarker.cs" t="Include" />
+        </e>
+        <e p="resources" t="Include">
+          <e p="XamlStyler" t="Include">
+            <e p="logo-all.xaml" t="Include" />
+            <e p="ThemedIcons.XamlStyler.Generated.cs" t="Include" />
+            <e p="ThemedIcons.XamlStyler.Generated.Xaml" t="Include" />
+          </e>
+        </e>
+        <e p="rider" t="Include">
+          <e p="RiderXamlStylerHost.cs" t="Include" />
+          <e p="XamlStylerModel.Generated.cs" t="Include" />
+        </e>
+        <e p="StylerOptionsFactory.cs" t="Include" />
+        <e p="XamlStylerReformatContextAction.cs" t="Include" />
+        <e p="XamlStylerSettings.cs" t="Include" />
+        <e p="Xavalon.XamlStyler.Extension.Rider.csproj" t="IncludeRecursive" />
+      </e>
+      <e p="XamlStyler.Extension.Rider\gradle.properties" t="Include" />
+      <e p="XamlStyler.Extension.Rider\Plugin" t="Include" />
+      <e p="XamlStyler.Extension.Rider\rider\main\resources\META-INF\plugin.xml" t="Include" />
+      <e p="XamlStyler.Rider.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>

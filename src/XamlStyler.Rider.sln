@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xavalon.XamlStyler.Extension.Rider.Rider", "XamlStyler.Extension.Rider\dotnet\Xavalon.XamlStyler.Extension.Rider\Xavalon.XamlStyler.Extension.Rider.csproj", "{A47AA8AC-614D-409D-B9E5-7963602DCB5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_", "_", "{C71D5C64-E299-4FB1-8412-5A599A5293C0}"
+ProjectSection(SolutionItems) = preProject
+	XamlStyler.Extension.Rider\dotnet\Directory.Build.props = XamlStyler.Extension.Rider\dotnet\Directory.Build.props
+	XamlStyler.Extension.Rider\dotnet\Plugin.props = XamlStyler.Extension.Rider\dotnet\Plugin.props
+	XamlStyler.Extension.Rider\rider\main\resources\META-INF\plugin.xml = XamlStyler.Extension.Rider\rider\main\resources\META-INF\plugin.xml
+	XamlStyler.Extension.Rider\CHANGELOG.md = XamlStyler.Extension.Rider\CHANGELOG.md
+	XamlStyler.Extension.Rider\gradle.properties = XamlStyler.Extension.Rider\gradle.properties
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler", "XamlStyler\XamlStyler.csproj", "{BC461E85-4417-41DA-8A2D-3F220C2AA7FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "XamlStyler.Extension.Rider\Core", "{82A8F3F3-A456-4587-9061-575FD0E74DB6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugin", "XamlStyler.Extension.Rider\Plugin", "{0B6C2375-2D57-44AA-8C5E-97FA300A40EA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A47AA8AC-614D-409D-B9E5-7963602DCB5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A47AA8AC-614D-409D-B9E5-7963602DCB5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A47AA8AC-614D-409D-B9E5-7963602DCB5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A47AA8AC-614D-409D-B9E5-7963602DCB5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC461E85-4417-41DA-8A2D-3F220C2AA7FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC461E85-4417-41DA-8A2D-3F220C2AA7FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC461E85-4417-41DA-8A2D-3F220C2AA7FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC461E85-4417-41DA-8A2D-3F220C2AA7FB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BC461E85-4417-41DA-8A2D-3F220C2AA7FB} = {82A8F3F3-A456-4587-9061-575FD0E74DB6}
+		{A47AA8AC-614D-409D-B9E5-7963602DCB5A} = {0B6C2375-2D57-44AA-8C5E-97FA300A40EA}
+	EndGlobalSection
+EndGlobal

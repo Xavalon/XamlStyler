@@ -1,0 +1,17 @@
+<Project>
+  <PropertyGroup>
+    <!-- RIDER: To be updated with new Rider release -->
+    <SdkVersion>2020.2.0</SdkVersion>
+    
+    <Title>XAML Styler</Title>
+    <Description>XAML Styler is an extension that formats XAML source code based on a set of styling rules. This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.</Description>
+  
+    <Authors>Author</Authors>
+    <Copyright>Copyright $([System.DateTime]::Now.Year) Xavalon</Copyright>
+    <PackageTags>resharper rider xaml styler xamlstyler formatting formatter format plugin style uwp wpf</PackageTags>
+  
+    <PackageProjectUrl>https://github.com/Xavalon/XamlStyler</PackageProjectUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/Xavalon/XamlStyler/master/LICENSE.txt</PackageLicenseUrl>
+    <PackageIconUrl>https://github.com/Xavalon/XamlStyler/raw/master/XamlStyler.Package/Resources/icon200.jpg</PackageIconUrl>
+  </PropertyGroup>
+</Project>

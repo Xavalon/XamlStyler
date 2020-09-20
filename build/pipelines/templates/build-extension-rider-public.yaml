@@ -1,0 +1,49 @@
+jobs:
+- job: BuildRiderExtension
+
+  displayName: 'Build Rider Plugin'
+
+  pool:
+    vmImage: 'windows-latest'
+
+  variables:
+    pluginVersion: $(Build.BuildNumber)
+
+  steps:      
+  - task: NuGetToolInstaller@1
+    displayName: 'Install NuGet Tools'
+
+  - task: NuGetCommand@2
+    displayName: 'NuGet Restore'
+    inputs:
+      command: custom
+      arguments: restore src/XamlStyler.Rider.sln -Verbosity Detailed -NonInteractive
+
+  - task: Gradle@2
+    displayName: Build
+    inputs:
+      workingDirectory: '$(Pipeline.Workspace)\s\src\XamlStyler.Extension.Rider'
+      gradleWrapperFile: '$(Pipeline.Workspace)\s\src\XamlStyler.Extension.Rider\gradlew.bat'
+      gradleOptions: '-Xmx3072m'
+      options: '-PPluginVersion=$(pluginVersion)'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.8'
+      jdkArchitectureOption: 'x64'
+      publishJUnitResults: true
+      testResultsFiles: '**/TEST-*.xml'
+      tasks: 'buildPlugin'
+
+  - task: CopyFiles@2
+    displayName: Copy Artifacts to Staging
+    inputs:
+      contents: '$(Pipeline.Workspace)\s\src\XamlStyler.Extension.Rider\output\**\*.zip'
+      targetFolder: $(Build.ArtifactStagingDirectory)
+      cleanTargetFolder: true
+      overWrite: true
+      flattenFolders: true
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish artifacts
+    inputs:
+      pathToPublish: $(Build.ArtifactStagingDirectory)
+      artifactName: 'XamlStyler.Extension.Rider'

@@ -16,3 +16,4 @@ jobs:
 - template: ./templates/run-tests-public.yaml
 - template: ./templates/build-extension-public.yaml
 - template: ./templates/build-console-public.yaml
+- template: ./templates/build-extension-rider-public.yaml

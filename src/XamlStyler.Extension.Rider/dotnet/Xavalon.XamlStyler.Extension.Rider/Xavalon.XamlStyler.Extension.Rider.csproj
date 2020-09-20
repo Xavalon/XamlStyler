@@ -1,0 +1,42 @@
+﻿<Project>
+
+    <PropertyGroup>
+        <LanguageTargets>$(MSBuildToolsPath)\Microsoft.CSharp.targets</LanguageTargets>
+    </PropertyGroup>
+
+    <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
+
+    <PropertyGroup>
+        <TargetFramework>net461</TargetFramework>
+        <IsPackable>false</IsPackable>
+        <DefineConstants>$(DefineConstants);RIDER</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\XamlStyler\XamlStyler.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="JetBrains.Rider.SDK" Version="$(SdkVersion)" />
+        <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="System.Xaml" />
+        <Reference Include="WindowsBase" />
+        <Reference Include="PresentationCore" />
+        <Reference Include="PresentationFramework" />
+
+        <!-- RIDER: Uncomment these when icons need to be re-generated into XAML,
+             and then build the current projct from within the IDE. -->
+        <!--<ThemedIconsXamlV3 Include="**\*.xaml">
+            <ThemeColumns>Color</ThemeColumns>
+            <RemoveBackgroundElement>True</RemoveBackgroundElement>
+            <SubType>Designer</SubType>
+            <Generator>MSBuild:Compile</Generator>
+        </ThemedIconsXamlV3>-->
+    </ItemGroup>
+
+    <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
+
+</Project>
