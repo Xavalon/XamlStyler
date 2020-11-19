@@ -299,9 +299,9 @@ namespace Xavalon.XamlStyler.Options
         public bool SearchToDriveRoot { get; set; }
 
         [Category("Attribute Reordering")]
-        [DisplayName("Attribute with design time namespaces")]
+        [DisplayName("Attribute with ignored namespaces when ordering properties")]
         [JsonProperty("IgnoredNamespacesInOrdering", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines attribute containing design time namespaces. Those namespaces will be ignored when ordering properties in XAML files. Use ',' as a delimiter between attributes.")]
+        [Description("Defines attribute containing namespaces to ignore when ordering properties in XAML files.")]
         [DefaultValue(new[]
         {
             "http://schemas.microsoft.com/expression/blend/2008",

@@ -25,7 +25,6 @@ namespace Xavalon.XamlStyler
         private readonly IStylerOptions options;
         private readonly XmlEscapingService xmlEscapingService;
         private Dictionary<XmlNodeType, IDocumentProcessor> documentProcessors;
-        private IList<string> ignoredNamespaces;
 
         public StylerService(IStylerOptions options)
         {
@@ -74,8 +73,6 @@ namespace Xavalon.XamlStyler
 
         private void ApplyOptions(IList<string> ignoredNamespacesLocalNames)
         {
-            this.ignoredNamespaces = options.IgnoredNamespacesInOrdering;
-
             var indentService = new IndentService(options);
             var markupExtensionFormatter = new MarkupExtensionFormatter(options.NoNewLineMarkupExtensions.ToList());
             var attributeInfoFactory = new AttributeInfoFactory(new MarkupExtensionParser(), new AttributeOrderRules(options), ignoredNamespacesLocalNames);

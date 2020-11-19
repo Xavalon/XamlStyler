@@ -13,11 +13,11 @@ namespace Xavalon.XamlStyler.Console
             args = new string[]
             {
                 // Provide sample test file to "xaml-style".
-                "-f", @"C:\Users\developer\Desktop\XamlStylerTests\SampleXaml.xaml",
+                "-f", @"C:\Users\turek\Desktop\XamlStylerTests\SampleXaml.xaml",
                 // Set Debug level logging.
                 "-l", "Debug",
                 // XAML styler settings file.
-                "-c", @"C:\Users\developer\Desktop\XamlStylerTests\StylerSettings.json",
+                "-c", @"C:\Users\turek\Desktop\XamlStylerTests\StylerSettings.json",
             };
             var writer = new StringWriter();
             var parser = new CommandLine.Parser(_ => _.HelpWriter = writer);
