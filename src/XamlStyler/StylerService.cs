@@ -56,7 +56,7 @@ namespace Xavalon.XamlStyler
 
                 // Find ignored namespaces in document.
                 var ignoredNamespacesLocalNames = FindIgnoredNamespaces(manipulatedDocument, options.IgnoredNamespacesInOrdering);
-                
+
                 // Once we have ignored namespaces from first element,
                 // we can apply styler configuration.
                 ApplyOptions(ignoredNamespacesLocalNames);

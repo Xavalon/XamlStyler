@@ -30,7 +30,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
         public ElementDocumentProcessor(
             IStylerOptions options,
             AttributeInfoFactory attributeInfoFactory,
-            AttributeInfoFormatter attributeInfoFormatter, 
+            AttributeInfoFormatter attributeInfoFormatter,
             IndentService indentService,
             XmlEscapingService xmlEscapingService)
         {
@@ -98,8 +98,8 @@ namespace Xavalon.XamlStyler.DocumentProcessors
             {
                 bool isNoLineBreakElement = this.IsNoLineBreakElement(elementName);
                 this.ProcessAttributes(
-                    xmlReader, 
-                    output, 
+                    xmlReader,
+                    output,
                     elementProcessContext,
                     isNoLineBreakElement,
                     attributeIndetationString);
@@ -134,10 +134,10 @@ namespace Xavalon.XamlStyler.DocumentProcessors
         }
 
         private void ProcessAttributes(
-            XmlReader xmlReader, 
-            StringBuilder output, 
-            ElementProcessContext elementProcessContext, 
-            bool isNoLineBreakElement, 
+            XmlReader xmlReader,
+            StringBuilder output,
+            ElementProcessContext elementProcessContext,
+            bool isNoLineBreakElement,
             string attributeIndentationString)
         {
             var list = new List<AttributeInfo>(xmlReader.AttributeCount);
@@ -326,11 +326,11 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                 {
                     return String.Compare(x.AttributeNameWithoutNamespace, y.AttributeNameWithoutNamespace, StringComparison.Ordinal);
                 }
-                else if(x.AttributeHasIgnoredNamespace)
+                else if (x.AttributeHasIgnoredNamespace)
                 {
                     return String.Compare(x.AttributeNameWithoutNamespace, y.Name, StringComparison.Ordinal);
                 }
-                else if(y.AttributeHasIgnoredNamespace)
+                else if (y.AttributeHasIgnoredNamespace)
                 {
                     return String.Compare(x.Name, y.AttributeNameWithoutNamespace, StringComparison.Ordinal);
                 }
@@ -362,8 +362,8 @@ namespace Xavalon.XamlStyler.DocumentProcessors
         }
 
         private bool IsFirstLineAttribute(string attributeName)
-        {  
-            return this.firstLineAttributes.Contains(attributeName);  
+        {
+            return this.firstLineAttributes.Contains(attributeName);
         }
 
         private bool IsNoLineBreakElement(string elementName)
