@@ -1,8 +1,10 @@
 ﻿// (c) Xavalon. All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
@@ -20,17 +22,63 @@ namespace Xavalon.XamlStyler
     public class StylerService
     {
         private readonly DocumentManipulationService documentManipulationService;
-        private readonly Dictionary<XmlNodeType, IDocumentProcessor> documentProcessors;
+        private readonly IStylerOptions options;
         private readonly XmlEscapingService xmlEscapingService;
+        private Dictionary<XmlNodeType, IDocumentProcessor> documentProcessors;
+        private IList<string> ignoredNamespaces;
 
         public StylerService(IStylerOptions options)
         {
             this.xmlEscapingService = new XmlEscapingService();
             this.documentManipulationService = new DocumentManipulationService(options);
 
+            this.options = options;
+        }
+
+        /// <summary>
+        /// Execute styling from string input
+        /// </summary>
+        /// <param name="xamlSource"></param>
+        /// <returns></returns>
+        public string StyleDocument(string xamlSource)
+        {
+            string xamlOutput = xamlSource;
+
+            if (this.documentManipulationService.AllowProcessing)
+            {
+                // Escape all xml entity references to ensure that they are output exactly as given.
+                var escapedDocument = this.xmlEscapingService.EscapeDocument(xamlSource);
+
+                // Parse XDocument.
+                var xDocument = XDocument.Parse(escapedDocument, LoadOptions.PreserveWhitespace);
+
+                // Manipulate the document tree.
+                var manipulatedDocument = this.documentManipulationService.ManipulateDocument(xDocument);
+
+                // Find ignored namespaces in document.
+                var ignoredNamespacesLocalNames = FindIgnoredNamespaces(manipulatedDocument, options.IgnoredNamespacesInOrdering);
+                
+                // Once we have ignored namespaces from first element,
+                // we can apply styler configuration.
+                ApplyOptions(ignoredNamespacesLocalNames);
+
+                // Format it to a string.
+                var format = this.Format(manipulatedDocument);
+
+                // Restore escaped xml entity references.
+                xamlOutput = this.xmlEscapingService.UnescapeDocument(format);
+            }
+
+            return xamlOutput;
+        }
+
+        private void ApplyOptions(IList<string> ignoredNamespacesLocalNames)
+        {
+            this.ignoredNamespaces = options.IgnoredNamespacesInOrdering;
+
             var indentService = new IndentService(options);
             var markupExtensionFormatter = new MarkupExtensionFormatter(options.NoNewLineMarkupExtensions.ToList());
-            var attributeInfoFactory = new AttributeInfoFactory(new MarkupExtensionParser(), new AttributeOrderRules(options));
+            var attributeInfoFactory = new AttributeInfoFactory(new MarkupExtensionParser(), new AttributeOrderRules(options), ignoredNamespacesLocalNames);
             var attributeInfoFormatter = new AttributeInfoFormatter(markupExtensionFormatter, indentService);
 
             this.documentProcessors = new Dictionary<XmlNodeType, IDocumentProcessor>
@@ -57,34 +105,42 @@ namespace Xavalon.XamlStyler
             };
         }
 
-        /// <summary>
-        /// Execute styling from string input
-        /// </summary>
-        /// <param name="xamlSource"></param>
-        /// <returns></returns>
-        public string StyleDocument(string xamlSource)
+        private static IList<string> FindIgnoredNamespaces(string xamlSource, string[] ignoredNamespaces)
         {
-            string xamlOutput = xamlSource;
-
-            if (this.documentManipulationService.AllowProcessing)
+            using (var sourceReader = new StringReader(xamlSource))
             {
-                // Escape all xml entity references to ensure that they are output exactly as given.
-                var escapedDocument = this.xmlEscapingService.EscapeDocument(xamlSource);
+                using (XmlReader xmlReader = XmlReader.Create(sourceReader))
+                {
+                    // Try read first element
+                    while (!xmlReader.Read() || xmlReader.NodeType != XmlNodeType.Element) { }
+                    // Did not find any elements.
+                    if (xmlReader.EOF)
+                    {
+                        return Array.Empty<string>();
+                    }
+                    // Try to move to first attribute.
+                    if (!xmlReader.MoveToFirstAttribute())
+                    {
+                        // First element do not have any attributes.
+                        return Array.Empty<string>();
+                    }
 
-                // Parse XDocument.
-                var xDocument = XDocument.Parse(escapedDocument, LoadOptions.PreserveWhitespace);
+                    IList<string> ignoredNamespacesLocalNames = new List<string>();
+                    while (xmlReader.MoveToNextAttribute())
+                    {
+                        // Full namespace URI, it's stored in Value property.
+                        var localName = xmlReader.LocalName;
+                        var namespaceUri = xmlReader.Value.Replace('[' + localName + ']', "");
 
-                // Manipulate the document tree.
-                var manipulatedDocument = this.documentManipulationService.ManipulateDocument(xDocument);
+                        if (ignoredNamespaces.Contains(namespaceUri))
+                        {
+                            ignoredNamespacesLocalNames.Add(localName);
+                        }
+                    }
 
-                // Format it to a string.
-                var format = this.Format(manipulatedDocument);
-
-                // Restore escaped xml entity references.
-                xamlOutput = this.xmlEscapingService.UnescapeDocument(format);
+                    return ignoredNamespacesLocalNames;
+                }
             }
-
-            return xamlOutput;
         }
 
         private string Format(string xamlSource)

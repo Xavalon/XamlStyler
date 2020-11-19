@@ -146,6 +146,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
             while (xmlReader.MoveToNextAttribute())
             {
                 var attributeInfo = this.attributeInfoFactory.Create(xmlReader);
+
                 list.Add(attributeInfo);
 
                 // Maintain separate list of first line attributes.  
@@ -319,9 +320,26 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                 return x.OrderRule.Priority.CompareTo(y.OrderRule.Priority);
             }
 
-            return this.options.OrderAttributesByName
-                ? String.Compare(x.Name, y.Name, StringComparison.Ordinal)
-                : 0;
+            if (this.options.OrderAttributesByName)
+            {
+                if (x.AttributeHasIgnoredNamespace && y.AttributeHasIgnoredNamespace)
+                {
+                    return String.Compare(x.AttributeNameWithoutNamespace, y.AttributeNameWithoutNamespace, StringComparison.Ordinal);
+                }
+                else if(x.AttributeHasIgnoredNamespace)
+                {
+                    return String.Compare(x.AttributeNameWithoutNamespace, y.Name, StringComparison.Ordinal);
+                }
+                else if(y.AttributeHasIgnoredNamespace)
+                {
+                    return String.Compare(x.Name, y.AttributeNameWithoutNamespace, StringComparison.Ordinal);
+                }
+                else
+                {
+                    return String.Compare(x.Name, y.Name, StringComparison.Ordinal);
+                }
+            }
+            return 0;
         }
 
         private string GetAttributeIndetationString(XmlReader xmlReader)

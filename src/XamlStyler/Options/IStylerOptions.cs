@@ -52,7 +52,7 @@ namespace Xavalon.XamlStyler.Options
 
         [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "Required for serialization/deserialization")]
         string[] AttributeOrderingRuleGroups { get; set; }
-
+        
         bool OrderAttributesByName { get; set; }
 
         #endregion Attribute Reordering
@@ -112,6 +112,9 @@ namespace Xavalon.XamlStyler.Options
         string ConfigPath { get; set; }
 
         bool SearchToDriveRoot { get; set; }
+
+        [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "Required for serialization/deserialization")]
+        string[] IgnoredNamespacesInOrdering { get; set; }
 
         bool ResetToDefault { get; set; }
 

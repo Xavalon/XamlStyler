@@ -298,6 +298,18 @@ namespace Xavalon.XamlStyler.Options
         [JsonIgnore]
         public bool SearchToDriveRoot { get; set; }
 
+        [Category("Attribute Reordering")]
+        [DisplayName("Attribute with design time namespaces")]
+        [JsonProperty("IgnoredNamespacesInOrdering", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("Defines attribute containing design time namespaces. Those namespaces will be ignored when ordering properties in XAML files. Use ',' as a delimiter between attributes.")]
+        [DefaultValue(new[]
+        {
+            "http://schemas.microsoft.com/expression/blend/2008",
+        })]
+        [TypeConverter(typeof(StringArrayConverter))]
+        [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "Required for serialization/deserialization")]
+        public string[] IgnoredNamespacesInOrdering { get; set; }
+
         private bool resetToDefault;
 
         [Category("XAML Styler Configuration")]
