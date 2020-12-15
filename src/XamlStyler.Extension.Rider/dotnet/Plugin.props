@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <!-- RIDER: To be updated with new Rider release -->
-    <SdkVersion>2020.2.0</SdkVersion>
+    <SdkVersion>2020.3.0</SdkVersion>
     
     <Title>XAML Styler</Title>
     <Description>XAML Styler is an extension that formats XAML source code based on a set of styling rules. This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.</Description>
