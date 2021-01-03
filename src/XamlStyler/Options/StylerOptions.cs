@@ -310,6 +310,14 @@ namespace Xavalon.XamlStyler.Options
         [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "Required for serialization/deserialization")]
         public string[] IgnoredNamespacesInOrdering { get; set; }
 
+        [Category("Attribute Reordering")]
+        [DisplayName("Ignore Specified Reference Prefix")]
+        [JsonProperty("IgnoreSpecifiedNamespacesPrefix", DefaultValueHandling = DefaultValueHandling.Populate)]
+        [Description("Defines whether attributes with specified reference namespace prefix are ignored when ordering.")]
+        [DefaultValue(false)]
+        [TypeConverter(typeof(BooleanConverter))]
+        public bool IgnoreSpecifiedNamespacesPrefix { get; set; }
+
         private bool resetToDefault;
 
         [Category("XAML Styler Configuration")]

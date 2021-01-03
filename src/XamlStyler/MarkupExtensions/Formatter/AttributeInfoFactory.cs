@@ -12,12 +12,14 @@ namespace Xavalon.XamlStyler.MarkupExtensions.Formatter
         private readonly AttributeOrderRules orderRules;
         private readonly MarkupExtensionParser parser;
         private readonly IList<string> ignoredNamespacesLocalNames;
+        private readonly bool ignoreSpecifiedNamespacesPrefix;
 
-        public AttributeInfoFactory(MarkupExtensionParser parser, AttributeOrderRules orderRules, IList<string> ignoredNamespacesLocalNames)
+        public AttributeInfoFactory(MarkupExtensionParser parser, AttributeOrderRules orderRules, IList<string> ignoredNamespacesLocalNames, bool ignoreSpecifiedNamespacesPrefix)
         {
             this.parser = parser;
             this.orderRules = orderRules;
             this.ignoredNamespacesLocalNames = ignoredNamespacesLocalNames;
+            this.ignoreSpecifiedNamespacesPrefix = ignoreSpecifiedNamespacesPrefix;
         }
 
         public AttributeInfo Create(XmlReader xmlReader)
@@ -25,7 +27,14 @@ namespace Xavalon.XamlStyler.MarkupExtensions.Formatter
             string attributeName = xmlReader.Name;
             string attributeValue = xmlReader.Value;
             
+<<<<<<< Updated upstream
             var attributeHasIgnoredNamespace = this.CheckIfAttributeHasIgnoredNamespace(attributeName, out string attributeNameWithoutNamespace);
+=======
+            AttributeOrderRule orderRule = this.orderRules.GetRuleFor(attributeName);
+            MarkupExtension markupExtension = this.ParseMarkupExtension(attributeValue);
+            var attributeNameWithoutNamespace = string.Empty;
+            var attributeHasIgnoredNamespace = this.ignoreSpecifiedNamespacesPrefix && this.CheckIfAttributeHasIgnoredNamespace(attributeName, out attributeNameWithoutNamespace);
+>>>>>>> Stashed changes
 
             AttributeOrderRule orderRule = attributeHasIgnoredNamespace ? 
                     this.orderRules.GetRuleFor(attributeNameWithoutNamespace) :
