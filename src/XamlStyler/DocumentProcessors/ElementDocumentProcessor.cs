@@ -326,11 +326,15 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                 {
                     return String.Compare(x.AttributeNameWithoutNamespace, y.AttributeNameWithoutNamespace, StringComparison.Ordinal);
                 }
-                else if (x.AttributeHasIgnoredNamespace)
+                // If we have attribute with ignored namespace, we want to compare it by full name
+                // if it is compared with analogical attribute without this namespace.
+                else if (x.AttributeHasIgnoredNamespace && x.AttributeNameWithoutNamespace != y.Name)
                 {
                     return String.Compare(x.AttributeNameWithoutNamespace, y.Name, StringComparison.Ordinal);
                 }
-                else if (y.AttributeHasIgnoredNamespace)
+                // If we have attribute with ignored namespace, we want to compare it by full name
+                // if it is compared with analogical attribute without this namespace.
+                else if (y.AttributeHasIgnoredNamespace && y.AttributeNameWithoutNamespace != x.Name)
                 {
                     return String.Compare(x.Name, y.AttributeNameWithoutNamespace, StringComparison.Ordinal);
                 }

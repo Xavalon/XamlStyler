@@ -25,10 +25,12 @@ namespace Xavalon.XamlStyler.MarkupExtensions.Formatter
             string attributeName = xmlReader.Name;
             string attributeValue = xmlReader.Value;
             
-            AttributeOrderRule orderRule = this.orderRules.GetRuleFor(attributeName);
-            MarkupExtension markupExtension = this.ParseMarkupExtension(attributeValue);
             var attributeHasIgnoredNamespace = this.CheckIfAttributeHasIgnoredNamespace(attributeName, out string attributeNameWithoutNamespace);
 
+            AttributeOrderRule orderRule = attributeHasIgnoredNamespace ? 
+                    this.orderRules.GetRuleFor(attributeNameWithoutNamespace) :
+                    this.orderRules.GetRuleFor(attributeName);
+            MarkupExtension markupExtension = this.ParseMarkupExtension(attributeValue);
             return new AttributeInfo(attributeName, attributeValue, attributeHasIgnoredNamespace, attributeNameWithoutNamespace, orderRule, markupExtension);
         }
 
