@@ -59,7 +59,7 @@ namespace Xavalon.XamlStyler
                 var manipulatedDocument = this.documentManipulationService.ManipulateDocument(xDocument);
 
                 // Find ignored namespaces in document.
-                var ignoredNamespacesLocalNames = FindIgnoredNamespaces(manipulatedDocument, ignoredNamespacesInOrdering);
+                var ignoredNamespacesLocalNames = FindIgnoredNamespaces(manipulatedDocument);
 
                 // Once we have ignored namespaces from first element,
                 // we can apply styler configuration.
@@ -106,7 +106,13 @@ namespace Xavalon.XamlStyler
             };
         }
 
-        private static IList<string> FindIgnoredNamespaces(string xamlSource, string[] ignoredNamespaces)
+        /// <summary>
+        /// Reads XML file's first node and processes its attributes in order to find
+        /// ignored namespaces.
+        /// </summary>
+        /// <param name="xamlSource">XAML file content</param>
+        /// <returns></returns>
+        private static IList<string> FindIgnoredNamespaces(string xamlSource)
         {
             using (var sourceReader = new StringReader(xamlSource))
             {
@@ -133,7 +139,7 @@ namespace Xavalon.XamlStyler
                         var localName = xmlReader.LocalName;
                         var namespaceUri = xmlReader.Value.Replace('[' + localName + ']', "");
 
-                        if (ignoredNamespaces.Contains(namespaceUri))
+                        if (ignoredNamespacesLocalNames.Contains(namespaceUri))
                         {
                             ignoredNamespacesLocalNames.Add(localName);
                         }
