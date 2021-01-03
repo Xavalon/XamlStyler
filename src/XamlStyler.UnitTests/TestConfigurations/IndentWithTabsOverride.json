@@ -1,5 +1,6 @@
 {
   "IndentSize": 4,
   "IndentWithTabs": true,
-  "AttributesTolerance": 3
+  "AttributesTolerance": 3,
+  "IgnoreDesignTimeReferencePrefix": false
 }

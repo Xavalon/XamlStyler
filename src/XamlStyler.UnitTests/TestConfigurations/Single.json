@@ -1,4 +1,5 @@
 {
   "IndentSize": 2,
-  "AttributesTolerance": 3
+  "AttributesTolerance": 3,
+  "IgnoreDesignTimeReferencePrefix": false
 }

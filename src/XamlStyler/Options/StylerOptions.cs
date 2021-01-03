@@ -300,7 +300,7 @@ namespace Xavalon.XamlStyler.Options
 
         [Category("Attribute Reordering")]
         [DisplayName("Ignore Design-Time Reference Prefix")]
-        [JsonProperty("IgnoreSpecifiedNamespaces", DefaultValueHandling = DefaultValueHandling.Populate)]
+        [JsonProperty("IgnoreDesignTimeReferencePrefix", DefaultValueHandling = DefaultValueHandling.Populate)]
         [Description("Defines whether attributes with the design-time reference namespace prefix are ignored when ordering.")]
         [DefaultValue(false)]
         [TypeConverter(typeof(BooleanConverter))]
