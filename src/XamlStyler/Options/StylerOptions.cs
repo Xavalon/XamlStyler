@@ -311,12 +311,12 @@ namespace Xavalon.XamlStyler.Options
         public string[] IgnoredNamespacesInOrdering { get; set; }
 
         [Category("Attribute Reordering")]
-        [DisplayName("Ignore Specified Reference Prefix")]
-        [JsonProperty("IgnoreSpecifiedNamespacesPrefix", DefaultValueHandling = DefaultValueHandling.Populate)]
-        [Description("Defines whether attributes with specified reference namespace prefix are ignored when ordering.")]
+        [DisplayName("Ignore Specified Namespaces")]
+        [JsonProperty("IgnoreSpecifiedNamespaces", DefaultValueHandling = DefaultValueHandling.Populate)]
+        [Description("Defines whether attributes with specified namespaces' prefix are ignored when ordering.")]
         [DefaultValue(false)]
         [TypeConverter(typeof(BooleanConverter))]
-        public bool IgnoreSpecifiedNamespacesPrefix { get; set; }
+        public bool IgnoreSpecifiedNamespaces { get; set; }
 
         private bool resetToDefault;
 

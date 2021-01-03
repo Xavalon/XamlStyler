@@ -59,7 +59,7 @@ namespace Xavalon.XamlStyler
 
                 // Once we have ignored namespaces from first element,
                 // we can apply styler configuration.
-                ApplyOptions(ignoredNamespacesLocalNames, options.IgnoreSpecifiedNamespacesPrefix);
+                ApplyOptions(ignoredNamespacesLocalNames, options.IgnoreSpecifiedNamespaces);
 
                 // Format it to a string.
                 var format = this.Format(manipulatedDocument);
@@ -71,11 +71,11 @@ namespace Xavalon.XamlStyler
             return xamlOutput;
         }
 
-        private void ApplyOptions(IList<string> ignoredNamespacesLocalNames, bool ignoreSpecifiedNamespacesPrefix)
+        private void ApplyOptions(IList<string> ignoredNamespacesLocalNames, bool ignoreSpecifiedNamespaces)
         {
             var indentService = new IndentService(options);
             var markupExtensionFormatter = new MarkupExtensionFormatter(options.NoNewLineMarkupExtensions.ToList());
-            var attributeInfoFactory = new AttributeInfoFactory(new MarkupExtensionParser(), new AttributeOrderRules(options), ignoredNamespacesLocalNames, ignoreSpecifiedNamespacesPrefix);
+            var attributeInfoFactory = new AttributeInfoFactory(new MarkupExtensionParser(), new AttributeOrderRules(options), ignoredNamespacesLocalNames, ignoreSpecifiedNamespaces);
             var attributeInfoFormatter = new AttributeInfoFormatter(markupExtensionFormatter, indentService);
 
             this.documentProcessors = new Dictionary<XmlNodeType, IDocumentProcessor>

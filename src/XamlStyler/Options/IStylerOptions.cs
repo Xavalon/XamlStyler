@@ -58,7 +58,7 @@ namespace Xavalon.XamlStyler.Options
         
         bool OrderAttributesByName { get; set; }
         
-        bool IgnoreSpecifiedNamespacesPrefix { get; set; }
+        bool IgnoreSpecifiedNamespaces { get; set; }
 
         #endregion Attribute Reordering
 

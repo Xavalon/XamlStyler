@@ -12,14 +12,14 @@ namespace Xavalon.XamlStyler.MarkupExtensions.Formatter
         private readonly AttributeOrderRules orderRules;
         private readonly MarkupExtensionParser parser;
         private readonly IList<string> ignoredNamespacesLocalNames;
-        private readonly bool ignoreSpecifiedNamespacesPrefix;
+        private readonly bool ignoreSpecifiedNamespaces;
 
-        public AttributeInfoFactory(MarkupExtensionParser parser, AttributeOrderRules orderRules, IList<string> ignoredNamespacesLocalNames, bool ignoreSpecifiedNamespacesPrefix)
+        public AttributeInfoFactory(MarkupExtensionParser parser, AttributeOrderRules orderRules, IList<string> ignoredNamespacesLocalNames, bool ignoreSpecifiedNamespaces)
         {
             this.parser = parser;
             this.orderRules = orderRules;
             this.ignoredNamespacesLocalNames = ignoredNamespacesLocalNames;
-            this.ignoreSpecifiedNamespacesPrefix = ignoreSpecifiedNamespacesPrefix;
+            this.ignoreSpecifiedNamespaces = ignoreSpecifiedNamespaces;
         }
 
         public AttributeInfo Create(XmlReader xmlReader)
@@ -27,14 +27,8 @@ namespace Xavalon.XamlStyler.MarkupExtensions.Formatter
             string attributeName = xmlReader.Name;
             string attributeValue = xmlReader.Value;
             
-<<<<<<< Updated upstream
-            var attributeHasIgnoredNamespace = this.CheckIfAttributeHasIgnoredNamespace(attributeName, out string attributeNameWithoutNamespace);
-=======
-            AttributeOrderRule orderRule = this.orderRules.GetRuleFor(attributeName);
-            MarkupExtension markupExtension = this.ParseMarkupExtension(attributeValue);
             var attributeNameWithoutNamespace = string.Empty;
-            var attributeHasIgnoredNamespace = this.ignoreSpecifiedNamespacesPrefix && this.CheckIfAttributeHasIgnoredNamespace(attributeName, out attributeNameWithoutNamespace);
->>>>>>> Stashed changes
+            var attributeHasIgnoredNamespace = this.ignoreSpecifiedNamespaces && this.CheckIfAttributeHasIgnoredNamespace(attributeName, out attributeNameWithoutNamespace);
 
             AttributeOrderRule orderRule = attributeHasIgnoredNamespace ? 
                     this.orderRules.GetRuleFor(attributeNameWithoutNamespace) :
