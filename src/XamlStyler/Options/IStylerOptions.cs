@@ -51,14 +51,11 @@ namespace Xavalon.XamlStyler.Options
         bool EnableAttributeReordering { get; set; }
 
         [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "Required for serialization/deserialization")]
-        string[] IgnoredNamespacesInOrdering { get; set; }
-
-        [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "Required for serialization/deserialization")]
         string[] AttributeOrderingRuleGroups { get; set; }
         
         bool OrderAttributesByName { get; set; }
         
-        bool IgnoreSpecifiedNamespaces { get; set; }
+        bool IgnoreDesignTimeReferencePrefix { get; set; }
 
         #endregion Attribute Reordering
 

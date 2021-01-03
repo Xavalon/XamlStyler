@@ -299,24 +299,12 @@ namespace Xavalon.XamlStyler.Options
         public bool SearchToDriveRoot { get; set; }
 
         [Category("Attribute Reordering")]
-        [DisplayName("Attribute with ignored namespaces when ordering properties")]
-        [JsonProperty("IgnoredNamespacesInOrdering", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [Description("Defines attribute containing namespaces to ignore when ordering properties in XAML files.")]
-        [DefaultValue(new[]
-        {
-            "http://schemas.microsoft.com/expression/blend/2008",
-        })]
-        [TypeConverter(typeof(StringArrayConverter))]
-        [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "Required for serialization/deserialization")]
-        public string[] IgnoredNamespacesInOrdering { get; set; }
-
-        [Category("Attribute Reordering")]
-        [DisplayName("Ignore Specified Namespaces")]
+        [DisplayName("Ignore Design-Time Reference Prefix")]
         [JsonProperty("IgnoreSpecifiedNamespaces", DefaultValueHandling = DefaultValueHandling.Populate)]
-        [Description("Defines whether attributes with specified namespaces' prefix are ignored when ordering.")]
+        [Description("Defines whether attributes with the design-time reference namespace prefix are ignored when ordering.")]
         [DefaultValue(false)]
         [TypeConverter(typeof(BooleanConverter))]
-        public bool IgnoreSpecifiedNamespaces { get; set; }
+        public bool IgnoreDesignTimeReferencePrefix { get; set; }
 
         private bool resetToDefault;
 

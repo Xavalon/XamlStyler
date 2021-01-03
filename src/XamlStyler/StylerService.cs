@@ -21,6 +21,10 @@ namespace Xavalon.XamlStyler
 {
     public class StylerService
     {
+        private readonly string[] ignoredNamespacesInOrdering = new string[]
+        {
+            "http://schemas.microsoft.com/expression/blend/2008",
+        };
         private readonly DocumentManipulationService documentManipulationService;
         private readonly IStylerOptions options;
         private readonly XmlEscapingService xmlEscapingService;
@@ -55,11 +59,11 @@ namespace Xavalon.XamlStyler
                 var manipulatedDocument = this.documentManipulationService.ManipulateDocument(xDocument);
 
                 // Find ignored namespaces in document.
-                var ignoredNamespacesLocalNames = FindIgnoredNamespaces(manipulatedDocument, options.IgnoredNamespacesInOrdering);
+                var ignoredNamespacesLocalNames = FindIgnoredNamespaces(manipulatedDocument, ignoredNamespacesInOrdering);
 
                 // Once we have ignored namespaces from first element,
                 // we can apply styler configuration.
-                ApplyOptions(ignoredNamespacesLocalNames, options.IgnoreSpecifiedNamespaces);
+                ApplyOptions(ignoredNamespacesLocalNames, options.IgnoreDesignTimeReferencePrefix);
 
                 // Format it to a string.
                 var format = this.Format(manipulatedDocument);
@@ -71,11 +75,11 @@ namespace Xavalon.XamlStyler
             return xamlOutput;
         }
 
-        private void ApplyOptions(IList<string> ignoredNamespacesLocalNames, bool ignoreSpecifiedNamespaces)
+        private void ApplyOptions(IList<string> ignoredNamespacesLocalNames, bool ignoreDesignTimeReferencePrefix)
         {
             var indentService = new IndentService(options);
             var markupExtensionFormatter = new MarkupExtensionFormatter(options.NoNewLineMarkupExtensions.ToList());
-            var attributeInfoFactory = new AttributeInfoFactory(new MarkupExtensionParser(), new AttributeOrderRules(options), ignoredNamespacesLocalNames, ignoreSpecifiedNamespaces);
+            var attributeInfoFactory = new AttributeInfoFactory(new MarkupExtensionParser(), new AttributeOrderRules(options), ignoredNamespacesLocalNames, ignoreDesignTimeReferencePrefix);
             var attributeInfoFormatter = new AttributeInfoFormatter(markupExtensionFormatter, indentService);
 
             this.documentProcessors = new Dictionary<XmlNodeType, IDocumentProcessor>
