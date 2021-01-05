@@ -24,6 +24,7 @@ namespace Xavalon.XamlStyler
         private readonly string[] ignoredNamespacesInOrdering = new string[]
         {
             "http://schemas.microsoft.com/expression/blend/2008",
+            "http://xamarin.com/schemas/2014/forms/design",
         };
         private readonly DocumentManipulationService documentManipulationService;
         private readonly IStylerOptions options;
@@ -34,7 +35,6 @@ namespace Xavalon.XamlStyler
         {
             this.xmlEscapingService = new XmlEscapingService();
             this.documentManipulationService = new DocumentManipulationService(options);
-
             this.options = options;
         }
 
@@ -59,11 +59,11 @@ namespace Xavalon.XamlStyler
                 var manipulatedDocument = this.documentManipulationService.ManipulateDocument(xDocument);
 
                 // Find ignored namespaces in document.
-                var ignoredNamespacesLocalNames = FindIgnoredNamespaces(manipulatedDocument);
+                var ignoredNamespacesPrefixes = this.FindIgnoredNamespaces(manipulatedDocument);
 
                 // Once we have ignored namespaces from first element,
                 // we can apply styler configuration.
-                ApplyOptions(ignoredNamespacesLocalNames, options.IgnoreDesignTimeReferencePrefix);
+                this.ApplyOptions(ignoredNamespacesPrefixes, options.IgnoreDesignTimeReferencePrefix);
 
                 // Format it to a string.
                 var format = this.Format(manipulatedDocument);
@@ -75,11 +75,11 @@ namespace Xavalon.XamlStyler
             return xamlOutput;
         }
 
-        private void ApplyOptions(IList<string> ignoredNamespacesLocalNames, bool ignoreDesignTimeReferencePrefix)
+        private void ApplyOptions(IList<string> ignoredNamespacesPrefixes, bool ignoreDesignTimeReferencePrefix)
         {
             var indentService = new IndentService(options);
             var markupExtensionFormatter = new MarkupExtensionFormatter(options.NoNewLineMarkupExtensions.ToList());
-            var attributeInfoFactory = new AttributeInfoFactory(new MarkupExtensionParser(), new AttributeOrderRules(options), ignoredNamespacesLocalNames, ignoreDesignTimeReferencePrefix);
+            var attributeInfoFactory = new AttributeInfoFactory(new MarkupExtensionParser(), new AttributeOrderRules(options), ignoredNamespacesPrefixes, ignoreDesignTimeReferencePrefix);
             var attributeInfoFormatter = new AttributeInfoFormatter(markupExtensionFormatter, indentService);
 
             this.documentProcessors = new Dictionary<XmlNodeType, IDocumentProcessor>
@@ -112,7 +112,7 @@ namespace Xavalon.XamlStyler
         /// </summary>
         /// <param name="xamlSource">XAML file content</param>
         /// <returns></returns>
-        private static IList<string> FindIgnoredNamespaces(string xamlSource)
+        private IList<string> FindIgnoredNamespaces(string xamlSource)
         {
             using (var sourceReader = new StringReader(xamlSource))
             {
@@ -132,20 +132,20 @@ namespace Xavalon.XamlStyler
                         return Array.Empty<string>();
                     }
 
-                    IList<string> ignoredNamespacesLocalNames = new List<string>();
+                    IList<string> ignoredNamespacesPrefixes = new List<string>();
                     while (xmlReader.MoveToNextAttribute())
                     {
                         // Full namespace URI, it's stored in Value property.
-                        var localName = xmlReader.LocalName;
-                        var namespaceUri = xmlReader.Value.Replace('[' + localName + ']', "");
+                        var prefix = xmlReader.LocalName;
+                        var namespaceUri = xmlReader.Value.Replace($"[{prefix}]", "");
 
-                        if (ignoredNamespacesLocalNames.Contains(namespaceUri))
+                        if (ignoredNamespacesInOrdering.Contains(namespaceUri))
                         {
-                            ignoredNamespacesLocalNames.Add(localName);
+                            ignoredNamespacesPrefixes.Add(prefix);
                         }
                     }
 
-                    return ignoredNamespacesLocalNames;
+                    return ignoredNamespacesPrefixes;
                 }
             }
         }

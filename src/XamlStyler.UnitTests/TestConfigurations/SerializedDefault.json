@@ -12,6 +12,5 @@
       "PageSource, PageIndex, Offset, Color, TargetName, Property, Value, StartPoint, EndPoint",
       "mc:Ignorable, d:IsDataSource, d:LayoutOverrides, d:IsStaticText",
       "Storyboard.*, From, To, Duration"
-  ],
-  "IgnoreDesignTimeReferencePrefix": false
+  ]
 }

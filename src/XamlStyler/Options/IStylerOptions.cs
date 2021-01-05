@@ -52,7 +52,7 @@ namespace Xavalon.XamlStyler.Options
 
         [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "Required for serialization/deserialization")]
         string[] AttributeOrderingRuleGroups { get; set; }
-        
+
         bool OrderAttributesByName { get; set; }
         
         bool IgnoreDesignTimeReferencePrefix { get; set; }

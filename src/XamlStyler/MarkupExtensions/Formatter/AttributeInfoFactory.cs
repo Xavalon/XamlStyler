@@ -1,5 +1,6 @@
 // (c) Xavalon. All rights reserved.
 
+using System;
 using System.Collections.Generic;
 using System.Xml;
 using Xavalon.XamlStyler.MarkupExtensions.Parser;
@@ -11,14 +12,14 @@ namespace Xavalon.XamlStyler.MarkupExtensions.Formatter
     {
         private readonly AttributeOrderRules orderRules;
         private readonly MarkupExtensionParser parser;
-        private readonly IList<string> ignoredNamespacesLocalNames;
+        private readonly IList<string> ignoredNamespacesPrefixes;
         private readonly bool ignoreDesignTimeReferencePrefix;
 
-        public AttributeInfoFactory(MarkupExtensionParser parser, AttributeOrderRules orderRules, IList<string> ignoredNamespacesLocalNames, bool ignoreDesignTimeReferencePrefix)
+        public AttributeInfoFactory(MarkupExtensionParser parser, AttributeOrderRules orderRules, IList<string> ignoredNamespacesPrefixes, bool ignoreDesignTimeReferencePrefix)
         {
             this.parser = parser;
             this.orderRules = orderRules;
-            this.ignoredNamespacesLocalNames = ignoredNamespacesLocalNames;
+            this.ignoredNamespacesPrefixes = ignoredNamespacesPrefixes;
             this.ignoreDesignTimeReferencePrefix = ignoreDesignTimeReferencePrefix;
         }
 
@@ -27,25 +28,23 @@ namespace Xavalon.XamlStyler.MarkupExtensions.Formatter
             string attributeName = xmlReader.Name;
             string attributeValue = xmlReader.Value;
             
-            var attributeNameWithoutNamespace = string.Empty;
+            var attributeNameWithoutNamespace = String.Empty;
             var attributeHasIgnoredNamespace = this.ignoreDesignTimeReferencePrefix && this.CheckIfAttributeHasIgnoredNamespace(attributeName, out attributeNameWithoutNamespace);
 
-            AttributeOrderRule orderRule = attributeHasIgnoredNamespace ? 
-                    this.orderRules.GetRuleFor(attributeNameWithoutNamespace) :
-                    this.orderRules.GetRuleFor(attributeName);
+            AttributeOrderRule orderRule = this.orderRules.GetRuleFor(attributeHasIgnoredNamespace ? attributeNameWithoutNamespace : attributeName);
             MarkupExtension markupExtension = this.ParseMarkupExtension(attributeValue);
             return new AttributeInfo(attributeName, attributeValue, attributeHasIgnoredNamespace, attributeNameWithoutNamespace, orderRule, markupExtension);
         }
 
         private bool CheckIfAttributeHasIgnoredNamespace(string attributeName, out string attributeNameWithoutNamespace)
         {
-            attributeNameWithoutNamespace = string.Empty;
+            attributeNameWithoutNamespace = String.Empty;
             var semicolonIndex = attributeName.IndexOf(':');
             // If semicolon is in the attributeName and is not first nor last.
             if (semicolonIndex > 0 && semicolonIndex < attributeName.Length - 1)
             {
-                var localName = attributeName.Substring(0, semicolonIndex);
-                if (ignoredNamespacesLocalNames.Contains(localName))
+                var namespacePrefix = attributeName.Substring(0, semicolonIndex);
+                if (ignoredNamespacesPrefixes.Contains(namespacePrefix))
                 {
                     attributeNameWithoutNamespace = attributeName.Substring(semicolonIndex + 1);
                     return true;
