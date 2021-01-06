@@ -169,6 +169,12 @@
   <None Update="TestFiles\TestIgnoringNamespacesInAttributeOrdering.testxaml">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </None>
+  <None Update="TestFiles\TestIgnoringNamespacesInAttributeOrderingWithoutNamespace.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestIgnoringNamespacesInAttributeOrderingWithoutNamespace.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
   <None Update="TestFiles\TestKeepSelectAttributesOnFirstLine.expected">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </None>
