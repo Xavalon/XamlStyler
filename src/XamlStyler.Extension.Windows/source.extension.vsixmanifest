@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="0c572937-0d4a-48cc-aa3f-875ffa9805ba" Version="3.1.0.0" Language="en-US" Publisher="Xavalon" />
+    <Identity Id="0c572937-0d4a-48cc-aa3f-875ffa9805ba" Version="4.1.0.0" Language="en-US" Publisher="Xavalon" />
     <DisplayName>XAML Styler</DisplayName>
     <Description xml:space="preserve">XAML Styler is a visual studio extension that formats XAML source code based on a set of styling rules. This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.</Description>
     <MoreInfo>https://github.com/Xavalon/XamlStyler/</MoreInfo>

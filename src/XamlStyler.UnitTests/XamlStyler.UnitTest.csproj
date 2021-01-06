@@ -163,6 +163,12 @@
   <None Update="TestFiles\TestGridChildrenHandling.testxaml">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </None>
+  <None Update="TestFiles\TestIgnoringNamespacesInAttributeOrdering.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestIgnoringNamespacesInAttributeOrdering.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
   <None Update="TestFiles\TestKeepSelectAttributesOnFirstLine.expected">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </None>

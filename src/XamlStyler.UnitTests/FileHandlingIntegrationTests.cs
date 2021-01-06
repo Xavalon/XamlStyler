@@ -449,6 +449,16 @@ namespace Xavalon.XamlStyler.UnitTests
             FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
+        [Test]
+        public void TestIgnoringNamespacesInAttributeOrdering()
+        {
+            var stylerOptions = new StylerOptions()
+            {
+                IgnoreDesignTimeReferencePrefix = true,
+            };
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
+        }
+
         private static void DoTest(
             StylerOptions stylerOptions,
             [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
