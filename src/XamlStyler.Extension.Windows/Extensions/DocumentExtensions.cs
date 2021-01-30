@@ -22,11 +22,18 @@ namespace Xavalon.XamlStyler.Extension.Windows.Extensions
                 && document.FullName.EndsWith(Constants.XamlFileExtension, StringComparison.OrdinalIgnoreCase);
         }
 
+        public static bool IsAvaloniaXaml(this Document document)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            return String.Equals(document.Language, Constants.XmlLanguageType, StringComparison.OrdinalIgnoreCase)
+                   && document.FullName.EndsWith(Constants.AxamlFileExtension, StringComparison.OrdinalIgnoreCase);
+        }
+
         public static bool IsFormatable(this Document document)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             return (document != null)
-                ? !document.ReadOnly && (document.IsXaml() || document.IsXamarinXaml())
+                ? !document.ReadOnly && (document.IsXaml() || document.IsXamarinXaml() || document.IsAvaloniaXaml())
                 : false;
         }
     }
