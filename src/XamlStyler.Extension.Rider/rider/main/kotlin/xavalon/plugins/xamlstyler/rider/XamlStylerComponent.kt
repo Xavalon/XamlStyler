@@ -7,12 +7,12 @@ import com.intellij.openapi.editor.Document
 import com.intellij.openapi.fileEditor.FileDocumentManagerListener
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiDocumentManager
+import com.jetbrains.rd.ide.model.RdXamlStylerFormattingRequest
+import com.jetbrains.rd.ide.model.xamlStylerModel
 import com.jetbrains.rd.platform.util.getComponent
 import com.jetbrains.rd.platform.util.idea.ProtocolSubscribedProjectComponent
 import com.jetbrains.rd.util.reactive.adviseOnce
 import com.jetbrains.rider.ideaInterop.fileTypes.xaml.XamlLanguage
-import com.jetbrains.rider.model.RdXamlStylerFormattingRequest
-import com.jetbrains.rider.model.xamlStylerModel
 import com.jetbrains.rider.projectView.solution
 
 class XamlStylerComponent(project: Project)
