@@ -17,9 +17,10 @@ namespace Xavalon.XamlStyler.Extension.Windows
             ThreadHelper.ThrowIfNotOnUIThread();
             try
             {
-                if (document.IsFormatable())
+                var xamlLanguageOptions = document.GetXamlLanguageOptions();
+                if (xamlLanguageOptions.IsFormatable)
                 {
-                    SetupFormatDocumentContinuation(document, stylerOptions ?? this.optionsHelper.GetDocumentStylerOptions(document))()();
+                    SetupFormatDocumentContinuation(document, stylerOptions ?? this.optionsHelper.GetDocumentStylerOptions(document), xamlLanguageOptions)()();
                 }
             }
             catch (Exception ex)
@@ -81,7 +82,7 @@ namespace Xavalon.XamlStyler.Extension.Windows
             }
         }
 
-        private static Func<Action> SetupFormatDocumentContinuation(Document document, IStylerOptions stylerOptions)
+        private static Func<Action> SetupFormatDocumentContinuation(Document document, IStylerOptions stylerOptions, XamlLanguageOptions xamlLanguageOptions)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             var textDocument = (TextDocument)document.Object("TextDocument");
@@ -92,7 +93,7 @@ namespace Xavalon.XamlStyler.Extension.Windows
             return () =>
             {
                 // This part can be executed in parallel.
-                var styler = new StylerService(stylerOptions);
+                var styler = new StylerService(stylerOptions, xamlLanguageOptions);
                 xamlSource = styler.StyleDocument(xamlSource);
 
                 return () =>

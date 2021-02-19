@@ -17,13 +17,20 @@ using Xavalon.XamlStyler.Services;
 
 namespace Xavalon.XamlStyler
 {
+    public class XamlLanguageOptions
+    {
+        public bool IsFormatable { get; set; }
+
+        public HashSet<char> UnescapedAttributeCharacters { get; } = new HashSet<char>();
+    }
+
     public class StylerService
     {
         private readonly DocumentManipulationService documentManipulationService;
         private readonly Dictionary<XmlNodeType, IDocumentProcessor> documentProcessors;
         private readonly XmlEscapingService xmlEscapingService;
 
-        public StylerService(IStylerOptions options)
+        public StylerService(IStylerOptions options, XamlLanguageOptions xamlLanguageOptions)
         {
             this.xmlEscapingService = new XmlEscapingService();
             this.documentManipulationService = new DocumentManipulationService(options);
@@ -36,7 +43,7 @@ namespace Xavalon.XamlStyler
             this.documentProcessors = new Dictionary<XmlNodeType, IDocumentProcessor>
             {
                 // { XmlNodeType.None, null },
-                { XmlNodeType.Element, new ElementDocumentProcessor(options, attributeInfoFactory, attributeInfoFormatter, indentService, xmlEscapingService) },
+                { XmlNodeType.Element, new ElementDocumentProcessor(options, xamlLanguageOptions, attributeInfoFactory, attributeInfoFormatter, indentService, xmlEscapingService) },
                 // { XmlNodeType.Attribute, null },
                 { XmlNodeType.Text, new TextDocumentProcessor(indentService) },
                 { XmlNodeType.CDATA, new CDATADocumentProcessor(indentService) },

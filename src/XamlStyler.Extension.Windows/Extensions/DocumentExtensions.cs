@@ -29,12 +29,28 @@ namespace Xavalon.XamlStyler.Extension.Windows.Extensions
                    && document.FullName.EndsWith(Constants.AxamlFileExtension, StringComparison.OrdinalIgnoreCase);
         }
 
-        public static bool IsFormatable(this Document document)
+        public static XamlLanguageOptions GetXamlLanguageOptions(this Document document)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
-            return (document != null)
-                ? !document.ReadOnly && (document.IsXaml() || document.IsXamarinXaml() || document.IsAvaloniaXaml())
-                : false;
+
+            var options = new XamlLanguageOptions();
+
+            if (document == null || document.ReadOnly)
+            {
+                return options;
+            }
+
+            if (document.IsAvaloniaXaml())
+            {
+                options.IsFormatable = true;
+                options.UnescapedAttributeCharacters.Add('>');
+
+                return options;
+            }
+
+            options.IsFormatable = document.IsXaml() || document.IsXamarinXaml();
+
+            return options;
         }
     }
 }
