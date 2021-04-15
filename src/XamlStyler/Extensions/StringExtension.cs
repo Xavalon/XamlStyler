@@ -11,14 +11,25 @@ namespace Xavalon.XamlStyler.Extensions
 {
     public static class StringExtension
     {
-        public static string ToXmlEncodedString(this string input, bool ignoreCarrier = false)
+        static readonly Dictionary<string, string> EscapedCharacters = new Dictionary<string, string>
+        {
+            ["&"] = "&amp;",
+            ["<"] = "&lt;",
+            [">"] = "&gt;",
+            ["\""] = "&quot;"
+        };
+
+        public static string ToXmlEncodedString(this string input, HashSet<char> unescapedCharacters = null, bool ignoreCarrier = false)
         {
             var buffer = new StringBuilder(input);
 
-            buffer.Replace("&", "&amp;")
-                .Replace("<", "&lt;")
-                .Replace(">", "&gt;")
-                .Replace("\"", "&quot;");
+            foreach (var escapedCharacter in EscapedCharacters)
+            {
+                if (unescapedCharacters?.Contains(escapedCharacter.Key[0]) == false)
+                {
+                    buffer.Replace(escapedCharacter.Key, escapedCharacter.Value);
+                }
+            }
 
             if (!ignoreCarrier)
             {

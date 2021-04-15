@@ -67,11 +67,11 @@ namespace Xavalon.XamlStyler.MarkupExtensions.Formatter
         /// </summary>
         /// <param name="attrInfo"></param>
         /// <returns></returns>
-        public string ToSingleLineString(AttributeInfo attrInfo)
+        public string ToSingleLineString(AttributeInfo attrInfo, XamlLanguageOptions xamlLanguageOptions)
         {
             var valuePart = attrInfo.IsMarkupExtension
                 ? this.formatter.FormatSingleLine(attrInfo.MarkupExtension)
-                : attrInfo.Value.ToXmlEncodedString();
+                : attrInfo.Value.ToXmlEncodedString(xamlLanguageOptions.UnescapedAttributeCharacters);
 
             return $"{attrInfo.Name}=\"{valuePart}\"";
         }

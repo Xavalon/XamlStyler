@@ -475,7 +475,10 @@ namespace Xavalon.XamlStyler.UnitTests
         /// <param name="expectedSuffix"></param>
         private static void DoTest(StylerOptions stylerOptions, string testFileBaseName, string expectedSuffix)
         {
-            var stylerService = new StylerService(stylerOptions);
+            var stylerService = new StylerService(stylerOptions, new XamlLanguageOptions()
+            {
+                IsFormatable = true
+            });
 
             var activeDir = Path.GetDirectoryName(new Uri(typeof(FileHandlingIntegrationTests).Assembly.CodeBase).LocalPath);
             var testFile = Path.Combine(activeDir, testFileBaseName);
