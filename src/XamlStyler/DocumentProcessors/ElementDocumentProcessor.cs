@@ -30,7 +30,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
         public ElementDocumentProcessor(
             IStylerOptions options,
             AttributeInfoFactory attributeInfoFactory,
-            AttributeInfoFormatter attributeInfoFormatter, 
+            AttributeInfoFormatter attributeInfoFormatter,
             IndentService indentService,
             XmlEscapingService xmlEscapingService)
         {
@@ -98,8 +98,8 @@ namespace Xavalon.XamlStyler.DocumentProcessors
             {
                 bool isNoLineBreakElement = this.IsNoLineBreakElement(elementName);
                 this.ProcessAttributes(
-                    xmlReader, 
-                    output, 
+                    xmlReader,
+                    output,
                     elementProcessContext,
                     isNoLineBreakElement,
                     attributeIndetationString);
@@ -134,10 +134,10 @@ namespace Xavalon.XamlStyler.DocumentProcessors
         }
 
         private void ProcessAttributes(
-            XmlReader xmlReader, 
-            StringBuilder output, 
-            ElementProcessContext elementProcessContext, 
-            bool isNoLineBreakElement, 
+            XmlReader xmlReader,
+            StringBuilder output,
+            ElementProcessContext elementProcessContext,
+            bool isNoLineBreakElement,
             string attributeIndentationString)
         {
             var list = new List<AttributeInfo>(xmlReader.AttributeCount);
@@ -146,6 +146,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
             while (xmlReader.MoveToNextAttribute())
             {
                 var attributeInfo = this.attributeInfoFactory.Create(xmlReader);
+
                 list.Add(attributeInfo);
 
                 // Maintain separate list of first line attributes.  
@@ -319,9 +320,30 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                 return x.OrderRule.Priority.CompareTo(y.OrderRule.Priority);
             }
 
-            return this.options.OrderAttributesByName
-                ? String.Compare(x.Name, y.Name, StringComparison.Ordinal)
-                : 0;
+            if (this.options.OrderAttributesByName)
+            {
+                if (x.AttributeHasIgnoredNamespace && y.AttributeHasIgnoredNamespace)
+                {
+                    return String.Compare(x.AttributeNameWithoutNamespace, y.AttributeNameWithoutNamespace, StringComparison.Ordinal);
+                }
+                // If we have attribute with ignored namespace, we want to compare it by full name
+                // if it is compared with analogical attribute without this namespace.
+                else if (x.AttributeHasIgnoredNamespace && ! String.Equals(x.AttributeNameWithoutNamespace, y.Name, StringComparison.InvariantCulture))
+                {
+                    return String.Compare(x.AttributeNameWithoutNamespace, y.Name, StringComparison.Ordinal);
+                }
+                // If we have attribute with ignored namespace, we want to compare it by full name
+                // if it is compared with analogical attribute without this namespace.
+                else if (y.AttributeHasIgnoredNamespace && ! String.Equals(y.AttributeNameWithoutNamespace, x.Name, StringComparison.InvariantCulture))
+                {
+                    return String.Compare(x.Name, y.AttributeNameWithoutNamespace, StringComparison.Ordinal);
+                }
+                else
+                {
+                    return String.Compare(x.Name, y.Name, StringComparison.Ordinal);
+                }
+            }
+            return 0;
         }
 
         private string GetAttributeIndetationString(XmlReader xmlReader)
@@ -344,8 +366,8 @@ namespace Xavalon.XamlStyler.DocumentProcessors
         }
 
         private bool IsFirstLineAttribute(string attributeName)
-        {  
-            return this.firstLineAttributes.Contains(attributeName);  
+        {
+            return this.firstLineAttributes.Contains(attributeName);
         }
 
         private bool IsNoLineBreakElement(string elementName)

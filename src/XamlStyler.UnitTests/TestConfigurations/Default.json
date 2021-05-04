@@ -39,5 +39,6 @@
   "FormatOnSave": true,
   "SaveAndCloseOnFormat": true,
   "CommentPadding": 2,
-  "SearchToDriveRoot": true
+  "SearchToDriveRoot": true,
+  "IgnoreDesignTimeReferencePrefix": false
 }

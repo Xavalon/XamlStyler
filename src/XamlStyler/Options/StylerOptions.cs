@@ -298,6 +298,13 @@ namespace Xavalon.XamlStyler.Options
         [JsonIgnore]
         public bool SearchToDriveRoot { get; set; }
 
+        [Category("Attribute Reordering")]
+        [DisplayName("Ignore Design-Time Reference Prefix")]
+        [JsonProperty("IgnoreDesignTimeReferencePrefix", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("Defines whether attributes with the design-time reference namespace prefix are ignored when ordering.\r\n\r\nDefault Value: false")]
+        [DefaultValue(false)]
+        public bool IgnoreDesignTimeReferencePrefix { get; set; }
+
         private bool resetToDefault;
 
         [Category("XAML Styler Configuration")]
