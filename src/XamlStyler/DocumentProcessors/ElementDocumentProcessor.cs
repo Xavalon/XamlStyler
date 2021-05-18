@@ -84,7 +84,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                     }
                     else
                     {
-                        output.Append(Environment.NewLine).Append(currentIndentString);
+                        output.Append(options.NewLine).Append(currentIndentString);
                     }
                 }
             }
@@ -112,7 +112,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
             if (putEndingBracketOnNewLine)
             {
                 // Indent ending bracket just like an attribute.
-                output.Append(Environment.NewLine).Append(attributeIndetationString);
+                output.Append(options.NewLine).Append(attributeIndetationString);
             }
 
             if (isEmptyElement)
@@ -298,7 +298,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                     }
                     else
                     {
-                        output.Append(Environment.NewLine)
+                        output.Append(options.NewLine)
                             .Append(this.indentService.Normalize(attributeIndentationString + attributeLines[i].Trim()));
                     }
                 }

@@ -4,11 +4,19 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.DocumentProcessors
 {
     internal class WhitespaceDocumentProcessor : IDocumentProcessor
     {
+        private readonly IStylerOptions options;
+
+        public WhitespaceDocumentProcessor(IStylerOptions options)
+        {
+            this.options = options;
+        }
+
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
         {
             var hasNewline = xmlReader.Value.Contains('\n');
@@ -27,7 +35,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                     .Replace(" ", String.Empty)
                     .Replace("\t", String.Empty)
                     .Replace("\r", String.Empty)
-                    .Replace("\n", Environment.NewLine));
+                    .Replace("\n", options.NewLine));
             }
             else
             {
@@ -38,7 +46,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                 //      B
                 //     </Run>
                 //  </TextBlock>
-                output.Append(xmlReader.Value.Replace("\n", Environment.NewLine));
+                output.Append(xmlReader.Value.Replace("\n", options.NewLine));
             }
         }
     }

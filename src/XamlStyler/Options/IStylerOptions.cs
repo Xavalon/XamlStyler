@@ -117,6 +117,10 @@ namespace Xavalon.XamlStyler.Options
 
         bool SuppressProcessing { get; set; }
 
+        string NewLine { get; }
+
+        string EndOfLine { get; set; }
+
         #endregion Configuration
     }
 }
