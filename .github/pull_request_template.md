@@ -13,4 +13,5 @@ Fixes # (issue)
 * [ ] New and existing unit tests pass locally with my changes
 * [ ] I have tested my changes by running the extension in VS2017
 * [ ] I have tested my changes by running the extension in VS2019
+* [ ] I have tested my changes by running the extension in VS2022
 * [ ] If changes to the [documentation](https://github.com/Xavalon/XamlStyler/wiki) are needed, I have noted this in the description above
