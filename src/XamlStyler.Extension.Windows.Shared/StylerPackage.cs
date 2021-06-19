@@ -89,11 +89,11 @@ namespace Xavalon.XamlStyler.Extension.Windows
                 new CommandID(Guids.GuidXamlStylerMenuSet, (int)Constants.CommandIDFormatSelectedXaml)));
 
             // File.Save Command
-            this.saveCommandEvents = this.IDE.Events.CommandEvents[$"{{{Guids.GuidVsStd97CmdIDString}}}", 331];
+            this.saveCommandEvents = this.IDE2.Events.CommandEvents[$"{{{Guids.GuidVsStd97CmdIDString}}}", 331];
             this.saveCommandEvents.BeforeExecute += this.OnFileSave;
 
             // File.SaveAll Command
-            this.saveAllCommandEvents = this.IDE.Events.CommandEvents[$"{{{Guids.GuidVsStd97CmdIDString}}}", 224];
+            this.saveAllCommandEvents = this.IDE2.Events.CommandEvents[$"{{{Guids.GuidVsStd97CmdIDString}}}", 224];
             this.saveAllCommandEvents.BeforeExecute += this.OnFileSaveAll;
         }
 
@@ -101,7 +101,7 @@ namespace Xavalon.XamlStyler.Extension.Windows
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             this.uiShell.SetWaitCursor();
-            this.FormatDocument(this.IDE.ActiveDocument);
+            this.FormatDocument(this.IDE2.ActiveDocument);
         }
 
         private void FormatSolutionEventHandler()
@@ -109,7 +109,7 @@ namespace Xavalon.XamlStyler.Extension.Windows
             ThreadHelper.ThrowIfNotOnUIThread();
             this.uiShell.SetWaitCursor();
 
-            IEnumerable<ProjectItem> projectItems = ProjectItemHelper.GetAllProjectItems(this.IDE.Solution)
+            IEnumerable<ProjectItem> projectItems = ProjectItemHelper.GetAllProjectItems(this.IDE2.Solution)
                 .Where(_ => _.IsXaml() && _.IsFormatable());
 
             this.FormatDocuments(projectItems);
@@ -135,7 +135,7 @@ namespace Xavalon.XamlStyler.Extension.Windows
                 return;
             }
 
-            Document document = this.IDE.ActiveDocument;
+            Document document = this.IDE2.ActiveDocument;
             IStylerOptions options = this.optionsHelper.GetDocumentStylerOptions(document);
             if (options.FormatOnSave)
             {
@@ -154,7 +154,7 @@ namespace Xavalon.XamlStyler.Extension.Windows
 
             // Use parallel processing, but only on the documents that are formatable (to avoid the overhead of Task creating when it's not necessary).
             var jobs = new List<Func<Action>>();
-            foreach (Document document in this.IDE.Documents)
+            foreach (Document document in this.IDE2.Documents)
             {
                 // Skip unopened documents.
                 if (document.ActiveWindow != null)

@@ -124,7 +124,7 @@
 
     <!-- The bitmaps section is used to define the bitmaps that are used for the commands. -->
     <Bitmaps>
-      <Bitmap guid="GuidImageFormat" href="Resources\format.png" usedList="IconFormat"/>
+      <Bitmap guid="GuidImageFormat" href="..\XamlStyler.Extension.Windows.Shared\Resources\format.png" usedList="IconFormat"/>
     </Bitmaps>
   </Commands>
 
