@@ -6,7 +6,7 @@ using JetBrains.Lifetimes;
 using JetBrains.ProjectModel;
 using JetBrains.ProjectModel.DataContext;
 using JetBrains.Rd.Tasks;
-using JetBrains.ReSharper.Host.Features;
+using JetBrains.Rider.Backend.Features;
 using JetBrains.Rider.Model;
 
 namespace Xavalon.XamlStyler.Extension.Rider.Rider
