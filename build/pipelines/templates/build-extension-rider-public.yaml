@@ -9,6 +9,8 @@ jobs:
   variables:
     pluginVersion: $(Build.BuildNumber)
 
+  continueOnError: true
+
   steps:      
   - task: NuGetToolInstaller@1
     displayName: 'Install NuGet Tools'
