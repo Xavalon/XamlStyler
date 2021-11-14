@@ -29,10 +29,10 @@
     <None Include="$(MSBuildThisFileDirectory)Key.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)Resources\icon128.jpg">
+    <Content Include="$(MSBuildThisFileDirectory)Resources\format.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="$(MSBuildThisFileDirectory)Resources\icon200.jpg">
+    <Content Include="$(MSBuildThisFileDirectory)Resources\StylerPackage.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -10,4 +10,8 @@
   <PropertyGroup />
   <Import Project="XamlStyler.Extension.Windows.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.CSharp.targets" />
+  <ItemGroup>
+    <Resource Remove="Resources\format.png" />
+    <Resource Remove="Resources\StylerPackage.ico" />
+  </ItemGroup>
 </Project>
