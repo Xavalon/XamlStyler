@@ -29,14 +29,6 @@
     <None Include="$(MSBuildThisFileDirectory)Key.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)Resources\icon128.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="$(MSBuildThisFileDirectory)Resources\icon200.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="$(MSBuildThisFileDirectory)Resources\format.png" />
     <Resource Include="$(MSBuildThisFileDirectory)Resources\StylerPackage.ico" />
   </ItemGroup>
