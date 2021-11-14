@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.0.31410.414
+VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlStyler", "XamlStyler\XamlStyler.csproj", "{BD2A5B6F-0B1C-4B1D-90AF-707F62BB12C0}"
 EndProject
@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlStyler.UnitTest", "Xaml
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlStyler.Console", "XamlStyler.Console\XamlStyler.Console.csproj", "{5284FEA7-FC0B-45EA-8B16-9DA7F5E6D7B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.Extension.Windows.VS2019AndEarlier", "XamlStyler.Extension.Windows.VS2019AndEarlier\XamlStyler.Extension.Windows.VS2019AndEarlier.csproj", "{36E90337-BD31-49CF-89E9-7069CB5009C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamlStyler.Extension.Windows.VS2019", "XamlStyler.Extension.Windows.VS2019\XamlStyler.Extension.Windows.VS2019.csproj", "{36E90337-BD31-49CF-89E9-7069CB5009C8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XamlStyler.Extension", "XamlStyler.Extension\XamlStyler.Extension.csproj", "{C9EDDF87-4F29-47C7-B129-68EA6EED6A90}"
 EndProject
@@ -41,9 +41,7 @@ Global
 		{5284FEA7-FC0B-45EA-8B16-9DA7F5E6D7B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5284FEA7-FC0B-45EA-8B16-9DA7F5E6D7B6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{36E90337-BD31-49CF-89E9-7069CB5009C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{36E90337-BD31-49CF-89E9-7069CB5009C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36E90337-BD31-49CF-89E9-7069CB5009C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{36E90337-BD31-49CF-89E9-7069CB5009C8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C9EDDF87-4F29-47C7-B129-68EA6EED6A90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C9EDDF87-4F29-47C7-B129-68EA6EED6A90}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9EDDF87-4F29-47C7-B129-68EA6EED6A90}.Release|Any CPU.ActiveCfg = Release|Any CPU

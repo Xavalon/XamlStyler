@@ -27,7 +27,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xavalon.XamlStyler.Extension.Windows</RootNamespace>
-    <AssemblyName>XamlStyler.Extension.Windows.VS2019AndEarlier</AssemblyName>
+    <AssemblyName>XamlStyler.Extension.Windows.VS2019</AssemblyName>
     <SignAssembly>True</SignAssembly>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
@@ -50,7 +50,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\bin\Release\Extension.Windows.VS2019AndEarlier\</OutputPath>
+    <OutputPath>..\bin\Release\Extension.Windows.VS2019\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -109,7 +109,6 @@
       <Name>XamlStyler</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="..\XamlStyler.Extension.Windows.Shared\XamlStyler.Extension.Windows.Shared.projitems" Label="Shared" />
   <PropertyGroup>
     <UseCodebase>true</UseCodebase>

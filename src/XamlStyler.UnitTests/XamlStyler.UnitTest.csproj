@@ -5,13 +5,22 @@
     <RootNamespace>Xavalon.XamlStyler.UnitTests</RootNamespace>
     <Copyright>Copyright © Xavalon 2020</Copyright>
     <Company>Xavalon</Company>
+    <Configurations>Debug;Release;Debug VS2019;Release VS2019</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\bin\Debug\UnitTest</OutputPath>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug VS2019|AnyCPU'">
+    <OutputPath>..\bin\Debug\UnitTest</OutputPath>
+  </PropertyGroup>
+
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\bin\Release\UnitTest</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release VS2019|AnyCPU'">
     <OutputPath>..\bin\Release\UnitTest</OutputPath>
   </PropertyGroup>
 <ItemGroup>
