@@ -7,6 +7,8 @@ XAML Styler is a visual studio extension that formats XAML source code based on 
 [![Build Status](https://dev.azure.com/xavalon/XAML%20Styler/_apis/build/status/Release?branchName=master)](https://dev.azure.com/xavalon/XAML%20Styler/_build/latest?definitionId=2&branchName=master)
 
 ## Downloads
+[![VS2022](https://img.shields.io/visual-studio-marketplace/v/TeamXavalon.XAMLStyler2022.svg?label=Visual%20Studio%202022%20(Preview))](https://marketplace.visualstudio.com/items?itemName=TeamXavalon.XAMLStyler2022)
+
 [![VS2019](https://img.shields.io/visual-studio-marketplace/v/TeamXavalon.XAMLStyler.svg?label=Visual%20Studio%202019)](https://marketplace.visualstudio.com/items?itemName=TeamXavalon.XAMLStyler)
 
 [![VSMAC](https://img.shields.io/badge/Visual%20Studio%20for%20Mac%202019-v2.0.1-blue.svg)](http://addins.monodevelop.com/Project/Index/382)
@@ -21,7 +23,6 @@ Right-click with any file and select "Format XAML" to format your XAML source co
 
 ![Context Menu](http://i.imgur.com/gCcNuIS.png)
 
-## Thanks to our Contributors
-[![](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/images/0)](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/links/0)[![](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/images/1)](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/links/1)[![](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/images/2)](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/links/2)[![](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/images/3)](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/links/3)[![](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/images/4)](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/links/4)[![](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/images/5)](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/links/5)[![](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/images/6)](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/links/6)[![](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/images/7)](https://sourcerer.io/fame/grochocki/Xavalon/XamlStyler/links/7)
+
 
 [![Join the chat at https://gitter.im/Xavalon/XamlStyler](https://badges.gitter.im/Xavalon/XamlStyler.svg)](https://gitter.im/Xavalon/XamlStyler?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
