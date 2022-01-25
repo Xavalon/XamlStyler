@@ -15,7 +15,6 @@ plugins {
 ext {
     isWindows = Os.isFamily(Os.FAMILY_WINDOWS)
     rdLibDirectory = {
-//         new File(intellij.getIdeaDependency(project).classes, "lib/rd")
         new File(setupDependencies.idea.get().classes, "lib/rd")
     }
 }

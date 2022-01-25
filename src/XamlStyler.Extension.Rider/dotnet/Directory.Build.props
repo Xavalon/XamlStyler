@@ -18,7 +18,7 @@
 
   <PropertyGroup>
     <WaveVersionBase>$(SdkVersion.Substring(2,2))$(SdkVersion.Substring(5,1))</WaveVersionBase>
-    <WaveVersion>$(WaveVersionBase).0.0$(SdkVersion.Substring(6))</WaveVersion>
+    <WaveVersion>$(WaveVersionBase).0.0$(SdkVersion.Substring(8))</WaveVersion>
   </PropertyGroup>
   
 </Project>
