@@ -5,17 +5,18 @@ plugins {
     id 'java'
 
     // RIDER: May need updating with new Rider releases
-    id 'org.jetbrains.kotlin.jvm' version '1.4.32'
-    id 'com.jetbrains.rdgen' version '0.211.235'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.31'
+    id 'com.jetbrains.rdgen' version '0.213.394'
 
     // RIDER: Will probably need updating with new Rider releases, use latest version number from https://github.com/JetBrains/gradle-intellij-plugin/releases
-    id 'org.jetbrains.intellij' version '1.1.2'
+    id 'org.jetbrains.intellij' version '1.3.1'
 }
 
 ext {
     isWindows = Os.isFamily(Os.FAMILY_WINDOWS)
     rdLibDirectory = {
-        new File(intellij.getIdeaDependency(project).classes, "lib/rd")
+//         new File(intellij.getIdeaDependency(project).classes, "lib/rd")
+        new File(setupDependencies.idea.get().classes, "lib/rd")
     }
 }
 
@@ -25,7 +26,7 @@ repositories {
 }
 
 wrapper {
-    gradleVersion = '6.8.2'
+    gradleVersion = '7.1'
     distributionType = Wrapper.DistributionType.ALL
     distributionUrl = "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
@@ -41,7 +42,7 @@ sourceSets {
 }
 
 compileKotlin {
-    kotlinOptions { jvmTarget = "1.8" }
+    kotlinOptions { jvmTarget = "11" }
 }
 
 task compileDotNet {
@@ -100,7 +101,7 @@ rdgen {
     def ktOutput = new File(rootDir, "rider/main/kotlin/xavalon/plugins/${RiderPluginId.replace('.','/').toLowerCase()}")
 
     verbose = true
-    classpath "${rdLibDirectory}/rider-model.jar"
+    classpath "${rdLibDirectory()}/rider-model.jar"
     sources "${modelDir}/rider"
     hashFolder = "${buildDir}"
     packages = "model.rider"
