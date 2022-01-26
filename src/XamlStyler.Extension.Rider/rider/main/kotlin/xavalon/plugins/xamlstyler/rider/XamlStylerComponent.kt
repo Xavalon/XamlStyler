@@ -50,7 +50,7 @@ class XamlStylerComponent(project: Project)
                     // Only update if backend actually made modifications
                     if (result.isSuccess && result.hasUpdated) {
                         WriteCommandAction.runWriteCommandAction(project) {
-                            document.replaceString(0, currentDocumentText.length, result.formattedText)
+                            document.replaceString(0, document.textLength, result.formattedText)
                         }
                     }
                 }
