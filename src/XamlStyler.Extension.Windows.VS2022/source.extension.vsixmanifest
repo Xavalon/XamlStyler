@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
+    <Metadata>
+        <Identity Id="2c8bcbae-2bdd-46e4-8856-ce48cf9a7223" Version="3.1.0.0" Language="en-US" Publisher="Xavalon" />
+        <DisplayName>XAML Styler for Visual Studio 2022</DisplayName>
+        <Description xml:space="preserve">XAML Styler is a visual studio extension that formats XAML source code based on a set of styling rules. This tool can help you/your team maintain a better XAML coding style as well as a much better XAML readability.</Description>
+        <MoreInfo>https://github.com/Xavalon/XamlStyler/</MoreInfo>
+        <License>LICENSE</License>
+        <GettingStartedGuide>https://github.com/Xavalon/XamlStyler/wiki/Getting-Started</GettingStartedGuide>
+        <Icon>Resources\icon128.jpg</Icon>
+        <PreviewImage>Resources\icon200.jpg</PreviewImage>
+        <Tags>formatting,format,formatter,style,uwp,wpf,xaml</Tags>
+    </Metadata>
+    <!-- Visual Studio extensions and version ranges demystified: https://devblogs.microsoft.com/visualstudio/visual-studio-extensions-and-version-ranges-demystified/ -->
+    <Installation AllUsers="true">
+        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Pro">
+            <ProductArchitecture>amd64</ProductArchitecture>
+        </InstallationTarget>
+        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Enterprise">
+            <ProductArchitecture>amd64</ProductArchitecture>
+        </InstallationTarget>
+        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Community">
+            <ProductArchitecture>amd64</ProductArchitecture>
+        </InstallationTarget>
+    </Installation>
+    <Dependencies>
+    </Dependencies>
+    <Assets>
+        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+    </Assets>
+    <Prerequisites>
+        <!-- Visual Studio extensions and version ranges demystified: https://devblogs.microsoft.com/visualstudio/visual-studio-extensions-and-version-ranges-demystified/ -->
+        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,)" DisplayName="Visual Studio core editor" />
+    </Prerequisites>
+</PackageManifest>

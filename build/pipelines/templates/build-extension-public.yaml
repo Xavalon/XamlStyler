@@ -44,7 +44,8 @@ jobs:
     inputs:
       contents: |
         build/extension-overview.md
-        build/extension-manifest.json
+        build/extension-manifest-vs2019.json
+        build/extension-manifest-vs2022.json
         **/*.vsix
       targetFolder: $(Build.ArtifactStagingDirectory)
       cleanTargetFolder: true
