@@ -1,0 +1,5 @@
+﻿<Styles>
+  <Style Selector="Border > TextBlock">
+    <Setter Property="Background" Value="Red" />
+  </Style>
+</Styles>

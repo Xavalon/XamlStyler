@@ -97,6 +97,9 @@
   <None Update="TestFiles\TestAttributeToleranceHandling.testxaml">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </None>
+  <None Update="TestFiles\TestAxamlNoEscaping.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
   <None Update="TestFiles\TestBindingSplitting.expected">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </None>
@@ -326,6 +329,9 @@
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </None>
   <None Update="TestFiles\TestXmlnsAliasesHandling.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestAxamlNoEscaping.testxaml">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </None>
   <None Update="TestFiles\TestXmlSpaceHandling.expected">
