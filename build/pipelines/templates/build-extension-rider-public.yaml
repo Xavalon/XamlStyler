@@ -9,6 +9,8 @@ jobs:
   variables:
     pluginVersion: $(Build.BuildNumber)
 
+  continueOnError: true
+
   steps:      
   - task: NuGetToolInstaller@1
     displayName: 'Install NuGet Tools'
@@ -27,7 +29,7 @@ jobs:
       gradleOptions: '-Xmx3072m'
       options: '-PPluginVersion=$(pluginVersion)'
       javaHomeOption: 'JDKVersion'
-      jdkVersionOption: '1.8'
+      jdkVersionOption: '1.11'
       jdkArchitectureOption: 'x64'
       publishJUnitResults: true
       testResultsFiles: '**/TEST-*.xml'

@@ -1,51 +1,41 @@
+// Reference https://www.jetbrains.org/intellij/sdk/docs/tutorials/build_system/gradle_guide.html
 import org.apache.tools.ant.taskdefs.condition.Os
-
-buildscript {
-    repositories {
-        maven { url 'https://www.myget.org/F/rd-snapshots/maven/' }
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath("com.jetbrains.rd:rd-gen:0.203.190")
-    }
-}
 
 plugins {
     id 'java'
 
     // RIDER: May need updating with new Rider releases
-    id 'org.jetbrains.kotlin.jvm' version '1.4.20'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.31'
+    id 'com.jetbrains.rdgen' version '2021.3.4'
 
     // RIDER: Will probably need updating with new Rider releases, use latest version number from https://github.com/JetBrains/gradle-intellij-plugin/releases
-    id 'org.jetbrains.intellij' version '0.6.5'
+    id 'org.jetbrains.intellij' version '1.3.1'
 }
 
 ext {
     isWindows = Os.isFamily(Os.FAMILY_WINDOWS)
-    rdLibDirectory = new File(rootDir, "build/riderRD-${ProductVersion}/lib/rd")
+    rdLibDirectory = {
+        new File(setupDependencies.idea.get().classes, "lib/rd")
+    }
 }
 
 repositories {
     maven { url 'https://cache-redirector.jetbrains.com/intellij-repository/snapshots' }
     maven { url 'https://cache-redirector.jetbrains.com/maven-central' }
-    flatDir { dirs rdLibDirectory.absolutePath }
 }
 
 wrapper {
-    gradleVersion = '5.3'
+    gradleVersion = '7.1'
     distributionType = Wrapper.DistributionType.ALL
     distributionUrl = "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
 
 version = ext.PluginVersion
 
-if (ext.has("username")) intellij.publish.username = ext.username
-if (ext.has("password")) intellij.publish.password = ext.password
-
 sourceSets {
     main {
-        java.srcDir 'rider/main/kotlin'
+        java.srcDir 'rider/main/java'
+        kotlin.srcDir 'rider/main/kotlin'
         resources.srcDir 'rider/main/resources'
     }
 }
@@ -92,7 +82,17 @@ intellij {
     instrumentCode = false
 }
 
-apply plugin: 'com.jetbrains.rdgen'
+runIde {
+    // Match Rider's default heap size of 1.5Gb (default for runIde is 512Mb)
+    maxHeapSize = "1500m"
+
+    // Rider's backend doesn't support dynamic plugins. It might be possible to work with auto-reload of the frontend
+    // part of a plugin, but there are dangers about keeping plugins in sync
+    autoReloadPlugins = false
+
+    // gradle-intellij-plugin will download the default version of the JBR for the snapshot. Update if required
+    // jbrVersion = "jbr_jcef-11_0_6b765.40" // https://confluence.jetbrains.com/display/JBR/Release+notes
+}
 
 rdgen {
     def modelDir = new File(rootDir, "protocol/src/main/kotlin/model")
@@ -100,7 +100,9 @@ rdgen {
     def ktOutput = new File(rootDir, "rider/main/kotlin/xavalon/plugins/${RiderPluginId.replace('.','/').toLowerCase()}")
 
     verbose = true
-    classpath "${rdLibDirectory}/rider-model.jar"
+    classpath {
+        "${rdLibDirectory()}/rider-model.jar"
+    }
     sources "${modelDir}/rider"
     hashFolder = "${buildDir}"
     packages = "model.rider"
@@ -147,7 +149,7 @@ prepareSandbox {
 
     dllFiles.forEach({ f ->
         def file = file(f)
-        from(file, { into "${intellij.pluginName}/dotnet" })
+        from(file, { into "${rootProject.name}/dotnet" })
     })
 
     doLast {
