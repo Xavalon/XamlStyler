@@ -466,6 +466,30 @@ namespace Xavalon.XamlStyler.UnitTests
             FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
+        [Test]
+        public void TestIgnoringNamespacesInAttributeOrdering()
+        {
+            var stylerOptions = new StylerOptions()
+            {
+                IgnoreDesignTimeReferencePrefix = true,
+            };
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
+        }
+        /// <summary>
+        /// Purpose of this test is to set ignoring design time namespaces to true, while
+        /// file will not have any design time namespaces and test whether that setting does not
+        /// break anything when set to true, but no design time namespace is defined.
+        /// </summary>
+        [Test]
+        public void TestIgnoringNamespacesInAttributeOrderingWithoutNamespace()
+        {
+            var stylerOptions = new StylerOptions()
+            {
+                IgnoreDesignTimeReferencePrefix = true,
+            };
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
+        }
+
         private static void DoTest(
             StylerOptions stylerOptions,
             [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")

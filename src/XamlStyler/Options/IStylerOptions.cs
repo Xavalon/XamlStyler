@@ -54,6 +54,8 @@ namespace Xavalon.XamlStyler.Options
         string[] AttributeOrderingRuleGroups { get; set; }
 
         bool OrderAttributesByName { get; set; }
+        
+        bool IgnoreDesignTimeReferencePrefix { get; set; }
 
         #endregion Attribute Reordering
 
