@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using Xavalon.XamlStyler.Extensions;
 using Xavalon.XamlStyler.Model;
+using Xavalon.XamlStyler.Options;
 using Xavalon.XamlStyler.Services;
 
 namespace Xavalon.XamlStyler.MarkupExtensions.Formatter

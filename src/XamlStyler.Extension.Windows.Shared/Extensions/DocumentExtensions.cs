@@ -3,6 +3,7 @@
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using System;
+using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.Extension.Windows.Extensions
 {

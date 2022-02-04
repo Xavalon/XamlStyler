@@ -19,12 +19,6 @@ using Xavalon.XamlStyler.Services;
 
 namespace Xavalon.XamlStyler
 {
-    public class XamlLanguageOptions
-    {
-        public bool IsFormatable { get; set; }
-
-        public HashSet<char> UnescapedAttributeCharacters { get; } = new HashSet<char>();
-    }
 
     public class StylerService
     {
@@ -35,6 +29,7 @@ namespace Xavalon.XamlStyler
         };
         private readonly DocumentManipulationService documentManipulationService;
         private readonly IStylerOptions options;
+        private readonly XamlLanguageOptions xamlLanguageOptions;
         private readonly XmlEscapingService xmlEscapingService;
         private Dictionary<XmlNodeType, IDocumentProcessor> documentProcessors;
 
@@ -43,6 +38,7 @@ namespace Xavalon.XamlStyler
             this.xmlEscapingService = new XmlEscapingService();
             this.documentManipulationService = new DocumentManipulationService(options);
             this.options = options;
+            this.xamlLanguageOptions = xamlLanguageOptions;
         }
 
         /// <summary>
