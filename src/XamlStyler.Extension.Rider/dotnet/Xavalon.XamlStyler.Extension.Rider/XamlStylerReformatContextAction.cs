@@ -17,6 +17,7 @@ using JetBrains.ReSharper.Psi.Xaml;
 using JetBrains.TextControl;
 using JetBrains.Util;
 using Xavalon.XamlStyler.Extension.Rider.Resources;
+using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.Extension.Rider
 {
@@ -93,7 +94,10 @@ namespace Xavalon.XamlStyler.Extension.Rider
             if (stylerOptions.SuppressProcessing) return null;
             
             // Perform styling
-            var styler = new StylerService(stylerOptions);
+            var styler = new StylerService(stylerOptions, new XamlLanguageOptions
+            {
+                IsFormatable = true
+            });
             
             var psiSourceFiles = 
                 _actionAppliesTo == ActionAppliesTo.File ? _dataProvider.Document.GetPsiSourceFiles(solution).AsIReadOnlyList()
