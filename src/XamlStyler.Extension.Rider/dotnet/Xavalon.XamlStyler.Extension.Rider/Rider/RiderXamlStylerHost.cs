@@ -8,6 +8,7 @@ using JetBrains.ProjectModel.DataContext;
 using JetBrains.Rd.Tasks;
 using JetBrains.Rider.Backend.Features;
 using JetBrains.Rider.Model;
+using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.Extension.Rider.Rider
 {
@@ -58,7 +59,11 @@ namespace Xavalon.XamlStyler.Extension.Rider.Rider
                 if (stylerOptions.SuppressProcessing || !stylerOptions.FormatOnSave) return new RdXamlStylerFormattingResult(false, false, "");
             
                 // Perform styling
-                var styler = new StylerService(stylerOptions);
+                var styler = new StylerService(stylerOptions, new XamlLanguageOptions
+                {
+                    IsFormatable = true
+                });
+  
                 var formattedText = styler.StyleDocument(request.DocumentText).Replace("\r\n", "\n");
 
                 if (request.DocumentText == formattedText) {
