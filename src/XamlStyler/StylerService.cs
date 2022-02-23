@@ -19,6 +19,7 @@ using Xavalon.XamlStyler.Services;
 
 namespace Xavalon.XamlStyler
 {
+
     public class StylerService
     {
         private readonly string[] ignoredNamespacesInOrdering = new string[]
@@ -28,14 +29,16 @@ namespace Xavalon.XamlStyler
         };
         private readonly DocumentManipulationService documentManipulationService;
         private readonly IStylerOptions options;
+        private readonly XamlLanguageOptions xamlLanguageOptions;
         private readonly XmlEscapingService xmlEscapingService;
         private Dictionary<XmlNodeType, IDocumentProcessor> documentProcessors;
 
-        public StylerService(IStylerOptions options)
+        public StylerService(IStylerOptions options, XamlLanguageOptions xamlLanguageOptions)
         {
             this.xmlEscapingService = new XmlEscapingService();
             this.documentManipulationService = new DocumentManipulationService(options);
             this.options = options;
+            this.xamlLanguageOptions = xamlLanguageOptions;
         }
 
         /// <summary>
@@ -85,7 +88,7 @@ namespace Xavalon.XamlStyler
             this.documentProcessors = new Dictionary<XmlNodeType, IDocumentProcessor>
             {
                 // { XmlNodeType.None, null },
-                { XmlNodeType.Element, new ElementDocumentProcessor(options, attributeInfoFactory, attributeInfoFormatter, indentService, xmlEscapingService) },
+                { XmlNodeType.Element, new ElementDocumentProcessor(options, xamlLanguageOptions, attributeInfoFactory, attributeInfoFormatter, indentService, xmlEscapingService) },
                 // { XmlNodeType.Attribute, null },
                 { XmlNodeType.Text, new TextDocumentProcessor(indentService) },
                 { XmlNodeType.CDATA, new CDATADocumentProcessor(indentService) },

@@ -162,12 +162,13 @@ namespace Xavalon.XamlStyler.Extension.Windows
                     continue;
                 }
 
-                if (document.IsFormatable())
+                var xamlLanguageOptions = document.GetXamlLanguageOptions();
+                if (xamlLanguageOptions.IsFormatable)
                 {
                     IStylerOptions options = this.optionsHelper.GetDocumentStylerOptions(document);
                     if (options.FormatOnSave)
                     {
-                        jobs.Add(SetupFormatDocumentContinuation(document, options));
+                        jobs.Add(SetupFormatDocumentContinuation(document, options, xamlLanguageOptions));
                     }
                 }
             }

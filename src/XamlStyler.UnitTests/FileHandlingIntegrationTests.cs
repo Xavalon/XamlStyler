@@ -225,6 +225,23 @@ namespace Xavalon.XamlStyler.UnitTests
         }
 
         [Test]
+        public void TestAxamlNoEscaping()
+        {
+            var stylerOptions = this.GetLegacyStylerOptions();
+
+            var stylerService = new StylerService(stylerOptions, new XamlLanguageOptions()
+            {
+                IsFormatable = true,
+                UnescapedAttributeCharacters =
+                {
+                    '>'
+                }
+            });
+
+            FileHandlingIntegrationTests.DoTest(stylerService, stylerOptions, Path.Combine("TestFiles", "TestAxamlNoEscaping"), null);
+        }
+
+        [Test]
         public void TestNoContentElementHandling()
         {
             FileHandlingIntegrationTests.DoTest(this.GetLegacyStylerOptions());
@@ -491,16 +508,8 @@ namespace Xavalon.XamlStyler.UnitTests
                 testIdentifier.ToString());
         }
 
-        /// <summary>
-        /// Style input document and verify output against expected
-        /// </summary>
-        /// <param name="stylerOptions"></param>
-        /// <param name="testFileBaseName"></param>
-        /// <param name="expectedSuffix"></param>
-        private static void DoTest(StylerOptions stylerOptions, string testFileBaseName, string expectedSuffix)
+        private static void DoTest(StylerService stylerService, StylerOptions stylerOptions, string testFileBaseName, string expectedSuffix)
         {
-            var stylerService = new StylerService(stylerOptions);
-
             var activeDir = Path.GetDirectoryName(new Uri(typeof(FileHandlingIntegrationTests).Assembly.CodeBase).LocalPath);
             var testFile = Path.Combine(activeDir, testFileBaseName);
 
@@ -516,6 +525,16 @@ namespace Xavalon.XamlStyler.UnitTests
 
             // Check result
             Assert.That(actualOutput, Is.EqualTo(File.ReadAllText($"{testFileResultBaseName}.expected")));
+        }
+
+        private static void DoTest(StylerOptions stylerOptions, string testFileBaseName, string expectedSuffix)
+        {
+            var stylerService = new StylerService(stylerOptions, new XamlLanguageOptions()
+            {
+                IsFormatable = true
+            });
+
+            DoTest(stylerService, stylerOptions, testFileBaseName, expectedSuffix);
         }
 
         private static string GetConfiguration(string path)

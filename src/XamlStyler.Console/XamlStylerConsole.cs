@@ -28,7 +28,10 @@ namespace Xavalon.XamlStyler.Console
 
             this.ApplyOptionOverrides(options, stylerOptions);
 
-            this.stylerService = new StylerService(stylerOptions);
+            this.stylerService = new StylerService(stylerOptions, new XamlLanguageOptions
+            {
+                IsFormatable = true
+            });
         }
 
         private void ApplyOptionOverrides(CommandLineOptions options, IStylerOptions stylerOptions)
@@ -242,7 +245,10 @@ namespace Xavalon.XamlStyler.Console
 
             string formattedOutput = String.IsNullOrWhiteSpace(configurationPath)
                 ? this.stylerService.StyleDocument(originalContent)
-                : new StylerService(this.LoadConfiguration(configurationPath)).StyleDocument(originalContent);
+                : new StylerService(this.LoadConfiguration(configurationPath), new XamlLanguageOptions()
+                {
+                    IsFormatable = true
+                }).StyleDocument(originalContent);
 
             if (this.options.IsPassive)
             {

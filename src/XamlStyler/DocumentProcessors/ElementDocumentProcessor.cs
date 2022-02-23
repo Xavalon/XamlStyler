@@ -18,6 +18,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
     internal class ElementDocumentProcessor : IDocumentProcessor
     {
         private readonly IStylerOptions options;
+        private readonly XamlLanguageOptions xamlLanguageOptions;
         private readonly AttributeInfoFactory attributeInfoFactory;
         private readonly AttributeInfoFormatter attributeInfoFormatter;
         private readonly IndentService indentService;
@@ -29,12 +30,14 @@ namespace Xavalon.XamlStyler.DocumentProcessors
 
         public ElementDocumentProcessor(
             IStylerOptions options,
+            XamlLanguageOptions xamlLanguageOptions,
             AttributeInfoFactory attributeInfoFactory,
             AttributeInfoFormatter attributeInfoFormatter,
             IndentService indentService,
             XmlEscapingService xmlEscapingService)
         {
             this.options = options;
+            this.xamlLanguageOptions = xamlLanguageOptions;
             this.attributeInfoFactory = attributeInfoFactory;
             this.attributeInfoFormatter = attributeInfoFormatter;
             this.indentService = indentService;
@@ -149,7 +152,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
 
                 list.Add(attributeInfo);
 
-                // Maintain separate list of first line attributes.  
+                // Maintain separate list of first line attributes.
                 if (this.options.EnableAttributeReordering && this.IsFirstLineAttribute(attributeInfo.Name))
                 {
                     firstLineList.Add(attributeInfo);
@@ -203,7 +206,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
             {
                 foreach (var attrInfo in list)
                 {
-                    output.Append(' ').Append(this.attributeInfoFormatter.ToSingleLineString(attrInfo));
+                    output.Append(' ').Append(this.attributeInfoFormatter.ToSingleLineString(attrInfo, xamlLanguageOptions));
                 }
 
                 elementProcessContext.Current.IsMultlineStartTag = false;
@@ -218,11 +221,11 @@ namespace Xavalon.XamlStyler.DocumentProcessors
 
                 AttributeInfo lastAttributeInfo = null;
 
-                // Process first line attributes.  
+                // Process first line attributes.
                 string firstLine = String.Empty;
                 foreach (var attrInfo in firstLineList)
                 {
-                    firstLine = $"{firstLine} {this.attributeInfoFormatter.ToSingleLineString(attrInfo)}";
+                    firstLine = $"{firstLine} {this.attributeInfoFormatter.ToSingleLineString(attrInfo, xamlLanguageOptions)}";
                 }
 
                 if (firstLine.Length > 0)
@@ -232,7 +235,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
 
                 foreach (AttributeInfo attrInfo in list)
                 {
-                    // Skip attributes already added to first line.  
+                    // Skip attributes already added to first line.
                     if (firstLineList.Contains(attrInfo))
                     {
                         continue;
@@ -253,7 +256,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                     }
                     else
                     {
-                        string pendingAppend = this.attributeInfoFormatter.ToSingleLineString(attrInfo);
+                        string pendingAppend = this.attributeInfoFormatter.ToSingleLineString(attrInfo, xamlLanguageOptions);
                         var actualPendingAppend = this.xmlEscapingService.RestoreXmlnsAliasesBypass(pendingAppend);
                         xmlnsAliasesBypassLengthInCurrentLine += pendingAppend.Length - actualPendingAppend.Length;
 
