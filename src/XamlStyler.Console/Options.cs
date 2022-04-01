@@ -25,7 +25,7 @@ namespace Xavalon.XamlStyler.Console
         [Option('r', "recursive", Default = false, HelpText = "Recursively process specified directory.")]
         public bool IsRecursive { get; set; }
 
-        [Option('p', "passive", Default = false, HelpText = "Check files follow proper formatting without making any modifications.")]
+        [Option('p', "passive", Default = false, HelpText = "Check files follow proper formatting without making any modifications. Returns error status if files fail the check.")]
         public bool IsPassive { get; set; }
 
         [Option('l', "loglevel", Default = LogLevel.Default,
