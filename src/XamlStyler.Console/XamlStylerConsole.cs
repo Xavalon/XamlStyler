@@ -267,17 +267,25 @@ namespace Xavalon.XamlStyler.Console
             {
                 this.Log($"\nFormatted Output:\n\n{formattedOutput}\n", LogLevel.Insanity);
 
-                using var writer = new StreamWriter(path, false, encoding);
-                try
+                // Only modify the file on disk if the content would be changed
+                if (!formattedOutput.Equals(originalContent, StringComparison.Ordinal))
                 {
-                    writer.Write(formattedOutput);
-                    this.Log($"Finished Processing: {file}", LogLevel.Verbose);
+                    using var writer = new StreamWriter(path, false, encoding);
+                    try
+                    {
+                        writer.Write(formattedOutput);
+                        this.Log($"Finished Processing: {file}", LogLevel.Verbose);
+                    }
+                    catch (Exception e)
+                    {
+                        this.Log("Skipping... Error formatting XAML. Increase log level for more details.");
+                        this.Log($"Exception: {e.Message}", LogLevel.Verbose);
+                        this.Log($"StackTrace: {e.StackTrace}", LogLevel.Debug);
+                    }
                 }
-                catch (Exception e)
+                else
                 {
-                    this.Log("Skipping... Error formatting XAML. Increase log level for more details.");
-                    this.Log($"Exception: {e.Message}", LogLevel.Verbose);
-                    this.Log($"StackTrace: {e.StackTrace}", LogLevel.Debug);
+                    this.Log($"Finished Processing (unmodified): {file}", LogLevel.Verbose);
                 }
             }
 
