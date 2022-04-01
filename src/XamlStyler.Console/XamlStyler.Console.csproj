@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PackageId>XamlStyler.Console</PackageId>
-    <PackageVersion>3.1.0.0</PackageVersion>
+    <PackageVersion>3.1.1.0</PackageVersion>
     <Authors>Xavalon</Authors>
     <Title>XAML Styler Console</Title>
     <Description>The power of XAML Styler wrapped up in a small executable that can be integrated into build scripts, git commit templates, and more. This package is built on top of the same styling engine that powers the Visual Studio plugin, and can be configured by specifying an external configuration.</Description>
@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/Xavalon/XamlStyler</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Xavalon.XamlStyler.Console</RootNamespace>
     <AssemblyName>xstyler</AssemblyName>
     <PackAsTool>true</PackAsTool>
