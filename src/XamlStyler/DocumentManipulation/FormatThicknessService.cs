@@ -41,13 +41,20 @@ namespace Xavalon.XamlStyler.DocumentManipulation
             if (element.Name == SetterName)
             {
                 var propertyAttribute = element.Attributes("Property").FirstOrDefault();
-                if ((propertyAttribute != null) && !propertyAttribute.Value.Contains(":")
-                    && this.ThicknessAttributeNames.Any(_ => _.IsMatch(propertyAttribute.Value)))
+
+                if (propertyAttribute != null)
                 {
-                    var valueAttribute = element.Attributes("Value").FirstOrDefault();
-                    if (valueAttribute != null)
+                    // Trim the property attribute value to prevent exceptions with IsMatch
+                    propertyAttribute.Value = propertyAttribute.Value.Trim();
+
+                    if (!propertyAttribute.Value.Contains(":")
+                        && this.ThicknessAttributeNames.Any(_ => _.IsMatch(propertyAttribute.Value)))
                     {
-                        this.FormatAttribute(valueAttribute);
+                        var valueAttribute = element.Attributes("Value").FirstOrDefault();
+                        if (valueAttribute != null)
+                        {
+                            this.FormatAttribute(valueAttribute);
+                        }
                     }
                 }
             }
