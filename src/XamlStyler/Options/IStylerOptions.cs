@@ -105,6 +105,8 @@ namespace Xavalon.XamlStyler.Options
 
         bool SaveAndCloseOnFormat { get; set; }
 
+        bool ShowMessageBoxOnError { get; set; }
+
         int CommentSpaces { get; set; }
 
         #endregion Misc

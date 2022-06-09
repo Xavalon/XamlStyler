@@ -27,6 +27,7 @@
   "ThicknessAttributes": "Margin",
   "FormatOnSave": false,
   "SaveAndCloseOnFormat": false,
+  "ShowMessageBoxOnError": false,
   "CommentPadding": 3,
   "IgnoreDesignTimeReferencePrefix": true
 }

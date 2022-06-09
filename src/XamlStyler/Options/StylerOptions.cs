@@ -282,6 +282,13 @@ namespace Xavalon.XamlStyler.Options
         public bool SaveAndCloseOnFormat { get; set; }
 
         [Category("Misc")]
+        [DisplayName("Show message box with details on format error?")]
+        [JsonProperty("ShowMessageBoxOnError", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("When set to true, XAML Styler will popup a message box with the error details when formatting fails.\r\n\r\nDefault Value: true")]
+        [DefaultValue(true)]
+        public bool ShowMessageBoxOnError { get; set; }
+
+        [Category("Misc")]
         [DisplayName("Comment padding")]
         [JsonProperty("CommentPadding", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [Description("Determines the number of spaces a XAML comment should be padded with.\r\n\r\nDefault Value: 2")]

@@ -25,13 +25,19 @@ namespace Xavalon.XamlStyler.Extension.Windows
             }
             catch (Exception ex)
             {
-                this.ShowMessageBox(ex);
+                IStylerOptions options = this.optionsHelper.GetDocumentStylerOptions(document);
+                if (options.ShowMessageBoxOnError)
+                {
+                    this.ShowMessageBox(ex);
+                }
             }
         }
 
         private void FormatDocument(ProjectItem projectItem)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
+            Document document = projectItem.Document;
+
             try
             {
                 if (projectItem.IsFormatable())
@@ -50,8 +56,7 @@ namespace Xavalon.XamlStyler.Extension.Windows
                             // Skip if file cannot be opened.
                         }
                     }
-
-                    Document document = projectItem.Document;
+                    
                     if (document != null)
                     {
                         document.Activate();
@@ -68,7 +73,11 @@ namespace Xavalon.XamlStyler.Extension.Windows
             }
             catch (Exception ex)
             {
-                this.ShowMessageBox(ex);
+                IStylerOptions options = this.optionsHelper.GetDocumentStylerOptions(document);
+                if (options.ShowMessageBoxOnError)
+                {
+                    this.ShowMessageBox(ex);
+                }
             }
         }
 
