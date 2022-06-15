@@ -24,7 +24,7 @@
     <OutputPath>..\bin\Release\UnitTest</OutputPath>
   </PropertyGroup>
 <ItemGroup>
-    <PackageReference Include="CompareNETObjects" Version="4.63.0">
+    <PackageReference Include="CompareNETObjects" Version="4.77.0">
     </PackageReference>
     <PackageReference Include="Irony" Version="1.1.0">
     </PackageReference>
@@ -32,14 +32,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1">
     </PackageReference>
-    <PackageReference Include="NUnit" Version="3.13.2">
+    <PackageReference Include="NUnit" Version="3.13.3">
     </PackageReference>
-    <PackageReference Include="NUnit.ConsoleRunner" Version="3.12.0">
+    <PackageReference Include="NUnit.ConsoleRunner" Version="3.15.0">
     </PackageReference>
-    <PackageReference Include="NUnit3TestAdapter" Version="4.1.0">
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.1">
     </PackageReference>
   </ItemGroup>
 <ItemGroup>
