@@ -8,7 +8,7 @@ namespace Xavalon.XamlStyler.Console
 {
     public sealed partial class Program
     {
-        public static void Main(string[] args)
+        public static int Main(string[] args)
         {
             var writer = new StringWriter();
             var parser = new CommandLine.Parser(_ => _.HelpWriter = writer);
@@ -43,8 +43,12 @@ namespace Xavalon.XamlStyler.Console
                         : "Must specify file(s) or directory";
 
                     System.Console.WriteLine($"\nError: {errorString}\n");
+
+                    Environment.Exit(1);
                 }
             });
+
+            return 0;
         }
     }
 }
