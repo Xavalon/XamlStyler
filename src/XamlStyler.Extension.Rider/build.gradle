@@ -6,10 +6,10 @@ plugins {
 
     // RIDER: May need updating with new Rider releases
     id 'org.jetbrains.kotlin.jvm' version '1.7.0-RC'
-    id 'com.jetbrains.rdgen' version '2022.1.1'
+    id 'com.jetbrains.rdgen' version '2022.2.1'
 
     // RIDER: Will probably need updating with new Rider releases, use latest version number from https://github.com/JetBrains/gradle-intellij-plugin/releases
-    id 'org.jetbrains.intellij' version '1.6.0'
+    id 'org.jetbrains.intellij' version '1.8.0'
 }
 
 ext {
