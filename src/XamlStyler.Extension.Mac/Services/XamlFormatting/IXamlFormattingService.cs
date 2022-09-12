@@ -9,7 +9,7 @@ namespace Xavalon.XamlStyler.Extension.Mac.Services.XamlFormatting
     {
         bool TryFormatXamlDocument(Document document, IStylerOptions stylerOptions);
 
-        bool TryFormatXaml(ref string xamlText, IStylerOptions stylerOptions);
+        bool TryFormatXaml(ref string xamlText, IStylerOptions stylerOptions, XamlLanguageOptions xamlLanguageOptions);
 
         bool IsDocumentFormattable(Document document);
     }

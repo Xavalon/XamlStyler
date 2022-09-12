@@ -4,13 +4,16 @@ using MonoDevelop.Components.Commands;
 using MonoDevelop.Core;
 using MonoDevelop.Ide;
 using MonoDevelop.Ide.Gui;
+using MonoDevelop.Ide.TextEditing;
 using MonoDevelop.Projects;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Xavalon.XamlStyler.Extension.Mac.Services.XamlFiles;
 using Xavalon.XamlStyler.Extension.Mac.Services.XamlFormatting;
 using Xavalon.XamlStyler.Extension.Mac.Services.XamlStylerOptions;
+using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.Extension.Mac.CommandHandlers
 {
@@ -57,12 +60,33 @@ namespace Xavalon.XamlStyler.Extension.Mac.CommandHandlers
             }
 
             var xamlFileText = File.ReadAllText(xamlFilePath);
-            if (!XamlFormattingService.TryFormatXaml(ref xamlFileText, stylerOptions))
+            if (!XamlFormattingService.TryFormatXaml(ref xamlFileText, stylerOptions, GetLanguageOptions(xamlFilePath)))
             {
                 return;
             }
 
             File.WriteAllText(xamlFilePath, xamlFileText);
+        }
+
+        private XamlLanguageOptions GetLanguageOptions(string xamlFilePath)
+        {
+            XamlLanguageOptions options = new();
+            if (xamlFilePath.EndsWith(Constants.XamlFileExtension))
+            {
+                options.IsFormatable = true;
+                return options;
+            }
+
+            if (xamlFilePath.EndsWith(Constants.AxamlFileExtension))
+            {
+                options.IsFormatable = true;
+                options.UnescapedAttributeCharacters.Add('>');
+
+                return options;
+            }
+
+            options.IsFormatable = false;
+            return options;
         }
 
         private bool IsFileCurrentlyOpened(string filePath, out Document openedDocument)

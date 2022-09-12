@@ -3,6 +3,7 @@
 using Microsoft.VisualStudio.Text;
 using MonoDevelop.Ide.Gui;
 using System;
+using Xavalon.XamlStyler.Extension.Mac.Extensions;
 using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.Extension.Mac.Services.XamlFormatting
@@ -14,7 +15,7 @@ namespace Xavalon.XamlStyler.Extension.Mac.Services.XamlFormatting
             var textBuffer = document.TextBuffer;
             var currentTextSnapshot = textBuffer.CurrentSnapshot;
             var xamlText = currentTextSnapshot.GetText();
-            if (!TryFormatXaml(ref xamlText, stylerOptions))
+            if (!TryFormatXaml(ref xamlText, stylerOptions, document.GetXamlLanguageOptions()))
             {
                 return false;
             }
@@ -26,9 +27,9 @@ namespace Xavalon.XamlStyler.Extension.Mac.Services.XamlFormatting
             return true;
         }
 
-        public bool TryFormatXaml(ref string xamlText, IStylerOptions stylerOptions)
+        public bool TryFormatXaml(ref string xamlText, IStylerOptions stylerOptions, XamlLanguageOptions xamlLanguageOptions)
         {
-            var stylerService = new StylerService(stylerOptions);
+            var stylerService = new StylerService(stylerOptions, xamlLanguageOptions);
             var styledText = stylerService.StyleDocument(xamlText);
             if (xamlText == styledText)
             {

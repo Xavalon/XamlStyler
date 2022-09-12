@@ -18,20 +18,20 @@
 
   <ItemGroup>
     <None Remove="Options\DefaultSettings.json" />
+    <None Remove="Irony" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Options\DefaultSettings.json" />
   </ItemGroup>
 <ItemGroup>
-    <PackageReference Include="Irony" Version="1.1.0">
-    </PackageReference>
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1">
     </PackageReference>
+    <PackageReference Include="Irony" Version="1.1.0" />
   </ItemGroup>
 <ItemGroup>
   <Folder Include="Properties\" />
