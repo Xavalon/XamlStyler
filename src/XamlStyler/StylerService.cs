@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Xml.Linq;
+using Irony.Parsing;
 using Xavalon.XamlStyler.DocumentManipulation;
 using Xavalon.XamlStyler.DocumentProcessors;
 using Xavalon.XamlStyler.Extensions;
