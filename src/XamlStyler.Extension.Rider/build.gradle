@@ -126,7 +126,7 @@ rdgen {
 
 // Plugin workaround untill 2022.3.1 comes output
 // https://youtrack.jetbrains.com/issue/RIDER-86051
-// HACK: To be removed when updating newer rider targets
+// Rider: To be removed when updating newer rider targets
 patchPluginXml {
     sinceBuild = '223.7571'
     untilBuild = '223.*'
