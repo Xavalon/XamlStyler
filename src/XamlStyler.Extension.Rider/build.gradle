@@ -5,11 +5,11 @@ plugins {
     id 'java'
 
     // RIDER: May need updating with new Rider releases
-    id 'org.jetbrains.kotlin.jvm' version '1.7.0-RC'
-    id 'com.jetbrains.rdgen' version '2022.2.1'
+    id 'org.jetbrains.kotlin.jvm' version '1.7.22'
+    id 'com.jetbrains.rdgen' version '2023.1.0'
 
     // RIDER: Will probably need updating with new Rider releases, use latest version number from https://github.com/JetBrains/gradle-intellij-plugin/releases
-    id 'org.jetbrains.intellij' version '1.8.0'
+    id 'org.jetbrains.intellij' version '1.10.1'
 }
 
 ext {
@@ -25,7 +25,7 @@ repositories {
 }
 
 wrapper {
-    gradleVersion = '7.1'
+    gradleVersion = '7.6'
     distributionType = Wrapper.DistributionType.ALL
     distributionUrl = "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
@@ -41,7 +41,7 @@ sourceSets {
 }
 
 compileKotlin {
-    kotlinOptions { jvmTarget = "11" }
+    kotlinOptions { jvmTarget = "17" }
 }
 
 task compileDotNet {
@@ -122,6 +122,14 @@ rdgen {
         namespace = "JetBrains.Rider.Model"
         directory = "$csOutput"
     }
+}
+
+// Plugin workaround untill 2022.3.1 comes output
+// https://youtrack.jetbrains.com/issue/RIDER-86051
+// Rider: To be removed when updating newer rider targets
+patchPluginXml {
+    sinceBuild = '223.7571'
+    untilBuild = '223.*'
 }
 
 patchPluginXml {
