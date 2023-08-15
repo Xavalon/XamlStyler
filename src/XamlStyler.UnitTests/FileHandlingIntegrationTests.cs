@@ -510,7 +510,7 @@ namespace Xavalon.XamlStyler.UnitTests
 
         private static void DoTest(StylerService stylerService, StylerOptions stylerOptions, string testFileBaseName, string expectedSuffix)
         {
-            var activeDir = Path.GetDirectoryName(new Uri(typeof(FileHandlingIntegrationTests).Assembly.CodeBase).LocalPath);
+            var activeDir = Path.GetDirectoryName(new Uri(typeof(FileHandlingIntegrationTests).Assembly.Location).LocalPath);
             var testFile = Path.Combine(activeDir, testFileBaseName);
 
             var testFileResultBaseName = (expectedSuffix != null)
