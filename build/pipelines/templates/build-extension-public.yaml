@@ -33,7 +33,7 @@ jobs:
     displayName: 'Build'
     inputs:
       solution: src/XamlStyler.sln
-      vsVersion: 16.0
+      vsVersion: latest
       platform: 'Any CPU'
       configuration: $(buildConfiguration)
       clean: true
