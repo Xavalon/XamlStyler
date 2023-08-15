@@ -29,17 +29,17 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="CommandLineParser">
-      <Version>2.8.0</Version>
+      <Version>2.9.1</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
+      <Version>13.0.3</Version>
     </PackageReference>
     <PackageReference Include="NuGet.CommandLine">
-      <Version>6.0.2</Version>
+      <Version>6.6.1</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

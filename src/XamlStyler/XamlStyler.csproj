@@ -24,9 +24,9 @@
     <EmbeddedResource Include="Options\DefaultSettings.json" />
   </ItemGroup>
 <ItemGroup>
-    <PackageReference Include="Irony" Version="1.1.0">
+    <PackageReference Include="Irony" Version="1.2.0">
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
