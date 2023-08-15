@@ -6,6 +6,8 @@
     <Copyright>Copyright © Xavalon 2020</Copyright>
     <Company>Xavalon</Company>
     <Configurations>Debug;Release;Debug VS2019;Release VS2019</Configurations>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -28,12 +30,8 @@
     </PackageReference>
     <PackageReference Include="Irony" Version="1.2.0">
     </PackageReference>
-    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.3">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="9.0.1">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3">
     </PackageReference>
     <PackageReference Include="NUnit" Version="3.13.3">
     </PackageReference>
