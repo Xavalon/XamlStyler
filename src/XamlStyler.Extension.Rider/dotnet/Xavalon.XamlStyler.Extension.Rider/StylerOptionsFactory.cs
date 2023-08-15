@@ -27,12 +27,16 @@ namespace Xavalon.XamlStyler.Extension.Rider
                 sourceFilePath: psiSourceFileWithLocation?.Location.FullPath);
         }
         
-         public static IStylerOptions FromSettings(
+        public static IStylerOptions FromSettings(
             IContextBoundSettingsStoreLive settings,
             [CanBeNull] ISolution solution,
             [CanBeNull] string projectPath,
             [CanBeNull] string sourceFilePath)
         {
+             // Normalize paths, because Rider may pass them in with differing separator chars
+             projectPath = NormalizePath(projectPath);
+             sourceFilePath = NormalizePath(sourceFilePath);
+
             // 1. Load global settings
             IStylerOptions fallbackOptions = new StylerOptions();
             IStylerOptions stylerOptions = new StylerOptions();
@@ -141,6 +145,17 @@ namespace Xavalon.XamlStyler.Extension.Rider
             }
 
             return null;
+        }
+
+        private static string NormalizePath(string path)
+        {
+            if (path.IsNullOrEmpty())
+            {
+                return null;
+            }
+
+            return Path.GetFullPath(new Uri(path).LocalPath)
+                .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         }
     }
 }
