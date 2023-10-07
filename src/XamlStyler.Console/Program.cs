@@ -28,10 +28,15 @@ namespace Xavalon.XamlStyler.Console
                     System.Console.WriteLine($"File Directory: '{options.Directory}'");
                 }
 
-                bool isFileOptionSpecified = (options.File?.Count ?? 0) != 0;
+                int numFilesSpecified = options.File?.Count ?? 0;
+                bool isFileOptionSpecified = numFilesSpecified != 0;
                 bool isDirectoryOptionSpecified = !String.IsNullOrEmpty(options.Directory);
 
-                if (isFileOptionSpecified ^ isDirectoryOptionSpecified)
+                if (options.WriteToStdout && (isDirectoryOptionSpecified || numFilesSpecified != 1))
+                {
+                    System.Console.WriteLine($"\nError: When using --write-to-stdout you must specify exactly one file\n");
+                }
+                else if (isFileOptionSpecified ^ isDirectoryOptionSpecified)
                 {
                     var xamlStylerConsole = new XamlStylerConsole(options);
                     xamlStylerConsole.Process(isFileOptionSpecified ? ProcessType.File : ProcessType.Directory);
