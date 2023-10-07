@@ -21,43 +21,58 @@ namespace Xavalon.XamlStyler.Console
             })
             .WithParsed(options =>
             {
-                if (options.LogLevel >= LogLevel.Debug)
+                ProcessType processType;
+                if (!CheckOptions(options, out processType))
                 {
-                    System.Console.WriteLine($"File Parameter: '{options.File}'");
-                    System.Console.WriteLine($"File Count: {options.File?.Count ?? -1}");
-                    System.Console.WriteLine($"File Directory: '{options.Directory}'");
-                }
-
-                int numFilesSpecified = options.File?.Count ?? 0;
-                bool isFileOptionSpecified = numFilesSpecified != 0;
-                bool isDirectoryOptionSpecified = !String.IsNullOrEmpty(options.Directory);
-
-                if (options.WriteToStdout && (isDirectoryOptionSpecified || numFilesSpecified != 1))
-                {
-                    System.Console.WriteLine($"\nError: When using --write-to-stdout you must specify exactly one file\n");
-                }
-                else if (options.WriteToStdout && options.IsPassive)
-                {
-                    System.Console.WriteLine($"\nError: Cannot specify both --passive and --write-to-stdout\n");
-                }
-                else if (isFileOptionSpecified ^ isDirectoryOptionSpecified)
-                {
-                    var xamlStylerConsole = new XamlStylerConsole(options);
-                    xamlStylerConsole.Process(isFileOptionSpecified ? ProcessType.File : ProcessType.Directory);
-                }
-                else
-                {
-                    string errorString = (isFileOptionSpecified && isDirectoryOptionSpecified)
-                        ? "Cannot specify both file(s) and directory"
-                        : "Must specify file(s) or directory";
-
-                    System.Console.WriteLine($"\nError: {errorString}\n");
-
                     Environment.Exit(1);
                 }
+
+                var xamlStylerConsole = new XamlStylerConsole(options);
+                xamlStylerConsole.Process(processType);
             });
 
             return 0;
+        }
+
+        private static bool CheckOptions(CommandLineOptions options, out ProcessType processType)
+        {
+            if (options.LogLevel >= LogLevel.Debug)
+            {
+                System.Console.WriteLine($"File Parameter: '{options.File}'");
+                System.Console.WriteLine($"File Count: {options.File?.Count ?? -1}");
+                System.Console.WriteLine($"File Directory: '{options.Directory}'");
+            }
+
+            bool result = true;
+
+            int numFilesSpecified = options.File?.Count ?? 0;
+            bool isFileOptionSpecified = numFilesSpecified != 0;
+            bool isDirectoryOptionSpecified = !String.IsNullOrEmpty(options.Directory);
+            if (isFileOptionSpecified && isDirectoryOptionSpecified)
+            {
+                System.Console.WriteLine($"\nError: Cannot specify both file(s) and directory\n");
+                result = false;
+            }
+            else if (!isFileOptionSpecified && !isDirectoryOptionSpecified)
+            {
+                System.Console.WriteLine($"\nError: Must specify file(s) or directory\n");
+                result = false;
+            }
+
+            if (options.WriteToStdout && (isDirectoryOptionSpecified || numFilesSpecified != 1))
+            {
+                System.Console.WriteLine($"\nError: When using --write-to-stdout you must specify exactly one file\n");
+                result = false;
+            }
+
+            if (options.WriteToStdout && options.IsPassive)
+            {
+                System.Console.WriteLine($"\nError: Cannot specify both --passive and --write-to-stdout\n");
+                result = false;
+            }
+
+            processType = isFileOptionSpecified ? ProcessType.File : ProcessType.Directory;
+            return result;
         }
     }
 }
