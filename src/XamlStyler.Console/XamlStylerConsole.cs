@@ -263,6 +263,20 @@ namespace Xavalon.XamlStyler.Console
                     return false;
                 }
             }
+            else if (this.options.WriteToStdout)
+            {
+                var prevEncoding = System.Console.OutputEncoding;
+                try
+                {
+                    System.Console.OutputEncoding = encoding;
+                    System.Console.Write(encoding.GetString(encoding.GetPreamble()));
+                    System.Console.Write(formattedOutput);
+                }
+                finally
+                {
+                    System.Console.OutputEncoding = prevEncoding;
+                }
+            }
             else
             {
                 this.Log($"\nFormatted Output:\n\n{formattedOutput}\n", LogLevel.Insanity);
@@ -336,7 +350,14 @@ namespace Xavalon.XamlStyler.Console
         {
             if (logLevel <= this.options.LogLevel)
             {
-                System.Console.WriteLine(value);
+                if (this.options.WriteToStdout)
+                {
+                    System.Console.Error.WriteLine(value);
+                }
+                else
+                {
+                    System.Console.WriteLine(value);
+                }
             }
         }
     }
