@@ -29,7 +29,7 @@ namespace Xavalon.XamlStyler.Console
         public bool IsPassive { get; set; }
 
         [Option("write-to-stdout", Default = false,
-            HelpText = "Instead of modifying the file, write to stdout. In this mode, logs are printed to stderr. Must specify exactly one file.")]
+            HelpText = "Instead of modifying the file, write to stdout. In this mode, logs are printed to stderr. Must specify exactly one file. Cannot be compbined with --passive.")]
         public bool WriteToStdout { get; set; }
 
         [Option('l', "loglevel", Default = LogLevel.Default,

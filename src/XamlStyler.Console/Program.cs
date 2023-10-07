@@ -36,6 +36,10 @@ namespace Xavalon.XamlStyler.Console
                 {
                     System.Console.WriteLine($"\nError: When using --write-to-stdout you must specify exactly one file\n");
                 }
+                else if (options.WriteToStdout && options.IsPassive)
+                {
+                    System.Console.WriteLine($"\nError: Cannot specify both --passive and --write-to-stdout\n");
+                }
                 else if (isFileOptionSpecified ^ isDirectoryOptionSpecified)
                 {
                     var xamlStylerConsole = new XamlStylerConsole(options);
