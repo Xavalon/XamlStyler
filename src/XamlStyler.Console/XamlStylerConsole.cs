@@ -13,11 +13,13 @@ namespace Xavalon.XamlStyler.Console
     public sealed class XamlStylerConsole
     {
         private readonly CommandLineOptions options;
+        private readonly Logger logger;
         private readonly StylerService stylerService;
 
-        public XamlStylerConsole(CommandLineOptions options)
+        public XamlStylerConsole(CommandLineOptions options, Logger logger)
         {
             this.options = options;
+            this.logger = logger;
 
             IStylerOptions stylerOptions = new StylerOptions();
 
@@ -346,19 +348,9 @@ namespace Xavalon.XamlStyler.Console
             return null;
         }
 
-        private void Log(string value, LogLevel logLevel = LogLevel.Default)
+        private void Log(string line, LogLevel logLevel = LogLevel.Default)
         {
-            if (logLevel <= this.options.LogLevel)
-            {
-                if (this.options.WriteToStdout)
-                {
-                    System.Console.Error.WriteLine(value);
-                }
-                else
-                {
-                    System.Console.WriteLine(value);
-                }
-            }
+            this.logger.Log(line, logLevel);
         }
     }
 }

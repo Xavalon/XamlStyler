@@ -21,27 +21,26 @@ namespace Xavalon.XamlStyler.Console
             })
             .WithParsed(options =>
             {
+                Logger logger = new Logger(options.WriteToStdout ? System.Console.Error : System.Console.Out, options.LogLevel);
+
                 ProcessType processType;
-                if (!CheckOptions(options, out processType))
+                if (!CheckOptions(options, logger, out processType))
                 {
                     Environment.Exit(1);
                 }
 
-                var xamlStylerConsole = new XamlStylerConsole(options);
+                var xamlStylerConsole = new XamlStylerConsole(options, logger);
                 xamlStylerConsole.Process(processType);
             });
 
             return 0;
         }
 
-        private static bool CheckOptions(CommandLineOptions options, out ProcessType processType)
+        private static bool CheckOptions(CommandLineOptions options, Logger logger, out ProcessType processType)
         {
-            if (options.LogLevel >= LogLevel.Debug)
-            {
-                System.Console.WriteLine($"File Parameter: '{options.File}'");
-                System.Console.WriteLine($"File Count: {options.File?.Count ?? -1}");
-                System.Console.WriteLine($"File Directory: '{options.Directory}'");
-            }
+            logger.Log($"File Parameter: '{options.File}'", LogLevel.Debug);
+            logger.Log($"File Count: {options.File?.Count ?? -1}", LogLevel.Debug);
+            logger.Log($"File Directory: '{options.Directory}'", LogLevel.Debug);
 
             bool result = true;
 
