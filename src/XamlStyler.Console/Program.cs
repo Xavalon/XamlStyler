@@ -16,7 +16,7 @@ namespace Xavalon.XamlStyler.Console
 
             result.WithNotParsed(_ =>
             {
-                System.Console.WriteLine(writer.ToString());
+                System.Console.Error.WriteLine(writer.ToString());
                 Environment.Exit(1);
             })
             .WithParsed(options =>
@@ -50,24 +50,24 @@ namespace Xavalon.XamlStyler.Console
             bool isDirectoryOptionSpecified = !String.IsNullOrEmpty(options.Directory);
             if (isFileOptionSpecified && isDirectoryOptionSpecified)
             {
-                System.Console.WriteLine($"\nError: Cannot specify both file(s) and directory\n");
+                System.Console.Error.WriteLine($"\nError: Cannot specify both file(s) and directory\n");
                 result = false;
             }
             else if (!isFileOptionSpecified && !isDirectoryOptionSpecified)
             {
-                System.Console.WriteLine($"\nError: Must specify file(s) or directory\n");
+                System.Console.Error.WriteLine($"\nError: Must specify file(s) or directory\n");
                 result = false;
             }
 
             if (options.WriteToStdout && (isDirectoryOptionSpecified || numFilesSpecified != 1))
             {
-                System.Console.WriteLine($"\nError: When using --write-to-stdout you must specify exactly one file\n");
+                System.Console.Error.WriteLine($"\nError: When using --write-to-stdout you must specify exactly one file\n");
                 result = false;
             }
 
             if (options.WriteToStdout && options.IsPassive)
             {
-                System.Console.WriteLine($"\nError: Cannot specify both --passive and --write-to-stdout\n");
+                System.Console.Error.WriteLine($"\nError: Cannot specify both --passive and --write-to-stdout\n");
                 result = false;
             }
 
