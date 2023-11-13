@@ -13,11 +13,13 @@ namespace Xavalon.XamlStyler.Console
     public sealed class XamlStylerConsole
     {
         private readonly CommandLineOptions options;
+        private readonly Logger logger;
         private readonly StylerService stylerService;
 
-        public XamlStylerConsole(CommandLineOptions options)
+        public XamlStylerConsole(CommandLineOptions options, Logger logger)
         {
             this.options = options;
+            this.logger = logger;
 
             IStylerOptions stylerOptions = new StylerOptions();
 
@@ -263,6 +265,20 @@ namespace Xavalon.XamlStyler.Console
                     return false;
                 }
             }
+            else if (this.options.WriteToStdout)
+            {
+                var prevEncoding = System.Console.OutputEncoding;
+                try
+                {
+                    System.Console.OutputEncoding = encoding;
+                    System.Console.Write(encoding.GetString(encoding.GetPreamble()));
+                    System.Console.Write(formattedOutput);
+                }
+                finally
+                {
+                    System.Console.OutputEncoding = prevEncoding;
+                }
+            }
             else
             {
                 this.Log($"\nFormatted Output:\n\n{formattedOutput}\n", LogLevel.Insanity);
@@ -332,12 +348,9 @@ namespace Xavalon.XamlStyler.Console
             return null;
         }
 
-        private void Log(string value, LogLevel logLevel = LogLevel.Default)
+        private void Log(string line, LogLevel logLevel = LogLevel.Default)
         {
-            if (logLevel <= this.options.LogLevel)
-            {
-                System.Console.WriteLine(value);
-            }
+            this.logger.Log(line, logLevel);
         }
     }
 }

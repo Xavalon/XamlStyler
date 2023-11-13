@@ -28,6 +28,10 @@ namespace Xavalon.XamlStyler.Console
         [Option('p', "passive", Default = false, HelpText = "Check files follow proper formatting without making any modifications. Returns error status if files fail the check.")]
         public bool IsPassive { get; set; }
 
+        [Option("write-to-stdout", Default = false,
+            HelpText = "Instead of modifying the file, write to stdout. In this mode, logs are printed to stderr. Must specify exactly one file. Cannot be compbined with --passive.")]
+        public bool WriteToStdout { get; set; }
+
         [Option('l', "loglevel", Default = LogLevel.Default,
             HelpText = "Levels in order of increasing detail: None, Minimal, Default, Verbose, Debug")]
         public LogLevel LogLevel { get; set; }
