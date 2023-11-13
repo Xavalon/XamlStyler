@@ -18,8 +18,8 @@ namespace Xavalon.XamlStyler.UnitTests
         [Test]
         public void TestConfigurationDefault()
         {
-            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations\Default.json"));
-            this.TestConfig(stylerOptions, @"TestConfigurations\SerializedDefault.json");
+            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations/Default.json"));
+            this.TestConfig(stylerOptions, @"TestConfigurations/SerializedDefault.json");
 
             Assert.IsTrue(stylerOptions.UseVisualStudioIndentWithTabs);
         }
@@ -27,36 +27,36 @@ namespace Xavalon.XamlStyler.UnitTests
         [Test]
         public void TestConfigurationEmpty()
         {
-            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations\Empty.json"));
-            this.TestConfig(stylerOptions, @"TestConfigurations\SerializedDefault.json");
+            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations/Empty.json"));
+            this.TestConfig(stylerOptions, @"TestConfigurations/SerializedDefault.json");
         }
 
         [Test]
         public void TestConfigurationSingle()
         {
-            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations\Single.json"));
-            this.TestConfig(stylerOptions, @"TestConfigurations\Single.json");
+            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations/Single.json"));
+            this.TestConfig(stylerOptions, @"TestConfigurations/Single.json");
         }
 
         [Test]
         public void TestConfigurationBadSetting()
         {
-            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations\BadSetting.json"));
-            this.TestConfig(stylerOptions, @"TestConfigurations\SerializedDefault.json");
+            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations/BadSetting.json"));
+            this.TestConfig(stylerOptions, @"TestConfigurations/SerializedDefault.json");
         }
 
         [Test]
         public void TestConfigurationAllDifferent()
         {
-            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations\AllDifferent.json"));
-            this.TestConfig(stylerOptions, @"TestConfigurations\AllDifferent.json");
+            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations/AllDifferent.json"));
+            this.TestConfig(stylerOptions, @"TestConfigurations/AllDifferent.json");
         }
 
         [Test]
         public void TestConfigurationIndentUsingTabs()
         {
-            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations\IndentWithTabsOverride.json"));
-            this.TestConfig(stylerOptions, @"TestConfigurations\IndentWithTabsOverride.json");
+            var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations/IndentWithTabsOverride.json"));
+            this.TestConfig(stylerOptions, @"TestConfigurations/IndentWithTabsOverride.json");
 
             Assert.IsFalse(stylerOptions.UseVisualStudioIndentWithTabs); // IndentWithTabs is true
             Assert.IsFalse(stylerOptions.UseVisualStudioIndentSize); // IndentSize is set
