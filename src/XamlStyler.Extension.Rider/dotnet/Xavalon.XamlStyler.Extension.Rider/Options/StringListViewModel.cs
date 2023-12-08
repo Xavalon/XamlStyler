@@ -20,7 +20,7 @@ namespace Xavalon.XamlStyler.Extension.Rider.Options
         {
             myLifetime = lifetime;
             mySource = source;
-            myEntryChanged = new GroupingEventHost(lifetime, false).CreateEvent(lifetime,
+            myEntryChanged = new GroupingEventHosts(lifetime)[Rgc.Invariant].CreateEvent(lifetime,
                 "StringListViewModel.EntryChangedGrouped",
                 TimeSpan.FromMilliseconds(100),
                 OnEntryChanged);
