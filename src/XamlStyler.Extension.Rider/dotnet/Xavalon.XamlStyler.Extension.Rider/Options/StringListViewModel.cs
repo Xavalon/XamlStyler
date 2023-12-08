@@ -30,8 +30,8 @@ namespace Xavalon.XamlStyler.Extension.Rider.Options
                 .Select(entry => new StringListEntry(lifetime, myEntryChanged.Incoming, entry.Trim()))
                 .ToList();
 
-            Entries = new ListEvents<StringListEntry>(lifetime, "StringListViewModel.Entries", entries, false);
-            SelectedEntry = new Property<StringListEntry>(lifetime, "StringListViewModel.SelectedEntry");
+            Entries = new ListEvents<StringListEntry>("StringListViewModel.Entries", entries, false);
+            SelectedEntry = new Property<StringListEntry>("StringListViewModel.SelectedEntry");
         }
 
         public ListEvents<StringListEntry> Entries { get; }
@@ -71,7 +71,7 @@ namespace Xavalon.XamlStyler.Extension.Rider.Options
                 [NotNull] ISimpleSignal entryChanged,
                 string value)
             {
-                Value = new Property<string>(lifetime, "StringListEntry.Value", value);
+                Value = new Property<string>("StringListEntry.Value", value);
                 Value.Change.Advise_NoAcknowledgement(lifetime, entryChanged.Fire);
             }
         }

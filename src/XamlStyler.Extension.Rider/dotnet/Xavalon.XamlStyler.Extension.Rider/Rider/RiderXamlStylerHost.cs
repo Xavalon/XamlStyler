@@ -35,11 +35,11 @@ namespace Xavalon.XamlStyler.Extension.Rider.Rider
             if (rdSolutionModel != null)
             {
                 var rdXamlStylerModel = rdSolutionModel.GetXamlStylerModel();
-                rdXamlStylerModel.PerformReformat.Set(PerformReformatHandler);
+                rdXamlStylerModel.PerformReformat.SetAsync(PerformReformatHandler);
             }
         }
 
-        private RdTask<RdXamlStylerFormattingResult> PerformReformatHandler(
+        private Task<RdXamlStylerFormattingResult> PerformReformatHandler(
             Lifetime requestLifetime, 
             RdXamlStylerFormattingRequest request)
         {
