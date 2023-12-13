@@ -79,7 +79,7 @@ namespace Xavalon.XamlStyler.Extension.Rider
             [NotNull] IProgressIndicator progress)
         {
             // Fetch settings
-            var lifetime = solution.GetLifetime();
+            var lifetime = solution.GetSolutionLifetimes().MaximumLifetime;
             var settings = solution.GetSettingsStore().SettingsStore.BindToContextLive(lifetime, ContextRange.Smart(solution.ToDataContext()));
             var stylerOptions = StylerOptionsFactory.FromSettings(
                 settings,
