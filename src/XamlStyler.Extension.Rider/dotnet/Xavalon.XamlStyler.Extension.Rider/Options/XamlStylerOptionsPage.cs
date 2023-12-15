@@ -136,7 +136,7 @@ namespace Xavalon.XamlStyler.Extension.Rider.Options
             // Configuration
             AddHeader("Configuration");
             AddText("External configuration file:");
-            var configPath = new Property<FileSystemPath>(lifetime, "XamlStylerOptionsPage::configPath");
+            var configPath = new Property<FileSystemPath>("XamlStylerOptionsPage::configPath");
             OptionsSettingsSmartContext.SetBinding(lifetime, (XamlStylerSettings k) => k.ConfigPath, configPath);
             AddFileChooserOption(configPath, "External configuration file", FileSystemPath.Empty, null, commonFileDialogs, null, false, "", null, null, null, null);
             AddBoolOption((XamlStylerSettings x) => x.SearchToDriveRoot, "Search to drive root");
