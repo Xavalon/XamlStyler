@@ -75,7 +75,7 @@ namespace Xavalon.XamlStyler.Extension.Windows
 
             // Format XAML File Command
             this.menuCommandService.AddCommand(new MenuCommand(
-                (s,e) => this.FormatFileEventHandler(),
+                (s, e) => this.FormatFileEventHandler(),
                 new CommandID(Guids.GuidXamlStylerMenuSet, (int)Constants.CommandIDFormatXamlFile)));
 
             // Format All XAML Command
@@ -101,7 +101,10 @@ namespace Xavalon.XamlStyler.Extension.Windows
         {
             ThreadHelper.ThrowIfNotOnUIThread();
             this.uiShell.SetWaitCursor();
-            this.FormatDocument(this.IDE2.ActiveDocument);
+            if (TryGetActiveDocument(out Document document))
+            {
+                this.FormatDocument(document);
+            }
         }
 
         private void FormatSolutionEventHandler()
@@ -135,11 +138,13 @@ namespace Xavalon.XamlStyler.Extension.Windows
                 return;
             }
 
-            Document document = this.IDE2.ActiveDocument;
-            IStylerOptions options = this.optionsHelper.GetDocumentStylerOptions(document);
-            if (options.FormatOnSave)
+            if (TryGetActiveDocument(out Document document))
             {
-                this.FormatDocument(document, options);
+                IStylerOptions options = this.optionsHelper.GetDocumentStylerOptions(document);
+                if (options.FormatOnSave)
+                {
+                    this.FormatDocument(document, options);
+                }
             }
         }
 
@@ -178,6 +183,23 @@ namespace Xavalon.XamlStyler.Extension.Windows
             {
                 finish();
             }
+        }
+
+        private bool TryGetActiveDocument(out Document document)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+            try
+            {
+                document = this.IDE2.ActiveDocument;
+                return document != null;
+            }
+            catch
+            {
+                // EnvDTE80.DTE2.get_ActiveDocument() *may* throw an ArgumentNullException for some documents.
+            }
+
+            document = null;
+            return false;
         }
 
         private void ShowMessageBox(Exception ex)

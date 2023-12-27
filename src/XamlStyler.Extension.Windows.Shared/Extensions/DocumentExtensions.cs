@@ -30,13 +30,29 @@ namespace Xavalon.XamlStyler.Extension.Windows.Extensions
                    && document.FullName.EndsWith(Constants.AxamlFileExtension, StringComparison.OrdinalIgnoreCase);
         }
 
+        public static bool IsReadOnly(this Document document)
+        {
+            ThreadHelper.ThrowIfNotOnUIThread();
+
+            try
+            {
+                return document.ReadOnly;
+            }
+            catch
+            {
+                // EnvDTE.Document.get_ReadOnly() *may* throw an Exception for some document types.
+            }
+
+            return false;
+        }
+
         public static XamlLanguageOptions GetXamlLanguageOptions(this Document document)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
             var options = new XamlLanguageOptions();
 
-            if (document == null || document.ReadOnly)
+            if (document == null || document.IsReadOnly())
             {
                 return options;
             }
