@@ -21,7 +21,7 @@ namespace Xavalon.XamlStyler.UnitTests
             var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations/Default.json"));
             this.TestConfig(stylerOptions, @"TestConfigurations/SerializedDefault.json");
 
-            Assert.IsTrue(stylerOptions.UseVisualStudioIndentWithTabs);
+            Assert.That(stylerOptions.UseVisualStudioIndentWithTabs);
         }
 
         [Test]
@@ -58,8 +58,8 @@ namespace Xavalon.XamlStyler.UnitTests
             var stylerOptions = new StylerOptions(config: Tests.GetConfiguration(@"TestConfigurations/IndentWithTabsOverride.json"));
             this.TestConfig(stylerOptions, @"TestConfigurations/IndentWithTabsOverride.json");
 
-            Assert.IsFalse(stylerOptions.UseVisualStudioIndentWithTabs); // IndentWithTabs is true
-            Assert.IsFalse(stylerOptions.UseVisualStudioIndentSize); // IndentSize is set
+            Assert.That(!stylerOptions.UseVisualStudioIndentWithTabs); // IndentWithTabs is true
+            Assert.That(!stylerOptions.UseVisualStudioIndentSize); // IndentSize is set
         }
 
         private void TestConfig(StylerOptions stylerOptions, string expectedConfiguration)
