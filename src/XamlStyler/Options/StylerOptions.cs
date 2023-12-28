@@ -359,7 +359,6 @@ namespace Xavalon.XamlStyler.Options
         private string endOfLine;
 
         [Category("Misc")]
-        [RefreshProperties(RefreshProperties.All)]
         [Description("Defines end of line character. Specify 'lf' or 'crlf'; otherwise, default character of the host will be used.")]
         [JsonProperty("EndOfLine", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [DefaultValue("")]
@@ -377,7 +376,6 @@ namespace Xavalon.XamlStyler.Options
 
         [JsonIgnore]
         public string NewLine { get; private set; } = Environment.NewLine;
-
 
         /// <summary>
         /// Creates a clone from the current instance.

@@ -29,7 +29,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
 
             if (!output.IsNewLine())
             {
-                output.Append(options.NewLine);
+                output.Append(this.options.NewLine);
             }
 
             output.Append($"{currentIndentString}<?{xmlReader.Name} {xmlReader.Value}?>");

@@ -35,7 +35,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                     .Replace(" ", String.Empty)
                     .Replace("\t", String.Empty)
                     .Replace("\r", String.Empty)
-                    .Replace("\n", options.NewLine));
+                    .Replace("\n", this.options.NewLine));
             }
             else
             {
@@ -46,7 +46,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                 //      B
                 //     </Run>
                 //  </TextBlock>
-                output.Append(xmlReader.Value.Replace("\n", options.NewLine));
+                output.Append(xmlReader.Value.Replace("\n", this.options.NewLine));
             }
         }
     }
