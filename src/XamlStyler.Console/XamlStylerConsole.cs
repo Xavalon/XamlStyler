@@ -12,6 +12,9 @@ namespace Xavalon.XamlStyler.Console
 {
     public sealed class XamlStylerConsole
     {
+        private static readonly string[] SupportedPatterns = { "*.xaml", "*.axaml" };
+        private static readonly string[] SupportedExtensions = { ".xaml", ".axaml" };
+
         private readonly CommandLineOptions options;
         private readonly Logger logger;
         private readonly StylerService stylerService;
@@ -183,9 +186,23 @@ namespace Xavalon.XamlStyler.Console
                     SearchOption searchOption = this.options.IsRecursive
                         ? SearchOption.AllDirectories
                         : SearchOption.TopDirectoryOnly;
-                    files = File.GetAttributes(this.options.Directory).HasFlag(FileAttributes.Directory)
-                        ? Directory.GetFiles(this.options.Directory, "*.xaml", searchOption).ToList()
-                        : new List<string>();
+                    if (File.GetAttributes(this.options.Directory).HasFlag(FileAttributes.Directory))
+                    {
+                        var directoryFiles = new List<string>();
+                        foreach (var pattern in SupportedPatterns)
+                        {
+                            directoryFiles.AddRange(Directory.GetFiles(
+                                this.options.Directory,
+                                pattern,
+                                searchOption));
+                        }
+
+                        files = directoryFiles;
+                    }
+                    else
+                    {
+                        files = new List<string>();
+                    }
                     break;
                 default:
                     throw new ArgumentException("Invalid ProcessType");
@@ -223,9 +240,9 @@ namespace Xavalon.XamlStyler.Console
                 string extension = Path.GetExtension(file);
                 this.Log($"Extension: {extension}", LogLevel.Debug);
 
-                if (!extension.Equals(".xaml", StringComparison.OrdinalIgnoreCase))
+                if (!SupportedExtensions.Contains(extension, StringComparer.OrdinalIgnoreCase))
                 {
-                    this.Log($"Skipping... Can only process XAML files. Use the --ignore parameter to override.");
+                    this.Log($"Skipping... Can only process {string.Join(',', SupportedExtensions)} files. Use the --ignore parameter to override.");
                     return false;
                 }
             }
