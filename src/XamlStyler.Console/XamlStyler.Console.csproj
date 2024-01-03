@@ -5,7 +5,7 @@
     <Authors>Xavalon</Authors>
     <Title>XAML Styler Console</Title>
     <Description>The power of XAML Styler wrapped up in a small executable that can be integrated into build scripts, git commit templates, and more. This package is built on top of the same styling engine that powers the Visual Studio plugin, and can be configured by specifying an external configuration.</Description>
-    <Copyright>Copyright © Xavalon 2020</Copyright>
+    <Copyright>Copyright © Xavalon 2024</Copyright>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/Xavalon/XamlStyler</PackageProjectUrl>
     <PackageIcon>icon.jpg</PackageIcon>
