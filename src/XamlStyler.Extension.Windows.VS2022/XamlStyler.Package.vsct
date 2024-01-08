@@ -35,12 +35,12 @@
       <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerMenu" priority="0x0001">
         <Parent guid="GuidVisualStudioXAMLWindowContextMenu" id="IDVisualStudioXAMLWindowContextMenu"/>
       </Group>
-      <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerMenu" priority="0x0001">
+      <!--<Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerMenu" priority="0x0001">
         <Parent guid="GuidVisualStudioXamarWindowContextMenu" id="IDVisualStudioXamarinWindowContextMenu"/>
-      </Group>
-      <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextDocumentTabGroup" priority="0x0100">
+      </Group>-->
+      <!--<Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextDocumentTabGroup" priority="0x0100">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_EZDOCWINTAB" />
-      </Group>
+      </Group>-->
 
       <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextSolutionNodeGroup" priority="0x0100">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE" />
@@ -179,7 +179,7 @@
   <!-- Visibility Constraints -->
   <VisibilityConstraints>
     <VisibilityItem context="GuidVisualStudioXAMLWindowContextMenu" guid="GuidXamlStylerMenuSet" id="CommandIDFormatXamlFile"/>
-    <VisibilityItem context="GuidVisualStudioXamarWindowContextMenu" guid="GuidXamlStylerMenuSet" id="CommandIDFormatXamlFile"/>
+    <!--<VisibilityItem context="GuidVisualStudioXamarWindowContextMenu" guid="GuidXamlStylerMenuSet" id="CommandIDFormatXamlFile"/>-->
   </VisibilityConstraints>
   
   <!-- Keyboard Shortcuts -->
@@ -209,9 +209,9 @@
     <GuidSymbol name="GuidVisualStudioXAMLWindowContextMenu" value="{4C87B692-1202-46AA-B64C-EF01FAEC53DA}">
       <IDSymbol name="IDVisualStudioXAMLWindowContextMenu" value="0x0103" />
     </GuidSymbol>
-    <GuidSymbol name="GuidVisualStudioXamarWindowContextMenu" value="{D309F791-903F-11D0-9EFC-00A0C911004F}">
+    <!--<GuidSymbol name="GuidVisualStudioXamarWindowContextMenu" value="{D309F791-903F-11D0-9EFC-00A0C911004F}">
       <IDSymbol name="IDVisualStudioXamarinWindowContextMenu" value="0x040D" />
-    </GuidSymbol>
+    </GuidSymbol>-->
 
     <!-- This is the package guid. -->
     <GuidSymbol name="GuidXamlStylerPackage" value="{a224be3c-88d1-4a57-9804-181dbef68021}" />
