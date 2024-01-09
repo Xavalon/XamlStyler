@@ -35,12 +35,6 @@
       <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerMenu" priority="0x0001">
         <Parent guid="GuidVisualStudioXAMLWindowContextMenu" id="IDVisualStudioXAMLWindowContextMenu"/>
       </Group>
-      <!--<Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerMenu" priority="0x0001">
-        <Parent guid="GuidVisualStudioXamarWindowContextMenu" id="IDVisualStudioXamarinWindowContextMenu"/>
-      </Group>-->
-      <!--<Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextDocumentTabGroup" priority="0x0100">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_EZDOCWINTAB" />
-      </Group>-->
 
       <Group guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextSolutionNodeGroup" priority="0x0100">
         <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE" />
@@ -133,9 +127,6 @@
     <CommandPlacement guid="GuidXamlStylerMenuSet" id="CommandIDFormatXamlFile" priority="0x0100">
       <Parent guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerMenu" />
     </CommandPlacement>
-    <CommandPlacement guid="GuidXamlStylerMenuSet" id="CommandIDFormatXamlFile" priority="0x0200">
-      <Parent guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextDocumentTabGroup" />
-    </CommandPlacement>
 
     <CommandPlacement guid="GuidXamlStylerMenuSet" id="CommandIDFormatAllXaml" priority="0x0200">
       <Parent guid="GuidXamlStylerMenuSet" id="GroupIDXamlStylerContextSolutionNodeGroup" />
@@ -179,7 +170,6 @@
   <!-- Visibility Constraints -->
   <VisibilityConstraints>
     <VisibilityItem context="GuidVisualStudioXAMLWindowContextMenu" guid="GuidXamlStylerMenuSet" id="CommandIDFormatXamlFile"/>
-    <!--<VisibilityItem context="GuidVisualStudioXamarWindowContextMenu" guid="GuidXamlStylerMenuSet" id="CommandIDFormatXamlFile"/>-->
   </VisibilityConstraints>
   
   <!-- Keyboard Shortcuts -->
@@ -209,9 +199,6 @@
     <GuidSymbol name="GuidVisualStudioXAMLWindowContextMenu" value="{4C87B692-1202-46AA-B64C-EF01FAEC53DA}">
       <IDSymbol name="IDVisualStudioXAMLWindowContextMenu" value="0x0103" />
     </GuidSymbol>
-    <!--<GuidSymbol name="GuidVisualStudioXamarWindowContextMenu" value="{D309F791-903F-11D0-9EFC-00A0C911004F}">
-      <IDSymbol name="IDVisualStudioXamarinWindowContextMenu" value="0x040D" />
-    </GuidSymbol>-->
 
     <!-- This is the package guid. -->
     <GuidSymbol name="GuidXamlStylerPackage" value="{a224be3c-88d1-4a57-9804-181dbef68021}" />
@@ -235,9 +222,6 @@
       <IDSymbol name="GroupIDXamlStylerContextCrossProjectMultiSolutionFolderGroup" value="0x105a" />
       <IDSymbol name="GroupIDXamlStylerContextCrossProjectMultiProjectFolderGroup" value="0x105b" />
 
-      <!-- This is the command set for the document tab context menu -->
-      <IDSymbol name="GroupIDXamlStylerContextDocumentTabGroup" value="0x1070" />
-      
       <!-- These are the symbols for the individual commands -->
       <IDSymbol name="CommandIDFormatXamlFile" value="0x0100" />
       <IDSymbol name="CommandIDFormatAllXaml" value="0x0200" />
