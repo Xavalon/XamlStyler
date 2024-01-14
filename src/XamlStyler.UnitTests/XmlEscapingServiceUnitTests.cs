@@ -23,7 +23,7 @@ namespace Xavalon.XamlStyler.UnitTests
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        private string Issue426Xml = @"<ResourceDictionary 
+        private readonly string Issue426Xml = @"<ResourceDictionary 
     xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation""
     xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml"">
 
@@ -48,7 +48,7 @@ namespace Xavalon.XamlStyler.UnitTests
         }
 
         [TestCaseSource(nameof(TestFileNamesAndContents))]
-        public void CanParse_EscapedVersions_OfAllTestFiles(string fileName, string fileContents)
+        public void CanParse_EscapedVersions_OfAllTestFiles(string _, string fileContents)
         {
             CanParseOnceEscaped(fileContents);
         }
