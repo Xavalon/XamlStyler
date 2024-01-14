@@ -1,5 +1,7 @@
 ﻿// (c) Xavalon. All rights reserved.
 
+using System.Collections;
+using System.IO;
 using System.Xml.Linq;
 using NUnit.Framework;
 using Xavalon.XamlStyler.Services;
@@ -43,6 +45,32 @@ namespace Xavalon.XamlStyler.UnitTests
             var actual = EscapeAndUnescape(Issue426Xml);
 
             Assert.That(actual, Is.EqualTo(Issue426Xml));
+        }
+
+        [TestCaseSource(nameof(TestFileNamesAndContents))]
+        public void CanParse_EscapedVersions_OfAllTestFiles(string fileName, string fileContents)
+        {
+            CanParseOnceEscaped(fileContents);
+        }
+
+        [TestCaseSource(nameof(TestFileNamesAndContents))]
+        public void CanEscapeAndUnescape_AllTestFiles(string fileName, string fileContents)
+        {
+            var escapedAndUnescaped = EscapeAndUnescape(fileContents);
+
+            Assert.That(escapedAndUnescaped, Is.EqualTo(fileContents), $"Failure with {fileName}");
+        }
+
+        public static IEnumerable TestFileNamesAndContents
+        {
+            get
+            {
+                foreach (var fileName in Directory.GetFiles(".\\TestFiles"))
+                {
+                    var originalContents = File.ReadAllText(fileName);
+                    yield return new TestCaseData(fileName, originalContents);
+                }
+            }
         }
 
         private static void CanParseOnceEscaped(string unescapedXaml)
