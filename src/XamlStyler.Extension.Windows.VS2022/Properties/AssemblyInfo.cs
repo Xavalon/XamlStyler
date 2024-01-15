@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Xavalon")]
 [assembly: AssemblyProduct("XamlStyler.Extension.Windows.VS2022")]
-[assembly: AssemblyCopyright("Copyright © Xavalon 2021")]
+[assembly: AssemblyCopyright("Copyright © Xavalon 2024")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
