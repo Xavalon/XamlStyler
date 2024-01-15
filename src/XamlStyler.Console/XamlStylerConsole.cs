@@ -255,11 +255,20 @@ namespace Xavalon.XamlStyler.Console
 
             string originalContent = null;
             Encoding encoding = Encoding.UTF8; // Visual Studio by default uses UTF8
-            using (var reader = new StreamReader(path))
+            
+            try
             {
-                originalContent = reader.ReadToEnd();
-                encoding = reader.CurrentEncoding;
-                this.Log($"\nOriginal Content:\n\n{originalContent}\n", LogLevel.Insanity);
+                using (var reader = new StreamReader(path))
+                {
+                    originalContent = reader.ReadToEnd();
+                    encoding = reader.CurrentEncoding;
+                    this.Log($"\nOriginal Content:\n\n{originalContent}\n", LogLevel.Insanity);
+                }
+            }
+            catch
+            {
+                this.Log($"Skipping... Invalid file.");
+                return false;
             }
 
             string formattedOutput = String.IsNullOrWhiteSpace(configurationPath)
