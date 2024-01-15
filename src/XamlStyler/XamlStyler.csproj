@@ -5,7 +5,7 @@
     <RootNamespace>Xavalon.XamlStyler</RootNamespace>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
-    <Copyright>Copyright © Xavalon 2020</Copyright>
+    <Copyright>Copyright © Xavalon 2024</Copyright>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
 
