@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <RootNamespace>Xavalon.XamlStyler.UnitTests</RootNamespace>
-    <Copyright>Copyright © Xavalon 2020</Copyright>
+    <Copyright>Copyright © Xavalon 2024</Copyright>
     <Company>Xavalon</Company>
     <Configurations>Debug;Release;Debug VS2019;Release VS2019</Configurations>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>

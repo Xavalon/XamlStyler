@@ -87,4 +87,3 @@ Update-CSProj -CSProjPath $(Resolve-Path $PSScriptRoot\..\src\XamlStyler.Extensi
 Update-CSProj -CSProjPath $(Resolve-Path $PSScriptRoot\..\src\XamlStyler.Console\XamlStyler.Console.csproj) -UpdatePackageVersion
 Update-AssemblyInfo -AssemblyInfoPath $(Resolve-Path $PSScriptRoot\..\src\XamlStyler.Extension.Windows.VS2019\Properties\AssemblyInfo.cs)
 Update-AssemblyInfo -AssemblyInfoPath $(Resolve-Path $PSScriptRoot\..\src\XamlStyler.Extension.Windows.VS2022\Properties\AssemblyInfo.cs)
-Update-AssemblyInfo -AssemblyInfoPath $(Resolve-Path $PSScriptRoot\..\src\XamlStyler.Extension.Mac\Properties\AssemblyInfo.cs)
