@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/Xavalon/XamlStyler</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
     <RootNamespace>Xavalon.XamlStyler.Console</RootNamespace>
     <AssemblyName>xstyler</AssemblyName>
     <PackAsTool>true</PackAsTool>
