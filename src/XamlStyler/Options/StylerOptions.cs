@@ -356,25 +356,28 @@ namespace Xavalon.XamlStyler.Options
         [Browsable(false)]
         public bool SuppressProcessing { get; set; }
 
-        private string endOfLine;
+        private EndOfLine endOfLine;
 
-        [Category("Misc")]
-        [Description("Defines end of line character. Specify 'lf' or 'crlf'; otherwise, default character of the host will be used.")]
-        [JsonProperty("EndOfLine", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
-        [DefaultValue("")]
-        public string EndOfLine
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false)]
+        [JsonProperty(nameof(EndOfLine), DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [DefaultValue(EndOfLine.Default)]
+        public EndOfLine EndOfLine
         {
             get { return endOfLine; }
             set
             {
                 endOfLine = value;
-                NewLine = string.Equals("crlf", value, StringComparison.InvariantCultureIgnoreCase) ? "\r\n"
-                  : string.Equals("lf", value, StringComparison.InvariantCultureIgnoreCase) ? "\n"
+                NewLine = value == EndOfLine.CRLF ? "\r\n"
+                  : value == EndOfLine.LF ? "\n"
+                  : value == EndOfLine.CR ? "\r"
                   : Environment.NewLine;
             }
         }
 
         [JsonIgnore]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        [Browsable(false)]
         public string NewLine { get; private set; } = Environment.NewLine;
 
         /// <summary>

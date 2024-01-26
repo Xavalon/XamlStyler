@@ -109,7 +109,7 @@ namespace Xavalon.XamlStyler.Options
 
         string NewLine { get; }
 
-        string EndOfLine { get; set; }
+        EndOfLine EndOfLine { get; set; }
 
         #endregion Misc
 

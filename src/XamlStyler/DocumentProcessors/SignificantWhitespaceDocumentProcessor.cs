@@ -15,6 +15,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
         {
             this.options = options;
         }
+
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
         {
             // All newlines are returned by XmlReader as '\n' due to requirements in the XML Specification.

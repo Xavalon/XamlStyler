@@ -173,7 +173,7 @@ namespace Xavalon.XamlStyler.Console
 
             if (options.EndOfLine != null)
             {
-                stylerOptions.EndOfLine = options.EndOfLine;
+                stylerOptions.EndOfLine = options.EndOfLine.Value;
             }
         }
 
