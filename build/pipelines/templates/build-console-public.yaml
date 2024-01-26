@@ -31,7 +31,6 @@ jobs:
     inputs:
       packageType: sdk
       version: 8.0.x
-      includePreviewVersions: true
 
   # The first task is the dotnet command build, pointing to our csproj file
   - task: DotNetCoreCLI@2
