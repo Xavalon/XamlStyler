@@ -13,22 +13,10 @@
     </Metadata>
     <!-- Visual Studio extensions and version ranges demystified: https://devblogs.microsoft.com/visualstudio/visual-studio-extensions-and-version-ranges-demystified/ -->
     <Installation AllUsers="true">
-        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Pro">
+        <InstallationTarget Version="[17.8,18.0)" Id="Microsoft.VisualStudio.Community">
             <ProductArchitecture>amd64</ProductArchitecture>
         </InstallationTarget>
-        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Enterprise">
-            <ProductArchitecture>amd64</ProductArchitecture>
-        </InstallationTarget>
-        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Community">
-            <ProductArchitecture>amd64</ProductArchitecture>
-        </InstallationTarget>
-        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Community">
-            <ProductArchitecture>arm64</ProductArchitecture>
-        </InstallationTarget>
-        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Pro">
-            <ProductArchitecture>arm64</ProductArchitecture>
-        </InstallationTarget>
-        <InstallationTarget Version="[17.0,18.0)" Id="Microsoft.VisualStudio.Enterprise">
+        <InstallationTarget Version="[17.8,18.0)" Id="Microsoft.VisualStudio.Community">
             <ProductArchitecture>arm64</ProductArchitecture>
         </InstallationTarget>
     </Installation>
