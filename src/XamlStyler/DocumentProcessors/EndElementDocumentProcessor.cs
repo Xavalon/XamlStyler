@@ -67,7 +67,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
 
                 if (!output.IsNewLine())
                 {
-                    output.Append(Environment.NewLine);
+                    output.Append(this.options.NewLine);
                 }
 
                 output.Append(currentIndentString).Append("</").Append(xmlReader.Name).Append(">");
