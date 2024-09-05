@@ -19,7 +19,12 @@ jobs:
     inputs:
       packageType: sdk
       version: 6.0.x
-      installationPath: $(Agent.ToolsDirectory)/dotnet
+      
+  - task: UseDotNet@2
+    displayName: 'Use .NET 8 SDK'
+    inputs:
+      packageType: sdk
+      version: 8.0.x
 
   # The first task is the dotnet command build, pointing to our csproj file
   - task: DotNetCoreCLI@2

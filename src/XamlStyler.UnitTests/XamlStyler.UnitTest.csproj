@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
     <RootNamespace>Xavalon.XamlStyler.UnitTests</RootNamespace>
     <Copyright>Copyright © Xavalon 2024</Copyright>
     <Company>Xavalon</Company>
