@@ -12,7 +12,7 @@ using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.Extension.Rider.Rider
 {
-    [SolutionComponent]
+    [SolutionComponent(JetBrains.Application.Parts.Instantiation.DemandAnyThreadSafe)]
     public class RiderXamlStylerHost
     {
         [NotNull] private readonly Lifetime _lifetime;
