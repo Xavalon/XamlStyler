@@ -21,6 +21,7 @@
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <RollForward>Major</RollForward>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\bin\Debug\Console\</OutputPath>
@@ -36,7 +37,7 @@
       <Version>13.0.3</Version>
     </PackageReference>
     <PackageReference Include="NuGet.CommandLine">
-      <Version>6.8.0</Version>
+      <Version>6.12.2</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
