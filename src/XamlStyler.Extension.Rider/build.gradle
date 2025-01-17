@@ -5,8 +5,8 @@ plugins {
     id 'java'
 
     // RIDER: May need updating with new Rider releases
-    id 'org.jetbrains.kotlin.jvm' version '1.9.10'
-    id 'com.jetbrains.rdgen' version '2024.1.1'
+    id 'org.jetbrains.kotlin.jvm' version '2.0.21'
+    id 'com.jetbrains.rdgen' version '2024.3.1'
 
     // RIDER: Will probably need updating with new Rider releases, use latest version number from https://github.com/JetBrains/gradle-intellij-plugin/releases
     id 'org.jetbrains.intellij.platform' version '2.0.1'
@@ -52,7 +52,7 @@ sourceSets {
 }
 
 compileKotlin {
-    kotlinOptions { jvmTarget = "17" }
+    kotlinOptions { jvmTarget = "21" }
 }
 
 task compileDotNet {

@@ -12,19 +12,27 @@ using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.Extension.Rider.Rider
 {
-    [SolutionComponent]
+    [SolutionComponent(JetBrains.Application.Parts.Instantiation.ContainerSyncPrimaryThread)]
     public class RiderXamlStylerHost
     {
-        [NotNull] private readonly Lifetime _lifetime;
-        [NotNull] private readonly SolutionModel _solutionModel;
-        [NotNull] private readonly ISolution _solution;
-        [NotNull] private readonly DocumentManager _documentManager;
+        [NotNull]
+        private readonly Lifetime _lifetime;
+
+        [NotNull]
+        private readonly SolutionModel _solutionModel;
+
+        [NotNull]
+        private readonly ISolution _solution;
+
+        [NotNull]
+        private readonly DocumentManager _documentManager;
 
         public RiderXamlStylerHost(
             [NotNull] Lifetime lifetime,
-            [NotNull] SolutionModel solutionModel, 
+            [NotNull] SolutionModel solutionModel,
             [NotNull] ISolution solution,
-            [NotNull] DocumentManager documentManager)
+            [NotNull] DocumentManager documentManager
+        )
         {
             _lifetime = lifetime;
             _solutionModel = solutionModel;
@@ -40,37 +48,52 @@ namespace Xavalon.XamlStyler.Extension.Rider.Rider
         }
 
         private Task<RdXamlStylerFormattingResult> PerformReformatHandler(
-            Lifetime requestLifetime, 
-            RdXamlStylerFormattingRequest request)
+            Lifetime requestLifetime,
+            RdXamlStylerFormattingRequest request
+        )
         {
-            return Task.Run(() =>
-            {
-                _lifetime.ThrowIfNotAlive();
-            
-                // Fetch settings
-                var settings = _solution.GetSettingsStore().SettingsStore.BindToContextLive(_lifetime, ContextRange.Smart(_solution.ToDataContext()));
-                var stylerOptions = StylerOptionsFactory.FromSettings(
-                    settings,
-                    _solution, 
-                    null,
-                    request.FilePath);
+            return Task.Run(
+                    () =>
+                    {
+                        _lifetime.ThrowIfNotAlive();
 
-                // Bail out early if needed
-                if (stylerOptions.SuppressProcessing || !stylerOptions.FormatOnSave) return new RdXamlStylerFormattingResult(false, false, "");
-            
-                // Perform styling
-                var styler = new StylerService(stylerOptions, new XamlLanguageOptions
-                {
-                    IsFormatable = true
-                });
-  
-                var formattedText = styler.StyleDocument(request.DocumentText).Replace("\r\n", "\n");
+                        // Fetch settings
+                        var settings = _solution
+                            .GetSettingsStore()
+                            .SettingsStore.BindToContextLive(
+                                _lifetime,
+                                ContextRange.Smart(_solution.ToDataContext())
+                            );
+                        var stylerOptions = StylerOptionsFactory.FromSettings(
+                            settings,
+                            _solution,
+                            null,
+                            request.FilePath
+                        );
 
-                if (request.DocumentText == formattedText) {
-                    return new RdXamlStylerFormattingResult(true, false, "");
-                }
-                return new RdXamlStylerFormattingResult(true, true, formattedText);
-            }, requestLifetime).ToRdTask();
+                        // Bail out early if needed
+                        if (stylerOptions.SuppressProcessing || !stylerOptions.FormatOnSave)
+                            return new RdXamlStylerFormattingResult(false, false, "");
+
+                        // Perform styling
+                        var styler = new StylerService(
+                            stylerOptions,
+                            new XamlLanguageOptions { IsFormatable = true }
+                        );
+
+                        var formattedText = styler
+                            .StyleDocument(request.DocumentText)
+                            .Replace("\r\n", "\n");
+
+                        if (request.DocumentText == formattedText)
+                        {
+                            return new RdXamlStylerFormattingResult(true, false, "");
+                        }
+                        return new RdXamlStylerFormattingResult(true, true, formattedText);
+                    },
+                    requestLifetime
+                )
+                .ToRdTask();
         }
     }
 }
