@@ -19,7 +19,8 @@ jobs:
       targetType: 'inline'
       pwsh: true
       script: |
-        $folderPath = '**/XamlStyler.Extension.Rider/*'
+        #$folderPath = '**/XamlStyler.Extension.Rider/*'
+        $folderPath = '**/pipelines/*'
         $changedFiles = git diff master..HEAD --name-only -- $folderPath
 
         if ($changedFiles.Count -gt 0) {
@@ -28,8 +29,7 @@ jobs:
           # Set a variable to indicate changes
           Write-Host "##vso[task.setvariable variable=ChangesDetected;isOutput=true]true"
         } else {
-          Write-Host "No changes detected in Rider project:"
-          $changedFiles | ForEach-Object { Write-Host $_ }
+          Write-Host "No changes detected in Rider project"
           # Set a variable to indicate no changes
           Write-Host "##vso[task.setvariable variable=ChangesDetected;isOutput=true]false"
         }
