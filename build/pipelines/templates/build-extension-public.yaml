@@ -31,6 +31,7 @@ jobs:
     inputs:
       packageType: sdk
       version: 8.0.x
+      includePreviewVersions: true
 
   - task: NuGetToolInstaller@1
     displayName: 'Install NuGet Tools'
