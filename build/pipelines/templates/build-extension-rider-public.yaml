@@ -11,7 +11,10 @@ jobs:
 
   continueOnError: true
 
-  steps:      
+  steps:
+  - checkout: self
+      fetchDepth: 0
+
   - task: PowerShell@2
     displayName: 'Check for Rider project changes'
     condition: eq(variables['checkRiderChanges'], true)
