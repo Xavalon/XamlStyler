@@ -23,12 +23,12 @@ jobs:
         $changedFiles = git diff HEAD HEAD~ --name-only -- $folderPath
 
         if ($changedFiles.Count -gt 0) {
-          Write-Host "Changes detected in $folderPath:"
+          Write-Host "Changes detected in {0}:" -f $folderPath
           $changedFiles | ForEach-Object { Write-Host $_ }
           # Set a variable to indicate changes
           Write-Host "##vso[task.setvariable variable=ChangesDetected;isOutput=true]true"
         } else {
-          Write-Host "No changes detected in $folderPath"
+          Write-Host "No changes detected in {0}" -f $folderPath
           # Set a variable to indicate no changes
           Write-Host "##vso[task.setvariable variable=ChangesDetected;isOutput=true]false"
         }
