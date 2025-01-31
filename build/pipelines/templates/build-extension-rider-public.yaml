@@ -21,7 +21,7 @@ jobs:
       script: |
         #$folderPath = '**/XamlStyler.Extension.Rider/*'
         $folderPath = '**/pipelines/*'
-        $changedFiles = git diff master --name-only -- $folderPath
+        $changedFiles = git diff e5828a952db379553a6ea181d06c1890f36f4cd9 --name-only -- $folderPath
 
         if ($changedFiles.Count -gt 0) {
           Write-Host "Changes detected in Rider project:"
