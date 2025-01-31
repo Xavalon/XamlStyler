@@ -15,6 +15,11 @@ jobs:
   - task: PowerShell@2
     displayName: 'Check for Rider project changes'
     condition: eq(variables['checkRiderChanges'], true)
+    inputs:
+      targetType: 'inline'
+      pwsh: true
+      script: |
+        # PowerShell script to check for changes
   
   - task: NuGetToolInstaller@1
     displayName: 'Install NuGet Tools'
