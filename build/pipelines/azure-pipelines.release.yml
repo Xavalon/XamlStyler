@@ -12,6 +12,7 @@ variables:
   buildConfiguration: 'Release'
   major: 3
   patch: $[counter(format('{0:yyMM}', pipeline.startTime), 0)]
+  skipBuildRiderExtensionJob: false
 
 name: $(major).$(Date:yyMM).$(patch).0
 
