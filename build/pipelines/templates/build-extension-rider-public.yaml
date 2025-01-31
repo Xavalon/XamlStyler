@@ -3,7 +3,7 @@ jobs:
 
   displayName: 'Build Rider Plugin'
 
-  condition: $(skipBuildRiderExtensionJob)
+  condition: eq(variables['skipBuildRiderExtensionJob'], false)
 
   pool:
     vmImage: 'windows-latest'
