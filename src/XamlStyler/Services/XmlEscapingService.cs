@@ -14,9 +14,23 @@ namespace Xavalon.XamlStyler.Services
         public string EscapeDocument(string source)
         {
             source = this.htmlReservedCharRegex.Replace(source, @"__amp__$1__scln__");
-            source = this.xmlnsAliasesBypassRegex.Replace(source, @"xmlns$1=""[${prefix}]${ns}""");
+            source = this.xmlnsAliasesBypassRegex.Replace(source, evaluator: SelectiveXmlReplacer);
 
             return source;
+        }
+
+        private string SelectiveXmlReplacer(Match match)
+        {
+            // This check allows for partial xmlns definitions in a comment to not break anything.
+            // See https://github.com/Xavalon/XamlStyler/issues/426
+            if (match.Captures.Count == 1 && match.Captures[0].Value.Contains("-->"))
+            {
+                return match.Captures[0].Value;
+            }
+            else
+            {
+                return this.xmlnsAliasesBypassRegex.Replace(match.Value, @"xmlns$1=""[${prefix}]${ns}""");
+            }
         }
 
         public string UnescapeDocument(string source)

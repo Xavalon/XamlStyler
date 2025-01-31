@@ -13,7 +13,7 @@
     <RepositoryUrl>https://github.com/Xavalon/XamlStyler</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
     <RootNamespace>Xavalon.XamlStyler.Console</RootNamespace>
     <AssemblyName>xstyler</AssemblyName>
     <PackAsTool>true</PackAsTool>
@@ -21,6 +21,8 @@
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <RollForward>Major</RollForward>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>..\bin\Debug\Console\</OutputPath>
@@ -36,13 +38,16 @@
       <Version>13.0.3</Version>
     </PackageReference>
     <PackageReference Include="NuGet.CommandLine">
-      <Version>6.8.0</Version>
+      <Version>6.12.2</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon.jpg" Pack="true" PackagePath="\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XamlStyler\XamlStyler.csproj" />
