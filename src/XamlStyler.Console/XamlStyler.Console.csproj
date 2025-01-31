@@ -46,12 +46,9 @@
     <None Include="Resources\icon.jpg" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XamlStyler\XamlStyler.csproj" />
+    <None Include="Resources\README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
-    <None Update="README.md">
-      <Pack>True</Pack>
-      <PackagePath>\</PackagePath>
-    </None>
+    <ProjectReference Include="..\XamlStyler\XamlStyler.csproj" />
   </ItemGroup>
 </Project>
