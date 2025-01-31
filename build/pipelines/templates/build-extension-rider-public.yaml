@@ -14,25 +14,29 @@ jobs:
   steps:
   - task: PowerShell@2
     displayName: 'Check for Rider project changes'
+    name: RiderProjectChanges
     condition: eq(variables['checkRiderChanges'], true)
     inputs:
       targetType: 'inline'
       pwsh: true
       script: |
-        $folderPath = '**/XamlStyler.Extension.Rider/*'
+        #$folderPath = '**/XamlStyler.Extension.Rider/*'
+
+        # For debugging pipeline
         #$folderPath = '**/pipelines/*'
-        git show-ref
+        #git show-ref
+        
         $changedFiles = git diff refs/remotes/origin/master --name-only -- $folderPath
 
         if ($changedFiles.Count -gt 0) {
           Write-Host "Changes detected in Rider project:"
           $changedFiles | ForEach-Object { Write-Host $_ }
           # Set a variable to indicate changes
-          Write-Host "##vso[task.setvariable variable=ChangesDetected;isOutput=true]true"
+          Write-Host "##vso[task.setvariable variable=ChangesDetected]true"
         } else {
           Write-Host "No changes detected in Rider project"
           # Set a variable to indicate no changes
-          Write-Host "##vso[task.setvariable variable=ChangesDetected;isOutput=true]false"
+          Write-Host "##vso[task.setvariable variable=ChangesDetected]false"
         }
   
   - task: NuGetToolInstaller@1
