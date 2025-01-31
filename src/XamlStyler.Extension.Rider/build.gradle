@@ -5,27 +5,38 @@ plugins {
     id 'java'
 
     // RIDER: May need updating with new Rider releases
-    id 'org.jetbrains.kotlin.jvm' version '1.9.10'
-    id 'com.jetbrains.rdgen' version '2023.2.0'
+    id 'org.jetbrains.kotlin.jvm' version '2.0.21'
+    id 'com.jetbrains.rdgen' version '2024.3.1'
 
     // RIDER: Will probably need updating with new Rider releases, use latest version number from https://github.com/JetBrains/gradle-intellij-plugin/releases
-    id 'org.jetbrains.intellij' version '1.16.1'
+    id 'org.jetbrains.intellij.platform' version '2.0.1'
 }
 
 ext {
     isWindows = Os.isFamily(Os.FAMILY_WINDOWS)
     rdLibDirectory = {
-        new File(setupDependencies.idea.get().classes, "lib/rd")
+        new File(intellijPlatform.platformPath.resolve("lib/rd/").toAbsolutePath().toString())
     }
 }
 
 repositories {
     maven { url 'https://cache-redirector.jetbrains.com/intellij-repository/snapshots' }
     maven { url 'https://cache-redirector.jetbrains.com/maven-central' }
+    intellijPlatform {
+        defaultRepositories()
+        jetbrainsRuntime()
+    }
+}
+
+dependencies {
+  intellijPlatform {
+    rider("${ProductVersion}")
+    jetbrainsRuntime()
+  }
 }
 
 wrapper {
-    gradleVersion = '8.5'
+    gradleVersion = '8.10'
     distributionType = Wrapper.DistributionType.ALL
     distributionUrl = "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
 }
@@ -41,7 +52,7 @@ sourceSets {
 }
 
 compileKotlin {
-    kotlinOptions { jvmTarget = "17" }
+    kotlinOptions { jvmTarget = "21" }
 }
 
 task compileDotNet {
@@ -75,10 +86,7 @@ buildPlugin {
     }
 }
 
-intellij {
-    type = 'RD'
-    version = "${ProductVersion}"
-    downloadSources = false
+intellijPlatform {
     instrumentCode = false
 }
 
@@ -88,7 +96,7 @@ runIde {
 
     // Rider's backend doesn't support dynamic plugins. It might be possible to work with auto-reload of the frontend
     // part of a plugin, but there are dangers about keeping plugins in sync
-    autoReloadPlugins = false
+    autoReload = false
 
     // gradle-intellij-plugin will download the default version of the JBR for the snapshot. Update if required
     // jbrVersion = "jbr_jcef-11_0_6b765.40" // https://confluence.jetbrains.com/display/JBR/Release+notes
