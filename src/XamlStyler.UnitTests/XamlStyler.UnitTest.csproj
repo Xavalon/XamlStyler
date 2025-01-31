@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>Xavalon.XamlStyler.UnitTests</RootNamespace>
     <Copyright>Copyright © Xavalon 2024</Copyright>
     <Company>Xavalon</Company>
@@ -35,7 +35,7 @@
     </PackageReference>
     <PackageReference Include="NUnit" Version="4.3.2">
     </PackageReference>
-    <PackageReference Include="NUnit.ConsoleRunner" Version="3.19.0">
+    <PackageReference Include="NUnit.ConsoleRunner" Version="3.19.1">
     </PackageReference>
     <PackageReference Include="NUnit3TestAdapter" Version="4.6.0">
     </PackageReference>
