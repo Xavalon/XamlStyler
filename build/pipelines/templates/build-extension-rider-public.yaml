@@ -21,6 +21,7 @@ jobs:
       script: |
         #$folderPath = '**/XamlStyler.Extension.Rider/*'
         $folderPath = '**/pipelines/*'
+        git show-ref
         $changedFiles = git diff e5828a952db379553a6ea181d06c1890f36f4cd9 --name-only -- $folderPath
 
         if ($changedFiles.Count -gt 0) {
