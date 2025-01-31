@@ -3,6 +3,8 @@ jobs:
 
   displayName: 'Build Rider Plugin'
 
+  condition: false
+
   pool:
     vmImage: 'windows-latest'
 
