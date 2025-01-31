@@ -3,8 +3,6 @@ jobs:
 
   displayName: 'Build Rider Plugin'
 
-  condition: eq(variables['skipBuildRiderExtensionJob'], false)
-
   pool:
     vmImage: 'windows-latest'
 
@@ -14,6 +12,10 @@ jobs:
   continueOnError: true
 
   steps:      
+  - task: PowerShell@2
+    displayName: 'Check for Rider project changes'
+    condition: $(checkRiderChanges)
+  
   - task: NuGetToolInstaller@1
     displayName: 'Install NuGet Tools'
 
