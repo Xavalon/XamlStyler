@@ -20,7 +20,7 @@ jobs:
       targetType: 'inline'
       pwsh: true
       script: |
-        #$folderPath = '**/XamlStyler.Extension.Rider/*'
+        $folderPath = '**/XamlStyler.Extension.Rider/*'
 
         # For debugging pipeline
         #$folderPath = '**/pipelines/*'
