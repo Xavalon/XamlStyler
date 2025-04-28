@@ -9,6 +9,7 @@ import com.jetbrains.rd.util.lifetime.*
 import com.jetbrains.rd.util.reactive.*
 import com.jetbrains.rd.util.string.*
 import com.jetbrains.rd.util.*
+import kotlin.time.Duration
 import kotlin.reflect.KClass
 import kotlin.jvm.JvmStatic
 
@@ -25,8 +26,9 @@ class XamlStylerModel private constructor(
     companion object : ISerializersOwner {
         
         override fun registerSerializersCore(serializers: ISerializers)  {
-            serializers.register(RdXamlStylerFormattingRequest)
-            serializers.register(RdXamlStylerFormattingResult)
+            val classLoader = javaClass.classLoader
+            serializers.register(LazyCompanionMarshaller(RdId(4496848413076243516), classLoader, "com.jetbrains.rd.ide.model.RdXamlStylerFormattingRequest"))
+            serializers.register(LazyCompanionMarshaller(RdId(-4615390457309623088), classLoader, "com.jetbrains.rd.ide.model.RdXamlStylerFormattingResult"))
         }
         
         
@@ -74,6 +76,8 @@ class XamlStylerModel private constructor(
         )
     }
     //contexts
+    //threading
+    override val extThreading: ExtThreadingKind get() = ExtThreadingKind.Default
 }
 val Solution.xamlStylerModel get() = getOrCreateExtension("xamlStylerModel", ::XamlStylerModel)
 
@@ -90,6 +94,7 @@ data class RdXamlStylerFormattingRequest (
     
     companion object : IMarshaller<RdXamlStylerFormattingRequest> {
         override val _type: KClass<RdXamlStylerFormattingRequest> = RdXamlStylerFormattingRequest::class
+        override val id: RdId get() = RdId(4496848413076243516)
         
         @Suppress("UNCHECKED_CAST")
         override fun read(ctx: SerializationCtx, buffer: AbstractBuffer): RdXamlStylerFormattingRequest  {
@@ -139,6 +144,7 @@ data class RdXamlStylerFormattingRequest (
     }
     //deepClone
     //contexts
+    //threading
 }
 
 
@@ -154,6 +160,7 @@ data class RdXamlStylerFormattingResult (
     
     companion object : IMarshaller<RdXamlStylerFormattingResult> {
         override val _type: KClass<RdXamlStylerFormattingResult> = RdXamlStylerFormattingResult::class
+        override val id: RdId get() = RdId(-4615390457309623088)
         
         @Suppress("UNCHECKED_CAST")
         override fun read(ctx: SerializationCtx, buffer: AbstractBuffer): RdXamlStylerFormattingResult  {
@@ -208,4 +215,5 @@ data class RdXamlStylerFormattingResult (
     }
     //deepClone
     //contexts
+    //threading
 }

@@ -1,27 +1,22 @@
 // Reference https://www.jetbrains.org/intellij/sdk/docs/tutorials/build_system/gradle_guide.html
-import org.apache.tools.ant.taskdefs.condition.Os
+import org.jetbrains.intellij.platform.gradle.Constants
+import kotlin.io.path.absolute
+import kotlin.io.path.isDirectory
+import kotlin.io.path.isRegularFile
 
 plugins {
-    id 'java'
-
-    // RIDER: May need updating with new Rider releases
-    id 'org.jetbrains.kotlin.jvm' version '2.1.10'
-    id 'com.jetbrains.rdgen' version '2025.1.0'
-
-    // RIDER: Will probably need updating with new Rider releases, use latest version number from https://github.com/JetBrains/gradle-intellij-plugin/releases
-    id 'org.jetbrains.intellij.platform' version '2.5.0'
+    id("java")
+    alias(libs.plugins.kotlin)
+    alias(libs.plugins.intellij.platform)
 }
 
-ext {
-    isWindows = Os.isFamily(Os.FAMILY_WINDOWS)
-    rdLibDirectory = {
-        new File(intellijPlatform.platformPath.resolve("lib/rd/").toAbsolutePath().toString())
+allprojects {
+    repositories {
+        mavenCentral()
     }
 }
 
 repositories {
-    maven { url 'https://cache-redirector.jetbrains.com/intellij-repository/snapshots' }
-    maven { url 'https://cache-redirector.jetbrains.com/maven-central' }
     intellijPlatform {
         defaultRepositories()
         jetbrainsRuntime()
@@ -30,140 +25,146 @@ repositories {
 
 dependencies {
   intellijPlatform {
-    rider("${ProductVersion}", false)
+    rider(libs.versions.rider, false)
     jetbrainsRuntime()
   }
 }
 
-wrapper {
-    gradleVersion = '8.10'
-    distributionType = Wrapper.DistributionType.ALL
-    distributionUrl = "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
+val DotnetPluginId: String by project
+val DotnetSolution: String by project
+val PluginVersion: String by project
+val BuildConfiguration: String by project
+
+version = PluginVersion
+
+val riderSdkPath by lazy {
+    val path = intellijPlatform.platformPath.resolve("lib/DotNetSdkForRdPlugins").absolute()
+    if (!path.isDirectory()) error("$path does not exist or not a directory")
+
+    println("Rider SDK path: $path")
+    return@lazy path
 }
 
-version = ext.PluginVersion
+kotlin {
+    jvmToolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 
 sourceSets {
     main {
-        java.srcDir 'rider/main/java'
-        kotlin.srcDir 'rider/main/kotlin'
-        resources.srcDir 'rider/main/resources'
+        kotlin.srcDir("rider/main/java")
+        kotlin.srcDir("rider/main/kotlin")
+        resources.srcDir("rider/main/resources")
     }
 }
 
-compileKotlin {
-    kotlinOptions { jvmTarget = "21" }
-}
+tasks {
+    wrapper {
+        gradleVersion = "8.10"
+        distributionType = Wrapper.DistributionType.ALL
+        distributionUrl =
+            "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
+    }
 
-task compileDotNet {
-    doLast {
-        exec {
-            executable "dotnet"
-            args "msbuild","/t:Restore;Rebuild","${DotnetSolution}","/p:Configuration=${BuildConfiguration}"
-            workingDir rootDir
+    val rdGen = ":protocol:rdgen"
+
+    val compileDotNet by registering(Exec::class) {
+        dependsOn(rdGen)
+        inputs.property("buildConfiguration", BuildConfiguration)
+
+        executable("dotnet")
+        args("msbuild","/t:Restore;Rebuild","${DotnetSolution}","/p:Configuration=${BuildConfiguration}")
+        workingDir(rootDir)
+    }
+
+    buildPlugin {
+        outputs.upToDateWhen { false }
+        doLast {
+            copy {
+                from("${buildDir}/distributions/${rootProject.name}-${version}.zip")
+                into("${rootDir}/output")
+            }
+
+            val changelogText = file("${rootDir}/CHANGELOG.md").readText()
+            val changelogMatches = Regex("(?s)(-.+?)(?=##|$)").findAll(changelogText)
+            val changeNotes = changelogMatches.map {
+                it.groupValues[1].replace(Regex("(?s)- "), "\u2022 ").replace(Regex("`"), "").replace(Regex(","), "%2C")
+            }.take(1).joinToString("")
+
+            exec {
+                executable("dotnet")
+                args("msbuild","/t:Pack","${DotnetSolution}","/p:Configuration=${BuildConfiguration}","/p:PackageOutputPath=${rootDir}/output","/p:PackageReleaseNotes=${changeNotes}","/p:PackageVersion=${version}")
+            }
         }
     }
-}
 
-buildPlugin {
-    outputs.upToDateWhen { false }
-    doLast {
-        copy {
-            from "${buildDir}/distributions/${rootProject.name}-${version}.zip"
-            into "${rootDir}/output"
-        }
-
-        def changelogText = file("${rootDir}/CHANGELOG.md").text
-        def changelogMatches = changelogText =~ /(?s)(-.+?)(?=##|$)/
-        def changeNotes = changelogMatches.collect {
-            it[1].replaceAll(/(?s)- /, "\u2022 ").replaceAll(/`/, "").replaceAll(/,/, "%2C")
-        }.take(1).join("")
-
-        exec {
-            executable "dotnet"
-            args "msbuild","/t:Pack","${DotnetSolution}","/p:Configuration=${BuildConfiguration}","/p:PackageOutputPath=${rootDir}/output","/p:PackageReleaseNotes=${changeNotes}","/p:PackageVersion=${version}"
-        }
-    }
-}
-
-intellijPlatform {
-    instrumentCode = false
-}
-
-runIde {
-    // Match Rider's default heap size of 1.5Gb (default for runIde is 512Mb)
-    maxHeapSize = "1500m"
-
-    // Rider's backend doesn't support dynamic plugins. It might be possible to work with auto-reload of the frontend
-    // part of a plugin, but there are dangers about keeping plugins in sync
-    autoReload = false
-
-    // gradle-intellij-plugin will download the default version of the JBR for the snapshot. Update if required
-    // jbrVersion = "jbr_jcef-11_0_6b765.40" // https://confluence.jetbrains.com/display/JBR/Release+notes
-}
-
-rdgen {
-    def modelDir = new File(rootDir, "protocol/src/main/kotlin/model")
-    def csOutput = new File(rootDir, "dotnet/${DotnetPluginId}/Rider")
-    def ktOutput = new File(rootDir, "rider/main/kotlin/xavalon/plugins/${RiderPluginId.replace('.','/').toLowerCase()}")
-
-    verbose = true
-    classpath {
-        "${rdLibDirectory()}/rider-model.jar"
-    }
-    sources "${modelDir}/rider"
-    hashFolder = "${buildDir}"
-    packages = "model.rider"
-
-    generator {
-        language = "kotlin"
-        transform = "asis"
-        root = "com.jetbrains.rider.model.nova.ide.IdeRoot"
-        namespace = "com.jetbrains.rider.model"
-        directory = "$ktOutput"
+    intellijPlatform {
+        instrumentCode = false
     }
 
-    generator {
-        language = "csharp"
-        transform = "reversed"
-        root = "com.jetbrains.rider.model.nova.ide.IdeRoot"
-        namespace = "JetBrains.Rider.Model"
-        directory = "$csOutput"
+    runIde {
+        // Match Rider's default heap size of 1.5Gb (default for runIde is 512Mb)
+        maxHeapSize = "1500m"
+
+        // Rider's backend doesn't support dynamic plugins. It might be possible to work with auto-reload of the frontend
+        // part of a plugin, but there are dangers about keeping plugins in sync
+        autoReload = false
+
+        // gradle-intellij-plugin will download the default version of the JBR for the snapshot. Update if required
+        // jbrVersion = "jbr_jcef-11_0_6b765.40" // https://confluence.jetbrains.com/display/JBR/Release+notes
     }
-}
 
-patchPluginXml {
-    def changelogText = file("${rootDir}/CHANGELOG.md").text
-    def changelogMatches = changelogText =~ /(?s)(-.+?)(?=##|$)/
+    patchPluginXml {
+        val changelogText = file("${rootDir}/CHANGELOG.md").readText()
+        val changelogMatches = Regex("(?s)(-.+?)(?=##|$)").findAll(changelogText)
 
-    changeNotes = changelogMatches.collect {
-        it[1].replaceAll(/(?s)\r?\n/, "<br />\n")
-    }.take(1).join('')
-}
+        changeNotes = changelogMatches.map {
+            it.groupValues[1].replace(Regex("(?s)\\r?\\n"), "<br />\n")
+        }.take(1).joinToString("")
+    }
 
-// buildSearchableOptions.onlyIf { false }
+    // buildSearchableOptions.onlyIf { false }
 
-prepareSandbox {
-    dependsOn compileDotNet
+    prepareSandbox {
+        dependsOn(compileDotNet)
 
-    def outputFolder = "${rootDir}/dotnet/${DotnetPluginId}/bin/${DotnetPluginId}/${BuildConfiguration}"
-    def dllFiles = [
-            "$outputFolder/${DotnetPluginId}.dll",
-            "$outputFolder/${DotnetPluginId}.pdb",
-            "$outputFolder/XamlStyler.dll",
-            "$outputFolder/XamlStyler.pdb",
-            "$outputFolder/Irony.dll"
-    ]
+        val outputFolder = "${rootDir}/dotnet/${DotnetPluginId}/bin/${DotnetPluginId}/${BuildConfiguration}"
+        val dllFiles = listOf(
+                "$outputFolder/${DotnetPluginId}.dll",
+                "$outputFolder/${DotnetPluginId}.pdb",
+                "$outputFolder/XamlStyler.dll",
+                "$outputFolder/XamlStyler.pdb",
+                "$outputFolder/Irony.dll"
+        )
 
-    dllFiles.forEach({ f ->
-        def file = file(f)
-        from(file, { into "${rootProject.name}/dotnet" })
-    })
-
-    doLast {
         dllFiles.forEach({ f ->
-            def file = file(f)
-            if (!file.exists()) throw new RuntimeException("File ${file} does not exist")
+            val file = file(f)
+            from(file, { into("${rootProject.name}/dotnet") })
         })
+
+        doLast {
+            dllFiles.forEach({ f ->
+                val file = file(f)
+                if (!file.exists()) error("File ${file} does not exist")
+            })
+        }
+    }
+}
+
+val riderModel: Configuration by configurations.creating {
+    isCanBeConsumed = true
+    isCanBeResolved = false
+}
+
+artifacts {
+    add(riderModel.name, provider {
+        intellijPlatform.platformPath.resolve("lib/rd/rider-model.jar").also {
+            check(it.isRegularFile()) {
+                "rider-model.jar is not found at $riderModel"
+            }
+        }
+    }) {
+        builtBy(Constants.Tasks.INITIALIZE_INTELLIJ_PLATFORM_PLUGIN)
     }
 }
