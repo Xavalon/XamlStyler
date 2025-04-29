@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using JetBrains.Annotations;
+using JetBrains.Application.Parts;
 using JetBrains.Application.Settings;
 using JetBrains.DocumentManagers;
 using JetBrains.Lifetimes;
@@ -12,7 +13,7 @@ using Xavalon.XamlStyler.Options;
 
 namespace Xavalon.XamlStyler.Extension.Rider.Rider
 {
-    [SolutionComponent(JetBrains.Application.Parts.Instantiation.ContainerSyncPrimaryThread)]
+    [SolutionComponent(Instantiation.ContainerAsyncPrimaryThread)]
     public class RiderXamlStylerHost
     {
         [NotNull]
