@@ -17,3 +17,6 @@ output
 .vs
 _ReSharper*
 _dotTrace*
+
+# IntelliJ Platform Gradle Plugin
+/.intellijPlatform/
