@@ -6,6 +6,7 @@ namespace Xavalon.XamlStyler.Extension
     {
         public const string XamlFileExtension = ".xaml";
         public const string AxamlFileExtension = ".axaml";
+        public const string AXamlLanguageType = "AXAML";
         public const string XamlLanguageType = "XAML";
         public const string XmlLanguageType = "XML";
     }
