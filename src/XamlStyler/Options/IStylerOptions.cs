@@ -107,6 +107,10 @@ namespace Xavalon.XamlStyler.Options
 
         int CommentSpaces { get; set; }
 
+        string NewLine { get; }
+
+        EndOfLine EndOfLine { get; set; }
+
         #endregion Misc
 
         #region Configuration
