@@ -288,6 +288,13 @@ namespace Xavalon.XamlStyler.Options
         [DefaultValue(2)]
         public int CommentSpaces { get; set; }
 
+        [Category("Misc")]
+        [DisplayName("Treat comment with tag as multiline")]
+        [JsonProperty("TreatCommentWithTagAsMultiline", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("When set to true, comments starting with '<' after '<!--' will be treated as multiline comments, ensuring '-->' appears on a new line.\r\n\r\nDefault Value: false")]
+        [DefaultValue(false)]
+        public bool TreatCommentWithTagAsMultiline { get; set; }
+
         // Configuration
 
         [Category("XAML Styler Configuration")]

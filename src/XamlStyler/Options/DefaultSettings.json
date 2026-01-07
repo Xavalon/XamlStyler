@@ -39,5 +39,6 @@
   "FormatOnSave": true,
   "SaveAndCloseOnFormat": true,
   "CommentPadding": 2,
+  "TreatCommentWithTagAsMultiline": false,
   "SearchToDriveRoot": true
 }

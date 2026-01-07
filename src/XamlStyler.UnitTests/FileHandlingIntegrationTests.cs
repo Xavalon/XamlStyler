@@ -490,6 +490,20 @@ namespace Xavalon.XamlStyler.UnitTests
             FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
+        [TestCase(false)]
+        [TestCase(true)]
+        public void TestTreatCommentWithTagAsMultiline(bool treatCommentWithTagAsMultiline)
+        {
+            var stylerOptions = new StylerOptions(
+                config: FileHandlingIntegrationTests.GetConfiguration(@"TestConfigurations/LegacyTestSettings.json"))
+            {
+                IndentSize = 2,
+                TreatCommentWithTagAsMultiline = treatCommentWithTagAsMultiline,
+            };
+
+            this.DoTestCase(stylerOptions, treatCommentWithTagAsMultiline);
+        }
+
         private static void DoTest(
             StylerOptions stylerOptions,
             [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")
