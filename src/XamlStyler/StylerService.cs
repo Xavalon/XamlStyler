@@ -15,6 +15,7 @@ using Xavalon.XamlStyler.MarkupExtensions.Formatter;
 using Xavalon.XamlStyler.MarkupExtensions.Parser;
 using Xavalon.XamlStyler.Model;
 using Xavalon.XamlStyler.Options;
+using Xavalon.XamlStyler.Parser;
 using Xavalon.XamlStyler.Services;
 
 namespace Xavalon.XamlStyler
@@ -68,8 +69,15 @@ namespace Xavalon.XamlStyler
                 // we can apply styler configuration.
                 this.ApplyOptions(ignoredNamespacesPrefixes, options.IgnoreDesignTimeReferencePrefix);
 
+                // Create original format parser if needed for preserving original format.
+                OriginalFormatParser originalFormatParser = null;
+                if (this.options.KeepOriginalElementFormat || this.options.KeepOriginalAttributeLineBreaks)
+                {
+                    originalFormatParser = new OriginalFormatParser(escapedDocument);
+                }
+
                 // Format it to a string.
-                var format = this.Format(manipulatedDocument);
+                var format = this.Format(manipulatedDocument, originalFormatParser);
 
                 // Restore escaped xml entity references.
                 xamlOutput = this.xmlEscapingService.UnescapeDocument(format);
@@ -153,7 +161,7 @@ namespace Xavalon.XamlStyler
             }
         }
 
-        private string Format(string xamlSource)
+        private string Format(string xamlSource, OriginalFormatParser originalFormatParser)
         {
             StringBuilder output = new StringBuilder();
 
@@ -161,7 +169,10 @@ namespace Xavalon.XamlStyler
             {
                 using (XmlReader xmlReader = XmlReader.Create(sourceReader))
                 {
-                    var elementProcessContext = new ElementProcessContext();
+                    var elementProcessContext = new ElementProcessContext
+                    {
+                        OriginalFormatParser = originalFormatParser
+                    };
 
                     while (xmlReader.Read())
                     {

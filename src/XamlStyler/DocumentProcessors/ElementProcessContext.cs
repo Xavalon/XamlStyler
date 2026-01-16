@@ -1,4 +1,4 @@
-// (c) Xavalon. All rights reserved.
+﻿// (c) Xavalon. All rights reserved.
 
 using System.Collections.Generic;
 using Xavalon.XamlStyler.Parser;
@@ -12,6 +12,11 @@ namespace Xavalon.XamlStyler.DocumentProcessors
         public int Count => this.elementProcessStatusStack.Count;
 
         public ElementProcessStatus Current => this.elementProcessStatusStack.Peek();
+
+        /// <summary>
+        /// Gets or sets the original format parser for preserving original formatting.
+        /// </summary>
+        public OriginalFormatParser OriginalFormatParser { get; set; }
 
         public ElementProcessContext()
         {

@@ -34,8 +34,18 @@ namespace Xavalon.XamlStyler.Parser
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or sets the element path key used for original format matching.
+        /// </summary>
+        public string PathKey { get; set; }
+
+        /// <summary>
         /// Access to parent element
         /// </summary>
         public ElementProcessStatus Parent { get; set; }
+
+        /// <summary>
+        /// Gets or sets the original format info for this element.
+        /// </summary>
+        public OriginalFormatInfo OriginalFormatInfo { get; set; }
     }
 }

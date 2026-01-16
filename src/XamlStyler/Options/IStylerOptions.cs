@@ -1,4 +1,4 @@
-// (c) Xavalon. All rights reserved.
+﻿// (c) Xavalon. All rights reserved.
 
 using System.Diagnostics.CodeAnalysis;
 using Xavalon.XamlStyler.DocumentManipulation;
@@ -66,6 +66,10 @@ namespace Xavalon.XamlStyler.Options
         bool RemoveEndingTagOfEmptyElement { get; set; }
 
         bool SpaceBeforeClosingSlash { get; set; }
+
+        bool KeepOriginalElementFormat { get; set; }
+
+        bool KeepOriginalAttributeLineBreaks { get; set; }
 
         LineBreakRule RootElementLineBreakRule { get; set; }
 

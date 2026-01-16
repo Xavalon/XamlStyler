@@ -27,6 +27,8 @@
   "PutEndingBracketOnNewLine": false,
   "RemoveEndingTagOfEmptyElement": true,
   "SpaceBeforeClosingSlash": true,
+  "KeepOriginalElementFormat": false,
+  "KeepOriginalAttributeLineBreaks": false,
   "RootElementLineBreakRule": 0,
   "ReorderVSM": 2,
   "ReorderGridChildren": false,

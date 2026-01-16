@@ -201,6 +201,20 @@ namespace Xavalon.XamlStyler.Options
         public bool SpaceBeforeClosingSlash { get; set; }
 
         [Category("Element Formatting")]
+        [DisplayName("Keep original element format")]
+        [JsonProperty("KeepOriginalElementFormat", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("Defines whether to preserve the original element format. When true, self-closing elements will remain self-closing and elements with explicit end tags will keep their end tags. This setting takes precedence over RemoveEndingTagOfEmptyElement when original formatting is available.\r\n\r\nDefault Value: false")]
+        [DefaultValue(false)]
+        public bool KeepOriginalElementFormat { get; set; }
+
+        [Category("Element Formatting")]
+        [DisplayName("Keep original attribute line breaks")]
+        [JsonProperty("KeepOriginalAttributeLineBreaks", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("Defines whether to preserve the original attribute line breaks. When true, attributes that were on separate lines will remain on separate lines, and attributes on the same line will remain together. This setting preserves the original attribute layout and bypasses attribute reordering.\r\n\r\nDefault Value: false")]
+        [DefaultValue(false)]
+        public bool KeepOriginalAttributeLineBreaks { get; set; }
+
+        [Category("Element Formatting")]
         [DisplayName("Root element line breaks between attributes")]
         [JsonProperty("RootElementLineBreakRule", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
         [Description("Defines whether attributes of the document root element are broken into multiple lines.\r\n\r\nDefault Value: Default (use same rules as other elements)")]
