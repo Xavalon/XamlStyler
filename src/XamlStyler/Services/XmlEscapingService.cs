@@ -8,7 +8,7 @@ namespace Xavalon.XamlStyler.Services
     {
         private readonly Regex htmlReservedCharRegex = new Regex(@"&([\d\D][^;]{1,7});");
         private readonly Regex htmlReservedCharRestoreRegex = new Regex(@"__amp__([\d\D][^;]{1,7})__scln__");
-        private readonly Regex xmlnsAliasesBypassRegex = new Regex(@"xmlns(:(?<prefix>[^=]+))=""(?<ns>[^""]+)""");
+        private readonly Regex xmlnsAliasesBypassRegex = new Regex(@"xmlns(:(?<prefix>[^=\s]+))\s*=""(?<ns>[^""]+)""");
         private readonly Regex xmlnsAliasesBypassRestoreRegex = new Regex(@"xmlns:(?<prefix>[^=]+)=""\[\1\](?<ns>[^""]+)""");
 
         public string EscapeDocument(string source)

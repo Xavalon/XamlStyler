@@ -1,0 +1,14 @@
+<Window x:Class="Xxxx.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Xxxx"
+        xmlns:xxx="http://xxxx"
+        Width="200"
+        Height="100"
+        FontSize="15"
+        FontWeight="Bold"
+        Xxxx="xxxx">
+    <Label Grid.Row="1"
+           Margin="10,10,10,10"
+           Content="Test" />
+</Window>

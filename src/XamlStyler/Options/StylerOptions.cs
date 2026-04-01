@@ -207,6 +207,13 @@ namespace Xavalon.XamlStyler.Options
         [DefaultValue(LineBreakRule.Default)]
         public LineBreakRule RootElementLineBreakRule { get; set; }
 
+        [Category("Element Formatting")]
+        [DisplayName("Separate xmlns attributes on root element")]
+        [JsonProperty("SeparateXmlnsAttributesOnRootElement", DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate)]
+        [Description("Defines whether xmlns attributes on the root element should each be placed on a separate line, while other attributes follow normal formatting rules.\r\n\r\nDefault Value: false")]
+        [DefaultValue(false)]
+        public bool SeparateXmlnsAttributesOnRootElement { get; set; }
+
         // Element reordering
         [Category("Element Reordering")]
         [DisplayName("Reorder visual state manager")]

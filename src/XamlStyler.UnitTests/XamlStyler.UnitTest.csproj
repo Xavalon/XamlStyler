@@ -359,5 +359,11 @@
   <None Update="TestFiles\TestXmlSpaceHandling.testxaml">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </None>
+  <None Update="TestFiles\TestSeparateXmlnsAttributesOnRootElement.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestSeparateXmlnsAttributesOnRootElement.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
 </ItemGroup>
 </Project>
