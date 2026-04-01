@@ -490,6 +490,18 @@ namespace Xavalon.XamlStyler.UnitTests
             FileHandlingIntegrationTests.DoTest(stylerOptions);
         }
 
+        [Test]
+        public void TestSeparateXmlnsAttributesOnRootElement()
+        {
+            var stylerOptions = new StylerOptions
+            {
+                SeparateXmlnsAttributesOnRootElement = true,
+                KeepFirstAttributeOnSameLine = true,
+            };
+
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
+        }
+
         private static void DoTest(
             StylerOptions stylerOptions,
             [System.Runtime.CompilerServices.CallerMemberName] string callerMemberName = "")

@@ -178,6 +178,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
 
             var noLineBreakInAttributes = (list.Count <= this.options.AttributesTolerance) || isNoLineBreakElement;
             var forceLineBreakInAttributes = false;
+            var separateXmlnsInRoot = false;
 
             // Root element?
             if (elementProcessContext.Count == 2)
@@ -198,6 +199,12 @@ namespace Xavalon.XamlStyler.DocumentProcessors
 
                     default:
                         throw new NotImplementedException();
+                }
+
+                if (this.options.SeparateXmlnsAttributesOnRootElement)
+                {
+                    separateXmlnsInRoot = true;
+                    noLineBreakInAttributes = false;
                 }
             }
 
@@ -271,8 +278,12 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                             && (lastAttributeInfo != null)
                             && (lastAttributeInfo.OrderRule.Group != attrInfo.OrderRule.Group);
 
+                        bool isXmlnsSeparation = separateXmlnsInRoot
+                            && (attrInfo.Name.StartsWith("xmlns", StringComparison.Ordinal)
+                                || (lastAttributeInfo != null && lastAttributeInfo.Name.StartsWith("xmlns", StringComparison.Ordinal)));
+
                         if ((currentLineBuffer.Length > 0)
-                            && (forceLineBreakInAttributes || isAttributeCharLengthExceeded || isAttributeCountExceeded || isAttributeRuleGroupChanged))
+                            && (forceLineBreakInAttributes || isAttributeCharLengthExceeded || isAttributeCountExceeded || isAttributeRuleGroupChanged || isXmlnsSeparation))
                         {
                             attributeLines.Add(currentLineBuffer.ToString());
                             currentLineBuffer.Length = 0;
