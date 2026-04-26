@@ -6,12 +6,12 @@
 #
 # RIDER: To be updated with new Rider release
 # https://plugins.jetbrains.com/docs/intellij/using-kotlin.html#kotlin-standard-library
-kotlin = "2.1.10"
+kotlin = "2.3.20"
 # https://www.jetbrains.com/intellij-repository/snapshots/com/jetbrains/intellij/rider/riderRD/maven-metadata.xml
 # https://www.jetbrains.com/intellij-repository/releases/com/jetbrains/intellij/rider/riderRD/maven-metadata.xml
-rider = "2025.1"
+rider = "2026.1"
 # https://search.maven.org/artifact/com.jetbrains.rd/rd-gen
-rdGen = "2025.1.1"
+rdGen = "2026.1.3"
 
 [libraries]
 kotlin-stdLib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
@@ -20,6 +20,6 @@ rdGen = { group = "com.jetbrains.rd", name = "rd-gen", version.ref = "rdGen" }
 [plugins]
 # RIDER: May need updating with new Rider releases
 # https://github.com/JetBrains/intellij-platform-gradle-plugin
-intellij-platform = "org.jetbrains.intellij.platform:2.5.0"
+intellij-platform = "org.jetbrains.intellij.platform:2.15.0"
 # https://plugins.jetbrains.com/docs/intellij/using-kotlin.html#kotlin-standard-library
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

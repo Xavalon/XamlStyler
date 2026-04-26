@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using JetBrains.Application.Progress;
 using JetBrains.Application.Settings;
 using JetBrains.Application.UI.Controls.BulbMenu.Anchors;
@@ -29,33 +28,37 @@ namespace Xavalon.XamlStyler.Extension.Rider
         Priority = -10)]
     public class XamlStylerReformatContextAction : ContextActionBase
     {
-        [NotNull] private readonly XamlContextActionDataProvider _dataProvider;
-        [NotNull] private readonly string _text;
+        private readonly XamlContextActionDataProvider _dataProvider;
+        private readonly string _text;
         private readonly ActionAppliesTo _actionAppliesTo;
 
-        public XamlStylerReformatContextAction([NotNull] XamlContextActionDataProvider dataProvider)
+        public XamlStylerReformatContextAction(XamlContextActionDataProvider dataProvider)
             : this(dataProvider, "Format with XAML Styler", ActionAppliesTo.File)
         {
         }
-        
+
         private XamlStylerReformatContextAction(
-            [NotNull] XamlContextActionDataProvider dataProvider, 
-            [NotNull] string text,
+            XamlContextActionDataProvider dataProvider,
+            string text,
             ActionAppliesTo actionAppliesTo)
         {
             _dataProvider = dataProvider ?? throw new ArgumentNullException(nameof(dataProvider));
             _text = text ?? throw new ArgumentNullException(nameof(text));
             _actionAppliesTo = actionAppliesTo;
         }
- 
+
         public override string Text => _text;
-        
+
         public override bool IsAvailable(IUserDataHolder cache) => _dataProvider.Document != null;
 
         public override IEnumerable<IntentionAction> CreateBulbItems()
         {
-            var mainAnchor = new SubmenuAnchor(IntentionsAnchors.ContextActionsAnchor, 
-                new SubmenuBehavior(text: "Format with XAML Styler", icon: null, executable: true, removeFirst: true));
+            var mainAnchor = new SubmenuAnchor(
+                IntentionsAnchors.ContextActionsAnchor,
+                SubmenuBehavior.Custom(
+                    text: "Format with XAML Styler",
+                    icon: null,
+                    isExecutable: true));
             var subAnchor2 = new InvisibleAnchor(mainAnchor);
             var subAnchor3 = subAnchor2.CreateNext(separate: true);
 
@@ -64,7 +67,7 @@ namespace Xavalon.XamlStyler.Extension.Rider
                 return new XamlStylerReformatContextAction(_dataProvider, text, appliesTo)
                     .ToContextActionIntention(anchor, XamlStylerThemedIcons.Logo.Id);
             }
-            
+
             return new[]
             {
                 Create(_text, _actionAppliesTo, subAnchor3),
@@ -72,37 +75,41 @@ namespace Xavalon.XamlStyler.Extension.Rider
                 Create("Format XAML files in project", ActionAppliesTo.Project, subAnchor3),
                 Create("Format XAML files in solution", ActionAppliesTo.Solution, subAnchor3)
             };
-        } 
+        }
 
-        protected override Action<ITextControl> ExecutePsiTransaction(
-            [NotNull] ISolution solution, 
-            [NotNull] IProgressIndicator progress)
+        protected override Action<ITextControl> ExecutePsiTransaction(ISolution solution, IProgressIndicator progress)
         {
             // Fetch settings
             var lifetime = solution.GetSolutionLifetimes().MaximumLifetime;
-            var settings = solution.GetSettingsStore().SettingsStore.BindToContextLive(lifetime, ContextRange.Smart(solution.ToDataContext()));
+            var settings = solution.GetSettingsStore().SettingsStore
+                .BindToContextLive(lifetime, ContextRange.Smart(solution.ToDataContext()));
             var stylerOptions = StylerOptionsFactory.FromSettings(
                 settings,
-                solution, 
+                solution,
                 _dataProvider.Project,
-                _actionAppliesTo == ActionAppliesTo.File 
+                _actionAppliesTo == ActionAppliesTo.File
                     ? _dataProvider.SourceFile as IPsiSourceFileWithLocation // Traverse config chain from file path
-                    : null  // Traverse config chain from project path
+                    : null // Traverse config chain from project path
             );
 
             // Bail out early if needed
             if (stylerOptions.SuppressProcessing) return null;
-            
+
             // Perform styling
             var styler = new StylerService(stylerOptions, new XamlLanguageOptions
             {
                 IsFormatable = true
             });
-            
-            var psiSourceFiles = 
-                _actionAppliesTo == ActionAppliesTo.File ? _dataProvider.Document.GetPsiSourceFiles(solution).AsIReadOnlyList()
-                    : _actionAppliesTo == ActionAppliesTo.Project ? _dataProvider.Project.GetAllProjectFiles(it => it.LanguageType.Is<XamlProjectFileType>()).SelectMany(file => file.ToSourceFiles().AsIReadOnlyList())
-                        : _dataProvider.Solution.GetAllProjects().SelectMany(project => project.GetAllProjectFiles(it => it.LanguageType.Is<XamlProjectFileType>()).SelectMany(file => file.ToSourceFiles().AsIReadOnlyList()));
+
+            var psiSourceFiles =
+                _actionAppliesTo == ActionAppliesTo.File
+                    ? _dataProvider.Document.GetPsiSourceFiles(solution).AsIReadOnlyList()
+                    : _actionAppliesTo == ActionAppliesTo.Project
+                        ? _dataProvider.Project.GetAllProjectFiles(it => it.LanguageType.Is<XamlProjectFileType>())
+                            .SelectMany(file => file.ToSourceFiles().AsIReadOnlyList())
+                        : _dataProvider.Solution.GetAllProjects().SelectMany(project =>
+                            project.GetAllProjectFiles(it => it.LanguageType.Is<XamlProjectFileType>())
+                                .SelectMany(file => file.ToSourceFiles().AsIReadOnlyList()));
 
             foreach (var prjItem in psiSourceFiles)
             {

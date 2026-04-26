@@ -23,7 +23,7 @@ val RiderPluginId: String by project
 
 rdgen {
     val csOutput = file("../dotnet/${DotnetPluginId}/Rider")
-    val ktOutput = file("../rider/main/kotlin/xavalon/plugins/${RiderPluginId.replace('.','/').toLowerCase()}")
+    val ktOutput = file("../rider/main/kotlin/xavalon/plugins/${RiderPluginId.replace('.','/').lowercase()}")
 
     verbose = true
     packages = "model.rider"

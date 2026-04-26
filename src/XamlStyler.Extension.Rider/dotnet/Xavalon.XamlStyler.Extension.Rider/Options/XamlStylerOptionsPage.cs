@@ -34,8 +34,8 @@ namespace Xavalon.XamlStyler.Extension.Rider.Options
             Lifetime lifetime,
             OptionsPageContext optionsPageContext,
             OptionsSettingsSmartContext optionsSettingsSmartContext,
-            [NotNull] IconHostBase iconHost,
-            [NotNull] ICommonFileDialogs commonFileDialogs)
+            IconHostBase iconHost,
+            ICommonFileDialogs commonFileDialogs)
             : base(lifetime, optionsPageContext, optionsSettingsSmartContext)
         {
             _iconHost = iconHost;

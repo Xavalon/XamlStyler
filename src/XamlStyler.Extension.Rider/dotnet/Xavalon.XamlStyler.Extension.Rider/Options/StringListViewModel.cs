@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using JetBrains.Annotations;
 using JetBrains.DataFlow;
 using JetBrains.Lifetimes;
 using JetBrains.Threading;
@@ -12,11 +11,9 @@ namespace Xavalon.XamlStyler.Extension.Rider.Options
     {
         private readonly GroupingEvent myEntryChanged;
         private readonly Lifetime myLifetime;
-        [NotNull] private readonly Property<string> mySource;
+        private readonly Property<string> mySource;
 
-        public StringListViewModel(
-            [NotNull] Lifetime lifetime,
-            [NotNull] Property<string> source)
+        public StringListViewModel(Lifetime lifetime, Property<string> source)
         {
             myLifetime = lifetime;
             mySource = source;
@@ -61,15 +58,12 @@ namespace Xavalon.XamlStyler.Extension.Rider.Options
 
             mySource.Value = string.Join("\n", entries);
         }
-        
+
         public class StringListEntry
         {
             public readonly IProperty<string> Value;
 
-            public StringListEntry(
-                [NotNull] Lifetime lifetime,
-                [NotNull] ISimpleSignal entryChanged,
-                string value)
+            public StringListEntry(Lifetime lifetime, ISimpleSignal entryChanged, string value)
             {
                 Value = new Property<string>("StringListEntry.Value", value);
                 Value.Change.Advise_NoAcknowledgement(lifetime, entryChanged.Fire);
