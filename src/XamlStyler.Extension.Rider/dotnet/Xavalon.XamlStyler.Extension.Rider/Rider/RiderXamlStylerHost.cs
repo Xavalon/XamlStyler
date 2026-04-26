@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 using JetBrains.Application.Parts;
 using JetBrains.Application.Settings;
 using JetBrains.DocumentManagers;
@@ -16,24 +15,16 @@ namespace Xavalon.XamlStyler.Extension.Rider.Rider
     [SolutionComponent(Instantiation.ContainerAsyncPrimaryThread)]
     public class RiderXamlStylerHost
     {
-        [NotNull]
         private readonly Lifetime _lifetime;
-
-        [NotNull]
         private readonly SolutionModel _solutionModel;
-
-        [NotNull]
         private readonly ISolution _solution;
-
-        [NotNull]
         private readonly DocumentManager _documentManager;
 
         public RiderXamlStylerHost(
-            [NotNull] Lifetime lifetime,
-            [NotNull] SolutionModel solutionModel,
-            [NotNull] ISolution solution,
-            [NotNull] DocumentManager documentManager
-        )
+            Lifetime lifetime,
+            SolutionModel solutionModel,
+            ISolution solution,
+            DocumentManager documentManager)
         {
             _lifetime = lifetime;
             _solutionModel = solutionModel;
@@ -41,17 +32,16 @@ namespace Xavalon.XamlStyler.Extension.Rider.Rider
             _documentManager = documentManager;
 
             var rdSolutionModel = solutionModel.TryGetCurrentSolution();
-            if (rdSolutionModel != null)
-            {
-                var rdXamlStylerModel = rdSolutionModel.GetXamlStylerModel();
-                rdXamlStylerModel.PerformReformat.SetAsync(PerformReformatHandler);
-            }
+            
+            if (rdSolutionModel == null) return;
+            
+            var rdXamlStylerModel = rdSolutionModel.GetXamlStylerModel();
+            rdXamlStylerModel.PerformReformat.SetAsync(PerformReformatHandler);
         }
 
         private Task<RdXamlStylerFormattingResult> PerformReformatHandler(
             Lifetime requestLifetime,
-            RdXamlStylerFormattingRequest request
-        )
+            RdXamlStylerFormattingRequest request)
         {
             return Task.Run(
                     () =>
@@ -86,11 +76,7 @@ namespace Xavalon.XamlStyler.Extension.Rider.Rider
                             .StyleDocument(request.DocumentText)
                             .Replace("\r\n", "\n");
 
-                        if (request.DocumentText == formattedText)
-                        {
-                            return new RdXamlStylerFormattingResult(true, false, "");
-                        }
-                        return new RdXamlStylerFormattingResult(true, true, formattedText);
+                        return request.DocumentText == formattedText ? new RdXamlStylerFormattingResult(true, false, "") : new RdXamlStylerFormattingResult(true, true, formattedText);
                     },
                     requestLifetime
                 )

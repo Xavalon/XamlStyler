@@ -16,7 +16,7 @@ import kotlin.jvm.JvmStatic
 
 
 /**
- * #### Generated from [XamlStylerModel.kt:12]
+ * #### Generated from [XamlStylerModel.kt:11]
  */
 class XamlStylerModel private constructor(
     private val _performReformat: RdCall<RdXamlStylerFormattingRequest, RdXamlStylerFormattingResult>
@@ -90,6 +90,11 @@ data class RdXamlStylerFormattingRequest (
     val filePath: String,
     val documentText: String
 ) : IPrintable {
+    //write-marshaller
+    private fun write(ctx: SerializationCtx, buffer: AbstractBuffer)  {
+        buffer.writeString(filePath)
+        buffer.writeString(documentText)
+    }
     //companion
     
     companion object : IMarshaller<RdXamlStylerFormattingRequest> {
@@ -104,8 +109,7 @@ data class RdXamlStylerFormattingRequest (
         }
         
         override fun write(ctx: SerializationCtx, buffer: AbstractBuffer, value: RdXamlStylerFormattingRequest)  {
-            buffer.writeString(value.filePath)
-            buffer.writeString(value.documentText)
+            value.write(ctx, buffer)
         }
         
         
@@ -156,6 +160,12 @@ data class RdXamlStylerFormattingResult (
     val hasUpdated: Boolean,
     val formattedText: String
 ) : IPrintable {
+    //write-marshaller
+    private fun write(ctx: SerializationCtx, buffer: AbstractBuffer)  {
+        buffer.writeBool(isSuccess)
+        buffer.writeBool(hasUpdated)
+        buffer.writeString(formattedText)
+    }
     //companion
     
     companion object : IMarshaller<RdXamlStylerFormattingResult> {
@@ -171,9 +181,7 @@ data class RdXamlStylerFormattingResult (
         }
         
         override fun write(ctx: SerializationCtx, buffer: AbstractBuffer, value: RdXamlStylerFormattingResult)  {
-            buffer.writeBool(value.isSuccess)
-            buffer.writeBool(value.hasUpdated)
-            buffer.writeString(value.formattedText)
+            value.write(ctx, buffer)
         }
         
         
