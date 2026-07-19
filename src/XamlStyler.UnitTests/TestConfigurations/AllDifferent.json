@@ -5,6 +5,7 @@
   "MaxAttributeCharactersPerLine": 1,
   "MaxAttributesPerLine": 0,
   "NewlineExemptionElements": "Setter",
+  "NewLineForCommaDelimitedValueAttributes": "Selector",
   "SeparateByGroups": true,
   "AttributeIndentation": 1,
   "AttributeIndentationStyle": 0,

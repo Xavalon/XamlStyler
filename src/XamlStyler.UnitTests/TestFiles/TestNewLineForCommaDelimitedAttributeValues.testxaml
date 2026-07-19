@@ -1,0 +1,12 @@
+<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Test">
+    <Style x:Key="ButtonStyle" Selector="ContentControl Button, ContentControl StackPanel">
+        <Setter Property="IsVisible" Value="True" />
+        <Setter Property="Margin" Value="1,2,3,4" />
+    </Style>
+    <Style Selector="ListBox ListBoxItem:pointerover, ListBox ListBoxItem:selected">
+        <Setter Property="Background" Value="Red" />
+    </Style>
+    <TextBlock x:Name="MyText" Text="Hello, world" ToolTip.Tip="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" />
+</Window>

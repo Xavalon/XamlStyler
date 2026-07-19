@@ -212,6 +212,18 @@
   <None Update="TestFiles\TestMarkupWithAttributeNotOnFirstLine.testxaml">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </None>
+  <None Update="TestFiles\TestNewLineForCommaDelimitedAttributeValues.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestNewLineForCommaDelimitedAttributeValues.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestNewLineForCommaDelimitedAttributeValuesKeepFirstFalse.expected">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
+  <None Update="TestFiles\TestNewLineForCommaDelimitedAttributeValuesKeepFirstFalse.testxaml">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </None>
   <None Update="TestFiles\TestNestedCanvasChildrenHandling.expected">
     <CopyToOutputDirectory>Always</CopyToOutputDirectory>
   </None>

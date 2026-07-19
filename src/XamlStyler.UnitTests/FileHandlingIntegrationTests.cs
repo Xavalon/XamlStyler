@@ -212,6 +212,48 @@ namespace Xavalon.XamlStyler.UnitTests
         }
 
         [Test]
+        public void TestNewLineForCommaDelimitedAttributeValues()
+        {
+            var stylerOptions = new StylerOptions
+            {
+                AttributesTolerance = 1,
+                KeepFirstAttributeOnSameLine = true,
+                MaxAttributesPerLine = 1,
+                IndentSize = 4,
+                EnableAttributeReordering = false,
+                NewLineForCommaDelimitedValueAttributes = "Selector",
+                FormatMarkupExtension = false,
+                SpaceBeforeClosingSlash = true,
+                RemoveEndingTagOfEmptyElement = true,
+            };
+
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
+        }
+
+        [Test]
+        public void TestNewLineForCommaDelimitedAttributeValuesKeepFirstFalse()
+        {
+            // With KeepFirstAttributeOnSameLine = false, a style whose only attribute is a
+            // comma-delimited Selector should still keep that Selector on the start tag (it is
+            // only multi-line because of the comma split), while a genuinely multi-attribute
+            // element continues to drop its first attribute onto a new line.
+            var stylerOptions = new StylerOptions
+            {
+                AttributesTolerance = 1,
+                KeepFirstAttributeOnSameLine = false,
+                MaxAttributesPerLine = 1,
+                IndentSize = 4,
+                EnableAttributeReordering = false,
+                NewLineForCommaDelimitedValueAttributes = "Selector",
+                FormatMarkupExtension = false,
+                SpaceBeforeClosingSlash = true,
+                RemoveEndingTagOfEmptyElement = true,
+            };
+
+            FileHandlingIntegrationTests.DoTest(stylerOptions);
+        }
+
+        [Test]
         public void TestMarkupWithAttributeNotOnFirstLine()
         {
             var stylerOptions = new StylerOptions(

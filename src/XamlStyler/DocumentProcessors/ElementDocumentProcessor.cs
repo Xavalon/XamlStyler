@@ -25,6 +25,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
         private readonly XmlEscapingService xmlEscapingService;
         private readonly IList<string> noNewLineElementsList;
         private readonly IList<string> firstLineAttributes;
+        private readonly IList<string> commaDelimitedValueAttributes;
         private readonly string[] inlineCollections = { "TextBlock", "RichTextBlock", "Paragraph", "Run", "Span", "InlineUIContainer", "AnchoredBlock" };
         private readonly string[] inlineTypes = { "Paragraph", "Run", "Span", "InlineUIContainer", "AnchoredBlock", "Hyperlink", "Bold", "Italic", "Underline", "LineBreak" };
 
@@ -44,6 +45,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
             this.xmlEscapingService = xmlEscapingService;
             this.noNewLineElementsList = options.NoNewLineElements.ToList();
             this.firstLineAttributes = options.FirstLineAttributes.ToList();
+            this.commaDelimitedValueAttributes = options.NewLineForCommaDelimitedValueAttributes.ToList();
         }
 
         public void Process(XmlReader xmlReader, StringBuilder output, ElementProcessContext elementProcessContext)
@@ -62,7 +64,14 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                 });
 
             var currentIndentString = this.indentService.GetIndentString(xmlReader.Depth);
-            var attributeIndetationString = this.GetAttributeIndetationString(xmlReader);
+            bool isNoLineBreakElement = this.IsNoLineBreakElement(elementName);
+
+            // Keep the first attribute on the start tag when the element would otherwise be single-line
+            // and is only broken onto multiple lines to split a listed comma-delimited value attribute,
+            // so a selector-only style reads like its single-line, comma-free siblings.
+            bool keepFirstAttributeOnSameLine = this.options.KeepFirstAttributeOnSameLine
+                || this.ShouldHugCommaDelimitedValue(xmlReader, isNoLineBreakElement);
+            var attributeIndetationString = this.GetAttributeIndetationString(xmlReader, keepFirstAttributeOnSameLine);
 
             // Calculate how element should be indented
             if (!elementProcessContext.Current.IsPreservingSpace)
@@ -99,13 +108,13 @@ namespace Xavalon.XamlStyler.DocumentProcessors
 
             if (xmlReader.HasAttributes)
             {
-                bool isNoLineBreakElement = this.IsNoLineBreakElement(elementName);
                 this.ProcessAttributes(
                     xmlReader,
                     output,
                     elementProcessContext,
                     isNoLineBreakElement,
-                    attributeIndetationString);
+                    attributeIndetationString,
+                    keepFirstAttributeOnSameLine);
             }
 
             // Determine if to put ending bracket on new line.
@@ -141,7 +150,8 @@ namespace Xavalon.XamlStyler.DocumentProcessors
             StringBuilder output,
             ElementProcessContext elementProcessContext,
             bool isNoLineBreakElement,
-            string attributeIndentationString)
+            string attributeIndentationString,
+            bool keepFirstAttributeOnSameLine)
         {
             var list = new List<AttributeInfo>(xmlReader.AttributeCount);
             var firstLineList = new List<AttributeInfo>(xmlReader.AttributeCount);
@@ -178,6 +188,16 @@ namespace Xavalon.XamlStyler.DocumentProcessors
 
             var noLineBreakInAttributes = (list.Count <= this.options.AttributesTolerance) || isNoLineBreakElement;
             var forceLineBreakInAttributes = false;
+
+            // If any configured comma-delimited value attribute is present with commas, force
+            // multi-line even when the element is under the attribute tolerance. Only attributes
+            // explicitly listed in NewLineForCommaDelimitedValueAttributes are ever split.
+            if (noLineBreakInAttributes
+                && this.commaDelimitedValueAttributes.Count > 0
+                && list.Any(this.ShouldSplitCommaDelimitedValue))
+            {
+                noLineBreakInAttributes = false;
+            }
 
             // Root element?
             if (elementProcessContext.Count == 2)
@@ -254,6 +274,19 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                         attributeLines.Add(
                             this.attributeInfoFormatter.ToMultiLineString(attrInfo, attributeIndentationString));
                     }
+                    else if (this.ShouldSplitCommaDelimitedValue(attrInfo))
+                    {
+                        // Configured comma-delimited value attribute: put each value on its own line
+                        if (currentLineBuffer.Length > 0)
+                        {
+                            attributeLines.Add(currentLineBuffer.ToString());
+                            currentLineBuffer.Length = 0;
+                            attributeCountInCurrentLineBuffer = 0;
+                        }
+
+                        attributeLines.Add(
+                            this.attributeInfoFormatter.ToCommaDelimitedMultiLineString(attrInfo, attributeIndentationString, xamlLanguageOptions));
+                    }
                     else
                     {
                         string pendingAppend = this.attributeInfoFormatter.ToSingleLineString(attrInfo, xamlLanguageOptions);
@@ -296,7 +329,7 @@ namespace Xavalon.XamlStyler.DocumentProcessors
                 for (int i = 0; i < attributeLines.Count; i++)
                 {
                     // Put first attribute line on same line as element?
-                    if ((i == 0) && (this.options.KeepFirstAttributeOnSameLine || (firstLineList.Count > 0)))
+                    if ((i == 0) && (keepFirstAttributeOnSameLine || (firstLineList.Count > 0)))
                     {
                         output.Append(' ').Append(attributeLines[i].Trim());
                     }
@@ -349,11 +382,11 @@ namespace Xavalon.XamlStyler.DocumentProcessors
             return 0;
         }
 
-        private string GetAttributeIndetationString(XmlReader xmlReader)
+        private string GetAttributeIndetationString(XmlReader xmlReader, bool keepFirstAttributeOnSameLine)
         {
             if (this.options.AttributeIndentation == 0)
             {
-                if (this.options.KeepFirstAttributeOnSameLine)
+                if (keepFirstAttributeOnSameLine)
                 {
                     return this.indentService.GetIndentString(xmlReader.Depth, (xmlReader.Name.Length + 2));
                 }
@@ -371,6 +404,64 @@ namespace Xavalon.XamlStyler.DocumentProcessors
         private bool IsFirstLineAttribute(string attributeName)
         {
             return this.firstLineAttributes.Contains(attributeName);
+        }
+
+        /// <summary>
+        /// Returns true when <paramref name="attrInfo"/> is a plain-string attribute whose name is
+        /// in the configured NewLineForCommaDelimitedValueAttributes list and whose value contains
+        /// commas to split on. Markup extensions are excluded — they are handled separately by
+        /// FormatMarkupExtension.
+        /// </summary>
+        private bool ShouldSplitCommaDelimitedValue(AttributeInfo attrInfo)
+        {
+            return !attrInfo.IsMarkupExtension
+                && this.commaDelimitedValueAttributes.Contains(attrInfo.Name)
+                && attrInfo.Value.Contains(',');
+        }
+
+        /// <summary>
+        /// Peeks at the element's attributes (without disturbing reader position) to decide whether it
+        /// should keep its first attribute on the start tag even when
+        /// <see cref="IStylerOptions.KeepFirstAttributeOnSameLine"/> is off. This applies only when the
+        /// element would otherwise stay on a single line and is broken onto multiple lines solely to
+        /// split a listed comma-delimited value attribute (e.g. an Avalonia Selector), so a
+        /// selector-only style reads like its single-line, comma-free siblings.
+        /// </summary>
+        private bool ShouldHugCommaDelimitedValue(XmlReader xmlReader, bool isNoLineBreakElement)
+        {
+            if ((this.commaDelimitedValueAttributes.Count == 0) || !xmlReader.HasAttributes)
+            {
+                return false;
+            }
+
+            // Only when the element would otherwise be single-line, so the multi-line break is caused
+            // solely by comma-splitting and not by exceeding the attribute tolerance.
+            bool wouldOtherwiseBeSingleLine =
+                (xmlReader.AttributeCount <= this.options.AttributesTolerance) || isNoLineBreakElement;
+            if (!wouldOtherwiseBeSingleLine)
+            {
+                return false;
+            }
+
+            bool result = false;
+            if (xmlReader.MoveToFirstAttribute())
+            {
+                do
+                {
+                    if (this.commaDelimitedValueAttributes.Contains(xmlReader.Name)
+                        && xmlReader.Value.Contains(','))
+                    {
+                        result = true;
+                        break;
+                    }
+                }
+                while (xmlReader.MoveToNextAttribute());
+
+                // Restore reader to the element so attribute processing starts from the first attribute.
+                xmlReader.MoveToElement();
+            }
+
+            return result;
         }
 
         private bool IsNoLineBreakElement(string elementName)

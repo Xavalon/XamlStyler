@@ -63,6 +63,46 @@ namespace Xavalon.XamlStyler.MarkupExtensions.Formatter
         }
 
         /// <summary>
+        /// Handles plain (non-markup-extension) attribute values with comma-delimited items, placing
+        /// each item on its own line aligned with the first value character:
+        /// XyzAttribute="value1,
+        ///               value2,
+        ///               value3"
+        /// </summary>
+        /// <param name="attrInfo"></param>
+        /// <param name="baseIndentationString"></param>
+        /// <param name="xamlLanguageOptions"></param>
+        /// <returns></returns>
+        public string ToCommaDelimitedMultiLineString(AttributeInfo attrInfo, string baseIndentationString, XamlLanguageOptions xamlLanguageOptions)
+        {
+            if (attrInfo.IsMarkupExtension)
+            {
+                throw new ArgumentException(
+                    "AttributeInfo shall have a plain (non-markup-extension) value.",
+                    MethodBase.GetCurrentMethod().GetParameters()[0].Name);
+            }
+
+            // alignment indent = base + name + ="
+            string valueIndentationString = baseIndentationString + new string(' ', attrInfo.Name.Length + 2);
+
+            string rawValue = attrInfo.Value.ToXmlEncodedString(xamlLanguageOptions.UnescapedAttributeCharacters);
+
+            // Split on commas, preserving the comma at end of each segment except the last
+            var parts = rawValue.Split(',');
+
+            var buffer = new StringBuilder();
+            buffer.Append($"{attrInfo.Name}=\"{parts[0].Trim()}");
+            for (int i = 1; i < parts.Length; i++)
+            {
+                buffer.AppendLine(",");
+                buffer.Append(this.indentService.Normalize(valueIndentationString + parts[i].Trim()));
+            }
+
+            buffer.Append('"');
+            return buffer.ToString();
+        }
+
+        /// <summary>
         /// Single line value line in style as:
         /// attribute_name="attribute_value"
         /// </summary>

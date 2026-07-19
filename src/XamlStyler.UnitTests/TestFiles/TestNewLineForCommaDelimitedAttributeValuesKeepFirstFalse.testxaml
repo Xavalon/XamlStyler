@@ -1,0 +1,12 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style Selector="Button:pointerover, Button:pressed">
+        <Setter Property="Background" Value="Red" />
+    </Style>
+    <Style x:Key="Foo" Selector="Button:pointerover, Button:pressed">
+        <Setter Property="Background" Value="Red" />
+    </Style>
+    <Style Selector="Button:pointerover">
+        <Setter Property="Background" Value="Blue" />
+    </Style>
+</Styles>
