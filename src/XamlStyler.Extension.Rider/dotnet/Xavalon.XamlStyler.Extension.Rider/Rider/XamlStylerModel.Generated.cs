@@ -36,7 +36,7 @@ namespace JetBrains.Rider.Model
   
   
   /// <summary>
-  /// <p>Generated from: XamlStylerModel.kt:12</p>
+  /// <p>Generated from: XamlStylerModel.kt:11</p>
   /// </summary>
   public class XamlStylerModel : RdExtBase
   {

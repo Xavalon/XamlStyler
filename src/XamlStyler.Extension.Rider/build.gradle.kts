@@ -25,7 +25,10 @@ repositories {
 
 dependencies {
   intellijPlatform {
-    rider(libs.versions.rider, false)
+    rider(libs.versions.rider.get()) {
+        useInstaller = false
+    }
+    bundledModule("intellij.rider.rdclient.dotnet")
     jetbrainsRuntime()
   }
 }
@@ -47,7 +50,7 @@ val riderSdkPath by lazy {
 
 kotlin {
     jvmToolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
     }
 }
 
@@ -61,7 +64,7 @@ sourceSets {
 
 tasks {
     wrapper {
-        gradleVersion = "8.10"
+        gradleVersion = "9.4.1"
         distributionType = Wrapper.DistributionType.ALL
         distributionUrl =
             "https://cache-redirector.jetbrains.com/services.gradle.org/distributions/gradle-${gradleVersion}-all.zip"
@@ -82,7 +85,8 @@ tasks {
         outputs.upToDateWhen { false }
         doLast {
             copy {
-                from("${buildDir}/distributions/${rootProject.name}-${version}.zip")
+                val buildDirPath = layout.buildDirectory.get().asFile
+                from("${buildDirPath}/distributions/${rootProject.name}-${version}.zip")
                 into("${rootDir}/output")
             }
 
@@ -92,10 +96,13 @@ tasks {
                 it.groupValues[1].replace(Regex("(?s)- "), "\u2022 ").replace(Regex("`"), "").replace(Regex(","), "%2C")
             }.take(1).joinToString("")
 
-            exec {
-                executable("dotnet")
-                args("msbuild","/t:Pack","${DotnetSolution}","/p:Configuration=${BuildConfiguration}","/p:PackageOutputPath=${rootDir}/output","/p:PackageReleaseNotes=${changeNotes}","/p:PackageVersion=${version}")
-            }
+            providers.exec {
+                commandLine("dotnet", "msbuild", "/t:Pack", DotnetSolution,
+                    "/p:Configuration=${BuildConfiguration}",
+                    "/p:PackageOutputPath=${rootDir}/output",
+                    "/p:PackageReleaseNotes=${changeNotes}",
+                    "/p:PackageVersion=${version}")
+            }.result.get()
         }
     }
 

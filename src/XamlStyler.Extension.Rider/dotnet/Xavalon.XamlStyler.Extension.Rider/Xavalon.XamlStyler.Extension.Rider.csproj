@@ -8,7 +8,9 @@
 
     <PropertyGroup>
         <TargetFramework>net472</TargetFramework>
+        <LangVersion>8.0</LangVersion>
         <IsPackable>false</IsPackable>
+        <Nullable>enable</Nullable>
         <DefineConstants>$(DefineConstants);RIDER</DefineConstants>
     </PropertyGroup>
 
@@ -17,7 +19,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="JetBrains.Rider.SDK" Version="$(SdkVersion)" />
+        <PackageReference Include="JetBrains.Rider.SDK" Version="$(SdkVersion)">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>compile; runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" PrivateAssets="All" />
     </ItemGroup>
 

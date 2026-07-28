@@ -15,6 +15,7 @@ using JetBrains.ReSharper.Psi;
 using JetBrains.ReSharper.Psi.Files;
 using JetBrains.ReSharper.Psi.Xaml;
 using JetBrains.TextControl;
+using JetBrains.UI.RichText;
 using JetBrains.Util;
 using Xavalon.XamlStyler.Extension.Rider.Resources;
 using Xavalon.XamlStyler.Options;
@@ -54,8 +55,8 @@ namespace Xavalon.XamlStyler.Extension.Rider
 
         public override IEnumerable<IntentionAction> CreateBulbItems()
         {
-            var mainAnchor = new SubmenuAnchor(IntentionsAnchors.ContextActionsAnchor, 
-                new SubmenuBehavior(text: "Format with XAML Styler", icon: null, executable: true, removeFirst: true));
+            var mainAnchor = new SubmenuAnchor(IntentionsAnchors.ContextActionsAnchor,
+                SubmenuBehavior.Custom(text: new RichText("Format with XAML Styler"), icon: null, isExecutable: true, menuId: null));
             var subAnchor2 = new InvisibleAnchor(mainAnchor);
             var subAnchor3 = subAnchor2.CreateNext(separate: true);
 
@@ -80,7 +81,7 @@ namespace Xavalon.XamlStyler.Extension.Rider
         {
             // Fetch settings
             var lifetime = solution.GetSolutionLifetimes().MaximumLifetime;
-            var settings = solution.GetSettingsStore().SettingsStore.BindToContextLive(lifetime, ContextRange.Smart(solution.ToDataContext()));
+            var settings = solution.GetSettingsStore().SettingsStore.BindToContextLive(lifetime, ContextRange.Smart(solution.ToDataContext2()));
             var stylerOptions = StylerOptionsFactory.FromSettings(
                 settings,
                 solution, 

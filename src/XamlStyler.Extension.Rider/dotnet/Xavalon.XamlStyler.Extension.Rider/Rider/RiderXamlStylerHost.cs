@@ -63,7 +63,7 @@ namespace Xavalon.XamlStyler.Extension.Rider.Rider
                             .GetSettingsStore()
                             .SettingsStore.BindToContextLive(
                                 _lifetime,
-                                ContextRange.Smart(_solution.ToDataContext())
+                                ContextRange.Smart(_solution.ToDataContext2())
                             );
                         var stylerOptions = StylerOptionsFactory.FromSettings(
                             settings,
