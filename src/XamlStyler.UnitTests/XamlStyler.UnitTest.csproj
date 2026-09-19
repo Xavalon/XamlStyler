@@ -45,6 +45,7 @@
 </ItemGroup>
 <ItemGroup>
   <ProjectReference Include="..\XamlStyler\XamlStyler.csproj" />
+  <ProjectReference Include="..\XamlStyler.Console\XamlStyler.Console.csproj" />
 </ItemGroup>
 <ItemGroup>
   <None Update="TestConfigurations\AllDifferent.json">

@@ -254,11 +254,12 @@ namespace Xavalon.XamlStyler.Console
             string configurationPath = String.IsNullOrEmpty(this.options.Configuration) ? this.GetConfigurationFromPath(path) : null;
 
             string originalContent = null;
-            Encoding encoding = Encoding.UTF8; // Visual Studio by default uses UTF8
+            Encoding encoding;
             
             try
             {
-                using (var reader = new StreamReader(path))
+                // Default to BOM-less UTF-8; BOM detection still preserves encodings with a preamble.
+                using (var reader = new StreamReader(path, new UTF8Encoding(false)))
                 {
                     originalContent = reader.ReadToEnd();
                     encoding = reader.CurrentEncoding;
